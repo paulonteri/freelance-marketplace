@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+
+  db:
+    image: mysql:5.7
+    container_name: db
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - "6033:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+    restart: always
+    ports:
+      - 8081:80
+    expose:
+      - 8081
+
+volumes:
+  dbdata:
