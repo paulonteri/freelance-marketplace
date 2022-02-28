@@ -1,0 +1,57 @@
+body {
+    min-height: 50%;
+}
+
+/* ------------------- navbar ------------------------- */
+
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #ddd;
+    overflow: hidden;
+    margin: 0;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: small;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #333;
+    color: #f2f2f2;
+}
+
+/* ------------------- end navbar ------------------------- */
+
+/* ------------------- simple utilities ------------------------- */
+
+.rounded-corners {
+    border-radius: 10px;
+    border: 1px solid gray;
+    padding: 20px;
+}
+
+@media (max-width: 40rem) {
+    .center-self-on-screen {
+        margin: auto !important;
+        display: flex !important;
+    }
+
+    .center-text-on-small-screen {
+        text-align: center !important;
+    }
+}
+
+@media (min-width: 40rem) {
+    .float-right-on-large-screen {
+        float: right !important;
+    }
+}
+
+/* ------------------- end simple utilities ------------------------- */
