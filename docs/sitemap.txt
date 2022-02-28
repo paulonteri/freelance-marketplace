@@ -1,0 +1,12 @@
+- /
+- /login/
+- /register/
+- /jobs/
+- /jobs/<job_posting_id>/
+- /freelancers/
+- /freelancers/<freelancer_id>/
+- /<client/freelancer>/onboarding/
+- /<client/freelancer>/quotes/
+- /<client/freelancer>/jobs/
+- /<client/freelancer>/jobs/<job_id>/
+
