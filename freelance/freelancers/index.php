@@ -11,19 +11,6 @@ require '../partials/head.php';
     <?php
     require '../partials/navbar.php';
     ?>
-    <style>
-    @media (min-width: 40rem) {
-        .freelancer-list-image {
-            flex: 0 0 25% !important;
-            max-width: 25% !important;
-        }
-
-        .freelancer-list-text {
-            flex: 0 0 75% !important;
-            max-width: 75% !important;
-        }
-    }
-    </style>
 
     <!-------------------------------- intro -------------------------------------------------------->
     <div class="container">
@@ -81,7 +68,9 @@ require '../partials/head.php';
                     <p style="text-align:center; margin:auto 0px;">Joined 4 years, 11 months ago</p>
                 </div>
                 <div class="column" style="margin-bottom:5px;">
-                    <button class="center-self-on-screen float-right-on-large-screen ">View</button>
+                    <a href="/freelancers/id.php" <button
+                        class="center-self-on-screen float-right-on-large-screen ">View</button>
+                    </a>
                 </div>
             </div>
         </div>

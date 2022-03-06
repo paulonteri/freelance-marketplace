@@ -55,3 +55,19 @@ body {
 }
 
 /* ------------------- end simple utilities ------------------------- */
+
+/* ------------------- freelancer ------------------------- */
+
+@media (min-width: 40rem) {
+    .freelancer-list-image {
+        flex: 0 0 25% !important;
+        max-width: 25% !important;
+    }
+
+    .freelancer-list-text {
+        flex: 0 0 75% !important;
+        max-width: 75% !important;
+    }
+}
+
+/* ------------------- end freelancer ------------------------- */
