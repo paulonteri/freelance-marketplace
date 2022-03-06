@@ -55,7 +55,7 @@ require '../partials/head.php';
                 <div class="column" style="margin-bottom:5px;">
                     <a href="/jobs/id.php">
                         <button class="center-self-on-screen float-right-on-large-screen ">
-                            Give quote
+                            Give quote &rarr;
                         </button>
                     </a>
                 </div>
