@@ -5,8 +5,10 @@
 - /jobs/<job_posting_id>/
 - /freelancers/
 - /freelancers/<freelancer_id>/
-- /<client/freelancer>/onboarding/
-- /<client/freelancer>/quotes/
-- /<client/freelancer>/jobs/
-- /<client/freelancer>/jobs/<job_id>/
-
+- /dashboard/
+- /dashboard/<client/freelancer>/onboarding/
+- /dashboard/<client/freelancer>/quotes/
+- /dashboard/<client/freelancer>/jobs/
+- /dashboard/<client/freelancer>/jobs/<job_id>/
+- /admin/quotes/
+- /admin/jobs/
