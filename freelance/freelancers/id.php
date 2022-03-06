@@ -94,7 +94,7 @@ require '../partials/head.php';
                 </div>
 
             </div>
-            <p>
+            <p style="text-align:center;">
                 Quis elit occaecat fugiat laborum minim reprehenderit consequat nisi ipsum qui aliquip magna non dolor.
                 Ex consequat et sit nostrud amet deserunt mollit adipisicing deserunt esse. Eiusmod non ex veniam est
                 pariatur cupidatat dolor exercitation proident labore fugiat deserunt. Irure magna excepteur officia

@@ -29,12 +29,12 @@ require '../partials/head.php';
                     <h3 style=" margin:auto 0px;" class="center-text-on-small-screen">Task <?php echo $x; ?></h3>
                 </div>
                 <div class="column">
-                    <p class="center-text-on-small-screen" style="text-align:right;">by User <?php echo $x; ?></p>
+                    <p class="center-text-on-small-screen" style="text-align:right;">by Client <?php echo $x; ?></p>
                 </div>
             </div>
             <hr style="margin: 1rem 0;" />
             <div class="row">
-                <p style="text-align:center; margin:auto 0px;">Laboris nulla ea nostrud officia dolore. Commodo fugiat
+                <p style="text-align:left; margin:auto 0px;">Laboris nulla ea nostrud officia dolore. Commodo fugiat
                     ipsum incididunt eiusmod adipisicing sunt qui. Ad elit reprehenderit non magna. Lorem ut culpa
                     adipisicing dolor ex ipsum amet exercitation deserunt consectetur eu laborum occaecat. Nisi Lorem
                     culpa velit labore voluptate id ad duis dolor cillum. Do enim nisi est et mollit labore officia
@@ -53,7 +53,11 @@ require '../partials/head.php';
                     <p style="text-align:center; margin:auto 0px;">Category <?php echo $x; ?></p>
                 </div>
                 <div class="column" style="margin-bottom:5px;">
-                    <button class="center-self-on-screen float-right-on-large-screen ">Give quote</button>
+                    <a href="/jobs/id.php">
+                        <button class="center-self-on-screen float-right-on-large-screen ">
+                            Give quote
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
