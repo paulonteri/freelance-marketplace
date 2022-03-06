@@ -5,16 +5,16 @@
     <div class="row">
         <div class="column">
             <ul style="list-style: none;">
-                <li> <a href="#dashboard">Freelance marketplace</a> </li>
-                <li> <a href="#dashboard">Dashboard</a> </li>
-                <li> <a href="#login">Login</a> </li>
+                <li> <a href="/">Freelance marketplace</a> </li>
+                <li> <a href="/dashboard">Dashboard</a> </li>
+                <li> <a href="/login">Login</a> </li>
             </ul>
         </div>
     </div>
 
     <p style="text-align:center;">
         <script>
-            document.write("@ " + new Date().getFullYear());
+        document.write("@ " + new Date().getFullYear());
         </script>
     </p>
 
