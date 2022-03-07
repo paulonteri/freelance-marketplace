@@ -1,7 +1,7 @@
 <?php
 session_start();
-require '../../../../includes/db.php';
-require '../../../../partials/head.php';
+require __DIR__ . '/../../../../includes/db.php';
+require __DIR__ . '/../../../../partials/head.php';
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@ require '../../../../partials/head.php';
 
 <body>
     <?php
-    require '../../../../partials/navbar.php';
+    require __DIR__ . '/../../../../partials/navbar.php';
     ?>
 
     <!-------------------------------- intro -------------------------------------------------------->
@@ -70,7 +70,7 @@ require '../../../../partials/head.php';
 </body>
 
 <?php
-require '../../../../partials/footer.php';
+require __DIR__ . '/../../../../partials/footer.php';
 ?>
 
 </html>

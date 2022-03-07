@@ -1,7 +1,7 @@
 <?php
 session_start();
-require '../includes/db.php';
-require '../partials/head.php';
+require __DIR__ . '/../includes/db.php';
+require __DIR__ . '/../partials/head.php';
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ require '../partials/head.php';
 
 <body>
     <?php
-    require '../partials/navbar.php';
+    require __DIR__ . '/../partials/navbar.php';
     ?>
 
     <!-------------- ------------------ intro -------------------------------------------------------->
@@ -20,8 +20,7 @@ require '../partials/head.php';
                 <h1 style="text-align:center; margin:auto 0;">How work should work</h1>
             </div>
             <div class=" column">
-                <img src="https://d27jswm5an3efw.cloudfront.net/app/uploads/2019/07/insert-image-html-4-768x546.jpg"
-                    alt="splash image">
+                <img src="https://d27jswm5an3efw.cloudfront.net/app/uploads/2019/07/insert-image-html-4-768x546.jpg" alt="splash image">
             </div>
         </div>
     </div>
@@ -128,7 +127,7 @@ require '../partials/head.php';
 </body>
 
 <?php
-require '../partials/footer.php';
+require __DIR__ . '/../partials/footer.php';
 ?>
 
 </html>
