@@ -22,6 +22,7 @@ require '../../partials/head.php';
                 <h2>Client</h2>
                 <hr style="margin: 1rem 0;" />
                 <h3>Jobs</h3>
+                <a href="/dashboard/client/jobs/create">Post job &rarr; </a>
                 <a href="/dashboard/client/jobs">View jobs posted by you &rarr; </a>
                 <hr style="margin: 1rem 0;" />
                 <h3>Quotes</h3>

@@ -22,21 +22,11 @@ require '../partials/head.php';
                 <h2>Freelancer</h2>
                 <a href="/dashboard/freelancer">Freelancer home &rarr; </a>
                 <hr style="margin: 1rem 0;" />
-                <h3>Jobs</h3>
-                <a href="/dashboard/freelancer/jobs">View jobs assigned to you &rarr; </a>
-                <hr style="margin: 1rem 0;" />
-                <h3>Quotes</h3>
-                <a href="/dashboard/freelancer/quotes.php">View quotes given &rarr; </a>
             </div>
             <div class="column" style="margin-top:40px;">
                 <h2>Client</h2>
                 <a href="/dashboard/client">Client home &rarr; </a>
                 <hr style="margin: 1rem 0;" />
-                <h3>Jobs</h3>
-                <a href="/dashboard/client/jobs">View jobs posted by you &rarr; </a>
-                <hr style="margin: 1rem 0;" />
-                <h3>Quotes</h3>
-                <a href="/dashboard/client/quotes.php">View quotes received &rarr; </a>
             </div>
         </div>
     </div>
