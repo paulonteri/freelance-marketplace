@@ -1,7 +1,7 @@
 <?php
 session_start();
-require '../includes/db.php';
-require '../partials/head.php';
+require '../../../../includes/db.php';
+require '../../../../partials/head.php';
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@ require '../partials/head.php';
 
 <body>
     <?php
-    require '../partials/navbar.php';
+    require '../../../../partials/navbar.php';
     ?>
 
     <!-------------------------------- intro -------------------------------------------------------->
@@ -52,30 +52,10 @@ require '../partials/head.php';
     <!-------------------------------- end job -------------------------------------------------------->
 
 
-
-    <!-------------------------------- give quote -------------------------------------------------------->
-    <div class="container " style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
-        <h2 style="text-align:left; margin-top:25px;">Give quote</h2>
-        <hr style="margin: 1rem 0;" />
-        <form>
-            <fieldset>
-                <label for="titleField">Title</label>
-                <input type="text" id="titleField">
-                <label for="descriptionField">Description</label>
-                <textarea id="descriptionField"></textarea>
-                <input class="button-primary" type="submit" value="Send">
-            </fieldset>
-        </form>
-        <hr />
-    </div>
-    <!-------------------------------- end give quote -------------------------------------------------------->
-
-
-
 </body>
 
 <?php
-require '../partials/footer.php';
+require '../../../../partials/footer.php';
 ?>
 
 </html>

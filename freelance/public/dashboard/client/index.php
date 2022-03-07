@@ -1,7 +1,7 @@
 <?php
 session_start();
-require '../../includes/db.php';
-require '../../partials/head.php';
+require '../../../includes/db.php';
+require '../../../partials/head.php';
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ require '../../partials/head.php';
 
 <body>
     <?php
-    require '../../partials/navbar.php';
+    require '../../../partials/navbar.php';
     ?>
 
     <!-------------- ------------------ header -------------------------------------------------------->
@@ -39,7 +39,7 @@ require '../../partials/head.php';
 </body>
 
 <?php
-require '../../partials/footer.php';
+require '../../../partials/footer.php';
 ?>
 
 </html>

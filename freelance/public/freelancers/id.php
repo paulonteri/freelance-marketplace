@@ -1,7 +1,7 @@
 <?php
 session_start();
-require '../includes/db.php';
-require '../partials/head.php';
+require '../../includes/db.php';
+require '../../partials/head.php';
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@ require '../partials/head.php';
 
 <body>
     <?php
-    require '../partials/navbar.php';
+    require '../../partials/navbar.php';
     ?>
 
     <!-------------------------------- intro -------------------------------------------------------->
@@ -68,8 +68,7 @@ require '../partials/head.php';
                 <p class="center-text-on-small-screen float-right-on-large-screen">
                     <b>Overall rating:</b>
                     5.0
-                    <img src="/static/icons/rating/rating-5-stars.png"
-                        style="width:100px; height:15px; margin:auto 0px;" />
+                    <img src="/static/icons/rating/rating-5-stars.png" style="width:100px; height:15px; margin:auto 0px;" />
                 </p>
             </div>
         </div>
@@ -80,28 +79,27 @@ require '../partials/head.php';
             Reviews
         </h2>
         <?php for ($x = 0; $x <= 5; $x++) { ?>
-        <!-------------------------------- single review -------------------------------------------------------->
-        <div class="rounded-corners" style="margin-bottom:10px">
-            <div class="row " style="justify-content:space-between;">
-                <div class="column">
-                    <p style=" margin:auto 0px;" class="center-text-on-small-screen">User <?php echo $x; ?></p>
-                </div>
-                <div class="column ">
-                    <p class="center-self-on-screen float-right-on-large-screen">4.0
-                        <img src="/static/icons/rating/rating-4-stars.png"
-                            style="width:100px; height:15px; margin:auto 0px;" />
-                    </p>
-                </div>
+            <!-------------------------------- single review -------------------------------------------------------->
+            <div class="rounded-corners" style="margin-bottom:10px">
+                <div class="row " style="justify-content:space-between;">
+                    <div class="column">
+                        <p style=" margin:auto 0px;" class="center-text-on-small-screen">User <?php echo $x; ?></p>
+                    </div>
+                    <div class="column ">
+                        <p class="center-self-on-screen float-right-on-large-screen">4.0
+                            <img src="/static/icons/rating/rating-4-stars.png" style="width:100px; height:15px; margin:auto 0px;" />
+                        </p>
+                    </div>
 
+                </div>
+                <p style="text-align:center;">
+                    Quis elit occaecat fugiat laborum minim reprehenderit consequat nisi ipsum qui aliquip magna non dolor.
+                    Ex consequat et sit nostrud amet deserunt mollit adipisicing deserunt esse. Eiusmod non ex veniam est
+                    pariatur cupidatat dolor exercitation proident labore fugiat deserunt. Irure magna excepteur officia
+                    irure eiusmod est aliqua enim non nisi elit et excepteur id.
+                </p>
             </div>
-            <p style="text-align:center;">
-                Quis elit occaecat fugiat laborum minim reprehenderit consequat nisi ipsum qui aliquip magna non dolor.
-                Ex consequat et sit nostrud amet deserunt mollit adipisicing deserunt esse. Eiusmod non ex veniam est
-                pariatur cupidatat dolor exercitation proident labore fugiat deserunt. Irure magna excepteur officia
-                irure eiusmod est aliqua enim non nisi elit et excepteur id.
-            </p>
-        </div>
-        <!-------------------------------- end single review -------------------------------------------------------->
+            <!-------------------------------- end single review -------------------------------------------------------->
         <?php } ?>
         <!-------------------------------- end reviews -------------------------------------------------------->
     </div>
@@ -111,7 +109,7 @@ require '../partials/head.php';
 </body>
 
 <?php
-require '../partials/footer.php';
+require '../../partials/footer.php';
 ?>
 
 </html>
