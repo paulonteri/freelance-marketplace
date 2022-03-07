@@ -605,3 +605,5 @@ dist
 .pnp.*
 
 .idea/
+
+vendor/

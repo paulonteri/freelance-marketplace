@@ -1,0 +1,15 @@
+{
+    "name": "paulonteri/freelance-marketplace",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Paul Onteri",
+            "email": "me@paulonteri.com"
+        }
+    ],
+    "require": {}
+}
