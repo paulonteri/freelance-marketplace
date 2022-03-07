@@ -25,6 +25,9 @@ class Router
         // the homepage has an empty PATH_INFO
         $url = $_SERVER['PATH_INFO'] ?? '/';
 
+        echo "resolve route! -----------------------------------------";
+        echo $url;
+
         if ($method === 'get') {
             $fn = $this->getRoutes[$url] ?? null;
         } else {
