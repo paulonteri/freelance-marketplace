@@ -53,8 +53,8 @@ require __DIR__ . '/../../../../partials/head.php';
                         <p style="text-align:center; margin:auto 0px;">Category <?php echo $x; ?></p>
                     </div>
                     <div class="column" style="margin-bottom:5px;">
-                        <a href="/dashboard/freelancer/jobs/id.php">
-                            <button class="center-self-on-screen float-right-on-large-screen ">
+                        <a href="/dashboard/freelancer/jobs/id">
+                            <button class=" center-self-on-screen float-right-on-large-screen ">
                                 View job
                             </button>
                         </a>

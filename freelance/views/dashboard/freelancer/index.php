@@ -25,7 +25,7 @@ require __DIR__ . '/../../../partials/head.php';
                 <a href="/dashboard/freelancer/jobs">View jobs assigned to you &rarr; </a>
                 <hr style="margin: 1rem 0;" />
                 <h3>Quotes</h3>
-                <a href="/dashboard/freelancer/quotes.php">View quotes given &rarr; </a>
+                <a href="/dashboard/freelancer/quotes">View quotes given &rarr; </a>
             </div>
         </div>
     </div>
