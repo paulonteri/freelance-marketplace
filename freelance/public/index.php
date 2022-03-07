@@ -14,6 +14,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $router = new Router();
 
 // MainController
+$router->get('', [MainController::class, 'index']);
 $router->get('/', [MainController::class, 'index']);
 $router->get('/login', [MainController::class, 'login']);
 $router->get('/register', [MainController::class, 'index']);

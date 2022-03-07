@@ -23,10 +23,12 @@ class Router
     {
         $method = strtolower($_SERVER['REQUEST_METHOD']);
         // the homepage has an empty PATH_INFO
-        $url = $_SERVER['PATH_INFO'] ?? '/';
 
-        echo "resolve route! -----------------------------------------";
-        echo $url;
+        $url = $_SERVER['REQUEST_URI'] ?? '/';
+        if (strpos($url, '?') !== false) {
+            $url = substr($url, 0, strpos($url, '?'));
+        }
+        $url = rtrim($url, '/');
 
         if ($method === 'get') {
             $fn = $this->getRoutes[$url] ?? null;
