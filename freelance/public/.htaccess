@@ -1,9 +1,11 @@
-<IfModule mod_rewrite.c>
-
-   RewriteEngine On
-
-   RewriteCond %{REQUEST_FILENAME}  -f [OR]
-   RewriteCond %{REQUEST_FILENAME} !-f
-   RewriteRule ^(.*)$ index.php [L,QSA]
-
-</IfModule>
+# Turn rewriting on
+Options +FollowSymLinks
+RewriteEngine On
+# Redirect requests to index.php
+RewriteCond %{REQUEST_URI} !=/index.php
+RewriteCond %{REQUEST_URI} !.*\.png$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.jpg$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.css$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.gif$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.js$ [NC]
+RewriteRule .* /index.php
