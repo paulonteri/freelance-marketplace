@@ -40,10 +40,9 @@ $router->get('/dashboard/freelancer/jobs/id', [DashboardFreelancerController::cl
 // DashboardClientController
 $router->get('/dashboard/client', [DashboardClientController::class, 'index']);
 $router->get('/dashboard/client/onboarding', [DashboardClientController::class, 'onboarding']);
-$router->get('/dashboard/client/quotes', [DashboardClientController::class, 'quotes']);
 $router->get('/dashboard/client/jobs', [DashboardClientController::class, 'jobs']);
-$router->get('/dashboard/client/jobs/id', [DashboardClientController::class, 'jobId']);
 $router->get('/dashboard/client/jobs/create', [DashboardClientController::class, 'jobCreate']);
+$router->get('/dashboard/client/jobs/id/quotes', [DashboardClientController::class, 'jobQuotes']);
 
 // AdminController
 $router->get('/admin/quotes', [AdminController::class, 'quotes']);

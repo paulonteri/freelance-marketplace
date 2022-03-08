@@ -34,5 +34,7 @@
         </div>
     </div>
     <hr />
+    <h2>Quotes</h2>
+    <a href="/dashboard/client/jobs/id/quotes">View quotes received &rarr; </a>
 </div>
 <!-------------------------------- end job -------------------------------------------------------->

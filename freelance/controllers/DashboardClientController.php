@@ -20,11 +20,6 @@ class DashboardClientController
         $router->renderView(self::$basePath . 'onboarding');
     }
 
-    public static function quotes(Router $router)
-    {
-        $router->renderView(self::$basePath . 'quotes');
-    }
-
     public static function jobs(Router $router)
     {
         $router->renderView(self::$basePath . 'jobs/index');
@@ -32,10 +27,16 @@ class DashboardClientController
 
     public static function jobId(Router $router)
     {
-        $router->renderView(self::$basePath . 'jobs/id');
+        $router->renderView(self::$basePath . 'jobs/id/index');
     }
+
     public static function jobCreate(Router $router)
     {
         $router->renderView(self::$basePath . 'jobs/create');
+    }
+
+    public static function jobQuotes(Router $router)
+    {
+        $router->renderView(self::$basePath . 'jobs/id/quotes');
     }
 }
