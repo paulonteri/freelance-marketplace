@@ -36,6 +36,6 @@ class DashboardClientController
     }
     public static function jobCreate(Router $router)
     {
-        $router->renderView(self::$basePath . 'jobs/id');
+        $router->renderView(self::$basePath . 'jobs/create');
     }
 }

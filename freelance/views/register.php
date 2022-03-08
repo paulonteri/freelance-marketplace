@@ -1,13 +1,3 @@
-<!--user:-->
-<!--- username-->
-<!--- first_name-->
-<!--- last_name-->
-<!--- email-->
-<!--- phone-->
-<!--- password-->
-<!--- is_admin-->
-<!--- image-->
-
 <div class="container">
     <h1 style="text-align:center; margin:auto 0px;">Register</h1>
     <hr/>

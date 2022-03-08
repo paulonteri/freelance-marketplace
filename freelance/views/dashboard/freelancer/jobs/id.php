@@ -46,11 +46,14 @@
     <form>
         <fieldset>
             <label for="attachmentField">Attachment</label>
-            <input type="file" id="attachmentField">
+            <input type="file" required id="attachmentField">
+
             <label for="titleField">Title</label>
-            <input type="text" id="titleField">
+            <input type="text" required id="titleField">
+
             <label for="descriptionField">Description</label>
-            <textarea id="descriptionField"></textarea>r
+            <textarea required id="descriptionField"></textarea>
+
             <input class="button-primary" type="submit" value="Submit">
         </fieldset>
     </form>

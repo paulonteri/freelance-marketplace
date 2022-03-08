@@ -55,7 +55,6 @@ job:
 - id
 - title
 - description
-- description
 - client_id
 - pay_rate_per_hour
 - expected_duration_in_hours
