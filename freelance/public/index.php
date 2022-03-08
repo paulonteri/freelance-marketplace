@@ -44,6 +44,7 @@ $router->get('/dashboard/client/jobs', [DashboardClientController::class, 'jobs'
 $router->get('/dashboard/client/jobs/create', [DashboardClientController::class, 'jobCreate']);
 $router->get('/dashboard/client/jobs/id', [DashboardClientController::class, 'jobId']); // shows job details
 $router->get('/dashboard/client/jobs/id/quotes', [DashboardClientController::class, 'jobQuotes']);
+$router->get('/dashboard/client/jobs/id/review-and-complete', [DashboardClientController::class, 'jobReviewAndComplete']);
 
 // AdminController
 $router->get('/admin/quotes', [AdminController::class, 'quotes']);

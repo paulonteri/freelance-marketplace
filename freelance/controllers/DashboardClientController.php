@@ -39,4 +39,9 @@ class DashboardClientController
     {
         $router->renderView(self::$basePath . 'jobs/id/quotes');
     }
+
+    public static function jobReviewAndComplete(Router $router)
+    {
+        $router->renderView(self::$basePath . 'jobs/id/review-and-complete');
+    }
 }

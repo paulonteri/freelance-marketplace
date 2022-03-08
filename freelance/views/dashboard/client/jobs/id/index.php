@@ -33,8 +33,15 @@
             <p class="center-text-on-small-screen" style="text-align:right;"> <b>Posted by: </b> User </p>
         </div>
     </div>
+
     <hr />
     <h2>Quotes</h2>
     <a href="/dashboard/client/jobs/id/quotes">View quotes received &rarr; </a>
+
+    <hr />
+    <h2>Submissions</h2>
+    <a href="/dashboard/client/jobs/id/review-and-complete">Review submission &rarr; </a>
+
+
 </div>
 <!-------------------------------- end job -------------------------------------------------------->
