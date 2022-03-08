@@ -45,12 +45,14 @@ class Router
     public function renderView($view, $params = [])
     {
 
+        ob_start();
+        include __DIR__ . "/views/$view.php";
+        $content = ob_get_clean();
+
+        include __DIR__ . "/views/_layout.php";
         //        foreach ($params as $key => $value) {
         //            $$key = $value;
         //        }
-        //        ob_start();
-        include __DIR__ . "/views/$view.php";
-        //        $content = ob_get_clean();
-        //        include __DIR__."/views/_layout.php";
+        //
     }
 }
