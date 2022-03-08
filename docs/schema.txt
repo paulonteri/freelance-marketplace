@@ -67,7 +67,7 @@ job_category:
 - job_id
 - skill_id
 
-quote:
+quote: # freelancers talk about the unique skills they bring to the table
 - id
 - title
 - description
