@@ -20,6 +20,6 @@ class MainController
 
     public static function register(Router $router)
     {
-        $router->renderView('login');
+        $router->renderView('register');
     }
 }

@@ -17,7 +17,7 @@ $router = new Router();
 $router->get('', [MainController::class, 'index']);
 $router->get('/', [MainController::class, 'index']);
 $router->get('/login', [MainController::class, 'login']);
-$router->get('/register', [MainController::class, 'index']);
+$router->get('/register', [MainController::class, 'register']);
 
 // JobPostingsController
 $router->get('/jobs', [JobPostingsController::class, 'index']);
