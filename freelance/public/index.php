@@ -3,7 +3,8 @@
 
 use app\Router;
 use app\Database;
-use app\controllers\MainController;
+use app\controllers\IndexController;
+use app\controllers\AuthController;
 use app\controllers\JobPostingsController;
 use app\controllers\FreelancerProfilesController;
 use app\controllers\DashboardMainController;
@@ -16,11 +17,13 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $database = new Database();
 $router = new Router($database);
 
-// MainController
-$router->get('', [MainController::class, 'index']);
-$router->get('/', [MainController::class, 'index']);
-$router->get('/login', [MainController::class, 'login']);
-$router->get('/register', [MainController::class, 'register']);
+// IndexController
+$router->get('', [IndexController::class, 'index']);
+$router->get('/', [IndexController::class, 'index']);
+
+// AuthController
+$router->get('/login', [AuthController::class, 'login']);
+$router->get('/register', [AuthController::class, 'register']);
 
 // JobPostingsController
 $router->get('/jobs', [JobPostingsController::class, 'index']);

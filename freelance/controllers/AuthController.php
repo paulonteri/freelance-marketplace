@@ -5,14 +5,8 @@ namespace app\controllers;
 use app\Router;
 
 
-class MainController
+class AuthController
 {
-
-    public static function index(Router $router)
-    {
-        $router->renderView('index');
-    }
-
     public static function login(Router $router)
     {
         $router->renderView('login');
