@@ -1,6 +1,8 @@
 <?php
 
+
 use app\Router;
+use app\Database;
 use app\controllers\MainController;
 use app\controllers\JobPostingsController;
 use app\controllers\FreelancerProfilesController;
@@ -11,7 +13,8 @@ use app\controllers\AdminController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$router = new Router();
+$database = new Database();
+$router = new Router($database);
 
 // MainController
 $router->get('', [MainController::class, 'index']);
@@ -43,6 +46,7 @@ $router->get('/dashboard/client/onboarding', [DashboardClientController::class, 
 $router->get('/dashboard/client/jobs', [DashboardClientController::class, 'jobs']);
 $router->get('/dashboard/client/jobs/create', [DashboardClientController::class, 'jobCreate']);
 $router->get('/dashboard/client/jobs/id', [DashboardClientController::class, 'jobId']); // shows job details
+// $router->get('/dashboard/client/jobs/id/pay', [DashboardClientController::class, 'jobId']);
 $router->get('/dashboard/client/jobs/id/quotes', [DashboardClientController::class, 'jobQuotes']);
 $router->get('/dashboard/client/jobs/id/review-and-complete', [DashboardClientController::class, 'jobReviewAndComplete']);
 
