@@ -23,7 +23,9 @@ $router->get('/', [IndexController::class, 'index']);
 
 // AuthController
 $router->get('/login', [AuthController::class, 'login']);
+$router->post('/login', [AuthController::class, 'login']);
 $router->get('/register', [AuthController::class, 'register']);
+$router->post('/register', [AuthController::class, 'register']);
 
 // JobPostingsController
 $router->get('/jobs', [JobPostingsController::class, 'index']);

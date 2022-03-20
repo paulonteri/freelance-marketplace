@@ -65,11 +65,6 @@ class Router
 
         // render the layout (the view is also passed through the $content variable)-------------------------
         include __DIR__ . "/views/_layout.php";
-        
 
-        //        foreach ($params as $key => $value) {
-        //            $$key = $value;
-        //        }
-        //
     }
 }

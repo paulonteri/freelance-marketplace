@@ -2,6 +2,10 @@ body {
     min-height: 50%;
 }
 
+.invalidFeedback {
+    color: red;
+}
+
 /* ------------------- navbar ------------------------- */
 
 /* Add a black background color to the top navigation */
