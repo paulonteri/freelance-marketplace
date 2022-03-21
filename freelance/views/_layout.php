@@ -39,16 +39,38 @@
     <?php } ?>
     <!----------------------------- end alert -------------------------------------------------------->
 
+    <!----------------------------- errors -------------------------------------------------------->
+
+    <?php
+    if ($errors != null) {
+        foreach ($errors as $error) {
+
+    ?>
+    <div class="alert danger">
+        <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <?php echo $error; ?>
+    </div>
+    <?php
+        }
+    }
+    ?>
+
+    <!----------------------------- end errors -------------------------------------------------------->
+
     <!-- <pre> -->
     <!-- <?php var_dump($_GET); ?> -->
     <!-- </pre> -->
 
-    <!-- <pre> -->
-    <!-- <?php var_dump($_POST); ?> -->
-    <!-- </pre> -->
+    <!-- <pre>
+    <?php var_dump($_POST); ?>
+    </pre> -->
 
     <!-- <pre>
     <?php var_dump($_SESSION); ?> 
+    </pre> -->
+
+    <!-- <pre>
+    <?php var_dump($params); ?>
     </pre> -->
 
 

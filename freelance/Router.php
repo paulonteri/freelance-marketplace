@@ -62,7 +62,7 @@ class Router
         echo call_user_func($fn, $this);
     }
 
-    public function renderView($view, $params = [], $alert = null)
+    public function renderView($view, $params = [], $alert = null, $errors = [])
     {
 
         $isUserLoggedIn = $this->isUserLoggedIn;
