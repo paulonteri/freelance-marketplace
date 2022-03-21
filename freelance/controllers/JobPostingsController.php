@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\Router;
 
 
-class JobPostingsController
+class JobPostingsController extends _BaseController
 {
 
     private static string $basePath = 'jobs/';
@@ -17,6 +17,7 @@ class JobPostingsController
 
     public static function detail(Router $router)
     {
+        JobPostingsController::requireUserIsLoggedIn($router);
         $router->renderView(self::$basePath . 'id');
     }
 }

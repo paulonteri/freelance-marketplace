@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\Router;
 
 
-class FreelancerProfilesController
+class FreelancerProfilesController extends _BaseController
 {
 
     private static string $basePath = 'freelancers/';
@@ -17,6 +17,7 @@ class FreelancerProfilesController
 
     public static function detail(Router $router)
     {
+        FreelancerProfilesController::requireUserIsLoggedIn($router);
         $router->renderView(self::$basePath . 'id');
     }
 }

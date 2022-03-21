@@ -6,7 +6,7 @@ use app\Router;
 
 
 
-class AdminController
+class AdminController extends _BaseController
 {
     private static string $basePath = 'admin/';
 

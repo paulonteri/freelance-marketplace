@@ -6,7 +6,7 @@ use app\models\AuthModel;
 use app\Router;
 
 
-class AuthController
+class AuthController extends _BaseController
 {
     public static function login(Router $router)
     {
@@ -50,7 +50,7 @@ class AuthController
                 if (!$isLoggedIn) {
                     $data['passwordError'] = 'Password or email is incorrect. Please try again.';
                 } else {
-                    header('location:dashboard?alert="Logged in successfully!"');
+                    header('location:/dashboard?alert="Logged in successfully!"');
                 }
             }
         } else {
@@ -170,7 +170,7 @@ class AuthController
                     $data['image'],
                 )) {
                     // Redirect to the login page
-                    header('location:login?alert="Registered successfully!"');
+                    header('location:/login?alert="Registered successfully!"');
                 } else {
                     die('Something went wrong.');
                 }
