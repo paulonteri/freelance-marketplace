@@ -41,6 +41,7 @@ $router->get('/dashboard', [DashboardMainController::class, 'index']);
 // DashboardFreelancerController
 $router->get('/dashboard/freelancer', [DashboardFreelancerController::class, 'index']);
 $router->get('/dashboard/freelancer/onboarding', [DashboardFreelancerController::class, 'onboarding']);
+$router->post('/dashboard/freelancer/onboarding', [DashboardFreelancerController::class, 'onboarding']);
 $router->get('/dashboard/freelancer/quotes', [DashboardFreelancerController::class, 'quotes']);
 $router->get('/dashboard/freelancer/jobs', [DashboardFreelancerController::class, 'jobs']);
 $router->get('/dashboard/freelancer/jobs/id', [DashboardFreelancerController::class, 'jobId']);
