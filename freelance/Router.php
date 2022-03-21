@@ -2,18 +2,26 @@
 
 namespace app;
 
+use app\models\AuthModel;
+
 class Router
 {
 
     public array $getRoutes = [];
     public array $postRoutes = [];
     public ?Database $database = null;
+    public bool $isUserLoggedIn = false;
 
     public function __construct(Database $database)
     {
         $this->database = $database;
-    }
 
+        session_start();
+
+        // check if logged in
+        $authModel = new AuthModel();
+        $this->isUserLoggedIn = $authModel->isUserLoggedIn();
+    }
 
     public function get($url, $fn)
     {
@@ -57,6 +65,7 @@ class Router
     public function renderView($view, $params = [], $alert = null)
     {
 
+        $isUserLoggedIn = $this->isUserLoggedIn;
         if ($alert == null && isset($_GET['alert'])) {
             $alert = $_GET['alert'];
         }

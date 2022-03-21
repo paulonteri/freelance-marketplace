@@ -80,6 +80,15 @@ class AuthModel extends Database
         $_SESSION['email'] = $user['email'];
     }
 
+    public function isUserLoggedIn()
+    {
+        if (isset($_SESSION['user_id']) && isset($_SESSION['username']) && isset($_SESSION['email'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function isEmailRegistered($email)
     {
         $sql = "SELECT * FROM user WHERE email = :email";

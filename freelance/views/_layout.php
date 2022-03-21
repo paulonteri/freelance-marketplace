@@ -9,14 +9,23 @@
 
 <body>
 
+
     <!----------------------------- navbar -------------------------------------------------------->
     <div class="topnav">
         <a href="/">Freelance marketplace</a>
         <a href="/freelancers">Freelancers</a>
         <a href="/jobs">Jobs</a>
+
+        <?php if ($isUserLoggedIn == true) { ?>
         <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+        <?php } ?>
+
+        <?php if ($isUserLoggedIn == false) { ?>
         <a href="/login">Login</a>
         <a href="/register">Register</a>
+        <?php } ?>
+
     </div>
     <!----------------------------- end navbar -------------------------------------------------------->
 
@@ -38,6 +47,10 @@
     <!-- <?php var_dump($_POST); ?> -->
     <!-- </pre> -->
 
+    <!-- <pre>
+    <?php var_dump($_SESSION); ?> 
+    </pre> -->
+
 
     <!----------------------------- main content -------------------------------------------------------->
     <?php echo $content; ?>
@@ -53,8 +66,19 @@
         <div class="column">
             <ul style="list-style: none;">
                 <li> <a href="/">Freelance marketplace</a> </li>
+                <li><a href="/freelancers">Freelancers</a></li>
+                <li><a href="/jobs">Jobs</a></li>
+
+                <?php if ($isUserLoggedIn == true) { ?>
                 <li> <a href="/dashboard">Dashboard</a> </li>
+                <li> <a href="/logout">Logout</a> </li>
+                <?php } ?>
+
+                <?php if ($isUserLoggedIn == false) { ?>
                 <li> <a href="/login">Login</a> </li>
+                <li> <a href="/register">Register</a> </li>
+                <?php } ?>
+
             </ul>
         </div>
     </div>
