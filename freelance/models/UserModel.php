@@ -33,7 +33,6 @@ class UserModel extends Database
     $this->db = $this->connectToDb();
 
     if ($id != null) {
-      $this->id = $id;
 
       $sql = 'SELECT * FROM user WHERE id = :id';
       $statement = $this->db->prepare($sql);
@@ -41,6 +40,7 @@ class UserModel extends Database
       $statement->execute();
       $user = $statement->fetch();
 
+      $this->id = $id;
       $this->username = $user['username'];
       $this->email = $user['email'];
       $this->phone = $user['phone'];
@@ -73,7 +73,7 @@ class UserModel extends Database
   {
     $sql = 'SELECT * FROM freelancer WHERE user_id = :user_id';
     $statement = $this->db->prepare($sql);
-    $statement->bindParam(':user_id', $user_id);
+    $statement->bindParam(':user_id', $this->id);
     $statement->execute();
     $freelancer = $statement->fetch();
 
@@ -87,7 +87,7 @@ class UserModel extends Database
   {
     $sql = 'SELECT * FROM client WHERE user_id = :user_id';
     $statement = $this->db->prepare($sql);
-    $statement->bindParam(':user_id', $user_id);
+    $statement->bindParam(':user_id', $this->id);
     $statement->execute();
     $client = $statement->fetch();
 
