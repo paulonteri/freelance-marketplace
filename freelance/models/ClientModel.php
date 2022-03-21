@@ -4,7 +4,7 @@ namespace app\models;
 
 use app\Database;
 
-class ClientModel extends Database
+class ClientModel extends _BaseModel
 {
     private $db;
 

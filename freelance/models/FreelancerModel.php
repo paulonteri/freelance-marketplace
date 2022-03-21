@@ -2,10 +2,10 @@
 
 namespace app\models;
 
-use app\Database;
 use PDOException;
+use app\Database;
 
-class FreelancerModel extends Database
+class FreelancerModel extends _BaseModel
 {
     private $db;
 

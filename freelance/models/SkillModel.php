@@ -4,7 +4,8 @@ namespace app\models;
 
 use app\Database;
 
-class SkillModel extends Database
+
+class SkillModel extends _BaseModel
 {
     private $db;
 

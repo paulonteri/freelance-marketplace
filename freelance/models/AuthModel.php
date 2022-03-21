@@ -2,9 +2,7 @@
 
 namespace app\models;
 
-use app\Database;
-
-class AuthModel extends Database
+class AuthModel extends _BaseModel
 {
     private $db;
 
