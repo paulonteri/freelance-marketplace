@@ -40,12 +40,12 @@ class DashboardFreelancerController extends _BaseController
             // Sanitize post data (prevent XSS)
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            $data = [
-                'title' => trim($_POST['title']),
-                'years_of_experience' => trim($_POST['years_of_experience']),
-                'description' => trim($_POST['description']),
-                // 'skills' => $_POST['skills'],
-            ];
+
+            $data['title'] = trim($_POST['title']);
+            $data['years_of_experience'] = trim($_POST['years_of_experience']);
+            $data['description'] = trim($_POST['description']);
+            // 'skills' => $_POST['skills'],
+
 
             // validate title
             if (empty($data['title'])) {

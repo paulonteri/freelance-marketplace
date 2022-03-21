@@ -38,11 +38,11 @@ class DashboardClientController extends _BaseController
             // Sanitize post data (prevent XSS)
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            $data = [
-                'title' => trim($_POST['title']),
-                // 'image' => trim($_POST['image']),
-                'description' => trim($_POST['description']),
-            ];
+
+            $data['title'] = trim($_POST['title']);
+            // 'image' => trim($_POST['image']),
+            $data['description'] = trim($_POST['description']);
+
 
             // validate title
             if (empty($data['title'])) {
