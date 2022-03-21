@@ -8,6 +8,14 @@ use app\Router;
 
 class AuthController extends _BaseController
 {
+
+    public static function logout(Router $router)
+    {
+        $authModel = new AuthModel();
+        $authModel->logout();
+        header('location:/login?alert=Logged out successfully!');
+    }
+
     public static function login(Router $router)
     {
 
@@ -50,7 +58,7 @@ class AuthController extends _BaseController
                 if (!$isLoggedIn) {
                     $data['passwordError'] = 'Password or email is incorrect. Please try again.';
                 } else {
-                    header('location:/dashboard?alert="Logged in successfully!"');
+                    header('location:/dashboard?alert=Logged in successfully!');
                 }
             }
         } else {
@@ -170,7 +178,7 @@ class AuthController extends _BaseController
                     $data['image'],
                 )) {
                     // Redirect to the login page
-                    header('location:/login?alert="Registered successfully!"');
+                    header('location:/login?alert=Registered successfully!');
                 } else {
                     die('Something went wrong.');
                 }
