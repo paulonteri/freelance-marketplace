@@ -60,6 +60,8 @@ $router->get('/dashboard/client/jobs/id/review-and-complete', [DashboardClientCo
 // AdminController
 $router->get('/admin/quotes', [AdminController::class, 'quotes']);
 $router->get('/admin/jobs', [AdminController::class, 'jobs']);
+$router->get('/admin/skills/create', [AdminController::class, 'skillsCreate']);
+$router->post('/admin/skills/create', [AdminController::class, 'skillsCreate']);
 
 
 $router->resolve();
