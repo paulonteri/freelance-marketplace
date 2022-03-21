@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 11, 2022 at 06:53 PM
+-- Generation Time: Mar 21, 2022 at 11:03 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `freelance`
 --
-CREATE DATABASE IF NOT EXISTS `freelance` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `freelance`;
 
 -- --------------------------------------------------------
 
@@ -40,7 +38,14 @@ CREATE TABLE IF NOT EXISTS `client` (
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `client`
+--
+
+INSERT INTO `client` (`id`, `user_id`, `image`, `title`, `description`, `time_created`, `is_active`) VALUES
+(1, 5, NULL, 'Onteri &amp; Sons', 'Apple in a tree', '2022-03-21 10:00:59', 1);
 
 -- --------------------------------------------------------
 
@@ -71,11 +76,19 @@ CREATE TABLE IF NOT EXISTS `freelancer` (
   `description` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
   `years_of_experience` int(11) NOT NULL,
-  `time_created` int(11) NOT NULL DEFAULT current_timestamp(),
+  `time_created` datetime NOT NULL DEFAULT current_timestamp(),
   `is_active` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id_2` (`user_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `freelancer`
+--
+
+INSERT INTO `freelancer` (`id`, `title`, `description`, `user_id`, `years_of_experience`, `time_created`, `is_active`) VALUES
+(8, 'Proident cupidatat', 'Cupidatat facere off', 5, 5, '2022-03-21 09:45:26', 1);
 
 -- --------------------------------------------------------
 
@@ -223,8 +236,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `first_name` varchar(255) NOT NULL,
   `middle_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) NOT NULL,
-  `image` blob DEFAULT NULL,
-  `country` varchar(255) NOT NULL,
+  `image` longblob DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
   `county` varchar(255) DEFAULT NULL,
   `city` varchar(255) DEFAULT NULL,
   `street` varchar(255) DEFAULT NULL,
@@ -236,7 +249,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `phone` (`phone`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `email`, `phone`, `password`, `first_name`, `middle_name`, `last_name`, `image`, `country`, `county`, `city`, `street`, `postal_code`, `is_admin`, `is_active`, `time_created`) VALUES
+(5, 'sirupi', 'dycyg@mailinator.com', '+254789812492', '$2y$10$pr8ND2OErZYRl.S9uxVHI.m/jlYMjrPRg90uBt8H8O/T07TRo1cy6', 'Nita', NULL, 'Love', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2022-03-21 05:52:31'),
+(6, 'dypino', 'fuzaceqyq@mailinator.com', '+254791767454', '$2y$10$0YRVf7HJV7Mtu0ZVIxB3q.4qoC6xYFfGE6d1rbjSkl0jI0heOsAmi', 'Shelley', NULL, 'Cline', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2022-03-21 05:55:46'),
+(7, 'tagihix', 'ruzumatifu@mailinator.com', '+254716669314', '$2y$10$KQMVZEoWN0.pe26B8HnUu.1phA1c3zzh36TH24X8awKLhxlG3PocO', 'Vielka', NULL, 'Flores', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2022-03-21 05:57:12');
 
 --
 -- Constraints for dumped tables
