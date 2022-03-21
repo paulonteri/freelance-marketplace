@@ -26,10 +26,6 @@ class AuthController
             // Sanitize post data (prevent XSS)
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            echo '<pre>';
-            var_dump($_POST);
-            echo '</pre>';
-
             $data = [
                 'email' => trim($_POST['email']),
                 'password' => trim($_POST['password']),
@@ -53,6 +49,8 @@ class AuthController
 
                 if (!$isLoggedIn) {
                     $data['passwordError'] = 'Password or email is incorrect. Please try again.';
+                } else {
+                    header('location:dashboard?alert="Logged in successfully!"');
                 }
             }
         } else {
@@ -172,7 +170,7 @@ class AuthController
                     $data['image'],
                 )) {
                     // Redirect to the login page
-                    header('location:login');
+                    header('location:login?alert="Registered successfully!"');
                 } else {
                     die('Something went wrong.');
                 }

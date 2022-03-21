@@ -54,17 +54,20 @@ class Router
         echo call_user_func($fn, $this);
     }
 
-    public function renderView($view, $params = [])
+    public function renderView($view, $params = [], $alert = null)
     {
+
+        if ($alert == null && isset($_GET['alert'])) {
+            $alert = $_GET['alert'];
+        }
 
         // save view's output buffer in the $content variable ----------------------------------------
         ob_start();
         include __DIR__ . "/views/$view.php";
-        
+
         $content = ob_get_clean();
 
         // render the layout (the view is also passed through the $content variable)-------------------------
         include __DIR__ . "/views/_layout.php";
-
     }
 }

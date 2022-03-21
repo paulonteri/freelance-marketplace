@@ -21,6 +21,24 @@
     <!----------------------------- end navbar -------------------------------------------------------->
 
 
+    <!----------------------------- alert -------------------------------------------------------->
+    <?php if ($alert != null) { ?>
+    <div class="alert">
+        <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <?php echo $alert; ?>
+    </div>
+    <?php } ?>
+    <!----------------------------- end alert -------------------------------------------------------->
+
+    <!-- <pre> -->
+    <!-- <?php var_dump($_GET); ?> -->
+    <!-- </pre> -->
+
+    <!-- <pre> -->
+    <!-- <?php var_dump($_POST); ?> -->
+    <!-- </pre> -->
+
+
     <!----------------------------- main content -------------------------------------------------------->
     <?php echo $content; ?>
     <!----------------------------- end main content -------------------------------------------------------->
@@ -43,7 +61,7 @@
 
     <p style="text-align:center;">
         <script>
-            document.write("@ " + new Date().getFullYear());
+        document.write("@ " + new Date().getFullYear());
         </script>
     </p>
 
