@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\Database;
+use PDOException;
 
 class FreelancerModel extends Database
 {
@@ -59,6 +60,28 @@ class FreelancerModel extends Database
         $statement->execute();
 
         return new FreelancerModel($db->lastInsertId());
+    }
+
+    public function addSkills(array $skills): void
+    {
+        $sql = 'INSERT INTO freelancer_skill (freelancer_id, skill_id) VALUES (:freelancer_id, :skill_id)';
+        $statement = $this->db->prepare($sql);
+
+        foreach ($skills as $skill) {
+            try {
+                $statement->bindParam(':freelancer_id', $this->id);
+                $statement->bindParam(':skill_id', $skill);
+                $statement->execute();
+            } catch (PDOException $e) {
+                if ($e->errorInfo[1] == 1062) {
+                    // duplicate entry
+                    continue;
+                } else {
+                    // other error. Throw it
+                    throw $e;
+                }
+            }
+        }
     }
 
     public function getId(): mixed

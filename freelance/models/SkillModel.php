@@ -42,6 +42,27 @@ class SkillModel extends Database
         return new SkillModel($db->lastInsertId());
     }
 
+    /**
+     * @return SkillModel[]
+     */
+    public static function getAll(): array
+    {
+        $db = (new Database)->connectToDb();
+
+        $sql = 'SELECT id FROM skill';
+        $statement = $db->prepare($sql);
+        $statement->execute();
+        $skills = $statement->fetchAll();
+
+        $skillModels = [];
+
+        foreach ($skills as $skill) {
+            $skillModels[] = new SkillModel($skill['id']);
+        }
+
+        return $skillModels;
+    }
+
     public function getId(): mixed
     {
         return $this->id;

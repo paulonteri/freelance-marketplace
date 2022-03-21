@@ -4,28 +4,33 @@
     <form action="/dashboard/freelancer/onboarding" method="POST">
         <fieldset>
             <label for="title">Title</label>
-            <input type="text" required name="title" id="title">
+            <input type="text" required name="title" id="title" value="<?php echo $params["title"]; ?>">
             <span class="invalidFeedback">
                 <?php echo $params["titleError"]; ?>
             </span>
 
             <label for="years_of_experience">Years of experience</label>
-            <input type="number" required name="years_of_experience" id="years_of_experience">
+            <input type="number" required name="years_of_experience" id="years_of_experience"
+                value="<?php echo $params["years_of_experience"]; ?>">
             <span class="invalidFeedback">
                 <?php echo $params["years_of_experienceError"]; ?>
             </span>
 
             <label for="description">Description</label>
             <textarea type="text" required name="description" id="description" rows="4">
+            <?php echo $params["description"]; ?>
             </textarea>
             <span class="invalidFeedback">
                 <?php echo $params["descriptionError"]; ?>
             </span>
 
-            <label for="skills">Skills</label>
-            <select type="number" required name="skills" id="skills" multiple>
-                <option value="volvo">Programming</option>
-                <option value="saab">Graphic Design</option>
+            <label for="skills[]">Skills</label>
+            <select required name="skills[]" id="skills[]" multiple>
+                <?php foreach ($params["allSkills"] as $skill) { ?>
+                <option value="<?php echo $skill->getId(); ?>">
+                    <?php echo $skill->getName(); ?>
+                </option>
+                <?php } ?>
             </select>
             <span class="invalidFeedback">
                 <?php echo $params["skillsError"]; ?>

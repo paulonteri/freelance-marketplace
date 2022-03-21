@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\SkillModel;
 use app\Router;
 use app\models\UserModel;
 use app\models\FreelancerModel;
+use PDOException;
 
 
 class DashboardFreelancerController extends _BaseController
@@ -34,18 +36,17 @@ class DashboardFreelancerController extends _BaseController
             'descriptionError' => '',
             'skillsError' => '',
         ];
+        $data['allSkills'] =  SkillModel::getAll();
 
         // Check for post
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Sanitize post data (prevent XSS)
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-
             $data['title'] = trim($_POST['title']);
             $data['years_of_experience'] = trim($_POST['years_of_experience']);
             $data['description'] = trim($_POST['description']);
-            // 'skills' => $_POST['skills'],
-
+            $data['skills'] = $_POST['skills'];
 
             // validate title
             if (empty($data['title'])) {
@@ -66,22 +67,32 @@ class DashboardFreelancerController extends _BaseController
 
             // Check if all errors are empty
             if (empty($data['titleError']) && empty($data['years_of_experienceError']) && empty($data['descriptionError']) && empty($data['skillsError'])) {
-                // $isLoggedIn = $user->login($data['title'], $data['years_of_experience']);
-                $isCreated = FreelancerModel::create(
-                    $data['title'],
-                    $data['description'],
-                    $user->getId(),
-                    $data['years_of_experience']  / 1,
-                );
 
-                if (!$isCreated) {
-                    $data['titleError'] = 'Something went wrong. Please try again.';
-                } else {
-                    header('location:/dashboard/freelancer?alert="Freelancer profile created successfully!"');
+                try {
+                    $freelancer = FreelancerModel::create(
+                        $data['title'],
+                        $data['description'],
+                        $user->getId(),
+                        $data['years_of_experience']  / 1,
+                    );
+                    $freelancer->addSkills($data['skills']);
+
+                    if (!$freelancer) {
+                        $router->renderView(self::$basePath . 'onboarding', $data, null, ["Something went wrong. Please try again."]);
+                        return;
+                    } else {
+                        header('location:/dashboard/freelancer?alert="Freelancer profile created successfully!"');
+                    }
+                } catch (PDOException $e) {
+                    if ($e->errorInfo[1] == 1062) {
+                        $router->renderView(self::$basePath . 'onboarding', $data, null, ["Error: Duplicate entry. User can only have one freelancer entry."]);
+                    } else {
+                        $router->renderView(self::$basePath . 'onboarding', $data, null, ["Something went wrong. Please try again."]);
+                    }
+                    return;
                 }
             }
         }
-
 
         $router->renderView(self::$basePath . 'onboarding', $data);
     }
