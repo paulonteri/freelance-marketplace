@@ -49,6 +49,7 @@ $router->get('/dashboard/freelancer/jobs/id', [DashboardFreelancerController::cl
 // DashboardClientController
 $router->get('/dashboard/client', [DashboardClientController::class, 'index']);
 $router->get('/dashboard/client/onboarding', [DashboardClientController::class, 'onboarding']);
+$router->post('/dashboard/client/onboarding', [DashboardClientController::class, 'onboarding']);
 $router->get('/dashboard/client/jobs', [DashboardClientController::class, 'jobs']);
 $router->get('/dashboard/client/jobs/create', [DashboardClientController::class, 'jobCreate']);
 $router->get('/dashboard/client/jobs/id', [DashboardClientController::class, 'jobId']); // shows job details

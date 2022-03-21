@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\Router;
+use app\models\UserModel;
+use app\models\ClientModel;
 
 
 class DashboardClientController extends _BaseController
@@ -19,7 +21,60 @@ class DashboardClientController extends _BaseController
     public static function onboarding(Router $router)
     {
         DashboardClientController::requireUserIsLoggedIn($router);
-        $router->renderView(self::$basePath . 'onboarding');
+
+        $user = UserModel::getCurrentUser();
+
+        $data = [
+            'title' => '',
+            'image' => '',
+            'description' => '',
+            'titleError' => '',
+            'imageError' => '',
+            'descriptionError' => '',
+        ];
+
+        // Check for post
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize post data (prevent XSS)
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            $data = [
+                'title' => trim($_POST['title']),
+                // 'image' => trim($_POST['image']),
+                'description' => trim($_POST['description']),
+            ];
+
+            // validate title
+            if (empty($data['title'])) {
+                $data['titleError'] = 'Please enter a title.';
+            }
+
+            // todo: validate image
+
+            // validate description
+            if (empty($data['description'])) {
+                $data['description"Error'] = 'Please enter a description".';
+            }
+
+            // Check if all errors are empty
+            if (empty($data['titleError']) && empty($data['imageError']) && empty($data['descriptionError'])) {
+                $isCreated = ClientModel::create(
+                    $data['title'],
+                    $data['description'],
+                    $user->getId(),
+                    // $data['image'],
+                );
+
+                if (!$isCreated) {
+                    $data['titleError'] = 'Something went wrong. Please try again.';
+                } else {
+                    header('location:/dashboard/client?alert="Client profile created successfully!"');
+                }
+            }
+        }
+
+
+        $router->renderView(self::$basePath . 'onboarding', $data);
     }
 
     public static function jobs(Router $router)
