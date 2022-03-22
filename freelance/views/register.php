@@ -1,7 +1,7 @@
 <div class="container">
     <h1 style="text-align:center; margin:auto 0px;">Register</h1>
     <hr />
-    <form action="/register" method="POST">
+    <form action="/register" method="POST" enctype="multipart/form-data">
         <fieldset>
             <label for="username">Username</label>
             <input type="text" required name="username" id="username" value="<?php echo $params["username"]; ?>">

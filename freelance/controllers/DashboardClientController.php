@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\Router;
 use app\models\UserModel;
 use app\models\ClientModel;
+use app\utils\ImageUploader;
 
 
 class DashboardClientController extends _BaseController
@@ -26,7 +27,6 @@ class DashboardClientController extends _BaseController
 
         $data = [
             'title' => '',
-            'image' => '',
             'description' => '',
             'titleError' => '',
             'imageError' => '',
@@ -38,18 +38,21 @@ class DashboardClientController extends _BaseController
             // Sanitize post data (prevent XSS)
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-
             $data['title'] = trim($_POST['title']);
-            // 'image' => trim($_POST['image']),
             $data['description'] = trim($_POST['description']);
-
 
             // validate title
             if (empty($data['title'])) {
                 $data['titleError'] = 'Please enter a title.';
             }
 
-            // todo: validate image
+            // validate image
+            if (empty($_FILES['image'])) {
+                $data['imageError'] = 'Please select image.';
+            } else {
+                $imageUploader = new ImageUploader($_FILES['image']);
+                $data['imageError'] = $imageUploader->validateImage();
+            }
 
             // validate description
             if (empty($data['description'])) {
@@ -57,12 +60,17 @@ class DashboardClientController extends _BaseController
             }
 
             // Check if all errors are empty
-            if (empty($data['titleError']) && empty($data['imageError']) && empty($data['descriptionError'])) {
+            if (empty($data['titleError']) && empty($data['imageError']) && empty($data['descriptionError'])  && empty($data['imageError'])) {
+
+                // upload image and get the path
+                $imageUploader = new ImageUploader($_FILES['image']);
+                $imagePath = $imageUploader->uploadImage("ClientImage");
+
                 $isCreated = ClientModel::create(
                     $data['title'],
                     $data['description'],
                     $user->getId(),
-                    // $data['image'],
+                    $imagePath
                 );
 
                 if (!$isCreated) {
@@ -72,7 +80,6 @@ class DashboardClientController extends _BaseController
                 }
             }
         }
-
 
         $router->renderView(self::$basePath . 'onboarding', $data);
     }

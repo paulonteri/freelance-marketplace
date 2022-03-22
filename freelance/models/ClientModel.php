@@ -46,16 +46,16 @@ class ClientModel extends _BaseModel
         string $title,
         string $description,
         int $user_id,
-        // int $image
+        string $image
     ): ClientModel {
         $db = (new Database)->connectToDb();
 
-        $sql = 'INSERT INTO client (title, description, user_id) VALUES (:title, :description, :user_id)';
+        $sql = 'INSERT INTO client (title, description, user_id, image) VALUES (:title, :description, :user_id, :image)';
         $statement = $db->prepare($sql);
         $statement->bindParam(':title', $title);
         $statement->bindParam(':description', $description);
         $statement->bindParam(':user_id', $user_id);
-        // $statement->bindParam(':image', $image);
+        $statement->bindParam(':image', $image);
         $statement->execute();
 
         return new ClientModel($db->lastInsertId());

@@ -1,10 +1,10 @@
 <div class="container">
     <h1 style="text-align:center; margin:auto 0px;">Create client profile</h1>
     <hr />
-    <form action="/dashboard/client/onboarding" method="POST">
+    <form action="/dashboard/client/onboarding" method="POST" enctype="multipart/form-data">
         <fieldset>
             <label for="title">Title</label>
-            <input type="text" required name="title" id="title">
+            <input type="text" required name="title" id="title" value="<?php echo $params["title"]; ?>">
             <span class="invalidFeedback">
                 <?php echo $params["titleError"]; ?>
             </span>
@@ -17,11 +17,11 @@
 
             <label for="description">Description</label>
             <textarea type="text" required name="description" id="description" rows="4">
+               <?php echo $params["description"]; ?>
             </textarea>
             <span class="invalidFeedback">
                 <?php echo $params["descriptionError"]; ?>
             </span>
-
 
             <hr style="margin: 1rem 0;" />
 

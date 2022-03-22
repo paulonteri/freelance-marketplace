@@ -20,17 +20,17 @@ class AuthModel extends _BaseModel
         $phone,
         $image,
     ) {
-        $sql = "INSERT INTO user (username, email, password, first_name, last_name, phone) VALUES(:username, :email, :password, :first_name, :last_name, :phone)";
+        $sql = "INSERT INTO user (username, email, password, first_name, last_name, phone, image) VALUES(:username, :email, :password, :first_name, :last_name, :phone, :image)";
         $statement = $this->db->prepare($sql);
         $statement->execute(
             array(
                 ':username' => $username,
                 ':email' => $email,
                 ':password' => password_hash($password, PASSWORD_DEFAULT),
-                ':first_name'  => $first_name,
-                ':last_name'  => $last_name,
-                ':phone'  => $phone,
-                // 'image'  => $image,
+                ':first_name' => $first_name,
+                ':last_name' => $last_name,
+                ':phone' => $phone,
+                'image' => $image,
             )
         );
 

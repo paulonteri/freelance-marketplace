@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\AuthModel;
 use app\Router;
+use app\utils\ImageUploader;
 
 
 class AuthController extends _BaseController
@@ -85,7 +86,6 @@ class AuthController extends _BaseController
             'first_name'  => '',
             'last_name'  => '',
             'phone'  => '',
-            'image'  => '',
             'usernameError' => '',
             'emailError' => '',
             'passwordError' => '',
@@ -109,7 +109,6 @@ class AuthController extends _BaseController
                 'first_name'  => trim($_POST['first_name']),
                 'last_name'  => trim($_POST['last_name']),
                 'phone'  => trim($_POST['phone']),
-                'image'  => '', // trim($_POST['image']),
                 'usernameError' => '',
                 'emailError' => '',
                 'passwordError' => '',
@@ -160,12 +159,23 @@ class AuthController extends _BaseController
                 }
             }
 
-            // validate names
-            // validate phone
+            // todo: validate names
+            // todo: validate phone
+
             // validate image
+            if (empty($_FILES['image'])) {
+                $data['imageError'] = 'Please select image.';
+            } else {
+                $imageUploader = new ImageUploader($_FILES['image']);
+                $data['imageError'] = $imageUploader->validateImage();
+            }
 
             // make sure that errors are empty
-            if (empty($data['usernameError']) && empty($data['emailError']) && empty($data['passwordError']) && empty($data['confirmPasswordError'])) {
+            if (empty($data['usernameError']) && empty($data['emailError']) && empty($data['passwordError']) && empty($data['confirmPasswordError']) && empty($data['imageError'])) {
+
+                // upload image and get the path
+                $imageUploader = new ImageUploader($_FILES['image']);
+                $imagePath = $imageUploader->uploadImage("ProfileImage");
 
                 // Register user from model function
                 if ($authModel->register(
@@ -175,7 +185,7 @@ class AuthController extends _BaseController
                     $data['first_name'],
                     $data['last_name'],
                     $data['phone'],
-                    $data['image'],
+                    $imagePath
                 )) {
                     // Redirect to the login page
                     header('location:/login?alert=Registered successfully!');
