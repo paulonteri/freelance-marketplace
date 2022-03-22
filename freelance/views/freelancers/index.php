@@ -7,12 +7,14 @@
 <!-------------------------------- freelancers list -------------------------------------------------------->
 <div class="container" style="margin-top:25px;">
 
-    <?php for ($x = 0; $x <= 5; $x++) { ?>
+    <?php foreach ($params["freelancers"] as $freelancer) { ?>
     <!-------------------------------- freelancer -------------------------------------------------------->
     <div class="container rounded-corners" style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
         <div class="row" style="justify-content:space-between;">
             <div class="column">
-                <h3 style=" margin:auto 0px;" class="center-text-on-small-screen">Freelancer <?php echo $x; ?></h3>
+                <h3 style=" margin:auto 0px;" class="center-text-on-small-screen">
+                    Freelancer: <?php echo $freelancer->getUser()->getName(); ?>
+                </h3>
             </div>
             <div class="column ">
                 <p class="center-self-on-screen float-right-on-large-screen">5.0
@@ -24,18 +26,15 @@
         <hr style="margin: 1rem 0;" />
         <div class="row">
             <div class="column freelancer-list-image ">
-                <img src="https://via.placeholder.com/150" class="center-on-small-screen container" />
+                <img src="<?php echo $freelancer->getUser()->getImage(); ?>" class="center-on-small-screen container" />
             </div>
             <div class="column freelancer-list-text">
-                <p style="text-align:left; margin:auto 0px;">Laboris nulla ea nostrud officia dolore. Commodo
-                    fugiat
-                    ipsum incididunt eiusmod adipisicing sunt qui. Ad elit reprehenderit non magna. Lorem ut culpa
-                    adipisicing dolor ex ipsum amet exercitation deserunt consectetur eu laborum occaecat. Nisi
-                    Lorem
-                    culpa velit labore voluptate id ad duis dolor cillum. Do enim nisi est et mollit labore officia
-                    culpa qui officia sit. Occaecat tempor aliquip qui elit dolor ad duis quis occaecat labore
-                    eiusmod
-                    dolor sunt.
+                <h4 style="text-align:left; margin:auto 0px;">
+                    <?php echo $freelancer->getTitle(); ?>
+                </h4>
+                <hr style="margin: 1rem 0;" />
+                <p style="text-align:left; margin:auto 0px;">
+                    <?php echo $freelancer->getDescription(); ?>
                 </p>
                 <hr style="margin: 1rem 0;" />
                 <p style="text-align:left; margin:auto 0px;">

@@ -14,7 +14,7 @@ class UserModel extends _BaseModel
   protected ?string $first_name = null;
   protected ?string $middle_name = null;
   protected ?string $last_name = null;
-  //  protected ?String $image = null;
+  protected ?String $image = null;
   protected ?string $country = null;
   protected ?string $county = null;
   protected ?string $city = null;
@@ -131,6 +131,11 @@ class UserModel extends _BaseModel
     return $this->lastName;
   }
 
+  public function getName()
+  {
+    return $this->first_name . ' ' . $this->last_name;
+  }
+
   public function getCountry(): ?string
   {
     return $this->country;
@@ -169,5 +174,10 @@ class UserModel extends _BaseModel
   public function getTimeCreated(): ?string
   {
     return $this->time_created;
+  }
+
+  public function getImage(): ?string
+  {
+    return $this->image;
   }
 }

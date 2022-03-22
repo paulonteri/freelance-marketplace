@@ -84,6 +84,26 @@ class FreelancerModel extends _BaseModel
         }
     }
 
+    /**
+     * @return FreelancerModel[]
+     */
+    public static function getAll(): array
+    {
+        $db = (new Database)->connectToDb();
+
+        $sql = 'SELECT id FROM freelancer';
+        $statement = $db->prepare($sql);
+        $statement->execute();
+        $freelancers = $statement->fetchAll();
+
+        $freelancers_array = [];
+        foreach ($freelancers as $freelancer) {
+            $freelancers_array[] = new FreelancerModel($freelancer['id']);
+        }
+
+        return $freelancers_array;
+    }
+
     public function getId(): mixed
     {
         return $this->id;

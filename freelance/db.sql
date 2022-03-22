@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 21, 2022 at 11:03 AM
+-- Generation Time: Mar 22, 2022 at 08:28 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `freelance`
 --
+CREATE DATABASE IF NOT EXISTS `freelance` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `freelance`;
 
 -- --------------------------------------------------------
 
@@ -28,24 +30,22 @@ SET time_zone = "+00:00";
 --
 
 DROP TABLE IF EXISTS `client`;
-CREATE TABLE IF NOT EXISTS `client` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `client` (
+  `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `time_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `is_active` tinyint(1) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+  `is_active` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `client`
 --
 
 INSERT INTO `client` (`id`, `user_id`, `image`, `title`, `description`, `time_created`, `is_active`) VALUES
-(1, 5, NULL, 'Onteri &amp; Sons', 'Apple in a tree', '2022-03-21 10:00:59', 1);
+(2, 11, '/uploads/ClientImageTueMar2220227:05amazon.png', 'Recusandae Impedit', 'Dolor animi aut qui', '2022-03-22 07:05:12', 1);
 
 -- --------------------------------------------------------
 
@@ -54,13 +54,10 @@ INSERT INTO `client` (`id`, `user_id`, `image`, `title`, `description`, `time_cr
 --
 
 DROP TABLE IF EXISTS `client_staff_member`;
-CREATE TABLE IF NOT EXISTS `client_staff_member` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `client_staff_member` (
+  `id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `client_id` (`client_id`,`user_id`),
-  KEY `user_id` (`user_id`)
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -70,25 +67,22 @@ CREATE TABLE IF NOT EXISTS `client_staff_member` (
 --
 
 DROP TABLE IF EXISTS `freelancer`;
-CREATE TABLE IF NOT EXISTS `freelancer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `freelancer` (
+  `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
+  `description` text NOT NULL,
   `user_id` int(11) NOT NULL,
   `years_of_experience` int(11) NOT NULL,
   `time_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `is_active` int(11) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_id_2` (`user_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+  `is_active` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `freelancer`
 --
 
 INSERT INTO `freelancer` (`id`, `title`, `description`, `user_id`, `years_of_experience`, `time_created`, `is_active`) VALUES
-(8, 'Proident cupidatat', 'Cupidatat facere off', 5, 5, '2022-03-21 09:45:26', 1);
+(9, 'Best Programmer', 'Hard-working listing programmer with a flair for creating elegant solutions in the least amount of time. As a freelance programmer, created SAS datasets of clinical data and developed macro programs to improve efficiency and quality of data management for Takeda Pharmaceuticals. Looking to use my programming skills to help boost Piper Companies’ data management efficiency.', 11, 1994, '2022-03-22 07:15:41', 1);
 
 -- --------------------------------------------------------
 
@@ -97,14 +91,19 @@ INSERT INTO `freelancer` (`id`, `title`, `description`, `user_id`, `years_of_exp
 --
 
 DROP TABLE IF EXISTS `freelancer_skill`;
-CREATE TABLE IF NOT EXISTS `freelancer_skill` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `freelancer_skill` (
+  `id` int(11) NOT NULL,
   `freelancer_id` int(11) NOT NULL,
-  `skill_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `freelancer_id` (`freelancer_id`,`skill_id`),
-  KEY `skill_id` (`skill_id`)
+  `skill_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `freelancer_skill`
+--
+
+INSERT INTO `freelancer_skill` (`id`, `freelancer_id`, `skill_id`) VALUES
+(1, 9, 1),
+(2, 9, 2);
 
 -- --------------------------------------------------------
 
@@ -113,8 +112,8 @@ CREATE TABLE IF NOT EXISTS `freelancer_skill` (
 --
 
 DROP TABLE IF EXISTS `job`;
-CREATE TABLE IF NOT EXISTS `job` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `job` (
+  `id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
@@ -122,9 +121,7 @@ CREATE TABLE IF NOT EXISTS `job` (
   `expected_duration_in_hours` float NOT NULL,
   `receive_job_proposals_deadline` datetime NOT NULL,
   `time_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `is_active` tinyint(1) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`),
-  KEY `client_id` (`client_id`)
+  `is_active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -134,8 +131,8 @@ CREATE TABLE IF NOT EXISTS `job` (
 --
 
 DROP TABLE IF EXISTS `job_proposal`;
-CREATE TABLE IF NOT EXISTS `job_proposal` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `job_proposal` (
+  `id` int(11) NOT NULL,
   `status` enum('sent','accepted','complete','rejected','withdrawn') NOT NULL DEFAULT 'sent',
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
@@ -145,10 +142,7 @@ CREATE TABLE IF NOT EXISTS `job_proposal` (
   `time_work_starts` int(11) NOT NULL,
   `time_work_ends` int(11) NOT NULL,
   `time_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `is_active` tinyint(1) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `job_id` (`job_id`,`freelancer_id`),
-  KEY `freelancer_id` (`freelancer_id`)
+  `is_active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -158,14 +152,12 @@ CREATE TABLE IF NOT EXISTS `job_proposal` (
 --
 
 DROP TABLE IF EXISTS `job_rating`;
-CREATE TABLE IF NOT EXISTS `job_rating` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `job_rating` (
+  `id` int(11) NOT NULL,
   `job_id` int(11) NOT NULL,
   `type` enum('freelancer','client') NOT NULL COMMENT 'Who was rated?',
   `rating` int(11) NOT NULL,
-  `comment` text DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `job_id` (`job_id`,`type`)
+  `comment` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -175,13 +167,10 @@ CREATE TABLE IF NOT EXISTS `job_rating` (
 --
 
 DROP TABLE IF EXISTS `job_skill`;
-CREATE TABLE IF NOT EXISTS `job_skill` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `job_skill` (
+  `id` int(11) NOT NULL,
   `job_id` int(11) NOT NULL,
-  `skill_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `job_id` (`job_id`,`skill_id`),
-  KEY `skill_id` (`skill_id`)
+  `skill_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -191,19 +180,15 @@ CREATE TABLE IF NOT EXISTS `job_skill` (
 --
 
 DROP TABLE IF EXISTS `message`;
-CREATE TABLE IF NOT EXISTS `message` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `message` (
+  `id` int(11) NOT NULL,
   `from_user_id` int(11) NOT NULL,
   `to_user_id` int(11) NOT NULL,
   `job_id` int(11) DEFAULT NULL,
   `text` varchar(255) NOT NULL,
   `attachment` varchar(255) DEFAULT NULL,
   `time_sent` datetime NOT NULL DEFAULT current_timestamp(),
-  `message_type` enum('regular_user','admin') NOT NULL DEFAULT 'regular_user',
-  PRIMARY KEY (`id`),
-  KEY `from_user_id` (`from_user_id`),
-  KEY `to_user_id` (`to_user_id`),
-  KEY `job_id` (`job_id`)
+  `message_type` enum('regular_user','admin') NOT NULL DEFAULT 'regular_user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -213,12 +198,20 @@ CREATE TABLE IF NOT EXISTS `message` (
 --
 
 DROP TABLE IF EXISTS `skill`;
-CREATE TABLE IF NOT EXISTS `skill` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
+CREATE TABLE `skill` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `skill`
+--
+
+INSERT INTO `skill` (`id`, `name`) VALUES
+(4, 'Graphic Design'),
+(1, 'Programming'),
+(2, 'UI/UX'),
+(3, 'Writing');
 
 -- --------------------------------------------------------
 
@@ -227,8 +220,8 @@ CREATE TABLE IF NOT EXISTS `skill` (
 --
 
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `phone` varchar(13) NOT NULL,
@@ -244,21 +237,175 @@ CREATE TABLE IF NOT EXISTS `user` (
   `postal_code` varchar(255) DEFAULT NULL,
   `is_admin` tinyint(1) NOT NULL DEFAULT 0,
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
-  `time_created` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `phone` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+  `time_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `phone`, `password`, `first_name`, `middle_name`, `last_name`, `image`, `country`, `county`, `city`, `street`, `postal_code`, `is_admin`, `is_active`, `time_created`) VALUES
-(5, 'sirupi', 'dycyg@mailinator.com', '+254789812492', '$2y$10$pr8ND2OErZYRl.S9uxVHI.m/jlYMjrPRg90uBt8H8O/T07TRo1cy6', 'Nita', NULL, 'Love', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2022-03-21 05:52:31'),
-(6, 'dypino', 'fuzaceqyq@mailinator.com', '+254791767454', '$2y$10$0YRVf7HJV7Mtu0ZVIxB3q.4qoC6xYFfGE6d1rbjSkl0jI0heOsAmi', 'Shelley', NULL, 'Cline', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2022-03-21 05:55:46'),
-(7, 'tagihix', 'ruzumatifu@mailinator.com', '+254716669314', '$2y$10$KQMVZEoWN0.pe26B8HnUu.1phA1c3zzh36TH24X8awKLhxlG3PocO', 'Vielka', NULL, 'Flores', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2022-03-21 05:57:12');
+(11, 'byfixusaki', 'cemetugyci@mailinator.com', '+254718578833', '$2y$10$5QzsfhuROuvDUYtQ4Zv3ZuKkVEfaW1txv/553xBCTunpQvc/bpIsK', 'Daniele', NULL, 'Moi', '/uploads/ProfileImageTueMar2220226:52explorers_on_the_moon copy.jpg', NULL, NULL, NULL, NULL, NULL, 0, 1, '2022-03-22 06:52:13');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `client`
+--
+ALTER TABLE `client`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `client_staff_member`
+--
+ALTER TABLE `client_staff_member`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `client_id` (`client_id`,`user_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `freelancer`
+--
+ALTER TABLE `freelancer`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id_2` (`user_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `freelancer_skill`
+--
+ALTER TABLE `freelancer_skill`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `freelancer_id` (`freelancer_id`,`skill_id`),
+  ADD KEY `skill_id` (`skill_id`);
+
+--
+-- Indexes for table `job`
+--
+ALTER TABLE `job`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `client_id` (`client_id`);
+
+--
+-- Indexes for table `job_proposal`
+--
+ALTER TABLE `job_proposal`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `job_id` (`job_id`,`freelancer_id`),
+  ADD KEY `freelancer_id` (`freelancer_id`);
+
+--
+-- Indexes for table `job_rating`
+--
+ALTER TABLE `job_rating`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `job_id` (`job_id`,`type`);
+
+--
+-- Indexes for table `job_skill`
+--
+ALTER TABLE `job_skill`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `job_id` (`job_id`,`skill_id`),
+  ADD KEY `skill_id` (`skill_id`);
+
+--
+-- Indexes for table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `from_user_id` (`from_user_id`),
+  ADD KEY `to_user_id` (`to_user_id`),
+  ADD KEY `job_id` (`job_id`);
+
+--
+-- Indexes for table `skill`
+--
+ALTER TABLE `skill`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `phone` (`phone`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `client`
+--
+ALTER TABLE `client`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `client_staff_member`
+--
+ALTER TABLE `client_staff_member`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `freelancer`
+--
+ALTER TABLE `freelancer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `freelancer_skill`
+--
+ALTER TABLE `freelancer_skill`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `job`
+--
+ALTER TABLE `job`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `job_proposal`
+--
+ALTER TABLE `job_proposal`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `job_rating`
+--
+ALTER TABLE `job_rating`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `job_skill`
+--
+ALTER TABLE `job_skill`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `message`
+--
+ALTER TABLE `message`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `skill`
+--
+ALTER TABLE `skill`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
