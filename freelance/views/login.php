@@ -4,7 +4,7 @@
     <form action="/login" method="POST">
         <fieldset>
             <label for="email">Email</label>
-            <input type="email" name="email" required id="email">
+            <input type="email" name="email" required id="email" value="<?php echo $params['email']; ?>">
             <span class="invalidFeedback">
                 <?php echo $params['emailError']; ?>
             </span>

@@ -4,31 +4,31 @@
     <form action="/register" method="POST">
         <fieldset>
             <label for="username">Username</label>
-            <input type="text" required name="username" id="username">
+            <input type="text" required name="username" id="username" value="<?php echo $params["username"]; ?>">
             <span class="invalidFeedback">
                 <?php echo $params["usernameError"]; ?>
             </span>
 
             <label for="first_name">First Name</label>
-            <input type="text" required name="first_name" id="first_name">
+            <input type="text" required name="first_name" id="first_name" value="<?php echo $params["first_name"]; ?>">
             <span class="invalidFeedback">
                 <?php echo $params["first_nameError"]; ?>
             </span>
 
             <label for="last_name">Last name</label>
-            <input type="text" required name="last_name" id="last_name">
+            <input type="text" required name="last_name" id="last_name" value="<?php echo $params["last_name"]; ?>">
             <span class="invalidFeedback">
                 <?php echo $params["last_nameError"]; ?>
             </span>
 
             <label for="phone">Phone number</label>
-            <input type="text" required name="phone" id="phone">
+            <input type="text" required name="phone" id="phone" value="<?php echo $params["phone"]; ?>">
             <span class="invalidFeedback">
                 <?php echo $params["phoneError"]; ?>
             </span>
 
             <label for="email">Email</label>
-            <input type="email" required name="email" id="email">
+            <input type="email" required name="email" id="email" value="<?php echo $params["email"]; ?>">
             <span class="invalidFeedback">
                 <?php echo $params["emailError"]; ?>
             </span>
@@ -53,7 +53,7 @@
 
             <hr style="margin: 1rem 0;" />
 
-            <input class="button-primary" type="submit" value="Login">
+            <input class="button-primary" type="submit" value="Register">
         </fieldset>
     </form>
 </div>
