@@ -38,7 +38,10 @@
                 </p>
                 <hr style="margin: 1rem 0;" />
                 <p style="text-align:left; margin:auto 0px;">
-                    #web-development #graphic-design #python
+                    <b>Skills: </b>
+                    <?php foreach ($freelancer->getSkills() as $skill) {
+                            echo "#" . $skill->getName() . "  ";
+                        } ?>
                 </p>
             </div>
         </div>

@@ -17,6 +17,7 @@ class FreelancerModel extends _BaseModel
     private $time_created;
     private int $is_active;
     private UserModel $user;
+    private array $skills = array();
 
 
     public function __construct($id = null)
@@ -29,17 +30,28 @@ class FreelancerModel extends _BaseModel
             $statement = $this->db->prepare($sql);
             $statement->bindParam(':id', $id);
             $statement->execute();
-            $freelancer = $statement->fetch();
+            $freelancer_s = $statement->fetch();
 
             $this->id = $id;
-            $this->title = $freelancer['title'];
-            $this->description = $freelancer['description'];
-            $this->user_id = $freelancer['user_id'];
-            $this->years_of_experience = $freelancer['years_of_experience'];
-            $this->time_created = $freelancer['time_created'];
-            $this->is_active = $freelancer['is_active'];
+            $this->title = $freelancer_s['title'];
+            $this->description = $freelancer_s['description'];
+            $this->user_id = $freelancer_s['user_id'];
+            $this->years_of_experience = $freelancer_s['years_of_experience'];
+            $this->time_created = $freelancer_s['time_created'];
+            $this->is_active = $freelancer_s['is_active'];
 
-            $this->user = new UserModel($freelancer['user_id']);
+            // create user
+            $this->user = new UserModel($freelancer_s['user_id']);
+
+            // create skills
+            $sql = 'SELECT skill_id FROM freelancer_skill WHERE freelancer_id = :id';
+            $statement = $this->db->prepare($sql);
+            $statement->bindParam(':id', $id);
+            $statement->execute();
+            $freelancer_skills = $statement->fetchAll();
+            foreach ($freelancer_skills as $freelancer_skill) {
+                array_push($this->skills, new SkillModel($freelancer_skill['skill_id']));
+            }
         }
     }
 
@@ -140,5 +152,10 @@ class FreelancerModel extends _BaseModel
     public function getUser(): UserModel
     {
         return $this->user;
+    }
+
+    public function getSkills(): array
+    {
+        return $this->skills;
     }
 }
