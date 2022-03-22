@@ -73,6 +73,9 @@
     <?php var_dump($params); ?>
     </pre> -->
 
+    <!-- <pre>
+        <?php var_dump($_FILES); ?>
+    </pre> -->
 
     <!----------------------------- main content -------------------------------------------------------->
     <?php echo $content; ?>
