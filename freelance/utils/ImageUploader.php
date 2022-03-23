@@ -35,13 +35,16 @@ class ImageUploader
     public function validateImage()
     {
         if ($this->file_size > 2097152) {
-            return 'File size must be less than 2 MB';
+            return 'File size must be less than 2 MB.';
+        }
+        if ($this->file_size < 1) {
+            return 'File required.';
         }
         if (!in_array($this->file_ext, $this->extensions)) {
-            return 'Image type not allowed';
+            return 'Image type not allowed.';
         }
         if (strlen($this->file_name) > 50) {
-            return 'File name too long';
+            return 'File name too long.';
         }
     }
 
