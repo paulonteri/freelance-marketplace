@@ -60,7 +60,7 @@ class DashboardFreelancerController extends _BaseController
 
             // validate description
             if (empty($data['description'])) {
-                $data['description"Error'] = 'Please enter a description".';
+                $data['descriptionError'] = 'Please enter a description".';
             }
 
             // todo: validate skills

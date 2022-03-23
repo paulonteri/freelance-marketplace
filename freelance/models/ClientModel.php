@@ -15,8 +15,6 @@ class ClientModel extends _BaseModel
     private $image;
     private $time_created;
     private int $is_active;
-    private UserModel $user;
-
 
     public function __construct($id = null)
     {
@@ -37,8 +35,6 @@ class ClientModel extends _BaseModel
             $this->image = $client['image'];
             $this->time_created = $client['time_created'];
             $this->is_active = $client['is_active'];
-
-            $this->user = new UserModel($client['user_id']);
         }
     }
 
@@ -96,6 +92,6 @@ class ClientModel extends _BaseModel
     }
     public function getUser(): UserModel
     {
-        return $this->user;
+        return new UserModel($this->user_id);
     }
 }

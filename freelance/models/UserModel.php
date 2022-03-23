@@ -67,7 +67,7 @@ class UserModel extends _BaseModel
     return null;
   }
 
-  public function isFreelancer(): bool
+  public function getFreelancer(): ?FreelancerModel
   {
     $sql = 'SELECT * FROM freelancer WHERE user_id = :user_id';
     $statement = $this->db->prepare($sql);
@@ -75,13 +75,20 @@ class UserModel extends _BaseModel
     $statement->execute();
     $freelancer = $statement->fetch();
 
-    if (!$freelancer) {
+    if ($freelancer) {
+      return new FreelancerModel($freelancer['id']);
+    }
+    return null;
+  }
+  public function isFreelancer(): bool
+  {
+    if (!$this->getFreelancer()) {
       return false;
     }
     return true;
   }
 
-  public function isClient(): bool
+  public function getClient(): ?ClientModel
   {
     $sql = 'SELECT * FROM client WHERE user_id = :user_id';
     $statement = $this->db->prepare($sql);
@@ -90,6 +97,15 @@ class UserModel extends _BaseModel
     $client = $statement->fetch();
 
     if (!$client) {
+      return null;
+    }
+
+    return new ClientModel($client['id']);
+  }
+
+  public function isClient(): bool
+  {
+    if (!$this->getClient()) {
       return false;
     }
     return true;
