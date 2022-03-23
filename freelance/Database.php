@@ -14,6 +14,7 @@ class Database
 
   protected function connectToDb()
   {
+    // https://www.phptutorial.net/php-pdo/
     $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbName;
     $pdo = new PDO($dsn, $this->user, $this->password);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);

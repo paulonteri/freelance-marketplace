@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 22, 2022 at 09:40 AM
+-- Generation Time: Mar 23, 2022 at 06:20 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -40,13 +40,6 @@ CREATE TABLE `client` (
   `is_active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `client`
---
-
-INSERT INTO `client` (`id`, `user_id`, `image`, `title`, `description`, `time_created`, `is_active`) VALUES
-(2, 11, '/uploads/ClientImageTueMar2220227:05amazon.png', 'Recusandae Impedit', 'Dolor animi aut qui', '2022-03-22 07:05:12', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -77,14 +70,6 @@ CREATE TABLE `freelancer` (
   `is_active` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `freelancer`
---
-
-INSERT INTO `freelancer` (`id`, `title`, `description`, `user_id`, `years_of_experience`, `time_created`, `is_active`) VALUES
-(9, 'Best Programmer', 'Hard-working listing programmer with a flair for creating elegant solutions in the least amount of time. As a freelance programmer, created SAS datasets of clinical data and developed macro programs to improve efficiency and quality of data management for Takeda Pharmaceuticals. Looking to use my programming skills to help boost Piper Companies’ data management efficiency.', 11, 1994, '2022-03-22 07:15:41', 1),
-(10, 'Creative Graphic Designer', 'Highly experienced, creative, and multitalented Graphic Designer with an extensive background in web, marketing multimedia, and print design. Exceptional collaborative and interpersonal skills; very strong team player with well-developed written and verbal communication abilities. Experienced at producing high-end business-to-business and consumer-facing designs; talented at building and maintaining partnerships. Passionate and accustomed to performing in deadline-driven environments.', 12, 5, '2022-03-22 07:54:52', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -97,16 +82,6 @@ CREATE TABLE `freelancer_skill` (
   `freelancer_id` int(11) NOT NULL,
   `skill_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `freelancer_skill`
---
-
-INSERT INTO `freelancer_skill` (`id`, `freelancer_id`, `skill_id`) VALUES
-(1, 9, 1),
-(2, 9, 2),
-(3, 10, 2),
-(4, 10, 4);
 
 -- --------------------------------------------------------
 
@@ -206,16 +181,6 @@ CREATE TABLE `skill` (
   `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `skill`
---
-
-INSERT INTO `skill` (`id`, `name`) VALUES
-(4, 'Graphic Design'),
-(1, 'Programming'),
-(2, 'UI/UX'),
-(3, 'Writing');
-
 -- --------------------------------------------------------
 
 --
@@ -242,14 +207,6 @@ CREATE TABLE `user` (
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
   `time_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`id`, `username`, `email`, `phone`, `password`, `first_name`, `middle_name`, `last_name`, `image`, `country`, `county`, `city`, `street`, `postal_code`, `is_admin`, `is_active`, `time_created`) VALUES
-(11, 'byfixusaki', 'cemetugyci@mailinator.com', '+254718578833', '$2y$10$5QzsfhuROuvDUYtQ4Zv3ZuKkVEfaW1txv/553xBCTunpQvc/bpIsK', 'Daniele', NULL, 'Moi', '/uploads/profile.avif', NULL, NULL, NULL, NULL, NULL, 0, 1, '2022-03-22 06:52:13'),
-(12, 'mutuvor', 'kefegi@mailinator.com', '+254762307628', '$2y$10$zL2K68YBS7rwMSGIyQ5R.egPQYy43zMaPokgHtOA01j4ylacVCRPu', 'Sharon', NULL, 'Kemunto', '/uploads/profile-female.avif', NULL, NULL, NULL, NULL, NULL, 0, 1, '2022-03-22 07:53:28');
 
 --
 -- Indexes for dumped tables
@@ -349,7 +306,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `client_staff_member`
@@ -361,13 +318,13 @@ ALTER TABLE `client_staff_member`
 -- AUTO_INCREMENT for table `freelancer`
 --
 ALTER TABLE `freelancer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `freelancer_skill`
 --
 ALTER TABLE `freelancer_skill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `job`
@@ -403,13 +360,13 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `skill`
 --
 ALTER TABLE `skill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
