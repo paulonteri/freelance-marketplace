@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\Database;
+use PDOException;
 
 class JobModel extends _BaseModel
 {
@@ -71,6 +72,28 @@ class JobModel extends _BaseModel
     return new JobModel($db->lastInsertId());
   }
 
+  public function addSkills(array $skills): void
+  {
+    $sql = 'INSERT INTO job_skill (job_id, skill_id) VALUES (:job_id, :skill_id)';
+    $statement = $this->db->prepare($sql);
+
+    foreach ($skills as $skill) {
+      try {
+        $statement->bindParam(':job_id', $this->id);
+        $statement->bindParam(':skill_id', $skill);
+        $statement->execute();
+      } catch (PDOException $e) {
+        if ($e->errorInfo[1] == 1062) {
+          // duplicate entry
+          continue;
+        } else {
+          // other error. Throw it
+          throw $e;
+        }
+      }
+    }
+  }
+
   public function getId(): int
   {
     return $this->id;
@@ -124,5 +147,21 @@ class JobModel extends _BaseModel
   public function getIsActive(): int
   {
     return $this->is_active;
+  }
+
+  public function getSkills(): array
+  {
+    $skills = array();
+
+    $sql = 'SELECT skill_id FROM job_skill WHERE job_id = :id';
+    $statement = $this->db->prepare($sql);
+    $statement->bindParam(':id', $id);
+    $statement->execute();
+    $job_skills = $statement->fetchAll();
+    foreach ($job_skills as $job_skill) {
+      array_push($skills, new SkillModel($job_skill['skill_id']));
+    }
+
+    return $skills;
   }
 }

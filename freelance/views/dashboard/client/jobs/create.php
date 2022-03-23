@@ -36,6 +36,18 @@
                 <?php echo $params['receiveJobProposalsDeadlineError']; ?>
             </span>
 
+            <label for="skills[]">Skills required</label>
+            <select required name="skills[]" id="skills[]" multiple>
+                <?php foreach ($params["allSkills"] as $skill) { ?>
+                <option value="<?php echo $skill->getId(); ?>">
+                    <?php echo $skill->getName(); ?>
+                </option>
+                <?php } ?>
+            </select>
+            <span class="invalidFeedback">
+                <?php echo $params["skillsError"]; ?>
+            </span>
+
             <label for="image">Image</label>
             <input type="file" name="image" name="image" id="image">
             <span class="invalidFeedback">

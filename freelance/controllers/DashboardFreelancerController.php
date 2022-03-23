@@ -66,7 +66,12 @@ class DashboardFreelancerController extends _BaseController
             // todo: validate skills
 
             // Check if all errors are empty
-            if (empty($data['titleError']) && empty($data['years_of_experienceError']) && empty($data['descriptionError']) && empty($data['skillsError'])) {
+            if (
+                empty($data['titleError'])
+                && empty($data['years_of_experienceError'])
+                && empty($data['descriptionError'])
+                && empty($data['skillsError'])
+            ) {
 
                 try {
                     $freelancer = FreelancerModel::create(

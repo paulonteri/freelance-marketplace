@@ -8,6 +8,7 @@ use app\utils\ImageUploader;
 use app\models\UserModel;
 use app\models\ClientModel;
 use app\models\JobModel;
+use app\models\SkillModel;
 
 class DashboardClientController extends _BaseController
 {
@@ -111,13 +112,16 @@ class DashboardClientController extends _BaseController
             'payRatePerHour' => '',
             'expectedDurationInHours' => '',
             'receiveJobProposalsDeadline' => '',
+            'skills' => [],
             'imageError' => '',
             'titleError' => '',
             'descriptionError' => '',
             'payRatePerHourError' => '',
             'expectedDurationInHoursError' => '',
             'receiveJobProposalsDeadlineError' => '',
+            'skillsError' => '',
         ];
+        $data['allSkills'] =  SkillModel::getAll();
 
         // Check for post
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -130,6 +134,7 @@ class DashboardClientController extends _BaseController
             $data['payRatePerHour'] = trim($_POST['payRatePerHour']);
             $data['expectedDurationInHours'] = trim($_POST['expectedDurationInHours']);
             $data['receiveJobProposalsDeadline'] = trim($_POST['receiveJobProposalsDeadline']);
+            $data['skills'] = $_POST['skills'];
 
             // validate title
             if (empty($data['title'])) {
@@ -188,6 +193,7 @@ class DashboardClientController extends _BaseController
                 $data['imageError'] = $imageUploader->validateImage();
             }
 
+            // todo: validate skills
 
             // Check if all errors are empty
             if (
@@ -204,7 +210,7 @@ class DashboardClientController extends _BaseController
                 $imageUploader = new ImageUploader($_FILES['image']);
                 $imagePath = $imageUploader->uploadImage("ClientJobImage");
 
-                $isCreated = JobModel::create(
+                $job = JobModel::create(
                     $user->getClient()->getId(),
                     $data['title'],
                     $data['description'],
@@ -213,8 +219,9 @@ class DashboardClientController extends _BaseController
                     $data['expectedDurationInHours'],
                     $data['receiveJobProposalsDeadline']
                 );
+                $job->addSkills($data['skills']);
 
-                if (!$isCreated) {
+                if (!$job) {
                     $router->renderView(self::$basePath . 'jobs/create', $data, null, array('Something went wrong. Please try again.',));
                     return;
                 } else {
