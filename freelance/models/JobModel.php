@@ -33,6 +33,7 @@ class JobModel extends _BaseModel
       $statement->execute();
       $client = $statement->fetch();
 
+
       $this->id = $id;
       $this->client_id = $client['client_id'];
       $this->title = $client['title'];
@@ -110,6 +111,26 @@ class JobModel extends _BaseModel
 
     return $jobModels;
   }
+
+  public static function getJobById($id)
+  {
+    $db = (new Database)->connectToDb();
+
+    $sql = 'SELECT * FROM job WHERE id = :id';
+    $statement = $db->prepare($sql);
+    $statement->bindParam(':id', $id);
+    $statement->execute();
+    $job = $statement->fetch();
+
+    if ($job) {
+      return new JobModel($job['id']);
+    } else {
+      return null;
+    }
+  }
+
+
+
 
   public function getId(): int
   {

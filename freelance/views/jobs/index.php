@@ -71,7 +71,7 @@
                 </p>
             </div>
             <div class="column" style="margin-bottom:5px;">
-                <a href="/jobs/id">
+                <a href="/jobs/id?jobId=<?php echo $job->getId() ?>">
                     <button class=" center-self-on-screen float-right-on-large-screen ">
                         Give quote &rarr;
                     </button>

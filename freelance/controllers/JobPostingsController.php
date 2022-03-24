@@ -22,6 +22,26 @@ class JobPostingsController extends _BaseController
     public static function detail(Router $router)
     {
         JobPostingsController::requireUserIsLoggedIn($router);
-        $router->renderView(self::$basePath . 'id');
+
+        $data = [
+            'pageTitle' => "Job Details"
+        ];
+        $errors = array();
+
+        if (isset($_GET['jobId'])) {
+            $data['id'] = $_GET['jobId'];
+            $job = JobModel::getJobById($data['id']);
+
+            if ($job == null) {
+                $errors = ['Job not found.'];
+            } else {
+                $data['job'] = $job;
+                $data['pageTitle'] = "Job " . $job->getTitle();
+            }
+        } else {
+            $errors = ['Job id not found.'];
+        }
+
+        $router->renderView(self::$basePath . 'id', $data, null, $errors);
     }
 }
