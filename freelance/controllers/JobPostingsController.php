@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\Router;
+use app\models\JobModel;
 
 
 class JobPostingsController extends _BaseController
@@ -12,7 +13,10 @@ class JobPostingsController extends _BaseController
 
     public static function index(Router $router)
     {
-        $router->renderView(self::$basePath . 'index');
+        $data = [
+            'jobs' => JobModel::getAll()
+        ];
+        $router->renderView(self::$basePath . 'index', $data);
     }
 
     public static function detail(Router $router)

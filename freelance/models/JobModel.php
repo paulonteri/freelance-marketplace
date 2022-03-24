@@ -94,6 +94,23 @@ class JobModel extends _BaseModel
     }
   }
 
+  public static function getAll()
+  {
+    $db = (new Database)->connectToDb();
+
+    $sql = 'SELECT * FROM job';
+    $statement = $db->prepare($sql);
+    $statement->execute();
+    $jobs = $statement->fetchAll();
+
+    $jobModels = [];
+    foreach ($jobs as $job) {
+      $jobModels[] = new JobModel($job['id']);
+    }
+
+    return $jobModels;
+  }
+
   public function getId(): int
   {
     return $this->id;
@@ -149,15 +166,21 @@ class JobModel extends _BaseModel
     return $this->is_active;
   }
 
+  public function getBudget(): float
+  {
+    return $this->pay_rate_per_hour * $this->expected_duration_in_hours;
+  }
+
   public function getSkills(): array
   {
     $skills = array();
 
     $sql = 'SELECT skill_id FROM job_skill WHERE job_id = :id';
     $statement = $this->db->prepare($sql);
-    $statement->bindParam(':id', $id);
+    $statement->bindParam(':id', $this->id);
     $statement->execute();
     $job_skills = $statement->fetchAll();
+
     foreach ($job_skills as $job_skill) {
       array_push($skills, new SkillModel($job_skill['skill_id']));
     }
