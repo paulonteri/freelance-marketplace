@@ -18,7 +18,7 @@
     <hr style="margin: 1rem 0;" />
     <div class="row">
         <p style="text-align:left; margin:auto 0px;">
-            <?php echo $params['job']->getDescription(); ?>
+            <?php echo $job->getDescription(); ?>
         </p>
 
         <?php if ($job->getImage()) { ?>
@@ -85,14 +85,24 @@
 
 <!-------------------------------- give quote -------------------------------------------------------->
 <div class="container " style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
-    <h2 style="text-align:left; margin-top:25px;">Give quote</h2>
+    <h2 style="text-align:left; margin-top:25px;">Give proposal</h2>
     <hr style="margin: 1rem 0;" />
-    <form>
+    <form action="/jobs/id?jobId=<?php echo $job->getId(); ?>" method="POST">
         <fieldset>
-            <label for="titleField">Title</label>
-            <input type="text" id="titleField">
-            <label for="descriptionField">Description</label>
-            <textarea id="descriptionField"></textarea>
+            <input type="hidden" required name="jobId" id="jobId" value="<?php echo $job->getId(); ?>">
+
+            <label for="title">Title</label>
+            <input type="text" required name="title" id="title" value="<?php echo $params['title']; ?>">
+            <span class="invalidFeedback">
+                <?php echo $params['titleError']; ?>
+            </span>
+
+            <label for="description">Description</label>
+            <textarea required name="description" id="description"><?php echo $params['description']; ?></textarea>
+            <span class="invalidFeedback">
+                <?php echo $params['descriptionError']; ?>
+            </span>
+
             <input class="button-primary" type="submit" value="Send">
         </fieldset>
     </form>

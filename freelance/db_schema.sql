@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 23, 2022 at 06:20 AM
+-- Generation Time: Mar 24, 2022 at 09:33 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -95,6 +95,7 @@ CREATE TABLE `job` (
   `client_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
   `pay_rate_per_hour` float NOT NULL,
   `expected_duration_in_hours` float NOT NULL,
   `receive_job_proposals_deadline` datetime NOT NULL,
@@ -116,9 +117,9 @@ CREATE TABLE `job_proposal` (
   `description` text NOT NULL,
   `job_id` int(11) NOT NULL,
   `freelancer_id` int(11) NOT NULL,
-  `client_comment` text NOT NULL,
-  `time_work_starts` int(11) NOT NULL,
-  `time_work_ends` int(11) NOT NULL,
+  `client_comment` text DEFAULT NULL,
+  `time_work_starts` datetime DEFAULT NULL,
+  `time_work_ends` datetime DEFAULT NULL,
   `time_created` datetime NOT NULL DEFAULT current_timestamp(),
   `is_active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

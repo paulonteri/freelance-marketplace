@@ -31,6 +31,7 @@ $router->get('/logout', [AuthController::class, 'logout']);
 // JobPostingsController
 $router->get('/jobs', [JobPostingsController::class, 'index']);
 $router->get('/jobs/id', [JobPostingsController::class, 'detail']);
+$router->post('/jobs/id', [JobPostingsController::class, 'detail']);
 
 // FreelancerProfilesController
 $router->get('/freelancers', [FreelancerProfilesController::class, 'index']);
