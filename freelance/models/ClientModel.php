@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\Database;
+use app\utils\DisplayAlert;
 
 class ClientModel extends _BaseModel
 {
@@ -35,6 +36,24 @@ class ClientModel extends _BaseModel
             $this->image = $client['image'];
             $this->time_created = $client['time_created'];
             $this->is_active = $client['is_active'];
+        }
+    }
+
+    public static function tryGetById(int $id): ?ClientModel
+    {
+        $db = (new Database)->connectToDb();
+
+        $sql = 'SELECT * FROM client WHERE id = :id';
+        $statement = $db->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        $client = $statement->fetch();
+
+        if ($client) {
+            return new ClientModel($id);
+        } else {
+            DisplayAlert::displayError('Client not found');
+            return null;
         }
     }
 

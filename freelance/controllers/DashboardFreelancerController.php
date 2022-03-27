@@ -9,6 +9,7 @@ use app\models\UserModel;
 use app\models\FreelancerModel;
 use app\models\JobModel;
 use app\models\JobProposalModel;
+use app\models\ClientModel;
 
 
 class DashboardFreelancerController extends _BaseController
@@ -130,7 +131,7 @@ class DashboardFreelancerController extends _BaseController
 
         if (isset($_GET['jobId'])) {
             $data['id'] = $_GET['jobId'];
-            $job = JobModel::getJobById($data['id']);
+            $job = JobModel::tryGetById($data['id']);
 
             if ($job == null) {
                 $errors = ['Job not found.'];
@@ -213,12 +214,9 @@ class DashboardFreelancerController extends _BaseController
                 }
             }
         } else {
-
-
-
             if (isset($_GET['jobId'])) {
                 $data['id'] = $_GET['jobId'];
-                $job = JobModel::getJobById($data['id']);
+                $job = JobModel::tryGetById($data['id']);
 
                 if ($job == null) {
                     $errors = ['Job not found.'];
@@ -231,6 +229,33 @@ class DashboardFreelancerController extends _BaseController
             }
         }
 
-        $router->renderView(self::$basePath . 'jobs/id/proposal',  $data, null, $errors);
+        $router->renderView(self::$basePath . 'jobs/id/proposal', $data, null, $errors);
+    }
+
+
+
+    public static function clientId(Router $router)
+    {
+        DashboardFreelancerController::requireUserIsFreelancer($router);
+
+        $data = [
+            'pageTitle' => "Client Details",
+
+        ];
+        $errors = array();
+
+        if (isset($_GET['clientId'])) {
+            $data['id'] = $_GET['clientId'];
+            $client = ClientModel::tryGetById($data['id']);
+
+            if ($client != null) {
+                $data['client'] = $client;
+                $data['pageTitle'] = "Client " . $client->getTitle();
+            }
+        } else {
+            $errors = ['Client id not found.'];
+        }
+
+        $router->renderView(self::$basePath . 'clients/id', $data, null, $errors);
     }
 }

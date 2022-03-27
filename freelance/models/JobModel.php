@@ -2,8 +2,9 @@
 
 namespace app\models;
 
-use app\Database;
 use PDOException;
+use app\Database;
+use app\utils\DisplayAlert;
 
 class JobModel extends _BaseModel
 {
@@ -44,6 +45,24 @@ class JobModel extends _BaseModel
       $this->receive_job_proposals_deadline = $client['receive_job_proposals_deadline'];
       $this->time_created = $client['time_created'];
       $this->is_active = $client['is_active'];
+    }
+  }
+
+  public static function tryGetById($id): ?JobModel
+  {
+    $db = (new Database)->connectToDb();
+
+    $sql = 'SELECT * FROM job WHERE id = :id';
+    $statement = $db->prepare($sql);
+    $statement->bindParam(':id', $id);
+    $statement->execute();
+    $job = $statement->fetch();
+
+    if ($job) {
+      return new JobModel($job['id']);
+    } else {
+      DisplayAlert::displayError('job not found');
+      return null;
     }
   }
 
@@ -112,22 +131,7 @@ class JobModel extends _BaseModel
     return $jobModels;
   }
 
-  public static function getJobById($id): ?JobModel
-  {
-    $db = (new Database)->connectToDb();
 
-    $sql = 'SELECT * FROM job WHERE id = :id';
-    $statement = $db->prepare($sql);
-    $statement->bindParam(':id', $id);
-    $statement->execute();
-    $job = $statement->fetch();
-
-    if ($job) {
-      return new JobModel($job['id']);
-    } else {
-      return null;
-    }
-  }
 
   public function hasFreelancerCreatedProposal($freelancerId): bool
   {

@@ -4,7 +4,7 @@
 <!-------------------------------- intro -------------------------------------------------------->
 <div class="container">
     <h1 style="text-align:center; margin-top:25px;">
-        <?php echo $params['job']->getTitle(); ?>
+        <?php echo $job->getTitle(); ?>
     </h1>
 </div>
 <!-------------------------------- end intro -------------------------------------------------------->
@@ -73,7 +73,9 @@
         <div class="column" style="margin-bottom:5px;">
             <p class="center-text-on-small-screen" style="text-align:right;">
                 <b>Client:</b>
-                <?php echo $job->getClient()->getTitle(); ?>
+                <a href="/dashboard/freelancer/clients/id?clientId=<?php echo $job->getClient()->getId(); ?>">
+                    <?php echo $job->getClient()->getTitle(); ?>
+                </a>
             </p>
         </div>
     </div>
