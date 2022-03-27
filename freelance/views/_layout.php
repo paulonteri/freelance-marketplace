@@ -14,7 +14,6 @@
     <div class="topnav">
         <a href="/">Freelance marketplace</a>
         <a href="/freelancers">Freelancers</a>
-        <a href="/jobs">Jobs</a>
 
         <?php if ($isUserLoggedIn == true) { ?>
         <a href="/dashboard">Dashboard</a>
@@ -92,7 +91,6 @@
             <ul style="list-style: none;">
                 <li> <a href="/">Freelance marketplace</a> </li>
                 <li><a href="/freelancers">Freelancers</a></li>
-                <li><a href="/jobs">Jobs</a></li>
 
                 <?php if ($isUserLoggedIn == true) { ?>
                 <li> <a href="/dashboard">Dashboard</a> </li>

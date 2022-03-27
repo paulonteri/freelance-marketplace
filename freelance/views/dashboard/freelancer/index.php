@@ -7,10 +7,11 @@
             <h2>Freelancer</h2>
             <hr style="margin: 1rem 0;" />
             <h3>Jobs</h3>
-            <a href="/dashboard/freelancer/jobs">View jobs assigned to you &rarr; </a>
+            <p><a href="/dashboard/freelancer/jobs">All jobs &rarr; </a> </p>
+            <p><a href="/dashboard/freelancer/jobs/my-jobs">View jobs assigned to you &rarr; </a> </p>
             <hr style="margin: 1rem 0;" />
             <h3>Proposals</h3>
-            <a href="/dashboard/freelancer/proposals">View proposals given &rarr; </a>
+            <p><a href="/dashboard/freelancer/proposals">View proposals given &rarr; </a> </p>
         </div>
     </div>
 </div>

@@ -5,7 +5,6 @@ use app\Router;
 use app\Database;
 use app\controllers\IndexController;
 use app\controllers\AuthController;
-use app\controllers\JobPostingsController;
 use app\controllers\FreelancerProfilesController;
 use app\controllers\DashboardMainController;
 use app\controllers\DashboardFreelancerController;
@@ -28,10 +27,6 @@ $router->get('/register', [AuthController::class, 'register']);
 $router->post('/register', [AuthController::class, 'register']);
 $router->get('/logout', [AuthController::class, 'logout']);
 
-// JobPostingsController
-$router->get('/jobs', [JobPostingsController::class, 'index']);
-$router->get('/jobs/id', [JobPostingsController::class, 'detail']);
-$router->post('/jobs/id', [JobPostingsController::class, 'detail']);
 
 // FreelancerProfilesController
 $router->get('/freelancers', [FreelancerProfilesController::class, 'index']);
@@ -46,7 +41,10 @@ $router->get('/dashboard/freelancer/onboarding', [DashboardFreelancerController:
 $router->post('/dashboard/freelancer/onboarding', [DashboardFreelancerController::class, 'onboarding']);
 $router->get('/dashboard/freelancer/proposals', [DashboardFreelancerController::class, 'proposals']);
 $router->get('/dashboard/freelancer/jobs', [DashboardFreelancerController::class, 'jobs']);
+$router->get('/dashboard/freelancer/jobs/my-jobs', [DashboardFreelancerController::class, 'jobs']);
 $router->get('/dashboard/freelancer/jobs/id', [DashboardFreelancerController::class, 'jobId']);
+$router->get('/dashboard/freelancer/jobs/id/proposal', [DashboardFreelancerController::class, 'jobIdProposal']);
+$router->post('/dashboard/freelancer/jobs/id/proposal', [DashboardFreelancerController::class, 'jobIdProposal']);
 
 // DashboardClientController
 $router->get('/dashboard/client', [DashboardClientController::class, 'index']);

@@ -2,11 +2,13 @@
 
 namespace app\controllers;
 
-use app\models\SkillModel;
+use PDOException;
 use app\Router;
+use app\models\SkillModel;
 use app\models\UserModel;
 use app\models\FreelancerModel;
-use PDOException;
+use app\models\JobModel;
+use app\models\JobProposalModel;
 
 
 class DashboardFreelancerController extends _BaseController
@@ -111,12 +113,124 @@ class DashboardFreelancerController extends _BaseController
     public static function jobs(Router $router)
     {
         DashboardFreelancerController::requireUserIsFreelancer($router);
-        $router->renderView(self::$basePath . 'jobs/index');
+        $data = [
+            'jobs' => JobModel::getAll()
+        ];
+        $router->renderView(self::$basePath . 'jobs/index', $data);
     }
 
     public static function jobId(Router $router)
     {
         DashboardFreelancerController::requireUserIsFreelancer($router);
-        $router->renderView(self::$basePath . 'jobs/id');
+
+        $data = [
+            'pageTitle' => "Job Details",
+        ];
+        $errors = array();
+
+        if (isset($_GET['jobId'])) {
+            $data['id'] = $_GET['jobId'];
+            $job = JobModel::getJobById($data['id']);
+
+            if ($job == null) {
+                $errors = ['Job not found.'];
+            } else {
+                $data['job'] = $job;
+                $data['pageTitle'] = "Job " . $job->getTitle();
+            }
+        } else {
+            $errors = ['Job id not found.'];
+        }
+
+
+        $router->renderView(self::$basePath . 'jobs/id/index',  $data, null, $errors);
+    }
+
+    public static function jobIdProposal(Router $router)
+    {
+        DashboardFreelancerController::requireUserIsFreelancer($router);
+
+        $data = [
+            'pageTitle' => "Job Details",
+            'jobId' => '',
+            'title' => '',
+            'description' => '',
+            'titleError' => '',
+            'descriptionError' => '',
+        ];
+        $errors = array();
+
+        // Check for post
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize post data (prevent XSS)
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $user = UserModel::getCurrentUser();
+
+            $data['title'] = trim($_POST['title']);
+            $data['description'] = trim($_POST['description']);
+            $data['jobId'] = trim($_POST['jobId']);
+
+            // TODO: validate user
+
+            // validate title
+            if (empty($data['title'])) {
+                $data['titleError'] = 'Required.';
+            } elseif (strlen($data['title']) < 4) {
+                $data['titleError'] = 'Too short';
+            } elseif (strlen($data['title']) > 100) {
+                $data['titleError'] = 'Too long';
+            }
+
+            // validate description
+            if (empty($data['description'])) {
+                $data['descriptionError'] = 'Required.';
+            } elseif (strlen($data['description']) < 10) {
+                $data['descriptionError'] = 'Too short';
+            } elseif (strlen($data['description']) > 1000) {
+                $data['descriptionError'] = 'Too long';
+            }
+
+            // Check if all errors are empty
+            if (
+                empty($data['titleError'])
+                && empty($data['descriptionError'])
+            ) {
+
+                $proposal = JobProposalModel::create(
+                    $data['jobId'],
+                    $user->getFreelancer()->getId(),
+                    $data['title'],
+                    $data['description'],
+                );
+
+                if (!$proposal) {
+                    $errors = array('Something went wrong. Please try again.',);
+                } else {
+                    $data['title'] = '';
+                    $data['description'] = '';
+                    $router->renderView(self::$basePath . 'jobs/id/proposal', $data, "Proposal received successfully!");
+                    return;
+                }
+            }
+        } else {
+
+
+
+            if (isset($_GET['jobId'])) {
+                $data['id'] = $_GET['jobId'];
+                $job = JobModel::getJobById($data['id']);
+
+                if ($job == null) {
+                    $errors = ['Job not found.'];
+                } else {
+                    $data['job'] = $job;
+                    $data['pageTitle'] = "Job " . $job->getTitle();
+                }
+            } else {
+                $errors = ['Job id not found.'];
+            }
+        }
+
+        $router->renderView(self::$basePath . 'jobs/id/proposal',  $data, null, $errors);
     }
 }
