@@ -95,7 +95,7 @@ class JobModel extends _BaseModel
     }
   }
 
-  public static function getAll()
+  public static function getAll(): array
   {
     $db = (new Database)->connectToDb();
 
@@ -112,7 +112,7 @@ class JobModel extends _BaseModel
     return $jobModels;
   }
 
-  public static function getJobById($id)
+  public static function getJobById($id): ?JobModel
   {
     $db = (new Database)->connectToDb();
 
@@ -129,8 +129,33 @@ class JobModel extends _BaseModel
     }
   }
 
+  public function hasFreelancerCreatedProposal($freelancerId): bool
+  {
+    $sql = 'SELECT * FROM job_proposal WHERE freelancer_id = :freelancer_id AND job_id = :job_id';
+    $statement = $this->db->prepare($sql);
+    $statement->bindParam(':freelancer_id', $freelancerId);
+    $statement->bindParam(':job_id', $this->id);
+    $statement->execute();
+    $proposal = $statement->fetch();
 
+    if ($proposal) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
+  // todo:
+  public function isJobCreatedByUser($userId): bool
+  {
+    return false;
+  }
+
+  // todo:
+  public function hasJobStarted(): bool
+  {
+    return false;
+  }
 
   public function getId(): int
   {

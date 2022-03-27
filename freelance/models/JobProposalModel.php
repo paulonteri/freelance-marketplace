@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\Database;
+use app\utils\DisplayAlert;
 
 class JobProposalModel extends _BaseModel
 {
@@ -23,20 +24,43 @@ class JobProposalModel extends _BaseModel
         int $freelancer_id,
         string $title,
         string $description,
-    ): JobProposalModel {
-        $db = (new Database)->connectToDb();
+    ): ?JobProposalModel {
 
-        $sql = 'INSERT INTO job_proposal (job_id, freelancer_id, title, description) VALUES (:job_id, :freelancer_id, :title, :description)';
-        $statement = $db->prepare($sql);
-        $statement->bindParam(':job_id', $job_id);
-        $statement->bindParam(':freelancer_id', $freelancer_id);
-        $statement->bindParam(':title', $title);
-        $statement->bindParam(':description', $description);
-        $statement->execute();
+        $job = new JobModel($job_id);
+        $freelancer = new FreelancerModel($freelancer_id);
 
-        $id = $db->lastInsertId();
+        if (isset($job) && $job->getIsActive()) {
 
-        return new JobProposalModel($id);
+            if ($job->isJobCreatedByUser($freelancer->getUserId())) {
+                DisplayAlert::displayError('Client cannot create a proposal for own job.');
+                return null;
+            }
+            if ($job->hasFreelancerCreatedProposal($freelancer_id)) {
+                DisplayAlert::displayError('Freelancer already created a proposal for this job.');
+                return null;
+            }
+            if ($job->hasJobStarted()) {
+                DisplayAlert::displayError('This job has already started.');
+                return null;
+            }
+
+            $db = (new Database)->connectToDb();
+
+            $sql = 'INSERT INTO job_proposal (job_id, freelancer_id, title, description) VALUES (:job_id, :freelancer_id, :title, :description)';
+            $statement = $db->prepare($sql);
+            $statement->bindParam(':job_id', $job_id);
+            $statement->bindParam(':freelancer_id', $freelancer_id);
+            $statement->bindParam(':title', $title);
+            $statement->bindParam(':description', $description);
+            $statement->execute();
+
+            $id = $db->lastInsertId();
+
+            return new JobProposalModel($id);
+        } else {
+            DisplayAlert::displayError('Job not found.');
+            return null;
+        }
     }
 
 
