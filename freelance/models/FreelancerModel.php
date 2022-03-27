@@ -4,6 +4,7 @@ namespace app\models;
 
 use PDOException;
 use app\Database;
+use app\utils\DisplayAlert;
 
 class FreelancerModel extends _BaseModel
 {
@@ -37,6 +38,24 @@ class FreelancerModel extends _BaseModel
             $this->years_of_experience = $freelancer_s['years_of_experience'];
             $this->time_created = $freelancer_s['time_created'];
             $this->is_active = $freelancer_s['is_active'];
+        }
+    }
+
+    public static function tryGetById($freelancerId): ?FreelancerModel
+    {
+        $db = (new Database)->connectToDb();
+
+        $sql = 'SELECT * FROM freelancer WHERE id = :id';
+        $statement = $db->prepare($sql);
+        $statement->bindParam(':id', $freelancerId);
+        $statement->execute();
+        $freelancer = $statement->fetch();
+
+        if ($freelancer) {
+            return new FreelancerModel($freelancerId);
+        } else {
+            DisplayAlert::displayError('Freelancer not found');
+            return null;
         }
     }
 
@@ -145,7 +164,7 @@ class FreelancerModel extends _BaseModel
 
         $sql = 'SELECT skill_id FROM freelancer_skill WHERE freelancer_id = :id';
         $statement = $this->db->prepare($sql);
-        $statement->bindParam(':id', $id);
+        $statement->bindParam(':id', $this->id);
         $statement->execute();
         $freelancer_skills = $statement->fetchAll();
         foreach ($freelancer_skills as $freelancer_skill) {

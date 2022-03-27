@@ -22,6 +22,26 @@ class FreelancerProfilesController extends _BaseController
     public static function detail(Router $router)
     {
         FreelancerProfilesController::requireUserIsLoggedIn($router);
-        $router->renderView(self::$basePath . 'id');
+
+
+        $data = [
+            'pageTitle' => "Freelancer Details",
+
+        ];
+        $errors = array();
+
+        if (isset($_GET['freelancerId'])) {
+            $data['id'] = $_GET['freelancerId'];
+            $freelancer = FreelancerModel::tryGetById($data['id']);
+
+            if ($freelancer != null) {
+                $data['freelancer'] = $freelancer;
+                $data['pageTitle'] = "Freelancer " . $freelancer->getTitle();
+            }
+        } else {
+            $errors = ['Freelancer id not found.'];
+        }
+
+        $router->renderView(self::$basePath . 'id', $data, null, $errors);
     }
 }
