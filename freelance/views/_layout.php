@@ -10,6 +10,23 @@
 <body>
 
 
+    <!----------------------------- alert -------------------------------------------------------->
+    <?php if ($alert != null) {
+        \app\utils\DisplayAlert::displayAlert($alert);
+    }
+    ?>
+    <!----------------------------- end alert -------------------------------------------------------->
+
+    <!----------------------------- errors -------------------------------------------------------->
+    <?php
+    if ($errors != null) {
+        foreach ($errors as $error) {
+            \app\utils\DisplayAlert::displayError($error);
+        }
+    }
+    ?>
+    <!----------------------------- end errors -------------------------------------------------------->
+
     <!----------------------------- navbar -------------------------------------------------------->
     <div class="topnav">
         <a href="/">Freelance marketplace</a>
@@ -28,33 +45,6 @@
     </div>
     <!----------------------------- end navbar -------------------------------------------------------->
 
-
-    <!----------------------------- alert -------------------------------------------------------->
-    <?php if ($alert != null) { ?>
-    <div class="alert">
-        <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <?php echo $alert; ?>
-    </div>
-    <?php } ?>
-    <!----------------------------- end alert -------------------------------------------------------->
-
-    <!----------------------------- errors -------------------------------------------------------->
-
-    <?php
-    if ($errors != null) {
-        foreach ($errors as $error) {
-
-    ?>
-    <div class="alert danger">
-        <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <?php echo $error; ?>
-    </div>
-    <?php
-        }
-    }
-    ?>
-
-    <!----------------------------- end errors -------------------------------------------------------->
 
     <!-- <pre> -->
     <!-- <?php var_dump($_GET); ?> -->
