@@ -10,10 +10,10 @@ class AdminController extends _BaseController
 {
     private static string $basePath = 'admin/';
 
-    public static function quotes(Router $router)
+    public static function proposals(Router $router)
     {
         AdminController::requireUserIsAdmin($router);
-        $router->renderView(self::$basePath . 'quotes');
+        $router->renderView(self::$basePath . 'proposals');
     }
 
     public static function jobs(Router $router)

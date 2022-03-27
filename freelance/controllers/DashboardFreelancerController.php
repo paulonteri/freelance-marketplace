@@ -102,10 +102,10 @@ class DashboardFreelancerController extends _BaseController
         $router->renderView(self::$basePath . 'onboarding', $data);
     }
 
-    public static function quotes(Router $router)
+    public static function proposals(Router $router)
     {
         DashboardFreelancerController::requireUserIsFreelancer($router);
-        $router->renderView(self::$basePath . 'quotes');
+        $router->renderView(self::$basePath . 'proposals');
     }
 
     public static function jobs(Router $router)

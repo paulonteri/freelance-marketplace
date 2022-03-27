@@ -9,8 +9,8 @@
             <h3>Jobs</h3>
             <a href="/dashboard/freelancer/jobs">View jobs assigned to you &rarr; </a>
             <hr style="margin: 1rem 0;" />
-            <h3>Quotes</h3>
-            <a href="/dashboard/freelancer/quotes">View quotes given &rarr; </a>
+            <h3>Proposals</h3>
+            <a href="/dashboard/freelancer/proposals">View proposals given &rarr; </a>
         </div>
     </div>
 </div>

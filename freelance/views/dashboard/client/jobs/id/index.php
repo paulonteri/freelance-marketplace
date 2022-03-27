@@ -35,8 +35,8 @@
     </div>
 
     <hr />
-    <h2>Quotes</h2>
-    <a href="/dashboard/client/jobs/id/quotes">View quotes received &rarr; </a>
+    <h2>Proposals</h2>
+    <a href="/dashboard/client/jobs/id/proposals">View proposals received &rarr; </a>
 
     <hr />
     <h2>Submissions</h2>

@@ -44,7 +44,7 @@ $router->get('/dashboard', [DashboardMainController::class, 'index']);
 $router->get('/dashboard/freelancer', [DashboardFreelancerController::class, 'index']);
 $router->get('/dashboard/freelancer/onboarding', [DashboardFreelancerController::class, 'onboarding']);
 $router->post('/dashboard/freelancer/onboarding', [DashboardFreelancerController::class, 'onboarding']);
-$router->get('/dashboard/freelancer/quotes', [DashboardFreelancerController::class, 'quotes']);
+$router->get('/dashboard/freelancer/proposals', [DashboardFreelancerController::class, 'proposals']);
 $router->get('/dashboard/freelancer/jobs', [DashboardFreelancerController::class, 'jobs']);
 $router->get('/dashboard/freelancer/jobs/id', [DashboardFreelancerController::class, 'jobId']);
 
@@ -57,11 +57,11 @@ $router->get('/dashboard/client/jobs/create', [DashboardClientController::class,
 $router->post('/dashboard/client/jobs/create', [DashboardClientController::class, 'jobCreate']);
 $router->get('/dashboard/client/jobs/id', [DashboardClientController::class, 'jobId']); // shows job details
 // $router->get('/dashboard/client/jobs/id/pay', [DashboardClientController::class, 'jobId']);
-$router->get('/dashboard/client/jobs/id/quotes', [DashboardClientController::class, 'jobQuotes']);
+$router->get('/dashboard/client/jobs/id/proposals', [DashboardClientController::class, 'jobProposals']);
 $router->get('/dashboard/client/jobs/id/review-and-complete', [DashboardClientController::class, 'jobReviewAndComplete']);
 
 // AdminController
-$router->get('/admin/quotes', [AdminController::class, 'quotes']);
+$router->get('/admin/proposals', [AdminController::class, 'proposals']);
 $router->get('/admin/jobs', [AdminController::class, 'jobs']);
 $router->get('/admin/skills/create', [AdminController::class, 'skillsCreate']);
 $router->post('/admin/skills/create', [AdminController::class, 'skillsCreate']);

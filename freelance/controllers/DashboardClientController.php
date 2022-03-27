@@ -239,10 +239,10 @@ class DashboardClientController extends _BaseController
         $router->renderView(self::$basePath . 'jobs/create', $data);
     }
 
-    public static function jobQuotes(Router $router)
+    public static function jobProposals(Router $router)
     {
         DashboardClientController::requireUserIsClient($router);
-        $router->renderView(self::$basePath . 'jobs/id/quotes');
+        $router->renderView(self::$basePath . 'jobs/id/proposals');
     }
 
     public static function jobReviewAndComplete(Router $router)

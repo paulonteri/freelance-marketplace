@@ -1,3 +1,3 @@
 <?php
 
-echo "Admin quotes" ;
+echo "Admin proposals";
