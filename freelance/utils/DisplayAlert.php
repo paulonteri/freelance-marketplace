@@ -17,9 +17,11 @@ class DisplayAlert
 
     public static function displayError($error)
     {
-        echo "<div class='alert danger'>
-                <span class='alert-closebtn' onclick='this.parentElement.style.display='none';'>&times;</span>
-                $error
-            </div>";
+        if ($error != null) {
+            echo '<div class="alert danger">';
+            echo '<span class="alert-closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>';
+            echo $error;
+            echo '</div>';
+        }
     }
 }
