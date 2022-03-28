@@ -237,4 +237,22 @@ class JobModel extends _BaseModel
 
     return $skills;
   }
+
+  public static function getFreelancerJobs($freelancerId)
+  {
+    $db = (new Database)->connectToDb();
+
+    $sql = 'SELECT * FROM job WHERE id IN (SELECT job_id FROM job_proposal WHERE freelancer_id = :freelancer_id)';
+    $statement = $db->prepare($sql);
+    $statement->bindParam(':freelancer_id', $freelancerId);
+    $statement->execute();
+    $jobs = $statement->fetchAll();
+
+    $jobModels = [];
+    foreach ($jobs as $job) {
+      $jobModels[] = new JobModel($job['id']);
+    }
+
+    return $jobModels;
+  }
 }

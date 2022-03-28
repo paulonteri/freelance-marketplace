@@ -120,6 +120,18 @@ class DashboardFreelancerController extends _BaseController
         $router->renderView(self::$basePath . 'jobs/index', $data);
     }
 
+    public static function myJobs(Router $router)
+    {
+        DashboardFreelancerController::requireUserIsFreelancer($router);
+        $freelancer = UserModel::getCurrentUser()->getFreelancer();
+        $data = [
+            'pageTitle' => 'My Jobs',
+            'pageSubTitle' => 'Jobs you submitted quotes to',
+            'jobs' => JobModel::getFreelancerJobs($freelancer->getId())
+        ];
+        $router->renderView(self::$basePath . 'jobs/index', $data);
+    }
+
     public static function jobId(Router $router)
     {
         DashboardFreelancerController::requireUserIsFreelancer($router);
