@@ -131,8 +131,6 @@ class JobModel extends _BaseModel
     return $jobModels;
   }
 
-
-
   public function hasFreelancerCreatedProposal($freelancerId): bool
   {
     $sql = 'SELECT * FROM job_proposal WHERE freelancer_id = :freelancer_id AND job_id = :job_id';

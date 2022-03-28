@@ -108,7 +108,11 @@ class DashboardFreelancerController extends _BaseController
     public static function proposals(Router $router)
     {
         DashboardFreelancerController::requireUserIsFreelancer($router);
-        $router->renderView(self::$basePath . 'proposals');
+        $freelancer = UserModel::getCurrentUser()->getFreelancer();
+        $data = [
+            'jobProposals' =>  JobProposalModel::getProposalsByFreelancer($freelancer->getId()) // JobModel::getFreelancerJobs($freelancer->getId())
+        ];
+        $router->renderView(self::$basePath . 'jobs/proposals', $data);
     }
 
     public static function jobs(Router $router)
