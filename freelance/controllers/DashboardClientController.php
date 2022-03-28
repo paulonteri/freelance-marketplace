@@ -93,13 +93,36 @@ class DashboardClientController extends _BaseController
     public static function jobs(Router $router)
     {
         DashboardClientController::requireUserIsClient($router);
-        $router->renderView(self::$basePath . 'jobs/index');
+        $client = UserModel::getCurrentUser()->getClient();
+        $data = [
+            'jobs' => JobModel::getClientJobs($client->getId()),
+        ];
+        $router->renderView(self::$basePath . 'jobs/index', $data);
     }
 
     public static function jobId(Router $router)
     {
         DashboardClientController::requireUserIsClient($router);
-        $router->renderView(self::$basePath . 'jobs/id/index');
+        $data = [
+            'pageTitle' => "Job Details",
+        ];
+        $errors = array();
+
+        if (isset($_GET['jobId'])) {
+            $data['id'] = $_GET['jobId'];
+            $job = JobModel::tryGetById($data['id']);
+
+            if ($job == null || $job->getClientId() != UserModel::getCurrentUser()->getClient()->getId()) {
+                $errors = ['Job not found.'];
+            } else {
+                $data['job'] = $job;
+                $data['pageTitle'] = "Job " . $job->getTitle();
+            }
+        } else {
+            $errors = ['Job id not found.'];
+        }
+
+        $router->renderView(self::$basePath . 'jobs/id/index', $data, null, $errors);
     }
 
     public static function jobCreate(Router $router)

@@ -22,7 +22,7 @@ class JobModel extends _BaseModel
   private string $time_created;
   private int $is_active;
 
-  public function __construct($id = null)
+  public function __construct(?int $id = null)
   {
     $this->db = $this->connectToDb();
 
@@ -48,7 +48,7 @@ class JobModel extends _BaseModel
     }
   }
 
-  public static function tryGetById($id): ?JobModel
+  public static function tryGetById(int $id): ?JobModel
   {
     $db = (new Database)->connectToDb();
 
@@ -131,7 +131,7 @@ class JobModel extends _BaseModel
     return $jobModels;
   }
 
-  public function hasFreelancerCreatedProposal($freelancerId): bool
+  public function hasFreelancerCreatedProposal(int $freelancerId): bool
   {
     $sql = 'SELECT * FROM job_proposal WHERE freelancer_id = :freelancer_id AND job_id = :job_id';
     $statement = $this->db->prepare($sql);
@@ -236,7 +236,25 @@ class JobModel extends _BaseModel
     return $skills;
   }
 
-  public static function getFreelancerJobs($freelancerId)
+  public static function getClientJobs(int $clientId): array
+  {
+    $db = (new Database)->connectToDb();
+
+    $sql = 'SELECT * FROM job WHERE client_id = :client_id';
+    $statement = $db->prepare($sql);
+    $statement->bindParam(':client_id', $clientId);
+    $statement->execute();
+    $jobs = $statement->fetchAll();
+
+    $jobModels = [];
+    foreach ($jobs as $job) {
+      $jobModels[] = new JobModel($job['id']);
+    }
+
+    return $jobModels;
+  }
+
+  public static function getFreelancerJobs(int $freelancerId): array
   {
     $db = (new Database)->connectToDb();
 
