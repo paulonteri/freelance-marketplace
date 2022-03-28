@@ -33,6 +33,22 @@ body {
 
 /* ------------------- end navbar ------------------------- */
 
+.dashboard-freelancer-header {
+    background-color: #055b7b;
+}
+
+.dashboard-client-header {
+    background-color: #27383e;
+}
+
+.dashboard-client-header-text {
+    text-align: right;
+    font-size: small;
+    color: white;
+    /* margin-right: 10px; */
+    padding: 5px 10px;
+}
+
 /* ------------------- simple utilities ------------------------- */
 
 .rounded-corners {

@@ -45,10 +45,25 @@
     </div>
     <!----------------------------- end navbar -------------------------------------------------------->
 
+    <!----------------------------- info bar -------------------------------------------------------->
+    <?php
+    if (str_starts_with($_SERVER['REQUEST_URI'], '/dashboard/freelancer')) {
+        echo '<div class="dashboard-freelancer-header">';
+        echo '<p class="dashboard-client-header-text">Freelancer dashboard</p>';
+        echo '</div>';
+    }
+    if (str_starts_with($_SERVER['REQUEST_URI'], '/dashboard/client')) {
+        echo '<div class="dashboard-client-header">';
+        echo '<p class="dashboard-client-header-text">Client dashboard</p>';
+        echo '</div>';
+    }
+    ?>
+    <!----------------------------- end info bar -------------------------------------------------------->
 
-    <!-- <pre> -->
-    <!-- <?php var_dump($_GET); ?> -->
-    <!-- </pre> -->
+
+    <!-- <pre>
+    <?php var_dump($_GET); ?>
+    </pre> -->
 
     <!-- <pre>
     <?php var_dump($_POST); ?>
@@ -64,6 +79,11 @@
 
     <!-- <pre>
         <?php var_dump($_FILES); ?>
+    </pre> -->
+
+    <!-- <pre>
+        $_SERVER
+        <?php var_dump($_SERVER); ?>
     </pre> -->
 
     <!----------------------------- main content -------------------------------------------------------->
