@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 24, 2022 at 09:33 AM
+-- Generation Time: Mar 29, 2022 at 10:57 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -36,6 +36,7 @@ CREATE TABLE `client` (
   `image` varchar(255) DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
+  `type` enum('individual','company') NOT NULL DEFAULT 'company',
   `time_created` datetime NOT NULL DEFAULT current_timestamp(),
   `is_active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

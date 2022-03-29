@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 24, 2022 at 09:36 AM
+-- Generation Time: Mar 29, 2022 at 10:57 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -27,9 +27,9 @@ USE `freelance`;
 -- Dumping data for table `client`
 --
 
-INSERT INTO `client` (`id`, `user_id`, `image`, `title`, `description`, `time_created`, `is_active`) VALUES
-(2, 11, '/uploads/ClientImageTueMar2220227:05amazon.png', 'Nakuru Mattress', 'A homegrown supermarket established in 2006 with our first branch in Nakuru town. We\'ve later grown and so far have a total of 46 branches in 12 counties across Kenya.\n\nWe pride ourselves with delivering an exceptional customer experience every time while providing our shopper with variety of goods at an affordable price!\n\nVisit any of our branches today and enjoy delectable pastries from our Bakery, sumptuous meals at our Deli, fresh cuts at the Butchery and so much more!\n\nUnique Value Proposition:\n\nFresh & Easy. Price Guarantee!', '2022-03-22 07:05:12', 1),
-(3, 13, '/uploads/ClientImageTueMar2220229:371628513616264.jpeg', 'Ut mollitia excepteu', 'Est facilis maxime a', '2022-03-22 09:06:43', 1);
+INSERT INTO `client` (`id`, `user_id`, `image`, `title`, `description`, `type`, `time_created`, `is_active`) VALUES
+(2, 11, '/uploads/ClientImageTueMar2220227:05amazon.png', 'Nakuru Mattress', 'A homegrown supermarket established in 2006 with our first branch in Nakuru town. We\'ve later grown and so far have a total of 46 branches in 12 counties across Kenya.\n\nWe pride ourselves with delivering an exceptional customer experience every time while providing our shopper with variety of goods at an affordable price!\n\nVisit any of our branches today and enjoy delectable pastries from our Bakery, sumptuous meals at our Deli, fresh cuts at the Butchery and so much more!\n\nUnique Value Proposition:\n\nFresh & Easy. Price Guarantee!', 'company', '2022-03-22 07:05:12', 1),
+(3, 13, '/uploads/ClientImageTueMar2220229:371628513616264.jpeg', 'Ut mollitia excepteu', 'Est facilis maxime a', 'company', '2022-03-22 09:06:43', 1);
 
 --
 -- Dumping data for table `freelancer`
@@ -65,7 +65,8 @@ INSERT INTO `job` (`id`, `client_id`, `title`, `description`, `image`, `pay_rate
 --
 
 INSERT INTO `job_proposal` (`id`, `status`, `title`, `description`, `job_id`, `freelancer_id`, `client_comment`, `time_work_starts`, `time_work_ends`, `time_created`, `is_active`) VALUES
-(1, 'sent', 'Sunt nulla non accu', 'Nemo doloribus volup', 6, 10, NULL, NULL, NULL, '2022-03-24 08:36:04', 1);
+(1, 'sent', 'Sunt nulla non accu', 'Nemo doloribus volup', 6, 10, NULL, NULL, NULL, '2022-03-24 08:36:04', 1),
+(2, 'sent', 'Omnis ullamco cillum', 'Et non quidem quos e', 5, 10, NULL, NULL, NULL, '2022-03-27 11:17:58', 1);
 
 --
 -- Dumping data for table `job_skill`

@@ -28,6 +28,7 @@ class DashboardClientController extends _BaseController
         $data = [
             'title' => '',
             'description' => '',
+            'type' => '',
             'imageError' => '',
             'titleError' => '',
             'descriptionError' => '',
@@ -41,6 +42,7 @@ class DashboardClientController extends _BaseController
 
             $data['title'] = trim($_POST['title']);
             $data['description'] = trim($_POST['description']);
+            $data['type'] = trim($_POST['type']);
 
             // validate title
             if (empty($data['title'])) {
@@ -76,7 +78,8 @@ class DashboardClientController extends _BaseController
                     $data['title'],
                     $data['description'],
                     $user->getId(),
-                    $imagePath
+                    $imagePath,
+                    $data['type'],
                 );
 
                 if (!$isCreated) {

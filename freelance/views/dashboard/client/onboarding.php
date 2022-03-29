@@ -23,6 +23,19 @@
                 <?php echo $params["descriptionError"]; ?>
             </span>
 
+            <label for="type">Type</label>
+            <select required name="type" id="type">
+                <option value="individual">
+                    Individual
+                </option>
+                <option value="company">
+                    Company
+                </option>
+            </select>
+            <span class="invalidFeedback">
+                <?php echo $params["typeError"]; ?>
+            </span>
+
             <hr style="margin: 1rem 0;" />
 
             <input class="button-primary" type="submit" value="Submit">

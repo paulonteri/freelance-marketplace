@@ -13,7 +13,8 @@ class ClientModel extends _BaseModel
     private string $title;
     private string $description;
     private int $user_id;
-    private $image;
+    private string $image;
+    private string $type;
     private $time_created;
     private int $is_active;
 
@@ -34,6 +35,7 @@ class ClientModel extends _BaseModel
             $this->description = $client['description'];
             $this->user_id = $client['user_id'];
             $this->image = $client['image'];
+            $this->type = $client['type'];
             $this->time_created = $client['time_created'];
             $this->is_active = $client['is_active'];
         }
@@ -61,16 +63,18 @@ class ClientModel extends _BaseModel
         string $title,
         string $description,
         int $user_id,
-        string $image
+        string $image,
+        string $type
     ): ClientModel {
         $db = (new Database)->connectToDb();
 
-        $sql = 'INSERT INTO client (title, description, user_id, image) VALUES (:title, :description, :user_id, :image)';
+        $sql = 'INSERT INTO client (title, description, user_id, image, type) VALUES (:title, :description, :user_id, :image, :type)';
         $statement = $db->prepare($sql);
         $statement->bindParam(':title', $title);
         $statement->bindParam(':description', $description);
         $statement->bindParam(':user_id', $user_id);
         $statement->bindParam(':image', $image);
+        $statement->bindParam(':type', $type);
         $statement->execute();
 
         return new ClientModel($db->lastInsertId());
@@ -98,6 +102,11 @@ class ClientModel extends _BaseModel
     public function getImage(): mixed
     {
         return $this->image;
+    }
+
+    public function getType(): mixed
+    {
+        return $this->type;
     }
 
     public function getTimeCreated(): mixed

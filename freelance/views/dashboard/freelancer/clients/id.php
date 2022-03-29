@@ -16,8 +16,10 @@
         Client Details
     </h2>
     <hr style="margin: 1rem 0;" />
+    <p><b>Type:</b> <?php echo $client->getType(); ?></p>
+    <hr style="margin: 1rem 0;" />
     <div class="row">
-        <p style="text-align:left; margin:auto 0px;">
+        <p style="text-align:left;">
             <?php echo $client->getDescription(); ?>
         </p>
     </div>
