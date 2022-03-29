@@ -30,9 +30,10 @@
     <!----------------------------- navbar -------------------------------------------------------->
     <div class="topnav">
         <a href="/">Marketplace</a>
-
         <?php if ($isUserLoggedIn == true) { ?>
         <a href="/logout" style="float:right;">Logout</a>
+        <?php } else { ?>
+        <a href="/login" style="float:right;">Login</a>
         <?php } ?>
 
     </div>
@@ -59,7 +60,22 @@
         <div class="mainNav">
             <hr />
             <a href="/dashboard">Dashboard</a>
+
+            <?php if (\app\models\UserModel::getCurrentUser()->isClient()) { ?>
+            <hr />
+            <a href="/dashboard/client">Client dashboard</a>
             <a href="/freelancers">Freelancers</a>
+            <a class="inner-menu" href="/dashboard/client/jobs">Your jobs</a>
+            <a class="inner-menu" href="/dashboard/client/jobs/create">Post job</a>
+            <?php } ?>
+
+            <?php if (\app\models\UserModel::getCurrentUser()->isFreelancer()) { ?>
+            <hr />
+            <a href="/dashboard/freelancer">Freelancer dashboard</a>
+            <a class="inner-menu" href="/dashboard/freelancer/jobs">All jobs</a>
+            <a class="inner-menu" href="/dashboard/freelancer/jobs/proposals">Proposals</a>
+            <?php } ?>
+
             <hr />
             <a href="/logout">Logout</a>
             <hr />

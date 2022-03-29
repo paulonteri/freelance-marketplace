@@ -64,6 +64,11 @@ body {
     text-align: left;
 }
 
+#leftMenu .inner-menu {
+    margin-left: 10px;
+    font-size: smaller;
+}
+
 #leftMenu .btn-area {
     position: absolute;
     top: 0;
