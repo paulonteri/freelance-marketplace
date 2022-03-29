@@ -1,4 +1,16 @@
-// --------------------------- utility functions ---------------------------
+// ----------------------------------- left menu -----------------------------------
+
+function openLeftMenuBtn() {
+    document.getElementById("leftMenu").style.width = "200px";
+}
+
+function closeLeftMenuBtn() {
+    document.getElementById("leftMenu").style.width = "0";
+}
+
+// ----------------------------------- left menu end -----------------------------------
+
+// ----------------------------------- utility functions -----------------------------------
 
 function formatDateToHumanCalendar(dateString) {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
@@ -8,3 +20,5 @@ function formatDateToHumanCalendar(dateString) {
     });
     document.write(date);
 }
+
+// ----------------------------------- utility functions end -----------------------------------

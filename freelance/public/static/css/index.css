@@ -33,6 +33,51 @@ body {
 
 /* ------------------- end navbar ------------------------- */
 
+/* ------------------- leftMenu ------------------------- */
+#leftMenu {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #ddd;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+#leftMenu .mainNav {
+    margin-top: 10px;
+}
+
+#leftMenu .mainNav a {
+    margin-bottom: 10px;
+}
+
+#leftMenu a {
+    padding: 8px 8px 8px 20px;
+    text-decoration: none;
+    color: #000;
+    display: block;
+    transition: 0.4s;
+    text-align: left;
+}
+
+#leftMenu .btn-area {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    font-size: 40px;
+}
+
+#leftMenu hr {
+    background-color: #000;
+    margin: 1rem 0;
+}
+/* ------------------- end leftMenu ------------------------- */
+
+/* ------------------- dashboard header ------------------------- */
 .dashboard-freelancer-header {
     background-color: #055b7b;
 }
@@ -47,7 +92,9 @@ body {
     color: white;
     /* margin-right: 10px; */
     padding: 5px 10px;
+    margin-bottom: 0;
 }
+/* ------------------- end dashboard header ------------------------- */
 
 /* ------------------- simple utilities ------------------------- */
 

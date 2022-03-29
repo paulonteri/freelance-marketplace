@@ -29,17 +29,10 @@
 
     <!----------------------------- navbar -------------------------------------------------------->
     <div class="topnav">
-        <a href="/">Freelance marketplace</a>
-        <a href="/freelancers">Freelancers</a>
+        <a href="/">Marketplace</a>
 
         <?php if ($isUserLoggedIn == true) { ?>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/logout">Logout</a>
-        <?php } ?>
-
-        <?php if ($isUserLoggedIn == false) { ?>
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>
+        <a href="/logout" style="float:right;">Logout</a>
         <?php } ?>
 
     </div>
@@ -60,6 +53,20 @@
     ?>
     <!----------------------------- end info bar -------------------------------------------------------->
 
+    <?php if ($isUserLoggedIn == true) { ?>
+    <div id="leftMenu">
+        <a href="javscript:void(0)" class="btn-area" onclick="closeLeftMenuBtn()">×</a>
+        <div class="mainNav">
+            <hr />
+            <a href="/dashboard">Dashboard</a>
+            <a href="/freelancers">Freelancers</a>
+            <hr />
+            <a href="/logout">Logout</a>
+            <hr />
+        </div>
+    </div>
+    <p onclick="openLeftMenuBtn()" style="text-align:left; font-size:xx-large; margin:0; color:black;">☰</p>
+    <?php } ?>
 
     <!-- <pre>
     <?php var_dump($_GET); ?>
@@ -87,10 +94,12 @@
     </pre> -->
 
     <!----------------------------- main content -------------------------------------------------------->
+
     <?php echo $content; ?>
     <!----------------------------- end main content -------------------------------------------------------->
 
 </body>
+
 
 <!-------------------------------- footer -------------------------------------------------------->
 <footer class="container" style="margin-top:50px;">
@@ -99,8 +108,7 @@
     <div class="row">
         <div class="column">
             <ul style="list-style: none;">
-                <li> <a href="/">Freelance marketplace</a> </li>
-                <li><a href="/freelancers">Freelancers</a></li>
+                <li> <a href="/">Marketplace</a> </li>
 
                 <?php if ($isUserLoggedIn == true) { ?>
                 <li> <a href="/dashboard">Dashboard</a> </li>
