@@ -42,12 +42,12 @@ class AuthController extends _BaseController
                 'passwordError' => '',
             ];
 
-            // validate email
+            // email
             if (empty($data['email'])) {
                 $data['emailError'] = 'Please enter a email.';
             }
 
-            // validate password
+            // password
             if (empty($data['password'])) {
                 $data['passwordError'] = 'Please enter a password.';
             }
@@ -119,50 +119,88 @@ class AuthController extends _BaseController
                 'imageError'  => '',
             ];
 
-            $nameValidation = '/^[a-zA-Z0-9]*$/';
-            $passwordValidation = '/^(.{0,7}|[^a-z]*|[^\d]*)$/i';
 
-            // validate username on letters/numbers
+            // username
+            $userNameValidation = '/^[a-zA-Z0-9]*$/';
             if (empty($data['username'])) {
                 $data['usernameError'] = 'Please enter username.';
-            } elseif (!preg_match($nameValidation, $data['username'])) {
+            } elseif (!preg_match($userNameValidation, $data['username'])) {
                 $data['usernameError'] = 'Name can only contain letters and numbers.';
             } elseif ($authModel->isUserNameRegistered($data['username'])) {
                 $data['usernameError'] = 'Username is already taken.';
             }
 
-            // validate email
+            // email
             if (empty($data['email'])) {
                 $data['emailError'] = 'Please enter email address.';
             } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
                 $data['emailError'] = 'Please enter the correct format.';
             } elseif ($authModel->isEmailRegistered($data['email'])) {
                 $data['emailError'] = 'Email is already taken.';
+            } elseif (strlen($data['email']) > 50) {
+                $data['emailError'] = 'Too long';
             }
 
-
-            // validate password on length, numeric values,
+            // password
             if (empty($data['password'])) {
-                $data['passwordError'] = 'Please enter password.';
-            } elseif (strlen($data['password']) < 6) {
-                $data['passwordError'] = 'Password must be at least 8 characters';
-            } elseif (preg_match($passwordValidation, $data['password'])) {
-                $data['passwordError'] = 'Password must be have at least one numeric value.';
+                $data['passwordError'] = 'Required';
+            } elseif (strlen($data['password']) < 8) {
+                $data['passwordError'] = 'Too short';
+            } elseif (strlen($data['password']) > 20) {
+                $data['passwordError'] = 'Too long';
+            } elseif (!preg_match("#[0-9]+#", $data['password'])) {
+                $data['passwordError'] = "Must Contain At Least 1 Number!";
+            } elseif (!preg_match("#[A-Z]+#", $data['password'])) {
+                $data['passwordError'] = "Must Contain At Least 1 Capital Letter!";
+            } elseif (!preg_match("#[a-z]+#", $data['password'])) {
+                $data['passwordError'] = "Must Contain At Least 1 Lowercase Letter!";
+            } elseif (!preg_match("#[\W]+#", $data['password'])) {
+                $data['passwordError'] = "Must Contain At Least 1 Special Character!";
             }
 
-            // validate confirm password
+            // confirm password
             if (empty($data['confirmPassword'])) {
-                $data['confirmPasswordError'] = 'Please enter password.';
+                $data['confirmPasswordError'] = 'Required';
             } else {
                 if ($data['password'] != $data['confirmPassword']) {
                     $data['confirmPasswordError'] = 'Passwords do not match, please try again.';
                 }
             }
 
-            // todo: validate names
-            // todo: validate phone
+            // first_name
+            if (empty($data['first_name'])) {
+                $data['first_nameError'] = 'Required';
+            } elseif (strlen($data['first_name']) < 2) {
+                $data['first_nameError'] = 'Too short';
+            } elseif (strlen($data['first_name']) > 20) {
+                $data['first_nameError'] = 'Too long';
+            }
 
-            // validate image
+            // last_name
+            if (empty($data['last_name'])) {
+                $data['last_nameError'] = 'Required';
+            } elseif (strlen($data['last_name']) < 2) {
+                $data['last_nameError'] = 'Too short';
+            } elseif (strlen($data['last_name']) > 20) {
+                $data['last_nameError'] = 'Too long';
+            }
+
+            // phone
+            if (empty($data['phone'])) {
+                $data['phoneError'] = 'Required';
+            } elseif (strlen($data['phone']) != 10) {
+                $data['phoneError'] = 'Invalid length';
+            } elseif (!preg_match("#[0-9]+#", $data['phone'])) {
+                $data['phoneError'] = "Must Contain At Least 1 Number!";
+            } elseif (preg_match("#[A-Z]+#", $data['phone'])) {
+                $data['phoneError'] = "Must Not Contain A Capital Letter!";
+            } elseif (preg_match("#[a-z]+#", $data['phone'])) {
+                $data['phoneError'] = "Must Not Contain A Lowercase Letter!";
+            } elseif (preg_match("#[\W]+#", $data['phone'])) {
+                $data['phoneError'] = "Must Not Contain A Special Character!";
+            }
+
+            // image
             if (empty($_FILES['image'])) {
                 $data['imageError'] = 'Please select image.';
             } else {

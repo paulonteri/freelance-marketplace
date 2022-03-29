@@ -19,5 +19,7 @@
 
             <input class="button-primary" type="submit" value="Login">
         </fieldset>
+        <p> Don't have an account? <a href="/register">Register</a> </p>
     </form>
+    <hr />
 </div>

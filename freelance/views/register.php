@@ -22,7 +22,8 @@
             </span>
 
             <label for="phone">Phone number</label>
-            <input type="text" required name="phone" id="phone" value="<?php echo $params["phone"]; ?>">
+            <input type="text" required name="phone" id="phone" value="<?php echo $params["phone"]; ?>"
+                placeholder="0703130589">
             <span class="invalidFeedback">
                 <?php echo $params["phoneError"]; ?>
             </span>
@@ -55,5 +56,7 @@
 
             <input class="button-primary" type="submit" value="Register">
         </fieldset>
+        <p> Already have an account? <a href="/login">Login</a> </p>
     </form>
+    <hr />
 </div>
