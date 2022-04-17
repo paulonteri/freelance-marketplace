@@ -149,6 +149,15 @@ class JobProposalModel extends _BaseModel
         return $this->is_active;
     }
 
+    public function getFreelancer()
+    {
+        if ($this->freelancer_id != null) {
+            return new FreelancerModel($this->freelancer_id);
+        } else {
+            return null;
+        }
+    }
+
     public static function getProposalsByFreelancer($freelancerId)
     {
         $db = (new Database)->connectToDb();
@@ -156,6 +165,23 @@ class JobProposalModel extends _BaseModel
         $sql = 'SELECT * FROM job_proposal WHERE freelancer_id = :freelancer_id';
         $statement = $db->prepare($sql);
         $statement->bindParam(':freelancer_id', $freelancerId);
+        $statement->execute();
+
+        $proposals = [];
+        while ($row = $statement->fetch()) {
+            $proposals[] = new JobProposalModel($row['id']);
+        }
+
+        return $proposals;
+    }
+
+    public static function getProposalsByJob($jobId)
+    {
+        $db = (new Database)->connectToDb();
+
+        $sql = 'SELECT * FROM job_proposal WHERE job_id = :job_id';
+        $statement = $db->prepare($sql);
+        $statement->bindParam(':job_id', $jobId);
         $statement->execute();
 
         $proposals = [];

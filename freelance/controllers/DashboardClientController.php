@@ -9,6 +9,7 @@ use app\models\UserModel;
 use app\models\ClientModel;
 use app\models\JobModel;
 use app\models\SkillModel;
+use app\models\JobProposalModel;
 
 class DashboardClientController extends _BaseController
 {
@@ -268,7 +269,15 @@ class DashboardClientController extends _BaseController
     public static function jobProposals(Router $router)
     {
         DashboardClientController::requireUserIsClient($router);
-        $router->renderView(self::$basePath . 'jobs/id/proposals');
+
+        $data = [
+            'proposals' => ''
+        ];
+
+        if (isset($_GET['jobId'])) {
+            $data['proposals'] = JobProposalModel::getProposalsByJob($_GET['jobId']);
+        }
+        $router->renderView(self::$basePath . 'jobs/id/proposals', $data);
     }
 
     public static function jobReviewAndComplete(Router $router)

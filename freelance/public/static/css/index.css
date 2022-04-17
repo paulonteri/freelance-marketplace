@@ -113,6 +113,10 @@ body {
     background-color: #f2f2f2;
 }
 
+.background-color-gray hr {
+    border-top: 1px solid lightgray !important;
+}
+
 .background-color-white {
     background-color: white;
 }
@@ -132,6 +136,11 @@ body {
     .float-right-on-large-screen {
         float: right !important;
     }
+}
+
+.button-red {
+    background-color: red;
+    border-color: red;
 }
 
 /* ------------------- end simple utilities ------------------------- */
