@@ -63,8 +63,8 @@
 
             <?php if (\app\models\UserModel::getCurrentUser()->isClient()) { ?>
             <hr />
-            <a href="/dashboard/client">Client dashboard</a>
             <a href="/freelancers">Freelancers</a>
+            <a href="/dashboard/client">Client dashboard</a>
             <a class="inner-menu" href="/dashboard/client/jobs">Your jobs</a>
             <a class="inner-menu" href="/dashboard/client/jobs/create">Post job</a>
             <?php } ?>

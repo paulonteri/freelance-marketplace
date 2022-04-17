@@ -11,7 +11,8 @@
 
 
 <!-------------------------------- job -------------------------------------------------------->
-<div class="container " style="padding-bottom:2px; padding-top:10px; margin-bottom:5px">
+<div class="container rounded-corners background-color-gray"
+    style="padding-bottom:2px; padding-top:10px; margin-bottom:5px">
     <h2 style="text-align:left; margin-top:25px;">
         Job: <?php echo $params['job']->getTitle(); ?>
     </h2>
@@ -27,7 +28,8 @@
 
 
 <!-------------------------------- give proposal -------------------------------------------------------->
-<div class="container " style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
+<div class="container rounded-corners background-color-gray"
+    style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
     <h2 style="text-align:left; margin-top:25px;">Submit proposal</h2>
     <hr style="margin: 1rem 0;" />
     <form action="/dashboard/freelancer/jobs/id/proposal?jobId=<?php echo $job->getId(); ?>" method="POST">

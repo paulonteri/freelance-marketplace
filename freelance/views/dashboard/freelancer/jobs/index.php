@@ -23,7 +23,8 @@
 
     <?php foreach ($params["jobs"] as $job) { ?>
     <!-------------------------------- job -------------------------------------------------------->
-    <div class="container rounded-corners" style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
+    <div class="container rounded-corners background-color-gray"
+        style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
         <div class="row" style="justify-content:space-between;">
             <div class="column">
                 <h3 style=" margin:auto 0px;" class="center-text-on-small-screen">

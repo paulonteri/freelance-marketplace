@@ -109,6 +109,14 @@ body {
     padding: 20px;
 }
 
+.background-color-gray {
+    background-color: #f2f2f2;
+}
+
+.background-color-white {
+    background-color: white;
+}
+
 @media (max-width: 40rem) {
     .center-self-on-screen {
         margin: auto !important;

@@ -11,7 +11,8 @@
 <!-------------------------------- end intro -------------------------------------------------------->
 
 <!-------------------------------- freelancer -------------------------------------------------------->
-<div class="container" style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
+<div class="container rounded-corners background-color-gray"
+    style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
 
     <!-- <h3 style=" margin:auto 0px; text-align:center" class="">Name </h3> -->
 
@@ -76,7 +77,7 @@
     </h2>
     <?php for ($x = 0; $x <= 5; $x++) { ?>
     <!-------------------------------- single review -------------------------------------------------------->
-    <div class="rounded-corners" style="margin-bottom:10px">
+    <div class="rounded-corners background-color-white" style="margin-bottom:10px">
         <div class="row " style="justify-content:space-between;">
             <div class="column">
                 <p style=" margin:auto 0px;" class="center-text-on-small-screen">User <?php echo $x; ?></p>

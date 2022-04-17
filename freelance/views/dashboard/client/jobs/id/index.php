@@ -11,7 +11,8 @@
 
 
 <!-------------------------------- job -------------------------------------------------------->
-<div class="container " style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
+<div class="container rounded-corners background-color-gray"
+    style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
     <h2 style="text-align:left; margin-top:25px;">
         Job Details
     </h2>
