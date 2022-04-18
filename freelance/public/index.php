@@ -54,6 +54,7 @@ $router->post('/dashboard/client/onboarding', [DashboardClientController::class,
 $router->get('/dashboard/client/jobs', [DashboardClientController::class, 'jobs']);
 $router->get('/dashboard/client/jobs/create', [DashboardClientController::class, 'jobCreate']);
 $router->post('/dashboard/client/jobs/create', [DashboardClientController::class, 'jobCreate']);
+$router->get('/dashboard/client/proposals/id', [DashboardClientController::class, 'proposalId']); // shows proposal details
 $router->get('/dashboard/client/jobs/id', [DashboardClientController::class, 'jobId']); // shows job details
 // $router->get('/dashboard/client/jobs/id/pay', [DashboardClientController::class, 'jobId']);
 $router->get('/dashboard/client/jobs/id/proposals', [DashboardClientController::class, 'jobProposals']);

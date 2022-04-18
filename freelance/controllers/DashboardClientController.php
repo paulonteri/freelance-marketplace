@@ -271,6 +271,7 @@ class DashboardClientController extends _BaseController
         DashboardClientController::requireUserIsClient($router);
 
         $data = [
+            'pageTitle' => "Job Proposals",
             'proposals' => ''
         ];
 
@@ -279,6 +280,33 @@ class DashboardClientController extends _BaseController
         }
         $router->renderView(self::$basePath . 'jobs/id/proposals', $data);
     }
+
+
+    public static function proposalId(Router $router)
+    {
+        DashboardClientController::requireUserIsClient($router);
+        $data = [
+            'pageTitle' => "Proposal Details",
+        ];
+        $errors = array();
+
+        if (isset($_GET['proposalId'])) {
+            $data['id'] = $_GET['proposalId'];
+            $proposal = JobProposalModel::tryGetById($data['id']);
+
+            if ($proposal == null || $proposal->getJob()->getClientId() != UserModel::getCurrentUser()->getClient()->getId()) {
+                $errors = ['Proposal not found.'];
+            } else {
+                $data['proposal'] = $proposal;
+                $data['pageTitle'] = "Job " . $proposal->getTitle();
+            }
+        } else {
+            $errors = ['Proposal id not found.'];
+        }
+
+        $router->renderView(self::$basePath . 'proposals/id', $data, null, $errors);
+    }
+
 
     public static function jobReviewAndComplete(Router $router)
     {
