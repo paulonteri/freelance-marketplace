@@ -4,7 +4,7 @@
 <!-------------------------------- intro -------------------------------------------------------->
 <div class="container">
     <h1 style="text-align:center; margin-top:25px;">
-        Give proposal
+        Job proposal
     </h1>
 </div>
 <!-------------------------------- end intro -------------------------------------------------------->
@@ -30,7 +30,7 @@
 <!-------------------------------- give proposal -------------------------------------------------------->
 <div class="container rounded-corners background-color-gray"
     style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
-    <h2 style="text-align:left; margin-top:25px;">Submit proposal</h2>
+    <h2 style="text-align:left; margin-top:25px;">Proposal</h2>
     <hr style="margin: 1rem 0;" />
     <form action="/dashboard/freelancer/jobs/id/proposal?jobId=<?php echo $job->getId(); ?>" method="POST">
         <fieldset>
@@ -48,9 +48,54 @@
                 <?php echo $params['descriptionError']; ?>
             </span>
 
-            <input class="button-primary" type="submit" value="Send">
+
+            <input class="button-primary" type="submit" <?php if ($params['proposal'] != null) { ?> disabled <?php } ?>
+                value="Send">
+            <?php if ($params['proposal'] != null) { ?>
+            <small>Client has received your proposal.</small>
+            <?php } ?>
+
         </fieldset>
     </form>
+
+    <?php if ($params['proposal'] != null) {
+            $proposal = $params['proposal'];
+        ?>
+    <hr style="margin: 3rem 0;" />
+    <div class="row" style="justify-content:space-between;">
+        <div class="column">
+            <p class="center-text-on-small-screen" style="text-align:left; margin:auto 0px;">
+                <b>Date proposed:</b>
+                <script type="text/javascript">
+                formatDateToHumanCalendar("<?php echo $proposal->getTimeCreated() ?>");
+                </script>
+            </p>
+        </div>
+        <div class="column">
+            <p style="text-align:center; margin:auto 0px;">
+                <b>Proposal status:</b>
+                <span style="text-transform: uppercase;">
+                    <?php echo $proposal->getStatus(); ?>
+                </span>
+            </p>
+        </div>
+        <div class="column">
+            <p style="text-align:center; margin:auto 0px;">
+                <b>Skills: </b>
+                <?php foreach ($job->getSkills() as $skill) {
+                            echo "#" . $skill->getName() . "  ";
+                        } ?>
+            </p>
+        </div>
+    </div>
+    <div class="" style="padding-bottom:55px; padding-top:10px;">
+        <a href="/dashboard/freelancer/jobs/id/proposal?jobId=<?php echo $job->getId() ?>&withdrawProposal=true">
+            <button class="button-red" <?php if ($proposal->getStatus() != 'sent') { ?> disabled <?php } ?>>
+                Withdraw
+            </button>
+        </a>
+    </div>
+    <?php } ?>
     <hr />
 </div>
 <!-------------------------------- end give proposal -------------------------------------------------------->

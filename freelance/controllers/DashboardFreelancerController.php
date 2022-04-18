@@ -169,6 +169,7 @@ class DashboardFreelancerController extends _BaseController
 
         $data = [
             'pageTitle' => "Job Details",
+            'proposal' => null,
             'jobId' => '',
             'title' => '',
             'description' => '',
@@ -176,12 +177,14 @@ class DashboardFreelancerController extends _BaseController
             'descriptionError' => '',
         ];
         $errors = array();
+        $alert = null;
+        $user = UserModel::getCurrentUser();
 
         // Check for post
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Sanitize post data (prevent XSS)
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $user = UserModel::getCurrentUser();
+
 
             $data['title'] = trim($_POST['title']);
             $data['description'] = trim($_POST['description']);
@@ -239,13 +242,32 @@ class DashboardFreelancerController extends _BaseController
                 } else {
                     $data['job'] = $job;
                     $data['pageTitle'] = "Job " . $job->getTitle();
+
+                    // ----- withdraw proposal -----
+                    if (isset($_GET['withdrawProposal']) && $_GET['withdrawProposal'] == 'true') {
+                        $proposal = $job->getFreelancerProposal($user->getFreelancer()->getId());
+                        if ($proposal->withdrawProposal()) {
+                            $alert = 'Proposal withdrawn.';
+                        } else {
+                            $errors = ['Proposal not withdrawn. Something went wrong'];
+                        }
+                        $data['proposal'] = JobProposalModel::tryGetById($data['id']); // update proposal data
+                    }
+                    // ----- withdraw proposal -----
+
+                    if ($job->hasFreelancerCreatedProposal($user->getFreelancer()->getId())) {
+                        $proposal = $job->getFreelancerProposal($user->getFreelancer()->getId());
+                        $data['proposal'] = $proposal;
+                        $data['title'] = $proposal->getTitle();
+                        $data['description'] = $proposal->getDescription();
+                    }
                 }
             } else {
                 $errors = ['Job id not found.'];
             }
         }
 
-        $router->renderView(self::$basePath . 'jobs/id/proposal', $data, null, $errors);
+        $router->renderView(self::$basePath . 'jobs/id/proposal', $data,  $alert, $errors);
     }
 
 

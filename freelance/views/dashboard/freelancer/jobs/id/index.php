@@ -83,7 +83,7 @@
     <hr style="margin: 1rem 0;" />
     <a href="/dashboard/freelancer/jobs/id/proposal?jobId=<?php echo $job->getId() ?>">
         <button class="">
-            Give proposal &rarr;
+            Proposal &rarr;
         </button>
     </a>
     <hr />

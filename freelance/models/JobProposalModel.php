@@ -221,7 +221,17 @@ class JobProposalModel extends _BaseModel
         return true;
     }
 
+    public function withdrawProposal(): bool
+    {
+        $sql = 'UPDATE job_proposal SET status = :status WHERE id = :id';
+        $statement = $this->db->prepare($sql);
+        $statusString = 'withdrawn';
+        $statement->bindParam(':status', $statusString);
+        $statement->bindParam(':id', $this->id);
+        $statement->execute();
 
+        return true;
+    }
 
     public function acceptProposal(): bool
     {

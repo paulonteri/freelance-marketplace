@@ -132,21 +132,6 @@ class JobModel extends _BaseModel
     return $jobModels;
   }
 
-  public function hasFreelancerCreatedProposal(int $freelancerId): bool
-  {
-    $sql = 'SELECT * FROM job_proposal WHERE freelancer_id = :freelancer_id AND job_id = :job_id';
-    $statement = $this->db->prepare($sql);
-    $statement->bindParam(':freelancer_id', $freelancerId);
-    $statement->bindParam(':job_id', $this->id);
-    $statement->execute();
-    $proposal = $statement->fetch();
-
-    if ($proposal) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
 
   public function isJobCreatedByUser($userId): bool
@@ -309,6 +294,34 @@ class JobModel extends _BaseModel
       return null;
     }
   }
+
+  public function getFreelancerProposal(int $freelancerId): ?JobProposalModel
+  {
+    $sql = "SELECT * FROM job_proposal WHERE job_id = :job_id AND freelancer_id = :freelancer_id";
+    $statement = $this->db->prepare($sql);
+    $statement->bindParam(':job_id', $this->id);
+    $statement->bindParam(':freelancer_id', $freelancerId);
+    $statement->execute();
+    $proposal = $statement->fetch();
+
+    if ($proposal) {
+      return new JobProposalModel($proposal['id']);
+    } else {
+      return null;
+    }
+  }
+
+  public function hasFreelancerCreatedProposal(int $freelancerId): bool
+  {
+    $proposal = $this->getFreelancerProposal($freelancerId);
+
+    if ($proposal) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 
   public function isOpenForProposals(): bool
   {
