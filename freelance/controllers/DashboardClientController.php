@@ -289,6 +289,7 @@ class DashboardClientController extends _BaseController
             'pageTitle' => "Proposal Details",
         ];
         $errors = array();
+        $alert = null;
 
         if (isset($_GET['proposalId'])) {
             $data['id'] = $_GET['proposalId'];
@@ -297,14 +298,37 @@ class DashboardClientController extends _BaseController
             if ($proposal == null || $proposal->getJob()->getClientId() != UserModel::getCurrentUser()->getClient()->getId()) {
                 $errors = ['Proposal not found.'];
             } else {
+                // proposal found and belongs to user
                 $data['proposal'] = $proposal;
                 $data['pageTitle'] = "Job " . $proposal->getTitle();
+
+                // ----- accept proposal -----
+                if (isset($_GET['acceptProposal']) && $_GET['acceptProposal'] == 'true') {
+                    if ($proposal->acceptProposal()) {
+                        $alert = 'Proposal accepted.';
+                    } else {
+                        $errors = ['Proposal not accepted. Something went wrong'];
+                    }
+                    $data['proposal'] = JobProposalModel::tryGetById($data['id']); // update proposal data
+                }
+                // ----- accept proposal -----
+
+                // ----- reject proposal -----
+                else if (isset($_GET['rejectProposal']) && $_GET['rejectProposal'] == 'true') {
+                    if ($proposal->rejectProposal()) {
+                        $alert = 'Proposal rejected.';
+                    } else {
+                        $errors = ['Proposal not rejected. Something went wrong'];
+                    }
+                    $data['proposal'] = JobProposalModel::tryGetById($data['id']); // update proposal data
+                }
+                // ----- reject proposal -----
             }
         } else {
             $errors = ['Proposal id not found.'];
         }
 
-        $router->renderView(self::$basePath . 'proposals/id', $data, null, $errors);
+        $router->renderView(self::$basePath . 'proposals/id', $data, $alert, $errors);
     }
 
 

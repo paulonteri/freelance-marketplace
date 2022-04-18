@@ -192,7 +192,7 @@ class JobProposalModel extends _BaseModel
         return $proposals;
     }
 
-    public static function getProposalsByJob($jobId): array
+    public static function getProposalsByJob(int $jobId): array
     {
         $db = (new Database)->connectToDb();
 
@@ -207,5 +207,54 @@ class JobProposalModel extends _BaseModel
         }
 
         return $proposals;
+    }
+
+    public function rejectProposal(): bool
+    {
+        $db = (new Database)->connectToDb();
+
+        $sql = 'UPDATE job_proposal SET status = :status WHERE id = :id';
+        $statement = $db->prepare($sql);
+        $statusString = 'rejected';
+        $statement->bindParam(':status', $statusString);
+        $statement->bindParam(':id', $this->id);
+        $statement->execute();
+
+        return true;
+    }
+
+    public static function rejectAllJobProposalsExcept(int $jobId, int $proposalId,): bool
+    {
+        $db = (new Database)->connectToDb();
+
+        $sql = 'UPDATE job_proposal SET status = :status WHERE id != :id AND job_id = :job_id';
+        $statement = $db->prepare($sql);
+        $statusString = 'rejected';
+        $statement->bindParam(':status', $statusString);
+        $statement->bindParam(':id', $proposalId);
+        $statement->bindParam(':job_id', $jobId);
+        $statement->execute();
+
+        return true;
+    }
+
+
+    public function acceptProposal(): bool
+    {
+
+        // accept proposal
+        $db = (new Database)->connectToDb();
+
+        $sql = 'UPDATE job_proposal SET status = :status WHERE id = :id';
+        $statement = $db->prepare($sql);
+        $statusString = 'accepted';
+        $statement->bindParam(':status', $statusString);
+        $statement->bindParam(':id', $this->id);
+        $statement->execute();
+
+        // reject all other proposals for job
+        $this::rejectAllJobProposalsExcept($this->getJobId(), $this->id);
+
+        return true;
     }
 }
