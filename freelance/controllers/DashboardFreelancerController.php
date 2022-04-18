@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use PDOException;
 use app\Router;
+use app\utils\FileUploader;
 use app\models\SkillModel;
 use app\models\UserModel;
 use app\models\FreelancerModel;
@@ -268,6 +269,90 @@ class DashboardFreelancerController extends _BaseController
         }
 
         $router->renderView(self::$basePath . 'jobs/id/proposal', $data,  $alert, $errors);
+    }
+
+    public static function jobIdSubmitWork(Router $router)
+    {
+        DashboardFreelancerController::requireUserIsFreelancer($router);
+
+        $data = [
+            'pageTitle' => "Job Details",
+            'jobId' => '',
+            'description' => '',
+            'attachmentError' => '',
+            'descriptionError' => '',
+        ];
+        $errors = array();
+        $alert = null;
+        $user = UserModel::getCurrentUser();
+
+        // Check for post
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize post data (prevent XSS)
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            $data['description'] = trim($_POST['description']);
+            $data['jobId'] = trim($_POST['jobId']);
+            $data['job'] = JobModel::tryGetById($data['jobId']);
+            $job = new JobModel($data['jobId']);
+            $jobProposal = $job->getAcceptedProposal();
+
+            // TODO: validate user
+
+            // validate attachment
+            if (empty($_FILES['attachment'])) {
+                $data['attachmentError'] = 'Please select attachment.';
+            } else {
+                $fileUploader = new FileUploader($_FILES['attachment']);
+                $data['attachmentError'] = $fileUploader->validateFile();
+            }
+
+            // validate description
+            if (empty($data['description'])) {
+                $data['descriptionError'] = 'Required.';
+            } elseif (strlen($data['description']) < 5) {
+                $data['descriptionError'] = 'Too short';
+            } elseif (strlen($data['description']) > 1000) {
+                $data['descriptionError'] = 'Too long';
+            }
+
+            // Check if all errors are empty
+            if (
+                empty($data['attachmentError'])
+                && empty($data['descriptionError'])
+            ) {
+
+                // upload attachment and get the path
+                $fileUploader = new FileUploader($_FILES['attachment']);
+                $attachmentPath = $fileUploader->uploadFile("FreelancerWorkCompleteFile");
+
+                $submission = $jobProposal->submitWorkDone($data['description'], $attachmentPath);
+
+                if (!$submission) {
+                    $errors = array('Something went wrong. Please try again.',);
+                } else {
+                    $data['description'] = '';
+                    $router->renderView(self::$basePath . 'jobs/id/submit-work', $data, "Submission received successfully!");
+                    return;
+                }
+            }
+        } else {
+            if (isset($_GET['jobId'])) {
+                $data['id'] = $_GET['jobId'];
+                $job = JobModel::tryGetById($data['id']);
+
+                if ($job == null || !$job->hasFreelancerCreatedProposal($user->getFreelancer()->getId())) {
+                    $errors = ['Job not found.'];
+                } else {
+                    $data['job'] = $job;
+                    $data['pageTitle'] = "Job work submission: " . $job->getTitle();
+                }
+            } else {
+                $errors = ['Job id not found.'];
+            }
+        }
+
+        $router->renderView(self::$basePath . 'jobs/id/submit-work', $data,  $alert, $errors);
     }
 
 

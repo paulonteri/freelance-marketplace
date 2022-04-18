@@ -1,5 +1,6 @@
 <?php if ($params && isset($params['job'])) {
     $job = $params['job'];
+    $proposal = $job->getAcceptedProposal();
 ?>
 <!-------------------------------- intro -------------------------------------------------------->
 <div class="container">
@@ -80,13 +81,25 @@
             </p>
         </div>
     </div>
+
     <hr style="margin: 1rem 0;" />
+
     <a href="/dashboard/freelancer/jobs/id/proposal?jobId=<?php echo $job->getId() ?>">
         <button class="">
             Proposal &rarr;
         </button>
     </a>
-    <hr />
+
+    <hr style="margin: 1rem 0;" />
+
+    <?php if ($proposal != null && $proposal->isProposalAccepted()) { ?>
+    <a href="/dashboard/freelancer/jobs/id/submit-work?jobId=<?php echo $job->getId() ?>">
+        <button class="">
+            Submission &rarr;
+        </button>
+    </a>
+    <?php } ?>
+
 </div>
 <!-------------------------------- end job -------------------------------------------------------->
 

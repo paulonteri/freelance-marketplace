@@ -270,6 +270,15 @@ class JobProposalModel extends _BaseModel
         return true;
     }
 
+    public function isProposalAccepted(): bool
+    {
+        $acceptedStatuses = array('accepted', 'work submitted', 'completed successfully', 'completed unsuccessfully');
+        if (in_array($this->status, $acceptedStatuses)) {
+            return true;
+        }
+        return false;
+    }
+
     public static function rejectAllJobProposalsExcept(int $jobId, int $proposalId,): bool
     {
         $db = (new Database)->connectToDb();
@@ -280,6 +289,31 @@ class JobProposalModel extends _BaseModel
         $statement->bindParam(':status', $statusString);
         $statement->bindParam(':id', $proposalId);
         $statement->bindParam(':job_id', $jobId);
+        $statement->execute();
+
+        return true;
+    }
+
+    public function submitWorkDone(string $description, string $file): bool
+    {
+
+        $job = $this->getJob();
+        if ($job->isExpired()) {
+            DisplayAlert::displayError('This job is expired.');
+            return false;
+        }
+        if ($job->hasWorkSubmitted()) {
+            DisplayAlert::displayError('This job has already been submitted.');
+            return false;
+        }
+
+        $sql = 'UPDATE job_proposal SET status = :status, submission_description = :submission_description, submission_attachment = :submission_attachment WHERE id = :id';
+        $statement = $this->db->prepare($sql);
+        $statusString = 'work submitted';
+        $statement->bindParam(':status', $statusString);
+        $statement->bindParam(':submission_description', $description);
+        $statement->bindParam(':submission_attachment', $file);
+        $statement->bindParam(':id', $this->id);
         $statement->execute();
 
         return true;

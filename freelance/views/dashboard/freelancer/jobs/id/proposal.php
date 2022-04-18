@@ -14,7 +14,10 @@
 <div class="container rounded-corners background-color-gray"
     style="padding-bottom:2px; padding-top:10px; margin-bottom:5px">
     <h2 style="text-align:left; margin-top:25px;">
-        Job: <?php echo $params['job']->getTitle(); ?>
+        Job:
+        <a href="/dashboard/freelancer/jobs/id?jobId=<?php echo $job->getId() ?>">
+            <?php echo $job->getTitle(); ?>
+        </a>
     </h2>
     <hr style="margin: 1rem 0;" />
     <div class="row">
@@ -22,7 +25,6 @@
             <?php echo $job->getDescription(); ?>
         </p>
     </div>
-    <hr />
 </div>
 <!-------------------------------- end job -------------------------------------------------------->
 
@@ -88,13 +90,24 @@
             </p>
         </div>
     </div>
-    <div class="" style="padding-bottom:55px; padding-top:10px;">
+    <div class="" style="padding-bottom:15px; padding-top:10px;">
         <a href="/dashboard/freelancer/jobs/id/proposal?jobId=<?php echo $job->getId() ?>&withdrawProposal=true">
             <button class="button-red" <?php if ($proposal->getStatus() != 'sent') { ?> disabled <?php } ?>>
                 Withdraw
             </button>
         </a>
     </div>
+
+    <?php if ($proposal->getStatus() == 'accepted') { ?>
+    <div class="" style="padding-bottom:15px; padding-top:10px;">
+        <a href="/dashboard/freelancer/jobs/id/submit-work?jobId=<?php echo $job->getId() ?>">
+            <button class="">
+                Submit work &rarr;
+            </button>
+        </a>
+    </div>
+    <?php } ?>
+
     <?php } ?>
     <hr />
 </div>

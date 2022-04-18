@@ -150,15 +150,6 @@ class JobModel extends _BaseModel
     return true;
   }
 
-  public function hasJobStarted(): bool
-  {
-    if ($this->getAcceptedProposal() != null) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   public function getId(): int
   {
     return $this->id;
@@ -282,7 +273,7 @@ class JobModel extends _BaseModel
 
   public function getAcceptedProposal(): ?JobProposalModel
   {
-    $sql = "SELECT * FROM job_proposal WHERE job_id = :job_id AND status IN ('accepted','completed successfully','completed unsuccessfully')";
+    $sql = "SELECT * FROM job_proposal WHERE job_id = :job_id AND status IN ('accepted','work submitted','completed successfully','completed unsuccessfully')";
     $statement = $this->db->prepare($sql);
     $statement->bindParam(':job_id', $this->id);
     $statement->execute();
@@ -292,6 +283,30 @@ class JobModel extends _BaseModel
       return new JobProposalModel($proposal['id']);
     } else {
       return null;
+    }
+  }
+
+  public function hasJobStarted(): bool
+  {
+    if ($this->getAcceptedProposal() != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public function hasWorkSubmitted(): bool
+  {
+    $sql = "SELECT * FROM job_proposal WHERE job_id = :job_id AND status IN ('work submitted','completed successfully','completed unsuccessfully')";
+    $statement = $this->db->prepare($sql);
+    $statement->bindParam(':job_id', $this->id);
+    $statement->execute();
+    $proposal = $statement->fetch();
+
+    if ($proposal) {
+      return true;
+    } else {
+      return false;
     }
   }
 
