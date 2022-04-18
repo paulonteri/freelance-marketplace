@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use DateTime;
 use PDOException;
 use app\Database;
 use app\utils\DisplayAlert;
@@ -147,16 +148,30 @@ class JobModel extends _BaseModel
     }
   }
 
-  // todo:
+
   public function isJobCreatedByUser($userId): bool
   {
-    return false;
+    $user = UserModel::tryGetById($userId);
+    if ($user == null || $user->getClient() == null) {
+      return false;
+    }
+
+    if (
+      $this->getClientId() != $user->getClient()->getId()
+    ) {
+      return false;
+    }
+
+    return true;
   }
 
-  // todo:
   public function hasJobStarted(): bool
   {
-    return false;
+    if ($this->getAcceptedProposal() != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public function getId(): int
@@ -219,6 +234,14 @@ class JobModel extends _BaseModel
     return $this->pay_rate_per_hour * $this->expected_duration_in_hours;
   }
 
+  public function isExpired(): bool
+  {
+    $now = new DateTime();
+    $deadline = new DateTime($this->receive_job_proposals_deadline);
+
+    return $now > $deadline;
+  }
+
   public function getSkills(): array
   {
     $skills = array();
@@ -270,5 +293,29 @@ class JobModel extends _BaseModel
     }
 
     return $jobModels;
+  }
+
+  public function getAcceptedProposal(): ?JobProposalModel
+  {
+    $sql = "SELECT * FROM job_proposal WHERE job_id = :job_id AND status IN ('accepted','completed successfully','completed unsuccessfully')";
+    $statement = $this->db->prepare($sql);
+    $statement->bindParam(':job_id', $this->id);
+    $statement->execute();
+    $proposal = $statement->fetch();
+
+    if ($proposal) {
+      return new JobProposalModel($proposal['id']);
+    } else {
+      return null;
+    }
+  }
+
+  public function isOpenForProposals(): bool
+  {
+    if ($this->is_active == 0 || $this->isExpired() || $this->hasJobStarted()) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

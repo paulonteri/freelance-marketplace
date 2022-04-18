@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use app\Database;
+use app\utils\DisplayAlert;
+
 class UserModel extends _BaseModel
 {
   private $db;
@@ -65,6 +68,24 @@ class UserModel extends _BaseModel
       return new UserModel($_SESSION['user_id']);
     }
     return null;
+  }
+
+  public static function tryGetById(int $id): ?UserModel
+  {
+    $db = (new Database)->connectToDb();
+
+    $sql = 'SELECT * FROM user WHERE id = :id';
+    $statement = $db->prepare($sql);
+    $statement->bindParam(':id', $id);
+    $statement->execute();
+    $user = $statement->fetch();
+
+    if ($user) {
+      return new UserModel($user['id']);
+    } else {
+      DisplayAlert::displayError('user not found');
+      return null;
+    }
   }
 
   public function getFreelancer(): ?FreelancerModel

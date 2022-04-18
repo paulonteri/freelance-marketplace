@@ -150,14 +150,16 @@ body {
     padding: 20px;
     background-color: #2196f3;
     color: white;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+    margin-top: 15px;
 }
 
 .alert.danger {
     padding: 20px;
     background-color: #f44336;
     color: white;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+    margin-top: 15px;
 }
 
 .alert-closebtn {

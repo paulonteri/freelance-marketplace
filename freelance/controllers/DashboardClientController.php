@@ -116,7 +116,7 @@ class DashboardClientController extends _BaseController
             $data['id'] = $_GET['jobId'];
             $job = JobModel::tryGetById($data['id']);
 
-            if ($job == null || $job->getClientId() != UserModel::getCurrentUser()->getClient()->getId()) {
+            if ($job == null || !$job->isJobCreatedByUser(UserModel::getCurrentUser()->getId())) {
                 $errors = ['Job not found.'];
             } else {
                 $data['job'] = $job;
@@ -295,7 +295,10 @@ class DashboardClientController extends _BaseController
             $data['id'] = $_GET['proposalId'];
             $proposal = JobProposalModel::tryGetById($data['id']);
 
-            if ($proposal == null || $proposal->getJob()->getClientId() != UserModel::getCurrentUser()->getClient()->getId()) {
+            if (
+                $proposal == null ||
+                !$proposal->getJob()->isJobCreatedByUser(UserModel::getCurrentUser()->getId())
+            ) {
                 $errors = ['Proposal not found.'];
             } else {
                 // proposal found and belongs to user

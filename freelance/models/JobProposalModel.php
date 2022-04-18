@@ -211,14 +211,37 @@ class JobProposalModel extends _BaseModel
 
     public function rejectProposal(): bool
     {
-        $db = (new Database)->connectToDb();
-
         $sql = 'UPDATE job_proposal SET status = :status WHERE id = :id';
-        $statement = $db->prepare($sql);
+        $statement = $this->db->prepare($sql);
         $statusString = 'rejected';
         $statement->bindParam(':status', $statusString);
         $statement->bindParam(':id', $this->id);
         $statement->execute();
+
+        return true;
+    }
+
+
+
+    public function acceptProposal(): bool
+    {
+        // check if open
+        $job = $this->getJob();
+        if (!$job->isOpenForProposals()) {
+            DisplayAlert::displayError('This job is not open for proposals.');
+            return false;
+        }
+
+        // accept proposal
+        $sql = 'UPDATE job_proposal SET status = :status WHERE id = :id';
+        $statement = $this->db->prepare($sql);
+        $statusString = 'accepted';
+        $statement->bindParam(':status', $statusString);
+        $statement->bindParam(':id', $this->id);
+        $statement->execute();
+
+        // reject all other proposals for job
+        $this::rejectAllJobProposalsExcept($this->getJobId(), $this->id);
 
         return true;
     }
@@ -234,26 +257,6 @@ class JobProposalModel extends _BaseModel
         $statement->bindParam(':id', $proposalId);
         $statement->bindParam(':job_id', $jobId);
         $statement->execute();
-
-        return true;
-    }
-
-
-    public function acceptProposal(): bool
-    {
-
-        // accept proposal
-        $db = (new Database)->connectToDb();
-
-        $sql = 'UPDATE job_proposal SET status = :status WHERE id = :id';
-        $statement = $db->prepare($sql);
-        $statusString = 'accepted';
-        $statement->bindParam(':status', $statusString);
-        $statement->bindParam(':id', $this->id);
-        $statement->execute();
-
-        // reject all other proposals for job
-        $this::rejectAllJobProposalsExcept($this->getJobId(), $this->id);
 
         return true;
     }
