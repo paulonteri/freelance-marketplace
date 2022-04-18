@@ -13,6 +13,8 @@ class JobProposalModel extends _BaseModel
     private string $description;
     private int $job_id;
     private int $freelancer_id;
+    private ?string $submission_description;
+    private ?string $submission_attachment;
     private ?string $client_comment;
     private ?string $time_work_starts;
     private ?string $time_work_ends;
@@ -37,6 +39,8 @@ class JobProposalModel extends _BaseModel
             $this->description = $jobProposal['description'];
             $this->job_id = $jobProposal['job_id'];
             $this->freelancer_id = $jobProposal['freelancer_id'];
+            $this->submission_description = $jobProposal['submission_description'];
+            $this->submission_attachment = $jobProposal['submission_attachment'];
             $this->client_comment = $jobProposal['client_comment'];
             $this->time_work_starts = $jobProposal['time_work_starts'];
             $this->time_work_ends = $jobProposal['time_work_ends'];
@@ -139,6 +143,16 @@ class JobProposalModel extends _BaseModel
     public function getFreelancerId(): int
     {
         return $this->freelancer_id;
+    }
+
+    public function getSubmissionDescription(): string
+    {
+        return $this->submission_description;
+    }
+
+    public function getSubmissionAttachment(): string
+    {
+        return $this->submission_attachment;
     }
 
     public function getClientComment(): string

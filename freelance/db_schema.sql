@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 29, 2022 at 10:57 AM
+-- Generation Time: Apr 18, 2022 at 05:48 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -113,11 +113,13 @@ CREATE TABLE `job` (
 DROP TABLE IF EXISTS `job_proposal`;
 CREATE TABLE `job_proposal` (
   `id` int(11) NOT NULL,
-  `status` enum('sent','accepted','complete','rejected','withdrawn') NOT NULL DEFAULT 'sent',
+  `status` enum('sent','accepted','completed successfully','rejected','withdrawn','completed unsuccessfully','work submitted') NOT NULL DEFAULT 'sent',
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `job_id` int(11) NOT NULL,
   `freelancer_id` int(11) NOT NULL,
+  `submission_description` text DEFAULT NULL,
+  `submission_attachment` varchar(255) DEFAULT NULL,
   `client_comment` text DEFAULT NULL,
   `time_work_starts` datetime DEFAULT NULL,
   `time_work_ends` datetime DEFAULT NULL,
