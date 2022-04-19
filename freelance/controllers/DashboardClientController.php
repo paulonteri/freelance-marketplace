@@ -347,16 +347,30 @@ class DashboardClientController extends _BaseController
         ];
         $errors = array();
         $alert = null;
+        $user = UserModel::getCurrentUser();
 
         // -------------------- $_GET -------------------- 
         if (isset($_GET['jobId'])) {
             $data['id'] = $_GET['jobId'];
             $job = JobModel::tryGetById($data['id']);
 
-            if ($job != null && $job->isJobCreatedByUser(UserModel::getCurrentUser()->getId())) {
+            if ($job != null && $job->isJobCreatedByUser($user->getId())) {
                 $data['job'] = $job;
                 $data['pageTitle'] = "Review and complete job: " . $job->getTitle();
                 if ($job->hasWorkSubmitted()) {
+
+                    // ----- reject work -----
+                    if (isset($_GET['rejectWork']) && $_GET['rejectWork'] == 'true') {
+                        $proposal = $job->getAcceptedProposal();
+
+                        if ($proposal->markAsCompletedUnsuccessfully()) {
+                            $alert = 'Work rejected!';
+                        } else {
+                            $errors = ['Work not rejected. Something went wrong'];
+                        }
+                    }
+                    // ----- reject work -----
+
                     $data['proposal'] = $job->getAcceptedProposal();
                 } else {
                     $errors = ['Work not submitted.'];

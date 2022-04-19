@@ -139,8 +139,8 @@ body {
 }
 
 .button-red {
-    background-color: red;
-    border-color: red;
+    background-color: red !important;
+    border-color: red !important;
 }
 
 /* ------------------- end simple utilities ------------------------- */

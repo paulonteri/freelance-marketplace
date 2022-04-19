@@ -54,6 +54,16 @@
     style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
     <h2 style="text-align:left; margin-top:25px;">Mark Task as Complete</h2>
     <hr style="margin: 1rem 0;" />
+
+    <?php if ($proposal->getStatus() != 'completed unsuccessfully') { ?>
+    <p>The work has been rejected.</p>
+    <?php } ?>
+
+    <?php if ($proposal->getStatus() != 'completed successfully') { ?>
+    <p>The work has been accepted.</p>
+    <?php } ?>
+
+    <?php if ($proposal->getStatus() == 'work submitted') { ?>
     <form>
         <fieldset>
             <label for="commentField">Public review (Comment)</label>
@@ -68,10 +78,22 @@
                 <option value="1">1</option>
             </select>
 
-            <input class="button-primary" type="submit" value="Mark as complete">
+            <hr style="margin: 1rem 0;" />
+            <input class="" type="submit" value="Accept" <?php if ($proposal->getStatus() != 'work submitted') { ?>
+                disabled <?php } ?>>
+            <p><small>Accept work and close job.</small></p>
+
         </fieldset>
     </form>
-    <hr />
+
+
+    <a href="/dashboard/client/jobs/id/review-and-complete?jobId=<?php echo $job->getId() ?>&rejectWork=true">
+        <button class="button-red" <?php if ($proposal->getStatus() != 'work submitted') { ?> disabled <?php } ?>>
+            Reject
+        </button>
+    </a>
+    <p><small>Reject work and close job.</small></p>
+    <?php } ?>
 </div>
 <!-------------------------------- end mark complete -------------------------------------------------------->
 

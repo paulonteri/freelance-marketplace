@@ -318,4 +318,28 @@ class JobProposalModel extends _BaseModel
 
         return true;
     }
+
+    public function markAsCompletedUnsuccessfully(): bool
+    {
+        $job = $this->getJob();
+
+        if (!$job->hasWorkSubmitted()) {
+            DisplayAlert::displayError("This job's work has not been submitted.");
+            return false;
+        }
+
+        if ($this->status != 'work submitted') {
+            DisplayAlert::displayError("Invalid status: `" . $this->status . "`. Work cannot be rejected.");
+            return false;
+        }
+
+        $sql = 'UPDATE job_proposal SET status = :status WHERE id = :id';
+        $statement = $this->db->prepare($sql);
+        $statusString = 'completed unsuccessfully';
+        $statement->bindParam(':status', $statusString);
+        $statement->bindParam(':id', $this->id);
+        $statement->execute();
+
+        return true;
+    }
 }
