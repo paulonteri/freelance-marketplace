@@ -146,6 +146,7 @@ class DashboardFreelancerController extends _BaseController
         ];
         $errors = array();
 
+        // -------------------- $_GET -------------------- 
         if (isset($_GET['jobId'])) {
             $data['id'] = $_GET['jobId'];
             $job = JobModel::tryGetById($data['id']);
@@ -159,6 +160,7 @@ class DashboardFreelancerController extends _BaseController
         } else {
             $errors = ['Job id not found.'];
         }
+        // -------------------- $_GET -------------------- 
 
 
         $router->renderView(self::$basePath . 'jobs/id/index',  $data, null, $errors);
@@ -234,6 +236,7 @@ class DashboardFreelancerController extends _BaseController
                 }
             }
         } else {
+            // -------------------- $_GET -------------------- 
             if (isset($_GET['jobId'])) {
                 $data['id'] = $_GET['jobId'];
                 $job = JobModel::tryGetById($data['id']);
@@ -266,6 +269,7 @@ class DashboardFreelancerController extends _BaseController
             } else {
                 $errors = ['Job id not found.'];
             }
+            // -------------------- $_GET -------------------- 
         }
 
         $router->renderView(self::$basePath . 'jobs/id/proposal', $data,  $alert, $errors);
@@ -337,6 +341,7 @@ class DashboardFreelancerController extends _BaseController
                 }
             }
         } else {
+            // -------------------- $_GET -------------------- 
             if (isset($_GET['jobId'])) {
                 $data['id'] = $_GET['jobId'];
                 $job = JobModel::tryGetById($data['id']);
@@ -350,6 +355,7 @@ class DashboardFreelancerController extends _BaseController
             } else {
                 $errors = ['Job id not found.'];
             }
+            // -------------------- $_GET -------------------- 
         }
 
         $router->renderView(self::$basePath . 'jobs/id/submit-work', $data,  $alert, $errors);
@@ -367,6 +373,7 @@ class DashboardFreelancerController extends _BaseController
         ];
         $errors = array();
 
+        // -------------------- $_GET -------------------- 
         if (isset($_GET['clientId'])) {
             $data['id'] = $_GET['clientId'];
             $client = ClientModel::tryGetById($data['id']);
@@ -378,6 +385,7 @@ class DashboardFreelancerController extends _BaseController
         } else {
             $errors = ['Client id not found.'];
         }
+        // -------------------- $_GET -------------------- 
 
         $router->renderView(self::$basePath . 'clients/id', $data, null, $errors);
     }

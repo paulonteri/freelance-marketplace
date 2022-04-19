@@ -112,6 +112,7 @@ class DashboardClientController extends _BaseController
         ];
         $errors = array();
 
+        // -------------------- $_GET -------------------- 
         if (isset($_GET['jobId'])) {
             $data['id'] = $_GET['jobId'];
             $job = JobModel::tryGetById($data['id']);
@@ -125,6 +126,7 @@ class DashboardClientController extends _BaseController
         } else {
             $errors = ['Job id not found.'];
         }
+        // -------------------- $_GET -------------------- 
 
         $router->renderView(self::$basePath . 'jobs/id/index', $data, null, $errors);
     }
@@ -291,6 +293,7 @@ class DashboardClientController extends _BaseController
         $errors = array();
         $alert = null;
 
+        // -------------------- $_GET -------------------- 
         if (isset($_GET['proposalId'])) {
             $data['id'] = $_GET['proposalId'];
             $proposal = JobProposalModel::tryGetById($data['id']);
@@ -330,6 +333,7 @@ class DashboardClientController extends _BaseController
         } else {
             $errors = ['Proposal id not found.'];
         }
+        // -------------------- $_GET -------------------- 
 
         $router->renderView(self::$basePath . 'proposals/id', $data, $alert, $errors);
     }
@@ -357,10 +361,10 @@ class DashboardClientController extends _BaseController
                 } else {
                     $errors = ['Work not submitted.'];
                 }
-    }
+            }
         } else {
             $errors = ['Job id not found.'];
-}
+        }
         // -------------------- $_GET -------------------- 
 
 
