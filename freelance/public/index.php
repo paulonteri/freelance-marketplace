@@ -61,6 +61,7 @@ $router->get('/dashboard/client/jobs/id', [DashboardClientController::class, 'jo
 // $router->get('/dashboard/client/jobs/id/pay', [DashboardClientController::class, 'jobId']);
 $router->get('/dashboard/client/jobs/id/proposals', [DashboardClientController::class, 'jobProposals']);
 $router->get('/dashboard/client/jobs/id/review-and-complete', [DashboardClientController::class, 'jobReviewAndComplete']);
+$router->post('/dashboard/client/jobs/id/review-and-complete', [DashboardClientController::class, 'jobReviewAndComplete']);
 
 // AdminController
 $router->get('/admin/proposals', [AdminController::class, 'proposals']);

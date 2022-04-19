@@ -67,6 +67,14 @@ class JobRatingModel extends _BaseModel
         return new JobRatingModel($db->lastInsertId());
     }
 
+    public function delete(): void
+    {
+        $sql = 'DELETE FROM job_rating WHERE id = :id';
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam(':id', $this->id);
+        $statement->execute();
+    }
+
     public function getId(): mixed
     {
         return $this->id;

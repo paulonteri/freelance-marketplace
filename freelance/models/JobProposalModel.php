@@ -342,4 +342,51 @@ class JobProposalModel extends _BaseModel
 
         return true;
     }
+
+    public function markAsCompletedSuccessfully(): bool
+    {
+        $job = $this->getJob();
+
+        if (!$job->hasWorkSubmitted()) {
+            DisplayAlert::displayError("This job's work has not been submitted.");
+            return false;
+        }
+
+        if ($this->status != 'work submitted') {
+            DisplayAlert::displayError("Invalid status: `" . $this->status . "`. Work cannot be accepted.");
+            return false;
+        }
+
+        $sql = 'UPDATE job_proposal SET status = :status WHERE id = :id';
+        $statement = $this->db->prepare($sql);
+        $statusString = 'completed successfully';
+        $statement->bindParam(':status', $statusString);
+        $statement->bindParam(':id', $this->id);
+        $statement->execute();
+
+        return true;
+    }
+
+    public function getFreelancerRating(): ?JobRatingModel
+    {
+        $sql = 'SELECT * FROM job_rating WHERE job_id = :job_id AND type = freelancer';
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam(':job_id', $this->job_id);
+        $statement->execute();
+        $row = $statement->fetch();
+
+        if ($row) {
+            return new JobRatingModel($row['id']);
+        }
+
+        return null;
+    }
+
+    public function hasFreelancerRating(): bool
+    {
+        if ($this->getFreelancerRating() != null) {
+            return true;
+        }
+        return false;
+    }
 }

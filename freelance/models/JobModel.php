@@ -343,4 +343,13 @@ class JobModel extends _BaseModel
       return true;
     }
   }
+
+  public function hasFreelancerRating(): bool
+  {
+    if (!$this->hasWorkSubmitted()) {
+      return false;
+    }
+
+    return $this->getAcceptedProposal()->hasFreelancerRating();
+  }
 }

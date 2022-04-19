@@ -10,6 +10,7 @@ use app\models\ClientModel;
 use app\models\JobModel;
 use app\models\SkillModel;
 use app\models\JobProposalModel;
+use app\models\JobRatingModel;
 
 class DashboardClientController extends _BaseController
 {
@@ -344,13 +345,83 @@ class DashboardClientController extends _BaseController
         DashboardClientController::requireUserIsClient($router);
         $data = [
             'pageTitle' => "Review and complete job",
+            'jobId' => null,
+            'comment' => '',
+            'rating' => '',
+            'ratingError' => '',
+            'commentError' => '',
         ];
         $errors = array();
         $alert = null;
         $user = UserModel::getCurrentUser();
 
+
+        // Check for post
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize post data (prevent XSS)
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            $data['comment'] = trim($_POST['comment']);
+            $data['rating'] = trim($_POST['rating']);
+            $data['jobId'] = trim($_POST['jobId']);
+            $job = new JobModel($data['jobId']);
+            $data['job'] = $job;
+            $data['proposal'] = $job->getAcceptedProposal();
+            $jobProposal = $job->getAcceptedProposal();
+
+            // TODO: validate user
+
+            // validate comment
+            if (empty($data['comment'])) {
+                $data['commentError'] = 'Required.';
+            } elseif (strlen($data['comment']) < 5) {
+                $data['commentError'] = 'Too short';
+            } elseif (strlen($data['comment']) > 255) {
+                $data['commentError'] = 'Too long';
+            }
+
+            // validate rating
+            if (empty($data['rating'])) {
+                $data['ratingError'] = 'Required.';
+            } elseif (!is_numeric($data['rating'])) {
+                $data['ratingError'] = 'Must be a number.';
+            } elseif ($data['rating'] < 1) {
+                $data['ratingError'] = 'Too low.';
+            } elseif ($data['rating'] > 5) {
+                $data['ratingError'] = 'Too high.';
+            }
+
+            // Check if all errors are empty
+            if (
+                empty($data['ratingError'])
+                && empty($data['commentError'])
+            ) {
+
+                $rating = JobRatingModel::create(
+                    $job->getId(),
+                    'freelancer',
+                    $data['comment'],
+                    $data['rating']
+                );
+
+                if (!$rating) {
+                    $errors = array('Something went wrong while rating. Please try again.',);
+                } else {
+
+                    if (!$jobProposal->markAsCompletedSuccessfully()) {
+                        $errors = array('Something went wrong while marking job as complete. Please try again.',);
+                        $rating->delete();
+                    }
+
+                    $data['comment'] = '';
+                    $data['proposal'] = $job->getAcceptedProposal();
+                    $router->renderView(self::$basePath . 'jobs/id/review-and-complete', $data, "Job completed successfully!");
+                    return;
+                }
+            }
+        }
         // -------------------- $_GET -------------------- 
-        if (isset($_GET['jobId'])) {
+        else if (isset($_GET['jobId'])) {
             $data['id'] = $_GET['jobId'];
             $job = JobModel::tryGetById($data['id']);
 

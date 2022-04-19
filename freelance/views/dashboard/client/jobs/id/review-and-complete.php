@@ -55,28 +55,36 @@
     <h2 style="text-align:left; margin-top:25px;">Mark Task as Complete</h2>
     <hr style="margin: 1rem 0;" />
 
-    <?php if ($proposal->getStatus() != 'completed unsuccessfully') { ?>
+    <?php if ($proposal->getStatus() == 'completed unsuccessfully') { ?>
     <p>The work has been rejected.</p>
     <?php } ?>
 
-    <?php if ($proposal->getStatus() != 'completed successfully') { ?>
+    <?php if ($proposal->getStatus() == 'completed successfully') { ?>
     <p>The work has been accepted.</p>
     <?php } ?>
 
     <?php if ($proposal->getStatus() == 'work submitted') { ?>
-    <form>
+    <form action="/dashboard/client/jobs/id/review-and-complete?jobId=<?php echo $job->getId(); ?>" method="POST">
         <fieldset>
-            <label for="commentField">Public review (Comment)</label>
-            <textarea required id="commentField"></textarea>
+            <input type="hidden" required name="jobId" id="jobId" value="<?php echo $job->getId(); ?>">
 
-            <label for="ratingField">Rating</label>
-            <select id="ratingField">
+            <label for="comment">Public review (Comment)</label>
+            <textarea required id="comment" name="comment"></textarea>
+            <span class="invalidFeedback">
+                <?php echo $params['commentError']; ?>
+            </span>
+
+            <label for="rating">Rating</label>
+            <select id="rating" name="rating">
                 <option value="5">5</option>
                 <option value="4">4</option>
                 <option value="3">3</option>
                 <option value="2">2</option>
                 <option value="1">1</option>
             </select>
+            <span class="invalidFeedback">
+                <?php echo $params['ratingError']; ?>
+            </span>
 
             <hr style="margin: 1rem 0;" />
             <input class="" type="submit" value="Accept" <?php if ($proposal->getStatus() != 'work submitted') { ?>
