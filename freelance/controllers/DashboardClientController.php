@@ -338,6 +338,32 @@ class DashboardClientController extends _BaseController
     public static function jobReviewAndComplete(Router $router)
     {
         DashboardClientController::requireUserIsClient($router);
-        $router->renderView(self::$basePath . 'jobs/id/review-and-complete');
+        $data = [
+            'pageTitle' => "Review and complete job",
+        ];
+        $errors = array();
+        $alert = null;
+
+        // -------------------- $_GET -------------------- 
+        if (isset($_GET['jobId'])) {
+            $data['id'] = $_GET['jobId'];
+            $job = JobModel::tryGetById($data['id']);
+
+            if ($job != null && $job->isJobCreatedByUser(UserModel::getCurrentUser()->getId())) {
+                $data['job'] = $job;
+                $data['pageTitle'] = "Review and complete job: " . $job->getTitle();
+                if ($job->hasWorkSubmitted()) {
+                    $data['proposal'] = $job->getAcceptedProposal();
+                } else {
+                    $errors = ['Work not submitted.'];
+                }
+    }
+        } else {
+            $errors = ['Job id not found.'];
+}
+        // -------------------- $_GET -------------------- 
+
+
+        $router->renderView(self::$basePath . 'jobs/id/review-and-complete', $data, $alert, $errors);
     }
 }
