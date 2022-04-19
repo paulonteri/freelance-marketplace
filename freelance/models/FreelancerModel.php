@@ -78,48 +78,6 @@ class FreelancerModel extends _BaseModel
         return new FreelancerModel($db->lastInsertId());
     }
 
-    public function addSkills(array $skills): void
-    {
-        $sql = 'INSERT INTO freelancer_skill (freelancer_id, skill_id) VALUES (:freelancer_id, :skill_id)';
-        $statement = $this->db->prepare($sql);
-
-        foreach ($skills as $skill) {
-            try {
-                $statement->bindParam(':freelancer_id', $this->id);
-                $statement->bindParam(':skill_id', $skill);
-                $statement->execute();
-            } catch (PDOException $e) {
-                if ($e->errorInfo[1] == 1062) {
-                    // duplicate entry
-                    continue;
-                } else {
-                    // other error. Throw it
-                    throw $e;
-                }
-            }
-        }
-    }
-
-    /**
-     * @return FreelancerModel[]
-     */
-    public static function getAll(): array
-    {
-        $db = (new Database)->connectToDb();
-
-        $sql = 'SELECT id FROM freelancer';
-        $statement = $db->prepare($sql);
-        $statement->execute();
-        $freelancers = $statement->fetchAll();
-
-        $freelancers_array = [];
-        foreach ($freelancers as $freelancer) {
-            $freelancers_array[] = new FreelancerModel($freelancer['id']);
-        }
-
-        return $freelancers_array;
-    }
-
     public function getId(): mixed
     {
         return $this->id;
@@ -172,5 +130,47 @@ class FreelancerModel extends _BaseModel
         }
 
         return $skills;
+    }
+
+    public function addSkills(array $skills): void
+    {
+        $sql = 'INSERT INTO freelancer_skill (freelancer_id, skill_id) VALUES (:freelancer_id, :skill_id)';
+        $statement = $this->db->prepare($sql);
+
+        foreach ($skills as $skill) {
+            try {
+                $statement->bindParam(':freelancer_id', $this->id);
+                $statement->bindParam(':skill_id', $skill);
+                $statement->execute();
+            } catch (PDOException $e) {
+                if ($e->errorInfo[1] == 1062) {
+                    // duplicate entry
+                    continue;
+                } else {
+                    // other error. Throw it
+                    throw $e;
+                }
+            }
+        }
+    }
+
+    /**
+     * @return FreelancerModel[]
+     */
+    public static function getAll(): array
+    {
+        $db = (new Database)->connectToDb();
+
+        $sql = 'SELECT id FROM freelancer';
+        $statement = $db->prepare($sql);
+        $statement->execute();
+        $freelancers = $statement->fetchAll();
+
+        $freelancers_array = [];
+        foreach ($freelancers as $freelancer) {
+            $freelancers_array[] = new FreelancerModel($freelancer['id']);
+        }
+
+        return $freelancers_array;
     }
 }

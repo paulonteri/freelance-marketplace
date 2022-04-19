@@ -93,63 +93,6 @@ class JobModel extends _BaseModel
     return new JobModel($db->lastInsertId());
   }
 
-  public function addSkills(array $skills): void
-  {
-    $sql = 'INSERT INTO job_skill (job_id, skill_id) VALUES (:job_id, :skill_id)';
-    $statement = $this->db->prepare($sql);
-
-    foreach ($skills as $skill) {
-      try {
-        $statement->bindParam(':job_id', $this->id);
-        $statement->bindParam(':skill_id', $skill);
-        $statement->execute();
-      } catch (PDOException $e) {
-        if ($e->errorInfo[1] == 1062) {
-          // duplicate entry
-          continue;
-        } else {
-          // other error. Throw it
-          throw $e;
-        }
-      }
-    }
-  }
-
-  public static function getAll(): array
-  {
-    $db = (new Database)->connectToDb();
-
-    $sql = 'SELECT * FROM job';
-    $statement = $db->prepare($sql);
-    $statement->execute();
-    $jobs = $statement->fetchAll();
-
-    $jobModels = [];
-    foreach ($jobs as $job) {
-      $jobModels[] = new JobModel($job['id']);
-    }
-
-    return $jobModels;
-  }
-
-
-
-  public function isJobCreatedByUser($userId): bool
-  {
-    $user = UserModel::tryGetById($userId);
-    if ($user == null || $user->getClient() == null) {
-      return false;
-    }
-
-    if (
-      $this->getClientId() != $user->getClient()->getId()
-    ) {
-      return false;
-    }
-
-    return true;
-  }
-
   public function getId(): int
   {
     return $this->id;
@@ -208,6 +151,61 @@ class JobModel extends _BaseModel
   public function getBudget(): float
   {
     return $this->pay_rate_per_hour * $this->expected_duration_in_hours;
+  }
+
+  public function addSkills(array $skills): void
+  {
+    $sql = 'INSERT INTO job_skill (job_id, skill_id) VALUES (:job_id, :skill_id)';
+    $statement = $this->db->prepare($sql);
+
+    foreach ($skills as $skill) {
+      try {
+        $statement->bindParam(':job_id', $this->id);
+        $statement->bindParam(':skill_id', $skill);
+        $statement->execute();
+      } catch (PDOException $e) {
+        if ($e->errorInfo[1] == 1062) {
+          // duplicate entry
+          continue;
+        } else {
+          // other error. Throw it
+          throw $e;
+        }
+      }
+    }
+  }
+
+  public static function getAll(): array
+  {
+    $db = (new Database)->connectToDb();
+
+    $sql = 'SELECT * FROM job';
+    $statement = $db->prepare($sql);
+    $statement->execute();
+    $jobs = $statement->fetchAll();
+
+    $jobModels = [];
+    foreach ($jobs as $job) {
+      $jobModels[] = new JobModel($job['id']);
+    }
+
+    return $jobModels;
+  }
+
+  public function isJobCreatedByUser($userId): bool
+  {
+    $user = UserModel::tryGetById($userId);
+    if ($user == null || $user->getClient() == null) {
+      return false;
+    }
+
+    if (
+      $this->getClientId() != $user->getClient()->getId()
+    ) {
+      return false;
+    }
+
+    return true;
   }
 
   public function isExpired(): bool
@@ -336,7 +334,6 @@ class JobModel extends _BaseModel
       return false;
     }
   }
-
 
   public function isOpenForProposals(): bool
   {

@@ -43,6 +43,16 @@ class SkillModel extends _BaseModel
         return new SkillModel($db->lastInsertId());
     }
 
+    public function getId(): mixed
+    {
+        return $this->id;
+    }
+
+    public function getName(): mixed
+    {
+        return $this->name;
+    }
+
     /**
      * @return SkillModel[]
      */
@@ -62,15 +72,5 @@ class SkillModel extends _BaseModel
         }
 
         return $skillModels;
-    }
-
-    public function getId(): mixed
-    {
-        return $this->id;
-    }
-
-    public function getName(): mixed
-    {
-        return $this->name;
     }
 }
