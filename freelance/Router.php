@@ -66,8 +66,13 @@ class Router
     {
 
         $isUserLoggedIn = $this->isUserLoggedIn;
+
+        // check for alerts
         if ($alert == null && isset($_GET['alert'])) {
             $alert = $_GET['alert'];
+        }
+        if (isset($_GET['errorAlert'])) {
+            array_push($errors, $_GET['errorAlert']);
         }
 
         // save view's output buffer in the $content variable ----------------------------------------

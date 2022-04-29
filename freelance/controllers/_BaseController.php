@@ -11,7 +11,7 @@ abstract class _BaseController
     public static function requireUserIsLoggedIn(Router $router)
     {
         if (!$router->isUserLoggedIn) {
-            header('location:/login?alert=Please log in first!');
+            header('location:/login?errorAlert=Please log in first!');
         }
     }
 
@@ -21,7 +21,7 @@ abstract class _BaseController
 
         $user = UserModel::getCurrentUser();
         if (!$user->isFreelancer()) {
-            header('location:/dashboard/freelancer/onboarding?alert=You are not a freelancer!');
+            header('location:/dashboard/freelancer/onboarding?errorAlert=You are not a freelancer!');
         }
     }
 
@@ -31,7 +31,7 @@ abstract class _BaseController
 
         $user = UserModel::getCurrentUser();
         if (!$user->isClient()) {
-            header('location:/dashboard/client/onboarding?alert=You are not a client!');
+            header('location:/dashboard/client/onboarding?errorAlert=You are not a client!');
         }
     }
 
