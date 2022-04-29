@@ -84,7 +84,7 @@
 </div>
 <!-------------------------------- end submit work -------------------------------------------------------->
 
-<!-------------------------------- freelancer rating -------------------------------------------------------->
+<!-------------------------------- rating -------------------------------------------------------->
 <?php if ($job->hasFreelancerRating()) {
         $rating = $proposal->getFreelancerRating();
     ?>
@@ -99,9 +99,18 @@
 
     <p><b>Comment: </b><?php echo $rating->getComment(); ?></p>
 
+    <hr style="margin: 1rem 0;" />
+    <h2 style="text-align:left; margin-top:25px;">Rate client</h2>
+    <a href="/dashboard/freelancer/jobs/id/rate-client?jobId=<?php echo $job->getId() ?>">
+        <button class="">
+            Rate &rarr;
+        </button>
+    </a>
+
 </div>
 <?php }  ?>
-<!-------------------------------- end freelancer rating -------------------------------------------------------->
+<!-------------------------------- end rating -------------------------------------------------------->
+
 
 <?php
 } else {

@@ -410,4 +410,32 @@ class JobProposalModel extends _BaseModel
         return false;
     }
 
+    /**
+     * Get the rating for the client (rated by the freelancer).
+     */
+    public function getClientRating(): ?JobRatingModel
+    {
+        $sql = 'SELECT * FROM job_rating WHERE job_id = :job_id AND type = "client"';
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam(':job_id', $this->job_id);
+        $statement->execute();
+        $row = $statement->fetch();
+
+        if ($row) {
+            return new JobRatingModel($row['id']);
+        }
+
+        return null;
+    }
+
+    /**
+     * Check if the client has been rated by the freelancer.
+     */
+    public function hasClientRating(): bool
+    {
+        if ($this->getClientRating() != null) {
+            return true;
+        }
+        return false;
+    }
 }

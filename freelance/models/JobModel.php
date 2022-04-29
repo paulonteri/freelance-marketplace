@@ -362,7 +362,18 @@ class JobModel extends _BaseModel
       return false;
     }
 
-
     return $this->getAcceptedProposal()->hasFreelancerRating();
   }
+
+  /**
+   * Check if the client was rated for this job
+   */
+  public function hasClientRating(): bool
+  {
+    if (!$this->hasWorkSubmitted()) {
+      return false;
     }
+
+    return $this->getAcceptedProposal()->hasClientRating();
+  }
+}

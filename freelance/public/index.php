@@ -47,6 +47,8 @@ $router->get('/dashboard/freelancer/jobs/id/proposal', [DashboardFreelancerContr
 $router->post('/dashboard/freelancer/jobs/id/proposal', [DashboardFreelancerController::class, 'jobIdProposal']);
 $router->get('/dashboard/freelancer/jobs/id/submit-work', [DashboardFreelancerController::class, 'jobIdSubmitWork']);
 $router->post('/dashboard/freelancer/jobs/id/submit-work', [DashboardFreelancerController::class, 'jobIdSubmitWork']);
+$router->get('/dashboard/freelancer/jobs/id/rate-client', [DashboardFreelancerController::class, 'jobIdRateClient']);
+$router->post('/dashboard/freelancer/jobs/id/rate-client', [DashboardFreelancerController::class, 'jobIdRateClient']);
 $router->get('/dashboard/freelancer/clients/id', [DashboardFreelancerController::class, 'clientId']);
 
 // DashboardClientController
