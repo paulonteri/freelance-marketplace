@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 18, 2022 at 05:49 PM
+-- Generation Time: Apr 29, 2022 at 09:50 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -36,7 +36,6 @@ INSERT INTO `client` (`id`, `user_id`, `image`, `title`, `description`, `type`, 
 --
 
 INSERT INTO `freelancer` (`id`, `title`, `description`, `user_id`, `years_of_experience`, `time_created`, `is_active`) VALUES
-(9, 'Best Programmer', 'Hard-working listing programmer with a flair for creating elegant solutions in the least amount of time. As a freelance programmer, created SAS datasets of clinical data and developed macro programs to improve efficiency and quality of data management for Takeda Pharmaceuticals. Looking to use my programming skills to help boost Piper Companies’ data management efficiency.', 11, 1994, '2022-03-22 07:15:41', 1),
 (10, 'Creative Graphic Designer', 'Highly experienced, creative, and multitalented Graphic Designer with an extensive background in web, marketing multimedia, and print design. Exceptional collaborative and interpersonal skills; very strong team player with well-developed written and verbal communication abilities. Experienced at producing high-end business-to-business and consumer-facing designs; talented at building and maintaining partnerships. Passionate and accustomed to performing in deadline-driven environments.', 12, 5, '2022-03-22 07:54:52', 1),
 (11, 'Freelancer 1', 'Descrpt', 13, 2, '2022-03-22 09:02:23', 1);
 
@@ -45,8 +44,6 @@ INSERT INTO `freelancer` (`id`, `title`, `description`, `user_id`, `years_of_exp
 --
 
 INSERT INTO `freelancer_skill` (`id`, `freelancer_id`, `skill_id`) VALUES
-(1, 9, 1),
-(2, 9, 2),
 (3, 10, 2),
 (4, 10, 4),
 (5, 11, 2),
