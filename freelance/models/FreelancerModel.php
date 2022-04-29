@@ -170,4 +170,38 @@ class FreelancerModel extends _BaseModel
 
         return $freelancers_array;
     }
+
+    /**
+     * Get the average of all ratings for this freelancer
+     *
+     * @return float
+     */
+    public function getAverageRating(): float
+    {
+        /**
+         * SQL:
+         * 1. get all proposals (that are completed successfully) by freelancer 'SELECT job_id FROM job_proposal WHERE freelancer_id = :id AND status = "completed successfully"'
+         * 2. get all jobs or this freelancer by checking the job_ids in the proposals 'SELECT id FROM job WHERE id IN (the above proposals)'
+         * 3. get the average of all ratings for the above jobs 'SELECT AVG(rating) FROM job_rating WHERE job_id IN (the above jobs)'
+         */
+        $sql = 'SELECT AVG(rating) FROM job_rating WHERE job_id IN';
+        $sql .= ' (SELECT id FROM job WHERE id IN';
+        $sql .= '   (SELECT job_id FROM job_proposal WHERE freelancer_id = :id AND status = "completed successfully")';
+        $sql .= ' )';
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam(':id', $this->id);
+        $statement->execute();
+        $averageRating = $statement->fetch();
+
+        if ($averageRating && $averageRating['AVG(rating)'] !== null) {
+            return round($averageRating['AVG(rating)'], 1);
+        }
+
+        return 0.0;
+    }
+
+    public function getAverageRatingImage(): string
+    {
+        return JobRatingModel::getImageForRatingInt($this->getAverageRating());
+    }
 }

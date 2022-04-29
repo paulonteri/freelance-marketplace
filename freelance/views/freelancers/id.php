@@ -64,8 +64,9 @@
         <div class="column " style="margin-bottom:5px;">
             <p class="center-text-on-small-screen float-right-on-large-screen">
                 <b>Overall rating:</b>
-                5.0
-                <img src="/static/icons/rating/rating-5-stars.png" style="width:100px; height:15px; margin:auto 0px;" />
+                <?php echo $freelancer->getAverageRating(); ?>/5
+                <img src="<?php echo $freelancer->getAverageRatingImage(); ?>"
+                    style="width:100px; height:15px; margin:auto 0px;" />
             </p>
         </div>
     </div>

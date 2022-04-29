@@ -113,7 +113,7 @@ class JobRatingModel extends _BaseModel
      * @param integer $rating
      * @return string
      */
-    public static function getImageForRatingInt(int $rating): string
+    public static function getImageForRatingInt(float $rating): string
     {
         if ($rating > 4) {
             return '/static/icons/rating/rating-5-stars.png';
@@ -124,10 +124,10 @@ class JobRatingModel extends _BaseModel
         } else if ($rating > 1) {
             return '/static/icons/rating/rating-2-stars.png';
         } else if ($rating > 0) {
-            return '/static/icons/rating/rating-1-star.png';
+            return '/static/icons/rating/rating-1-stars.png';
         } else {
             // todo: create 0 star
-            return '/static/icons/rating/rating-1-star.png';
+            return '/static/icons/rating/rating-1-stars.png';
         }
     }
 
