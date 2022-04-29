@@ -25,28 +25,25 @@ class JobProposalModel extends _BaseModel
     {
         $this->db = $this->connectToDb();
 
-        if ($id != null) {
+        $sql = 'SELECT * FROM job_proposal WHERE id = :id';
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        $jobProposal = $statement->fetch();
 
-            $sql = 'SELECT * FROM job_proposal WHERE id = :id';
-            $statement = $this->db->prepare($sql);
-            $statement->bindParam(':id', $id);
-            $statement->execute();
-            $jobProposal = $statement->fetch();
-
-            $this->id = $id;
-            $this->status = $jobProposal['status'];
-            $this->title = $jobProposal['title'];
-            $this->description = $jobProposal['description'];
-            $this->job_id = $jobProposal['job_id'];
-            $this->freelancer_id = $jobProposal['freelancer_id'];
-            $this->submission_description = $jobProposal['submission_description'];
-            $this->submission_attachment = $jobProposal['submission_attachment'];
-            $this->client_comment = $jobProposal['client_comment'];
-            $this->time_work_starts = $jobProposal['time_work_starts'];
-            $this->time_work_ends = $jobProposal['time_work_ends'];
-            $this->time_created = $jobProposal['time_created'];
-            $this->is_active = $jobProposal['is_active'];
-        }
+        $this->id = $id;
+        $this->status = $jobProposal['status'];
+        $this->title = $jobProposal['title'];
+        $this->description = $jobProposal['description'];
+        $this->job_id = $jobProposal['job_id'];
+        $this->freelancer_id = $jobProposal['freelancer_id'];
+        $this->submission_description = $jobProposal['submission_description'];
+        $this->submission_attachment = $jobProposal['submission_attachment'];
+        $this->client_comment = $jobProposal['client_comment'];
+        $this->time_work_starts = $jobProposal['time_work_starts'];
+        $this->time_work_ends = $jobProposal['time_work_ends'];
+        $this->time_created = $jobProposal['time_created'];
+        $this->is_active = $jobProposal['is_active'];
     }
 
     public static function create(

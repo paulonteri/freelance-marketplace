@@ -13,21 +13,18 @@ class SkillModel extends _BaseModel
     private string $name;
 
 
-    public function __construct($id = null)
+    public function __construct(int $id)
     {
         $this->db = $this->connectToDb();
 
-        if ($id != null) {
+        $sql = 'SELECT * FROM skill WHERE id = :id';
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        $skill = $statement->fetch();
 
-            $sql = 'SELECT * FROM skill WHERE id = :id';
-            $statement = $this->db->prepare($sql);
-            $statement->bindParam(':id', $id);
-            $statement->execute();
-            $skill = $statement->fetch();
-
-            $this->id = $id;
-            $this->name = $skill['name'];
-        }
+        $this->id = $id;
+        $this->name = $skill['name'];
     }
 
     public static function create(

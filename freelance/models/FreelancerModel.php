@@ -19,26 +19,23 @@ class FreelancerModel extends _BaseModel
     private int $is_active;
 
 
-    public function __construct($id = null)
+    public function __construct(int $id)
     {
         $this->db = $this->connectToDb();
 
-        if ($id != null) {
+        $sql = 'SELECT * FROM freelancer WHERE id = :id';
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        $freelancer_s = $statement->fetch();
 
-            $sql = 'SELECT * FROM freelancer WHERE id = :id';
-            $statement = $this->db->prepare($sql);
-            $statement->bindParam(':id', $id);
-            $statement->execute();
-            $freelancer_s = $statement->fetch();
-
-            $this->id = $id;
-            $this->title = $freelancer_s['title'];
-            $this->description = $freelancer_s['description'];
-            $this->user_id = $freelancer_s['user_id'];
-            $this->years_of_experience = $freelancer_s['years_of_experience'];
-            $this->time_created = $freelancer_s['time_created'];
-            $this->is_active = $freelancer_s['is_active'];
-        }
+        $this->id = $id;
+        $this->title = $freelancer_s['title'];
+        $this->description = $freelancer_s['description'];
+        $this->user_id = $freelancer_s['user_id'];
+        $this->years_of_experience = $freelancer_s['years_of_experience'];
+        $this->time_created = $freelancer_s['time_created'];
+        $this->is_active = $freelancer_s['is_active'];
     }
 
     public static function tryGetById($freelancerId): ?FreelancerModel

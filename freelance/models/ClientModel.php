@@ -18,27 +18,24 @@ class ClientModel extends _BaseModel
     private $time_created;
     private int $is_active;
 
-    public function __construct($id = null)
+    public function __construct(int $id)
     {
         $this->db = $this->connectToDb();
 
-        if ($id != null) {
+        $sql = 'SELECT * FROM client WHERE id = :id';
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        $client = $statement->fetch();
 
-            $sql = 'SELECT * FROM client WHERE id = :id';
-            $statement = $this->db->prepare($sql);
-            $statement->bindParam(':id', $id);
-            $statement->execute();
-            $client = $statement->fetch();
-
-            $this->id = $id;
-            $this->title = $client['title'];
-            $this->description = $client['description'];
-            $this->user_id = $client['user_id'];
-            $this->image = $client['image'];
-            $this->type = $client['type'];
-            $this->time_created = $client['time_created'];
-            $this->is_active = $client['is_active'];
-        }
+        $this->id = $id;
+        $this->title = $client['title'];
+        $this->description = $client['description'];
+        $this->user_id = $client['user_id'];
+        $this->image = $client['image'];
+        $this->type = $client['type'];
+        $this->time_created = $client['time_created'];
+        $this->is_active = $client['is_active'];
     }
 
     public static function tryGetById(int $id): ?ClientModel

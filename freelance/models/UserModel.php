@@ -29,36 +29,33 @@ class UserModel extends _BaseModel
 
 
 
-  public function __construct($id = null)
+  public function __construct(int $id)
   {
     $this->db = $this->connectToDb();
 
-    if ($id != null) {
+    $sql = 'SELECT * FROM user WHERE id = :id';
+    $statement = $this->db->prepare($sql);
+    $statement->bindParam(':id', $id);
+    $statement->execute();
+    $user = $statement->fetch();
 
-      $sql = 'SELECT * FROM user WHERE id = :id';
-      $statement = $this->db->prepare($sql);
-      $statement->bindParam(':id', $id);
-      $statement->execute();
-      $user = $statement->fetch();
-
-      $this->id = $id;
-      $this->username = $user['username'];
-      $this->email = $user['email'];
-      $this->phone = $user['phone'];
-      $this->password = $user['password'];
-      $this->first_name = $user['first_name'];
-      $this->middle_name = $user['middle_name'];
-      $this->last_name = $user['last_name'];
-      $this->image = $user['image'];
-      $this->country = $user['country'];
-      $this->county = $user['county'];
-      $this->city = $user['city'];
-      $this->street = $user['street'];
-      $this->postal_code = $user['postal_code'];
-      $this->is_admin = $user['is_admin'];
-      $this->is_active = $user['is_active'];
-      $this->time_created = $user['time_created'];
-    }
+    $this->id = $id;
+    $this->username = $user['username'];
+    $this->email = $user['email'];
+    $this->phone = $user['phone'];
+    $this->password = $user['password'];
+    $this->first_name = $user['first_name'];
+    $this->middle_name = $user['middle_name'];
+    $this->last_name = $user['last_name'];
+    $this->image = $user['image'];
+    $this->country = $user['country'];
+    $this->county = $user['county'];
+    $this->city = $user['city'];
+    $this->street = $user['street'];
+    $this->postal_code = $user['postal_code'];
+    $this->is_admin = $user['is_admin'];
+    $this->is_active = $user['is_active'];
+    $this->time_created = $user['time_created'];
   }
 
   public static function getCurrentUser(): ?UserModel

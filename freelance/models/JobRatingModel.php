@@ -17,24 +17,21 @@ class JobRatingModel extends _BaseModel
     private int $rating;
 
 
-    public function __construct($id = null)
+    public function __construct(int $id)
     {
         $this->db = $this->connectToDb();
 
-        if ($id != null) {
+        $sql = 'SELECT * FROM job_rating WHERE id = :id';
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        $jobRating = $statement->fetch();
 
-            $sql = 'SELECT * FROM job_rating WHERE id = :id';
-            $statement = $this->db->prepare($sql);
-            $statement->bindParam(':id', $id);
-            $statement->execute();
-            $jobRating = $statement->fetch();
-
-            $this->id = $id;
-            $this->job_id = $jobRating['job_id'];
-            $this->type = $jobRating['type'];
-            $this->comment = $jobRating['comment'];
-            $this->rating = $jobRating['rating'];
-        }
+        $this->id = $id;
+        $this->job_id = $jobRating['job_id'];
+        $this->type = $jobRating['type'];
+        $this->comment = $jobRating['comment'];
+        $this->rating = $jobRating['rating'];
     }
 
     public static function create(

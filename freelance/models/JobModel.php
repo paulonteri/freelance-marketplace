@@ -27,26 +27,22 @@ class JobModel extends _BaseModel
   {
     $this->db = $this->connectToDb();
 
-    if ($id != null) {
+    $sql = 'SELECT * FROM job WHERE id = :id';
+    $statement = $this->db->prepare($sql);
+    $statement->bindParam(':id', $id);
+    $statement->execute();
+    $client = $statement->fetch();
 
-      $sql = 'SELECT * FROM job WHERE id = :id';
-      $statement = $this->db->prepare($sql);
-      $statement->bindParam(':id', $id);
-      $statement->execute();
-      $client = $statement->fetch();
-
-
-      $this->id = $id;
-      $this->client_id = $client['client_id'];
-      $this->title = $client['title'];
-      $this->description = $client['description'];
-      $this->image = $client['image'];
-      $this->pay_rate_per_hour = $client['pay_rate_per_hour'];
-      $this->expected_duration_in_hours = $client['expected_duration_in_hours'];
-      $this->receive_job_proposals_deadline = $client['receive_job_proposals_deadline'];
-      $this->time_created = $client['time_created'];
-      $this->is_active = $client['is_active'];
-    }
+    $this->id = $id;
+    $this->client_id = $client['client_id'];
+    $this->title = $client['title'];
+    $this->description = $client['description'];
+    $this->image = $client['image'];
+    $this->pay_rate_per_hour = $client['pay_rate_per_hour'];
+    $this->expected_duration_in_hours = $client['expected_duration_in_hours'];
+    $this->receive_job_proposals_deadline = $client['receive_job_proposals_deadline'];
+    $this->time_created = $client['time_created'];
+    $this->is_active = $client['is_active'];
   }
 
   public static function tryGetById(int $id): ?JobModel
