@@ -95,7 +95,7 @@
     <?php if ($proposal != null && $proposal->isProposalAccepted()) { ?>
     <a href="/dashboard/freelancer/jobs/id/submit-work?jobId=<?php echo $job->getId() ?>">
         <button class="">
-            Submission &rarr;
+            Submission/Rating &rarr;
         </button>
     </a>
     <?php } ?>

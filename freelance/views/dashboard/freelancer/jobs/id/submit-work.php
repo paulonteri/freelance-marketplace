@@ -5,7 +5,7 @@
 <!-------------------------------- intro -------------------------------------------------------->
 <div class="container">
     <h1 style="text-align:center; margin-top:25px;">
-        Submit work done for job
+        Work done for job
     </h1>
 </div>
 <!-------------------------------- end intro -------------------------------------------------------->
@@ -83,6 +83,25 @@
     <?php } ?>
 </div>
 <!-------------------------------- end submit work -------------------------------------------------------->
+
+<!-------------------------------- freelancer rating -------------------------------------------------------->
+<?php if ($job->hasFreelancerRating()) {
+        $rating = $proposal->getFreelancerRating();
+    ?>
+<div class="container rounded-corners background-color-gray"
+    style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
+    <h2 style="text-align:left; margin-top:25px;">Rating</h2>
+    <hr style="margin: 1rem 0;" />
+
+    <p><b>Rating: </b><?php echo $rating->getRating(); ?>/5
+        <img src="<?php echo $rating->getRatingImage(); ?>" style="width:100px; height:15px; margin:auto 0px;" />
+    </p>
+
+    <p><b>Comment: </b><?php echo $rating->getComment(); ?></p>
+
+</div>
+<?php }  ?>
+<!-------------------------------- end freelancer rating -------------------------------------------------------->
 
 <?php
 } else {

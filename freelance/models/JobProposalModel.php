@@ -247,6 +247,11 @@ class JobProposalModel extends _BaseModel
         return true;
     }
 
+    /**
+     * This proposal will be marked as accepted 
+     * while all the other proposals for this job will be marked as rejected.
+     * Note that for each job, only one proposal can be accepted.
+     */
     public function acceptProposal(): bool
     {
         // check if open
@@ -279,6 +284,9 @@ class JobProposalModel extends _BaseModel
         return false;
     }
 
+    /**
+     * Rejects all proposals for the given jobId except the one with the given proposalId.
+     */
     public static function rejectAllJobProposalsExcept(int $jobId, int $proposalId,): bool
     {
         $db = (new Database)->connectToDb();
@@ -319,6 +327,9 @@ class JobProposalModel extends _BaseModel
         return true;
     }
 
+    /**
+     * The freelancer has completed the job, however, the client is unsatisfied.
+     */
     public function markAsCompletedUnsuccessfully(): bool
     {
         $job = $this->getJob();
@@ -343,6 +354,9 @@ class JobProposalModel extends _BaseModel
         return true;
     }
 
+    /**
+     * The freelancer has completed the job well and the client is satisfied.
+     */
     public function markAsCompletedSuccessfully(): bool
     {
         $job = $this->getJob();
@@ -367,9 +381,12 @@ class JobProposalModel extends _BaseModel
         return true;
     }
 
+    /**
+     * Get the rating for the freelancer (rated by the client).
+     */
     public function getFreelancerRating(): ?JobRatingModel
     {
-        $sql = 'SELECT * FROM job_rating WHERE job_id = :job_id AND type = freelancer';
+        $sql = 'SELECT * FROM job_rating WHERE job_id = :job_id AND type = "freelancer"';
         $statement = $this->db->prepare($sql);
         $statement->bindParam(':job_id', $this->job_id);
         $statement->execute();
@@ -382,6 +399,9 @@ class JobProposalModel extends _BaseModel
         return null;
     }
 
+    /**
+     * Check if the freelancer has been rated by the clients.
+     */
     public function hasFreelancerRating(): bool
     {
         if ($this->getFreelancerRating() != null) {
@@ -389,4 +409,5 @@ class JobProposalModel extends _BaseModel
         }
         return false;
     }
+
 }

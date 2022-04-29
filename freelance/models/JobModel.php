@@ -233,6 +233,9 @@ class JobModel extends _BaseModel
     return $skills;
   }
 
+  /**
+   * Get jobs that the freelancer has created
+   */
   public static function getClientJobs(int $clientId): array
   {
     $db = (new Database)->connectToDb();
@@ -251,6 +254,9 @@ class JobModel extends _BaseModel
     return $jobModels;
   }
 
+  /**
+   * Get jobs that the freelancer has proposed to
+   */
   public static function getFreelancerJobs(int $freelancerId): array
   {
     $db = (new Database)->connectToDb();
@@ -293,6 +299,9 @@ class JobModel extends _BaseModel
     }
   }
 
+  /**
+   * Check if the freelancer (who's proposal was accepted) submitted work
+   */
   public function hasWorkSubmitted(): bool
   {
     $sql = "SELECT * FROM job_proposal WHERE job_id = :job_id AND status IN ('work submitted','completed successfully','completed unsuccessfully')";
@@ -344,12 +353,16 @@ class JobModel extends _BaseModel
     }
   }
 
+  /**
+   * Check if the freelancer was rated for this job
+   */
   public function hasFreelancerRating(): bool
   {
     if (!$this->hasWorkSubmitted()) {
       return false;
     }
 
+
     return $this->getAcceptedProposal()->hasFreelancerRating();
   }
-}
+    }

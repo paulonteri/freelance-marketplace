@@ -75,34 +75,63 @@ class JobRatingModel extends _BaseModel
         $statement->execute();
     }
 
-    public function getId(): mixed
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getJobId(): mixed
+    public function getJobId(): int
     {
         return $this->job_id;
-    }
-
-    public function getType(): mixed
-    {
-        return $this->type;
-    }
-
-    public function getComment(): mixed
-    {
-        return $this->comment;
-    }
-
-    public function getRating(): mixed
-    {
-        return $this->rating;
     }
 
     public function getJob(): JobModel
     {
         return new JobModel($this->job_id);
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function getComment(): string
+    {
+        return $this->comment;
+    }
+
+    public function getRating(): string
+    {
+        return $this->rating;
+    }
+
+    public function getRatingImage(): string
+    {
+        return $this->getImageForRatingInt($this->rating);
+    }
+
+    /**
+     * Returns the image path for the given rating
+     *
+     * @param integer $rating
+     * @return string
+     */
+    public static function getImageForRatingInt(int $rating): string
+    {
+        if ($rating > 4) {
+            return '/static/icons/rating/rating-5-stars.png';
+        } else if ($rating > 3) {
+            return '/static/icons/rating/rating-4-stars.png';
+        } else if ($rating > 2) {
+            return '/static/icons/rating/rating-3-stars.png';
+        } else if ($rating > 1) {
+            return '/static/icons/rating/rating-2-stars.png';
+        } else if ($rating > 0) {
+            return '/static/icons/rating/rating-1-star.png';
+        } else {
+            // todo: create 0 star
+            return '/static/icons/rating/rating-1-star.png';
+        }
     }
 
     /**
