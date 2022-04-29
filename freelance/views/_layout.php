@@ -73,6 +73,7 @@
             <hr />
             <a href="/dashboard/freelancer">Freelancer dashboard</a>
             <a class="inner-menu" href="/dashboard/freelancer/jobs">All jobs</a>
+            <a class="inner-menu" href="/dashboard/freelancer/jobs/my-jobs">My jobs</a>
             <a class="inner-menu" href="/dashboard/freelancer/jobs/proposals">Proposals</a>
             <?php } ?>
 
