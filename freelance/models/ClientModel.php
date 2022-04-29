@@ -119,4 +119,30 @@ class ClientModel extends _BaseModel
     {
         return new UserModel($this->user_id);
     }
+
+    /**
+     * Get the average of all ratings for this client
+     *
+     * @return float
+     */
+    public function getAverageRating(): float
+    {
+
+        $sql = 'SELECT AVG(rating) FROM job_rating WHERE job_id IN (SELECT id FROM job WHERE client_id = :id)';
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam(':id', $this->id);
+        $statement->execute();
+        $averageRating = $statement->fetch();
+
+        if ($averageRating && $averageRating['AVG(rating)'] !== null) {
+            return round($averageRating['AVG(rating)'], 1);
+        }
+
+        return 0.0;
+    }
+
+    public function getAverageRatingImage(): string
+    {
+        return JobRatingModel::getImageForRatingInt($this->getAverageRating());
+    }
 }
