@@ -91,6 +91,7 @@
 <div class="container rounded-corners background-color-gray"
     style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
     <h2 style="text-align:left; margin-top:25px;">Rating</h2>
+    <small>Rating given to you by the client.</small>
     <hr style="margin: 1rem 0;" />
 
     <p><b>Rating: </b><?php echo $rating->getRating(); ?>/5

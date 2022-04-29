@@ -105,6 +105,28 @@
 </div>
 <!-------------------------------- end mark complete -------------------------------------------------------->
 
+<!-------------------------------- rating -------------------------------------------------------->
+<?php if ($job->hasClientRating()) {
+        $rating = $proposal->getClientRating();
+    ?>
+<div class="container rounded-corners background-color-gray"
+    style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
+    <h2 style="text-align:left; margin-top:25px;">Rating</h2>
+    <small>Rating given to you by the freelancer.</small>
+    <hr style="margin: 1rem 0;" />
+
+    <p><b>Rating: </b><?php echo $rating->getRating(); ?>/5
+        <img src="<?php echo $rating->getRatingImage(); ?>" style="width:100px; height:15px; margin:auto 0px;" />
+    </p>
+
+    <p><b>Comment: </b><?php echo $rating->getComment(); ?></p>
+
+
+</div>
+<?php }  ?>
+<!-------------------------------- end rating -------------------------------------------------------->
+
+
 
 <?php
 
