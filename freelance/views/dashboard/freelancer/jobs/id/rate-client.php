@@ -1,6 +1,9 @@
 <?php if ($params && isset($params['job'])) {
     $job = $params['job'];
-    $proposal = $job->getAcceptedProposal();
+
+    $freelancer = app\models\UserModel::getCurrentUser()->getFreelancer();
+
+    $proposal = $job->getFreelancerProposal($freelancer->getId());
 ?>
 
 <!-------------------------------- intro -------------------------------------------------------->

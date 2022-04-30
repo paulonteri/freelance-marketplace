@@ -1,3 +1,10 @@
+<?php
+
+$freelancer = app\models\UserModel::getCurrentUser()->getFreelancer();
+
+?>
+
+
 <!-------------------------------- intro -------------------------------------------------------->
 <div class="container">
     <h1 style="text-align:center; margin-top:25px;">
@@ -34,7 +41,9 @@
             <div class="column">
                 <p class="center-text-on-small-screen" style="text-align:right;">
                     <b>Client:</b>
-                    <?php echo $job->getClient()->getTitle(); ?>
+                    <a href="/dashboard/freelancer/clients/id?clientId=<?php echo $job->getClient()->getId(); ?>">
+                        <?php echo $job->getClient()->getTitle(); ?>
+                    </a>
                 </p>
             </div>
         </div>
@@ -66,6 +75,37 @@
                     <script type="text/javascript">
                     formatDateToHumanCalendar("<?php echo $job->getTimeCreated(); ?>");
                     </script>
+                </p>
+            </div>
+        </div>
+        <div class="row" style="justify-content:space-between;">
+            <div class="column">
+                <p class="center-text-on-small-screen" style="text-align:left; margin:auto 0px;">
+                    <b>Is open for proposals: </b>
+                    <?php
+                        if ($job->isOpenForProposals()) {
+                            echo '&#9989;';
+                        } else {
+                            echo "&#10060;";
+                        }
+                        ?>
+                </p>
+            </div>
+            <div class="column">
+                <p style="text-align:center; margin:auto 0px;">
+
+                </p>
+            </div>
+            <div class="column">
+                <p class="center-text-on-small-screen" style="text-align:right;">
+                    <b>Given Proposal: </b>
+                    <?php
+                        if ($job->hasFreelancerCreatedProposal($freelancer->getId())) {
+                            echo '&#9989;';
+                        } else {
+                            echo "&#10060;";
+                        }
+                        ?>
                 </p>
             </div>
         </div>
