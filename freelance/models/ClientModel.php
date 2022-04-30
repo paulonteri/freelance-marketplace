@@ -145,4 +145,26 @@ class ClientModel extends _BaseModel
     {
         return JobRatingModel::getImageForRatingInt($this->getAverageRating());
     }
+
+    /**
+     * Get all ratings given to the client.
+     * 
+     * @return JobRatingModel[]
+     */
+    public function getAllRatings(): array
+    {
+
+        $sql = 'SELECT id FROM job_rating WHERE type = "client" AND job_id IN (SELECT id FROM job WHERE client_id = :id)';
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam(':id', $this->id);
+        $statement->execute();
+        $ratings = $statement->fetchAll();
+
+        $ratings_array = [];
+        foreach ($ratings as $rating) {
+            $ratings_array[] = new JobRatingModel($rating['id']);
+        }
+
+        return $ratings_array;
+    }
 }

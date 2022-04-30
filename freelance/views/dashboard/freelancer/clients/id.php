@@ -44,31 +44,39 @@
     <h2 style="text-align:left;">
         Reviews
     </h2>
-    <?php for ($x = 0; $x <= 5; $x++) { ?>
+    <?php foreach ($client->getAllRatings() as $rating) { ?>
     <!-------------------------------- single review -------------------------------------------------------->
     <div class="rounded-corners background-color-white" style="margin-bottom:10px">
         <div class="row " style="justify-content:space-between;">
             <div class="column">
-                <p style=" margin:auto 0px;" class="center-text-on-small-screen">User <?php echo $x; ?></p>
+                <p style=" margin:auto 0px;" class="center-text-on-small-screen">
+                    Rated by:
+                    <?php echo $rating->getRaterName(); ?>
+                </p>
             </div>
             <div class="column ">
-                <p class="center-self-on-screen float-right-on-large-screen">4.0
-                    <img src="/static/icons/rating/rating-4-stars.png"
+                <p class="center-self-on-screen float-right-on-large-screen"><?php echo $rating->getRating(); ?>
+                    <img src="<?php echo $rating->getRatingImage(); ?>"
                         style="width:100px; height:15px; margin:auto 0px;" />
                 </p>
             </div>
 
         </div>
         <p style="text-align:center;">
-            Quis elit occaecat fugiat laborum minim reprehenderit consequat nisi ipsum qui aliquip magna non dolor.
-            Ex consequat et sit nostrud amet deserunt mollit adipisicing deserunt esse. Eiusmod non ex veniam est
-            pariatur cupidatat dolor exercitation proident labore fugiat deserunt. Irure magna excepteur officia
-            irure eiusmod est aliqua enim non nisi elit et excepteur id.
+            <?php echo $rating->getComment(); ?>
         </p>
     </div>
     <!-------------------------------- end single review -------------------------------------------------------->
     <?php } ?>
+
+    <?php if (count($client->getAllRatings()) == 0) { ?>
+    <p style="text-align:center;">
+        No reviews yet.
+    </p>
+    <?php } ?>
+
     <!-------------------------------- end reviews -------------------------------------------------------->
+
 
 </div>
 <!-------------------------------- end client -------------------------------------------------------->
