@@ -79,6 +79,11 @@ $freelancer = app\models\UserModel::getCurrentUser()->getFreelancer();
                 <input class="button-primary" type="submit" value="Submit">
             </fieldset>
         </form>
+        <form action="/dashboard/freelancer/jobs" method="GET">
+            <fieldset>
+                <input class="button-primary" type="submit" value="Reset Filters">
+            </fieldset>
+        </form>
     </details>
     <hr />
 </div>
