@@ -258,6 +258,7 @@ class JobModel extends _BaseModel
     $db = (new Database)->connectToDb();
 
     $sql = 'SELECT * FROM job WHERE id IN (SELECT job_id FROM job_proposal WHERE freelancer_id = :freelancer_id)';
+    $sql .= ' ORDER BY receive_job_proposals_deadline DESC';
     $statement = $db->prepare($sql);
     $statement->bindParam(':freelancer_id', $freelancerId);
     $statement->execute();
@@ -273,7 +274,7 @@ class JobModel extends _BaseModel
 
   public function getAcceptedProposal(): ?JobProposalModel
   {
-    $sql = "SELECT * FROM job_proposal WHERE job_id = :job_id AND status IN ('accepted','work submitted','completed successfully','completed unsuccessfully')";
+    $sql = "SELECT * FROM job_proposal WHERE job_id = :job_id AND status IN ('" . implode("','", JobProposalModel::getAcceptedStatuses()) . "')";
     $statement = $this->db->prepare($sql);
     $statement->bindParam(':job_id', $this->id);
     $statement->execute();
@@ -302,7 +303,7 @@ class JobModel extends _BaseModel
    */
   public function hasJobEnded(): bool
   {
-    $sql = "SELECT * FROM job_proposal WHERE job_id = :job_id AND status IN ('completed successfully','completed unsuccessfully')";
+    $sql = "SELECT * FROM job_proposal WHERE job_id = :job_id AND status IN ('" . implode("','", JobProposalModel::getCompletedStatuses()) . "')";
     $statement = $this->db->prepare($sql);
     $statement->bindParam(':job_id', $this->id);
     $statement->execute();
@@ -335,7 +336,7 @@ class JobModel extends _BaseModel
    */
   public function hasWorkSubmitted(): bool
   {
-    $sql = "SELECT * FROM job_proposal WHERE job_id = :job_id AND status IN ('work submitted','completed successfully','completed unsuccessfully')";
+    $sql = "SELECT * FROM job_proposal WHERE job_id = :job_id AND status IN ('" . implode("','", JobProposalModel::getWorkSubmittedStatuses()) . "')";;
     $statement = $this->db->prepare($sql);
     $statement->bindParam(':job_id', $this->id);
     $statement->execute();

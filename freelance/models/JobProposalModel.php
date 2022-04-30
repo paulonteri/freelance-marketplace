@@ -20,6 +20,9 @@ class JobProposalModel extends _BaseModel
     private ?string $time_work_ends;
     private string $time_created;
     private bool $is_active;
+    private  static array $accepted_statuses = ['accepted', 'work submitted', 'completed successfully', 'completed unsuccessfully'];
+    private  static array $work_submitted_statuses = ['work submitted', 'completed successfully', 'completed unsuccessfully'];
+    private  static array $completed_statuses = ['completed successfully', 'completed unsuccessfully'];
 
     public function __construct(?int $id)
     {
@@ -105,6 +108,21 @@ class JobProposalModel extends _BaseModel
         } else {
             return null;
         }
+    }
+
+    public static function getAcceptedStatuses(): array
+    {
+        return self::$accepted_statuses;
+    }
+
+    public static function getWorkSubmittedStatuses(): array
+    {
+        return self::$work_submitted_statuses;
+    }
+
+    public static function getCompletedStatuses(): array
+    {
+        return self::$completed_statuses;
     }
 
     public function getJob(): JobModel
