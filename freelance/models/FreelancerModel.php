@@ -182,9 +182,9 @@ class FreelancerModel extends _BaseModel
          * SQL:
          * 1. get all proposals (that are completed successfully) by freelancer 'SELECT job_id FROM job_proposal WHERE freelancer_id = :id AND status = "completed successfully"'
          * 2. get all jobs or this freelancer by checking the job_ids in the proposals 'SELECT id FROM job WHERE id IN (the above proposals)'
-         * 3. get the average of all ratings for the above jobs 'SELECT AVG(rating) FROM job_rating WHERE job_id IN (the above jobs)'
+         * 3. get the average of all ratings for the above jobs 'SELECT AVG(rating) FROM job_rating WHERE type = "freelancer" AND job_id IN (the above jobs)'
          */
-        $sql = 'SELECT AVG(rating) FROM job_rating WHERE job_id IN';
+        $sql = 'SELECT AVG(rating) FROM job_rating WHERE type = "freelancer" AND job_id IN';
         $sql .= ' (SELECT id FROM job WHERE id IN';
         $sql .= '   (SELECT job_id FROM job_proposal WHERE freelancer_id = :id AND status = "completed successfully")';
         $sql .= ' )';
@@ -216,7 +216,7 @@ class FreelancerModel extends _BaseModel
          * SQL:
          * 1. get all proposals (that are completed successfully) by freelancer 'SELECT job_id FROM job_proposal WHERE freelancer_id = :id AND status = "completed successfully"'
          * 2. get all jobs or this freelancer by checking the job_ids in the proposals 'SELECT id FROM job WHERE id IN (the above proposals)'
-         * 3. get all ratings for the above jobs 'SELECT id FROM job_rating WHERE job_id IN (the above jobs)'
+         * 3. get all ratings for the above jobs 'SELECT id FROM job_rating WHERE type = "freelancer" AND job_id IN (the above jobs)'
          */
         $sql = 'SELECT id FROM job_rating WHERE type = "freelancer" AND job_id IN';
         $sql .= ' (SELECT id FROM job WHERE id IN';

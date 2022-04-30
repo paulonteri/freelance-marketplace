@@ -128,7 +128,7 @@ class ClientModel extends _BaseModel
     public function getAverageRating(): float
     {
 
-        $sql = 'SELECT AVG(rating) FROM job_rating WHERE job_id IN (SELECT id FROM job WHERE client_id = :id)';
+        $sql = 'SELECT AVG(rating) FROM job_rating WHERE type = "client" AND job_id IN (SELECT id FROM job WHERE client_id = :id)';
         $statement = $this->db->prepare($sql);
         $statement->bindParam(':id', $this->id);
         $statement->execute();
