@@ -176,22 +176,29 @@ class JobModel extends _BaseModel
    *
    * @return JobModel[]
    */
-  public static function getAllOpenJobs(array $skills): array
+  public static function getAllOpenJobs(array $skills, int $maxDuration, int $minDuration, int $maxPayRatePerHour, int $minPayRatePerHour): array
   {
     $db = (new Database)->connectToDb();
 
+    $now = (new DateTime())->format('Y-m-d H:i:s');
+
     $sql = 'SELECT * FROM job';
     $sql .= ' WHERE is_active = 1'; // must be active
-    // $sql .= ' AND receive_job_proposals_deadline > :now'; // deadline for receiving proposals should not have passed
-    // $sql .= " AND id NOT IN (SELECT job_id FROM job_proposal WHERE status IN ('" . implode("','", JobProposalModel::getAcceptedStatuses()) . "'))"; // should not have accepted a proposal
+    $sql .= ' AND receive_job_proposals_deadline > :now'; // deadline for receiving proposals should not have passed
+    $sql .= " AND id NOT IN (SELECT job_id FROM job_proposal WHERE status IN ('" . implode("','", JobProposalModel::getAcceptedStatuses()) . "'))"; // should not have accepted a proposal
     $sql .= " AND id in (SELECT job_id FROM job_skill WHERE skill_id IN (" . implode(',', $skills) . "))"; // should have at least one of the skills
-    // $sql .= ' ORDER BY receive_job_proposals_deadline DESC';
-
-    echo $sql;
+    $sql .= " AND expected_duration_in_hours <= :maxDuration";
+    $sql .= " AND expected_duration_in_hours >= :minDuration";
+    $sql .= " AND pay_rate_per_hour <= :maxPayRatePerHour";
+    $sql .= " AND pay_rate_per_hour >= :minPayRatePerHour";
+    $sql .= ' ORDER BY receive_job_proposals_deadline DESC';
 
     $statement = $db->prepare($sql);
-    $now = (new DateTime())->format('Y-m-d H:i:s');
-    // $statement->bindParam(':now', $now);
+    $statement->bindParam(':now', $now);
+    $statement->bindParam(':maxDuration', $maxDuration);
+    $statement->bindParam(':minDuration', $minDuration);
+    $statement->bindParam(':maxPayRatePerHour', $maxPayRatePerHour);
+    $statement->bindParam(':minPayRatePerHour', $minPayRatePerHour);
     $statement->execute();
     $jobs = $statement->fetchAll();
 
@@ -201,6 +208,56 @@ class JobModel extends _BaseModel
     }
 
     return $jobModels;
+  }
+
+  /**
+   * Gets the maximum duration of all open jobs
+   */
+  public static function getAllOpenJobsMaxDuration(): int
+  {
+    $db = (new Database)->connectToDb();
+
+    $now = (new DateTime())->format('Y-m-d H:i:s');
+
+    $sql = 'SELECT MAX(expected_duration_in_hours) FROM job';
+    $sql .= ' WHERE is_active = 1'; // must be active
+    $sql .= ' AND receive_job_proposals_deadline > :now'; // deadline for receiving proposals should not have passed
+    $sql .= " AND id NOT IN (SELECT job_id FROM job_proposal WHERE status IN ('" . implode("','", JobProposalModel::getAcceptedStatuses()) . "'))"; // should not have accepted a proposal
+    $statement = $db->prepare($sql);
+    $statement->bindParam(':now', $now);
+    $statement->execute();
+    $result = $statement->fetch();
+
+    if ($result && $result['MAX(expected_duration_in_hours)'] !== null) {
+      return $result['MAX(expected_duration_in_hours)'];
+    }
+
+    return 0;
+  }
+
+  /**
+   * Gets the maximum pay_rate_per_hour of all open jobs
+   */
+  public static function getAllOpenJobsMaxPayRatePerHour(): int
+  {
+    $db = (new Database)->connectToDb();
+
+    $now = (new DateTime())->format('Y-m-d H:i:s');
+
+    $sql = 'SELECT MAX(pay_rate_per_hour) FROM job';
+    $sql .= ' WHERE is_active = 1'; // must be active
+    $sql .= ' AND receive_job_proposals_deadline > :now'; // deadline for receiving proposals should not have passed
+    $sql .= " AND id NOT IN (SELECT job_id FROM job_proposal WHERE status IN ('" . implode("','", JobProposalModel::getAcceptedStatuses()) . "'))"; // should not have accepted a proposal
+    $statement = $db->prepare($sql);
+    $statement->bindParam(':now', $now);
+    $statement->execute();
+    $result = $statement->fetch();
+
+    if ($result && $result['MAX(pay_rate_per_hour)'] !== null) {
+      return $result['MAX(pay_rate_per_hour)'];
+    }
+
+    return 0;
   }
 
   public function isJobCreatedByUser($userId): bool

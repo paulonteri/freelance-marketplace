@@ -121,6 +121,8 @@ class DashboardFreelancerController extends _BaseController
     {
         DashboardFreelancerController::requireUserIsFreelancer($router);
 
+        $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
         // get skills
         $skillIds = [];
         foreach (SkillModel::getAll() as $skill) {
@@ -130,14 +132,103 @@ class DashboardFreelancerController extends _BaseController
             $skillIds = $_GET['skills'];
         }
 
+        // get duration
+        $maxDuration = JobModel::getAllOpenJobsMaxDuration();
+        if (isset($_GET['maxDuration'])) {
+            $maxDuration = $_GET['maxDuration'];
+        }
+        $minDuration = 1;
+        if (isset($_GET['minDuration'])) {
+            $minDuration = $_GET['minDuration'];
+        }
+
+        // get PayRatePerHour
+        $maxPayRatePerHour = JobModel::getAllOpenJobsMaxPayRatePerHour();
+        if (isset($_GET['maxPayRatePerHour'])) {
+            $maxPayRatePerHour = $_GET['maxPayRatePerHour'];
+        }
+        $minPayRatePerHour = 1;
+        if (isset($_GET['minPayRatePerHour'])) {
+            $minPayRatePerHour = $_GET['minPayRatePerHour'];
+        }
+
         $data = [
-            'jobs' => JobModel::getAllOpenJobs($skillIds),
+            'jobs' => JobModel::getAllOpenJobs($skillIds, $maxDuration, $minDuration, $maxPayRatePerHour, $minPayRatePerHour),
             'allSkills' => SkillModel::getAll(),
 
             'skills' => $skillIds,
             'skillsError' => '',
-
+            'maxPayRatePerHour' => $maxPayRatePerHour,
+            'maxPayRatePerHourError' => '',
+            'minPayRatePerHour' => $minPayRatePerHour,
+            'minPayRatePerHourError' => '',
+            'maxDuration' => $maxDuration,
+            'maxDurationError' => '',
+            'minDuration' => $minDuration,
+            'minDurationError' => '',
         ];
+
+        // validate maxDuration
+        if (empty($data['maxDuration'])) {
+            $data['maxDurationError'] = 'Required.';
+        } elseif (!is_numeric($data['maxDuration'])) {
+            $data['maxDurationError'] = 'Must be a number.';
+        } elseif ($data['maxDuration'] < 1) {
+            $data['maxDurationError'] = 'Too short.';
+        } elseif ($data['maxDuration'] > 100000) {
+            $data['maxDurationError'] = 'Too high.';
+        }
+
+        // validate minDuration
+        if (empty($data['minDuration'])) {
+            $data['minDurationError'] = 'Required.';
+        } elseif (!is_numeric($data['minDuration'])) {
+            $data['minDurationError'] = 'Must be a number.';
+        } elseif ($data['minDuration'] < 1) {
+            $data['minDurationError'] = 'Too short.';
+        } elseif ($data['minDuration'] > 100000) {
+            $data['minDurationError'] = 'Too high.';
+        }
+
+        if (
+            empty($data['maxDurationError'])
+            && empty($data['minDurationError'])
+            && $data['maxDuration'] < $data['minDuration']
+        ) {
+            $data['maxDurationError'] = 'Max duration must be larger than min duration.';
+        }
+
+        // validate maxPayRatePerHourError
+        if (empty($data['maxPayRatePerHourError'])) {
+            $data['maxPayRatePerHourErrorError'] = 'Required.';
+        } elseif (!is_numeric($data['maxPayRatePerHourError'])) {
+            $data['maxPayRatePerHourErrorError'] = 'Must be a number.';
+        } elseif ($data['maxPayRatePerHourError'] < 0) {
+            $data['maxPayRatePerHourErrorError'] = 'Must be positive.';
+        } elseif ($data['maxPayRatePerHourError'] > 100000) {
+            $data['maxPayRatePerHourErrorError'] = 'Too high.';
+        }
+
+        // validate minPayRatePerHourError
+        if (empty($data['minPayRatePerHourError'])) {
+            $data['minPayRatePerHourErrorError'] = 'Required.';
+        } elseif (!is_numeric($data['minPayRatePerHourError'])) {
+            $data['minPayRatePerHourErrorError'] = 'Must be a number.';
+        } elseif ($data['minPayRatePerHourError'] < 0) {
+            $data['minPayRatePerHourErrorError'] = 'Must be positive.';
+        } elseif ($data['minPayRatePerHourError'] > 100000) {
+            $data['minPayRatePerHourErrorError'] = 'Too high.';
+        }
+
+        if (
+            empty($data['maxPayRatePerHourError'])
+            && empty($data['minPayRatePerHourError'])
+            && $data['maxPayRatePerHour'] < $data['minPayRatePerHour']
+        ) {
+            $data['maxPayRatePerHourError'] = 'Max pay rate must be larger than min pay rate.';
+        }
+
+
         $router->renderView(self::$basePath . 'jobs/index', $data);
     }
 

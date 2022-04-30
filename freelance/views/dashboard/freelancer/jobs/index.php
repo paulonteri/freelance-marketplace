@@ -46,6 +46,34 @@ $freelancer = app\models\UserModel::getCurrentUser()->getFreelancer();
                     <?php echo $params["skillsError"]; ?>
                 </span>
 
+                <label for="maxDuration">Max Duration <small>(hours)</small></label>
+                <input type="number" min="0" max="100000" required name="maxDuration" id="maxDuration"
+                    value="<?php echo $params['maxDuration']; ?>">
+                <span class="invalidFeedback">
+                    <?php echo $params['maxDurationError']; ?>
+                </span>
+
+                <label for="minDuration">Min Duration <small>(hours)</small></label>
+                <input type="number" min="0" max="100000" required name="minDuration" id="minDuration"
+                    value="<?php echo $params['minDuration']; ?>">
+                <span class="invalidFeedback">
+                    <?php echo $params['minDurationError']; ?>
+                </span>
+
+                <label for="maxPayRatePerHour">Max Pay Rate Per Hour <small>(KES)</small></label>
+                <input type="number" min="0" max="100000" required name="maxPayRatePerHour" id="maxPayRatePerHour"
+                    value="<?php echo $params['maxPayRatePerHour']; ?>">
+                <span class="invalidFeedback">
+                    <?php echo $params['maxPayRatePerHourError']; ?>
+                </span>
+
+                <label for="minPayRatePerHour">Min Pay Rate Per Hour <small>(KES)</small></label>
+                <input type="number" min="0" max="100000" required name="minPayRatePerHour" id="minPayRatePerHour"
+                    value="<?php echo $params['minPayRatePerHour']; ?>">
+                <span class="invalidFeedback">
+                    <?php echo $params['minPayRatePerHourError']; ?>
+                </span>
+
                 <hr style="margin: 1rem 0;" />
 
                 <input class="button-primary" type="submit" value="Submit">
