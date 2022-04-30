@@ -151,4 +151,48 @@ class JobRatingModel extends _BaseModel
 
         return $jobRatingModels;
     }
+
+    private function getFreelancerName(): ?string
+    {
+        if ($this->type != 'freelancer') {
+            DisplayAlert::displayError('Cannot get freelancer name for client rating');
+            return null;
+        }
+
+        $job = new JobModel($this->job_id);
+        $proposal = $job->getAcceptedProposal();
+        $freelancer = new FreelancerModel($proposal->getFreelancerId());
+
+        return $freelancer->getUser()->getName();
+    }
+
+    private function getClientName(): ?string
+    {
+        if ($this->type != 'client') {
+            DisplayAlert::displayError('Cannot get client name for freelancer rating');
+            return null;
+        }
+
+        $job = new JobModel($this->job_id);
+        $client = new ClientModel($job->getClientId());
+
+        return $client->getUser()->getName();
+    }
+
+    /**
+     * Get the name of the user who created this rating.
+     * 
+     * @return string
+     */
+    public function getRaterName(): ?string
+    {
+        if ($this->type == 'freelancer') {
+            return $this->getFreelancerName();
+        } else if ($this->type == 'client') {
+            return $this->getClientName();
+        } else {
+            DisplayAlert::displayError('Cannot get rater name for job rating');
+            return null;
+        }
+    }
 }
