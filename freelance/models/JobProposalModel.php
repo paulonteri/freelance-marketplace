@@ -21,7 +21,7 @@ class JobProposalModel extends _BaseModel
     private string $time_created;
     private bool $is_active;
 
-    public function __construct(?int $id = null)
+    public function __construct(?int $id)
     {
         $this->db = $this->connectToDb();
 

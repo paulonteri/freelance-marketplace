@@ -23,7 +23,7 @@ class JobModel extends _BaseModel
   private string $time_created;
   private int $is_active;
 
-  public function __construct(?int $id = null)
+  public function __construct(?int $id)
   {
     $this->db = $this->connectToDb();
 
