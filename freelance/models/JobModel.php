@@ -171,12 +171,27 @@ class JobModel extends _BaseModel
     }
   }
 
-  public static function getAll(): array
+  /**
+   * Get all jobs open for proposals
+   *
+   * @return JobModel[]
+   */
+  public static function getAllOpenJobs(array $skills): array
   {
     $db = (new Database)->connectToDb();
 
     $sql = 'SELECT * FROM job';
+    $sql .= ' WHERE is_active = 1'; // must be active
+    // $sql .= ' AND receive_job_proposals_deadline > :now'; // deadline for receiving proposals should not have passed
+    // $sql .= " AND id NOT IN (SELECT job_id FROM job_proposal WHERE status IN ('" . implode("','", JobProposalModel::getAcceptedStatuses()) . "'))"; // should not have accepted a proposal
+    $sql .= " AND id in (SELECT job_id FROM job_skill WHERE skill_id IN (" . implode(',', $skills) . "))"; // should have at least one of the skills
+    // $sql .= ' ORDER BY receive_job_proposals_deadline DESC';
+
+    echo $sql;
+
     $statement = $db->prepare($sql);
+    $now = (new DateTime())->format('Y-m-d H:i:s');
+    // $statement->bindParam(':now', $now);
     $statement->execute();
     $jobs = $statement->fetchAll();
 

@@ -26,6 +26,35 @@ $freelancer = app\models\UserModel::getCurrentUser()->getFreelancer();
 <!-------------------------------- end intro -------------------------------------------------------->
 
 <!-------------------------------- jobs list -------------------------------------------------------->
+<div class="container" style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
+    <h2>Filter jobs</h2>
+    <details>
+        <summary>View Filters</summary>
+        <form action="/dashboard/freelancer/jobs" method="GET">
+            <fieldset>
+
+                <label for="skills[]">Skills <small>(Select multiple)</small></label>
+                <select required name="skills[]" id="skills[]" multiple size="10">
+                    <?php foreach ($params["allSkills"] as $skill) { ?>
+                    <option value="<?php echo $skill->getId(); ?>"
+                        <?php if (in_array($skill->getId(), $params['skills'])) { ?> selected <?php } ?>>
+                        <?php echo $skill->getName(); ?>
+                    </option>
+                    <?php } ?>
+                </select>
+                <span class="invalidFeedback">
+                    <?php echo $params["skillsError"]; ?>
+                </span>
+
+                <hr style="margin: 1rem 0;" />
+
+                <input class="button-primary" type="submit" value="Submit">
+            </fieldset>
+        </form>
+    </details>
+    <hr />
+</div>
+
 <div class="container" style="margin-top:25px;">
 
     <?php foreach ($params["jobs"] as $job) { ?>

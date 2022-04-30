@@ -120,8 +120,23 @@ class DashboardFreelancerController extends _BaseController
     public static function jobs(Router $router)
     {
         DashboardFreelancerController::requireUserIsFreelancer($router);
+
+        // get skills
+        $skillIds = [];
+        foreach (SkillModel::getAll() as $skill) {
+            $skillIds[] = $skill->getId();
+        }
+        if (isset($_GET['skills'])) {
+            $skillIds = $_GET['skills'];
+        }
+
         $data = [
-            'jobs' => JobModel::getAll()
+            'jobs' => JobModel::getAllOpenJobs($skillIds),
+            'allSkills' => SkillModel::getAll(),
+
+            'skills' => $skillIds,
+            'skillsError' => '',
+
         ];
         $router->renderView(self::$basePath . 'jobs/index', $data);
     }
