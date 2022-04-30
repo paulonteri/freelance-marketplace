@@ -296,6 +296,41 @@ class JobModel extends _BaseModel
   }
 
   /**
+   * Check if the job has been completed
+   *
+   * @return boolean
+   */
+  public function hasJobEnded(): bool
+  {
+    $sql = "SELECT * FROM job_proposal WHERE job_id = :job_id AND status IN ('completed successfully','completed unsuccessfully')";
+    $statement = $this->db->prepare($sql);
+    $statement->bindParam(':job_id', $this->id);
+    $statement->execute();
+    $proposal = $statement->fetch();
+
+    if ($proposal) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public function hasReceivedProposals(): bool
+  {
+    $sql = "SELECT * FROM job_proposal WHERE job_id = :job_id";
+    $statement = $this->db->prepare($sql);
+    $statement->bindParam(':job_id', $this->id);
+    $statement->execute();
+    $proposal = $statement->fetch();
+
+    if ($proposal) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
    * Check if the freelancer (who's proposal was accepted) submitted work
    */
   public function hasWorkSubmitted(): bool

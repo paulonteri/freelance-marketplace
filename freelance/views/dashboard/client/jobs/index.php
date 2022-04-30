@@ -33,8 +33,7 @@
             </div>
             <div class="column">
                 <p class="center-text-on-small-screen" style="text-align:right;">
-                    <b>Client:</b>
-                    <?php echo $job->getClient()->getTitle(); ?>
+                    Posted by you
                 </p>
             </div>
         </div>
@@ -66,6 +65,44 @@
                     <script type="text/javascript">
                     formatDateToHumanCalendar("<?php echo $job->getTimeCreated(); ?>");
                     </script>
+                </p>
+            </div>
+        </div>
+        <div class="row" style="justify-content:space-between;">
+            <div class="column">
+                <p class="center-text-on-small-screen" style="text-align:left; margin:auto 0px;">
+                    <b>Received proposals: </b>
+                    <?php
+                        if ($job->hasReceivedProposals()) {
+                            echo '&#9989;';
+                        } else {
+                            echo "&#10060;";
+                        }
+                        ?>
+                </p>
+            </div>
+            <div class="column">
+                <p style="text-align:center; margin:auto 0px;">
+                    <b>Has started: </b>
+                    <?php
+                        if ($job->hasJobStarted()) {
+                            echo '&#9989;';
+                        } else {
+                            echo "&#10060;";
+                        }
+                        ?>
+                </p>
+            </div>
+            <div class="column">
+                <p class="center-text-on-small-screen" style="text-align:right;">
+                    <b>Has ended: </b>
+                    <?php
+                        if ($job->hasJobEnded()) {
+                            echo '&#9989;';
+                        } else {
+                            echo "&#10060;";
+                        }
+                        ?>
                 </p>
             </div>
         </div>
