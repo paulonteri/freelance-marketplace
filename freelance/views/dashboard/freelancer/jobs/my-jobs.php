@@ -191,7 +191,7 @@ $freelancer = app\models\UserModel::getCurrentUser()->getFreelancer();
                 </p>
             </div>
             <div class="column" style="margin-bottom:5px;">
-                <a href="/dashboard/freelancer/jobs/my-jobs/id?jobId=<?php echo $job->getId() ?>">
+                <a href="/dashboard/freelancer/jobs/id?jobId=<?php echo $job->getId() ?>">
                     <button class=" center-self-on-screen float-right-on-large-screen ">
                         View &rarr;
                     </button>
