@@ -162,7 +162,13 @@ body {
     border: 1px solid #ddd;
 }
 
-.pagination a:hover {
+.pagination a.active {
+    background-color: #9b4dca;
+    color: white;
+    border: 1px solid #9b4dca;
+}
+
+.pagination a:hover:not(.active) {
     background-color: #ddd;
 }
 

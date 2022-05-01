@@ -210,6 +210,7 @@ $freelancer = app\models\UserModel::getCurrentUser()->getFreelancer();
             &laquo;&laquo; Prev
         </a>
         <?php } ?>
+        <a onClick="javascript:void(0)" class="active"><?php echo $params['pageNumber']; ?></a>
         <?php if ($params['nextPageNumber'] <= $params['lastPageNumber']) { ?>
         <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['nextPageNumber']; ?> )">
             Next &raquo;&raquo;
