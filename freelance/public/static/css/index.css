@@ -150,7 +150,8 @@ body {
 .pagination {
     /* display: inline-block; */
     float: right;
-    margin-top: 10px;
+    margin-top: 15px;
+    margin-bottom: 20px;
 }
 
 .pagination a {

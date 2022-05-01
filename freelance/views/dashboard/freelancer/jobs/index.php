@@ -27,7 +27,10 @@ $freelancer = app\models\UserModel::getCurrentUser()->getFreelancer();
 
 <!-------------------------------- jobs list -------------------------------------------------------->
 <div class="container" style="padding-bottom:5px; padding-top:10px; margin-bottom:10px">
-    <h2>Filter jobs</h2>
+
+    <!-------------------------------- filter -------------------------------------------------------->
+    <hr style="margin: 1rem 0;" />
+    <h3>Filter jobs</h3>
     <details>
         <summary>View Filters</summary>
         <form id="formID" action="/dashboard/freelancer/jobs" method="GET">
@@ -86,9 +89,11 @@ $freelancer = app\models\UserModel::getCurrentUser()->getFreelancer();
         <a href="/dashboard/freelancer/jobs?pageNumber=<?php echo $params['pageNumber']; ?>">
             <input class="button-primary" type="submit" value="Reset Filters">
         </a>
-
     </details>
-    <hr />
+    <!-------------------------------- end filter -------------------------------------------------------->
+
+
+    <hr style="margin: 1rem 0;" />
 </div>
 
 <div class="container" style="margin-top:25px;">
@@ -202,6 +207,7 @@ $freelancer = app\models\UserModel::getCurrentUser()->getFreelancer();
     <!-------------------------------- end job -------------------------------------------------------->
     <?php } ?>
 
+    <!-------------------------------- pagination -------------------------------------------------------->
     <div class="pagination">
         <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', 1)">First</a>
         <?php if ($params['previousPageNumber'] > 0) { ?>
@@ -221,6 +227,7 @@ $freelancer = app\models\UserModel::getCurrentUser()->getFreelancer();
         </a>
         <p style="text-align:right;"><small><?php echo $params['recordsCount'] ?> items</small></p>
     </div>
-    <!-- <input type="submit" name="save" value="Save" form="formID" /> -->
+    <!-------------------------------- end pagination -------------------------------------------------------->
+
 </div>
 <!-------------------------------- end jobs list -------------------------------------------------------->

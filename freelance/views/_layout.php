@@ -112,7 +112,10 @@
 
     <!----------------------------- main content -------------------------------------------------------->
 
+
     <?php echo $content; ?>
+
+
     <!----------------------------- end main content -------------------------------------------------------->
 
 </body>
@@ -143,7 +146,7 @@
 
     <p style="text-align:center;">
         <script>
-        document.write("@ " + new Date().getFullYear());
+        document.write("Marketplace @ " + new Date().getFullYear());
         </script>
     </p>
 
