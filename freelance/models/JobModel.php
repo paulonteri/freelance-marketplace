@@ -328,14 +328,27 @@ class JobModel extends _BaseModel
   /**
    * Get jobs that the freelancer has proposed to
    */
-  public static function getFreelancerJobs(int $freelancerId): array
+  public static function getFreelancerJobs(int $limit, int $offset, int $freelancerId, array $skills, int $maxDuration, int $minDuration, int $maxPayRatePerHour, int $minPayRatePerHour): array
   {
     $db = (new Database)->connectToDb();
 
     $sql = 'SELECT * FROM job WHERE id IN (SELECT job_id FROM job_proposal WHERE freelancer_id = :freelancer_id)';
-    $sql .= ' ORDER BY receive_job_proposals_deadline DESC';
+    $sql .= " AND id in (SELECT job_id FROM job_skill WHERE skill_id IN (" . implode(',', $skills) . "))"; // should have at least one of the skills
+    $sql .= " AND expected_duration_in_hours <= :maxDuration";
+    $sql .= " AND expected_duration_in_hours >= :minDuration";
+    $sql .= " AND pay_rate_per_hour <= :maxPayRatePerHour";
+    $sql .= " AND pay_rate_per_hour >= :minPayRatePerHour";
+    $sql .= " ORDER BY receive_job_proposals_deadline DESC"; // order by nearest receive_job_proposals_deadline
+    $sql .= " LIMIT :limit OFFSET :offset"; // limit and offset for pagination
+
     $statement = $db->prepare($sql);
+    $statement->bindParam(':limit', $limit, PDO::PARAM_INT);
+    $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
     $statement->bindParam(':freelancer_id', $freelancerId);
+    $statement->bindParam(':maxDuration', $maxDuration);
+    $statement->bindParam(':minDuration', $minDuration);
+    $statement->bindParam(':maxPayRatePerHour', $maxPayRatePerHour);
+    $statement->bindParam(':minPayRatePerHour', $minPayRatePerHour);
     $statement->execute();
     $jobs = $statement->fetchAll();
 
@@ -345,6 +358,14 @@ class JobModel extends _BaseModel
     }
 
     return $jobModels;
+  }
+
+  /**
+   * Get count of the jobs that the freelancer has proposed to
+   */
+  public static function getFreelancerJobsCount(int $freelancerId, array $skills, int $maxDuration, int $minDuration, int $maxPayRatePerHour, int $minPayRatePerHour): int
+  {
+    return count(self::getFreelancerJobs(PHP_INT_MAX, 0, $freelancerId, $skills, $maxDuration, $minDuration, $maxPayRatePerHour, $minPayRatePerHour));
   }
 
   public function getAcceptedProposal(): ?JobProposalModel
