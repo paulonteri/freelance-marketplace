@@ -143,6 +143,12 @@ body {
     border-color: red !important;
 }
 
+@media (min-width: 40rem) {
+    .quarter-screen-size-image {
+        max-width: 25vw !important;
+    }
+}
+
 /* ------------------- end simple utilities ------------------------- */
 
 /* ------------------- pagination ------------------------- */

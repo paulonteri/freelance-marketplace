@@ -22,7 +22,7 @@
             </p>
 
             <?php if ($job->getImage()) { ?>
-                <img src="<?php echo $job->getImage(); ?>" class="center-on-small-screen container" />
+                <img class="quarter-screen-size-image" src="<?php echo $job->getImage(); ?>" class="center-on-small-screen container" />
             <?php } ?>
 
         </div>
