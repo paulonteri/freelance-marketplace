@@ -214,13 +214,13 @@ $freelancer = app\models\UserModel::getCurrentUser()->getFreelancer();
         <?php if ($params['previousPageNumber'] > 0) { ?>
         <a
             onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['previousPageNumber']; ?> )">
-            &laquo;&laquo; Prev
+            &laquo;&laquo;
         </a>
         <?php } ?>
         <a onClick="javascript:void(0)" class="active"><?php echo $params['pageNumber']; ?></a>
         <?php if ($params['nextPageNumber'] <= $params['lastPageNumber']) { ?>
         <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['nextPageNumber']; ?> )">
-            Next &raquo;&raquo;
+            &raquo;&raquo;
         </a>
         <?php } ?>
         <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['lastPageNumber']; ?> )">

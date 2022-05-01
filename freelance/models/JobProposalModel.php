@@ -208,7 +208,7 @@ class JobProposalModel extends _BaseModel
     {
         $db = (new Database)->connectToDb();
 
-        $sql = 'SELECT * FROM job_proposal WHERE freelancer_id = :freelancer_id';
+        $sql = 'SELECT * FROM job_proposal WHERE freelancer_id = :freelancer_id ORDER BY time_created DESC';
         $statement = $db->prepare($sql);
         $statement->bindParam(':freelancer_id', $freelancerId);
         $statement->execute();

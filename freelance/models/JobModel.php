@@ -192,7 +192,7 @@ class JobModel extends _BaseModel
     $sql .= " AND expected_duration_in_hours >= :minDuration";
     $sql .= " AND pay_rate_per_hour <= :maxPayRatePerHour";
     $sql .= " AND pay_rate_per_hour >= :minPayRatePerHour";
-    $sql .= " ORDER BY receive_job_proposals_deadline DESC"; // order by nearest receive_job_proposals_deadline
+    $sql .= " ORDER BY receive_job_proposals_deadline ASC"; // order by nearest receive_job_proposals_deadline
     $sql .= " LIMIT :limit OFFSET :offset"; // limit and offset for pagination
 
     $statement = $db->prepare($sql);
@@ -311,7 +311,7 @@ class JobModel extends _BaseModel
   {
     $db = (new Database)->connectToDb();
 
-    $sql = 'SELECT * FROM job WHERE client_id = :client_id';
+    $sql = 'SELECT * FROM job WHERE client_id = :client_id ORDER BY time_created DESC';
     $statement = $db->prepare($sql);
     $statement->bindParam(':client_id', $clientId);
     $statement->execute();
@@ -338,7 +338,7 @@ class JobModel extends _BaseModel
     $sql .= " AND expected_duration_in_hours >= :minDuration";
     $sql .= " AND pay_rate_per_hour <= :maxPayRatePerHour";
     $sql .= " AND pay_rate_per_hour >= :minPayRatePerHour";
-    $sql .= " ORDER BY receive_job_proposals_deadline DESC"; // order by nearest receive_job_proposals_deadline
+    $sql .= " ORDER BY receive_job_proposals_deadline ASC"; // order by nearest receive_job_proposals_deadline
     $sql .= " LIMIT :limit OFFSET :offset"; // limit and offset for pagination
 
     $statement = $db->prepare($sql);

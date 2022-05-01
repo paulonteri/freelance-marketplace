@@ -34,6 +34,7 @@ class DashboardClientController extends _BaseController
             'imageError' => '',
             'titleError' => '',
             'descriptionError' => '',
+            'typeError' => '',
         ];
 
         // Check for post
@@ -180,7 +181,7 @@ class DashboardClientController extends _BaseController
                 $data['descriptionError'] = 'Required.';
             } elseif (strlen($data['description']) < 10) {
                 $data['descriptionError'] = 'Too short';
-            } elseif (strlen($data['description']) > 1000) {
+            } elseif (strlen($data['description']) > 5000) {
                 $data['descriptionError'] = 'Too long';
             }
 
