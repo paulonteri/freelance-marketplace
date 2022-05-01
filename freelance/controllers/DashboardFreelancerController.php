@@ -152,8 +152,20 @@ class DashboardFreelancerController extends _BaseController
             $minPayRatePerHour = $_GET['minPayRatePerHour'];
         }
 
+        // pagination
+        $pageNumber = 1;
+        if (isset($_GET['pageNumber']) && $_GET['pageNumber'] != "") {
+            $pageNumber = $_GET['pageNumber'];
+        }
+        $limit = self::$totalRecordsPerPage;
+        $offset = ($pageNumber - 1) * $limit;
+        $previousPageNumber = $pageNumber - 1;
+        $nextPageNumber = $pageNumber + 1;
+        $recordsCount =  JobModel::getAllOpenJobsCount($skillIds, $maxDuration, $minDuration, $maxPayRatePerHour, $minPayRatePerHour);
+        $lastPageNumber = ceil($recordsCount / $limit);
+
         $data = [
-            'jobs' => JobModel::getAllOpenJobs($skillIds, $maxDuration, $minDuration, $maxPayRatePerHour, $minPayRatePerHour),
+            'jobs' => JobModel::getAllOpenJobs($limit, $offset, $skillIds, $maxDuration, $minDuration, $maxPayRatePerHour, $minPayRatePerHour),
             'allSkills' => SkillModel::getAll(),
 
             'skills' => $skillIds,
@@ -166,6 +178,12 @@ class DashboardFreelancerController extends _BaseController
             'maxDurationError' => '',
             'minDuration' => $minDuration,
             'minDurationError' => '',
+
+            'pageNumber' => $pageNumber,
+            'previousPageNumber' => $previousPageNumber,
+            'nextPageNumber' => $nextPageNumber,
+            'lastPageNumber' => $lastPageNumber,
+            'recordsCount' => $recordsCount,
         ];
 
         // validate maxDuration

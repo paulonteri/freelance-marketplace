@@ -21,4 +21,9 @@ function formatDateToHumanCalendar(dateString) {
     document.write(date);
 }
 
+function changeInputValueAndSubmitForm(formId, inputId, inputValue) {
+    document.getElementById(inputId).value = inputValue;
+    document.getElementById(formId).submit();
+}
+
 // ----------------------------------- utility functions end -----------------------------------

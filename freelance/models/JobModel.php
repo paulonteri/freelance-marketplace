@@ -6,6 +6,7 @@ use DateTime;
 use PDOException;
 use app\Database;
 use app\utils\DisplayAlert;
+use PDO;
 
 class JobModel extends _BaseModel
 {
@@ -176,7 +177,7 @@ class JobModel extends _BaseModel
    *
    * @return JobModel[]
    */
-  public static function getAllOpenJobs(array $skills, int $maxDuration, int $minDuration, int $maxPayRatePerHour, int $minPayRatePerHour): array
+  public static function getAllOpenJobs(int $limit, int $offset, array $skills, int $maxDuration, int $minDuration, int $maxPayRatePerHour, int $minPayRatePerHour): array
   {
     $db = (new Database)->connectToDb();
 
@@ -191,14 +192,20 @@ class JobModel extends _BaseModel
     $sql .= " AND expected_duration_in_hours >= :minDuration";
     $sql .= " AND pay_rate_per_hour <= :maxPayRatePerHour";
     $sql .= " AND pay_rate_per_hour >= :minPayRatePerHour";
-    $sql .= ' ORDER BY receive_job_proposals_deadline DESC';
+    $sql .= " ORDER BY receive_job_proposals_deadline DESC"; // order by nearest receive_job_proposals_deadline
+    $sql .= " LIMIT :limit OFFSET :offset"; // limit and offset for pagination
+
+    echo $sql;
 
     $statement = $db->prepare($sql);
+    $statement->bindParam(':limit', $limit, PDO::PARAM_INT);
+    $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
     $statement->bindParam(':now', $now);
     $statement->bindParam(':maxDuration', $maxDuration);
     $statement->bindParam(':minDuration', $minDuration);
     $statement->bindParam(':maxPayRatePerHour', $maxPayRatePerHour);
     $statement->bindParam(':minPayRatePerHour', $minPayRatePerHour);
+
     $statement->execute();
     $jobs = $statement->fetchAll();
 
@@ -208,6 +215,14 @@ class JobModel extends _BaseModel
     }
 
     return $jobModels;
+  }
+
+  /**
+   * Returns the number of AllOpenJobs
+   */
+  public static function getAllOpenJobsCount(array $skills, int $maxDuration, int $minDuration, int $maxPayRatePerHour, int $minPayRatePerHour): int
+  {
+    return count(self::getAllOpenJobs(PHP_INT_MAX, 0, $skills, $maxDuration, $minDuration, $maxPayRatePerHour, $minPayRatePerHour));
   }
 
   /**
@@ -302,7 +317,7 @@ class JobModel extends _BaseModel
   }
 
   /**
-   * Get jobs that the freelancer has created
+   * Get jobs that the client has created
    */
   public static function getClientJobs(int $clientId): array
   {

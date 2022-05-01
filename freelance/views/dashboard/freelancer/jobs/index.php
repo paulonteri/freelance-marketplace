@@ -30,8 +30,11 @@ $freelancer = app\models\UserModel::getCurrentUser()->getFreelancer();
     <h2>Filter jobs</h2>
     <details>
         <summary>View Filters</summary>
-        <form action="/dashboard/freelancer/jobs" method="GET">
+        <form id="formID" action="/dashboard/freelancer/jobs" method="GET">
             <fieldset>
+
+                <input hidden type="number" required name="pageNumber" id="pageNumber"
+                    value="<?php echo $params['pageNumber']; ?>">
 
                 <label for="skills[]">Skills <small>(Select multiple)</small></label>
                 <select required name="skills[]" id="skills[]" multiple size="10">
@@ -79,11 +82,11 @@ $freelancer = app\models\UserModel::getCurrentUser()->getFreelancer();
                 <input class="button-primary" type="submit" value="Submit">
             </fieldset>
         </form>
-        <form action="/dashboard/freelancer/jobs" method="GET">
-            <fieldset>
-                <input class="button-primary" type="submit" value="Reset Filters">
-            </fieldset>
-        </form>
+
+        <a href="/dashboard/freelancer/jobs?pageNumber=<?php echo $params['pageNumber']; ?>">
+            <input class="button-primary" type="submit" value="Reset Filters">
+        </a>
+
     </details>
     <hr />
 </div>
@@ -199,5 +202,24 @@ $freelancer = app\models\UserModel::getCurrentUser()->getFreelancer();
     <!-------------------------------- end job -------------------------------------------------------->
     <?php } ?>
 
+    <div class="pagination">
+        <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', 1)">First</a>
+        <?php if ($params['previousPageNumber'] > 0) { ?>
+        <a
+            onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['previousPageNumber']; ?> )">
+            &laquo;&laquo; Prev
+        </a>
+        <?php } ?>
+        <?php if ($params['nextPageNumber'] <= $params['lastPageNumber']) { ?>
+        <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['nextPageNumber']; ?> )">
+            Next &raquo;&raquo;
+        </a>
+        <?php } ?>
+        <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['lastPageNumber']; ?> )">
+            Last
+        </a>
+        <p style="text-align:right;"><small><?php echo $params['recordsCount'] ?> items</small></p>
+    </div>
+    <!-- <input type="submit" name="save" value="Save" form="formID" /> -->
 </div>
 <!-------------------------------- end jobs list -------------------------------------------------------->

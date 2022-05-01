@@ -145,6 +145,29 @@ body {
 
 /* ------------------- end simple utilities ------------------------- */
 
+/* ------------------- pagination ------------------------- */
+
+.pagination {
+    /* display: inline-block; */
+    float: right;
+    margin-top: 10px;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border: 1px solid #ddd;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+/* ------------------- end pagination ------------------------- */
+
 /* ------------------- alert ------------------------- */
 .alert {
     padding: 20px;
