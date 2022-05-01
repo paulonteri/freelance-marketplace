@@ -195,8 +195,6 @@ class JobModel extends _BaseModel
     $sql .= " ORDER BY receive_job_proposals_deadline DESC"; // order by nearest receive_job_proposals_deadline
     $sql .= " LIMIT :limit OFFSET :offset"; // limit and offset for pagination
 
-    echo $sql;
-
     $statement = $db->prepare($sql);
     $statement->bindParam(':limit', $limit, PDO::PARAM_INT);
     $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
@@ -226,20 +224,15 @@ class JobModel extends _BaseModel
   }
 
   /**
-   * Gets the maximum duration of all open jobs
+   * Gets the maximum duration of all jobs
    */
-  public static function getAllOpenJobsMaxDuration(): int
+  public static function getJobsMaxDuration(): int
   {
     $db = (new Database)->connectToDb();
 
-    $now = (new DateTime())->format('Y-m-d H:i:s');
-
     $sql = 'SELECT MAX(expected_duration_in_hours) FROM job';
     $sql .= ' WHERE is_active = 1'; // must be active
-    $sql .= ' AND receive_job_proposals_deadline > :now'; // deadline for receiving proposals should not have passed
-    $sql .= " AND id NOT IN (SELECT job_id FROM job_proposal WHERE status IN ('" . implode("','", JobProposalModel::getAcceptedStatuses()) . "'))"; // should not have accepted a proposal
     $statement = $db->prepare($sql);
-    $statement->bindParam(':now', $now);
     $statement->execute();
     $result = $statement->fetch();
 
@@ -251,20 +244,15 @@ class JobModel extends _BaseModel
   }
 
   /**
-   * Gets the maximum pay_rate_per_hour of all open jobs
+   * Gets the maximum pay_rate_per_hour of all jobs
    */
-  public static function getAllOpenJobsMaxPayRatePerHour(): int
+  public static function getJobsMaxPayRatePerHour(): int
   {
     $db = (new Database)->connectToDb();
 
-    $now = (new DateTime())->format('Y-m-d H:i:s');
-
     $sql = 'SELECT MAX(pay_rate_per_hour) FROM job';
     $sql .= ' WHERE is_active = 1'; // must be active
-    $sql .= ' AND receive_job_proposals_deadline > :now'; // deadline for receiving proposals should not have passed
-    $sql .= " AND id NOT IN (SELECT job_id FROM job_proposal WHERE status IN ('" . implode("','", JobProposalModel::getAcceptedStatuses()) . "'))"; // should not have accepted a proposal
     $statement = $db->prepare($sql);
-    $statement->bindParam(':now', $now);
     $statement->execute();
     $result = $statement->fetch();
 

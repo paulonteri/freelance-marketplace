@@ -133,7 +133,7 @@ class DashboardFreelancerController extends _BaseController
         }
 
         // get duration
-        $maxDuration = JobModel::getAllOpenJobsMaxDuration();
+        $maxDuration = JobModel::getJobsMaxDuration();
         if (isset($_GET['maxDuration'])) {
             $maxDuration = $_GET['maxDuration'];
         }
@@ -143,7 +143,7 @@ class DashboardFreelancerController extends _BaseController
         }
 
         // get PayRatePerHour
-        $maxPayRatePerHour = JobModel::getAllOpenJobsMaxPayRatePerHour();
+        $maxPayRatePerHour = JobModel::getJobsMaxPayRatePerHour();
         if (isset($_GET['maxPayRatePerHour'])) {
             $maxPayRatePerHour = $_GET['maxPayRatePerHour'];
         }
