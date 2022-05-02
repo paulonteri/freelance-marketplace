@@ -238,8 +238,18 @@ class JobProposalModel extends _BaseModel
         return $proposals;
     }
 
+    /**
+     * A client can reject a proposal that is in the 'sent' status.
+     *
+     * @return boolean
+     */
     public function rejectProposal(): bool
     {
+        if ($this->status != 'sent') {
+            DisplayAlert::displayError('Cannot reject proposal with status: ' . $this->status);
+            return false;
+        }
+
         $sql = 'UPDATE job_proposal SET status = :status WHERE id = :id';
         $statement = $this->db->prepare($sql);
         $statusString = 'rejected';
@@ -250,8 +260,18 @@ class JobProposalModel extends _BaseModel
         return true;
     }
 
+    /**
+     * A freelancer can reject their own proposal that is in the 'sent' status.
+     *
+     * @return boolean
+     */
     public function withdrawProposal(): bool
     {
+        if ($this->status != 'sent') {
+            DisplayAlert::displayError('Cannot withdraw proposal with status: ' . $this->status);
+            return false;
+        }
+
         $sql = 'UPDATE job_proposal SET status = :status WHERE id = :id';
         $statement = $this->db->prepare($sql);
         $statusString = 'withdrawn';
@@ -264,11 +284,16 @@ class JobProposalModel extends _BaseModel
 
     /**
      * This proposal will be marked as accepted 
-     * while all the other proposals for this job will be marked as rejected.
+     *  while all the other proposals for this job will be marked as rejected.
      * Note that for each job, only one proposal can be accepted.
      */
     public function acceptProposal(): bool
     {
+        if ($this->status != 'sent') {
+            DisplayAlert::displayError('Cannot accept proposal with status: ' . $this->status);
+            return false;
+        }
+
         // check if open
         $job = $this->getJob();
         if (!$job->isOpenForProposals()) {
@@ -292,8 +317,7 @@ class JobProposalModel extends _BaseModel
 
     public function isProposalAccepted(): bool
     {
-        $acceptedStatuses = array('accepted', 'work submitted', 'completed successfully', 'completed unsuccessfully');
-        if (in_array($this->status, $acceptedStatuses)) {
+        if (in_array($this->status, self::$accepted_statuses)) {
             return true;
         }
         return false;
@@ -317,9 +341,15 @@ class JobProposalModel extends _BaseModel
         return true;
     }
 
+    /**
+     * A freelancer can submit work for a proposal that is in the accepted status.
+     *
+     * @param string $description
+     * @param string $file
+     * @return boolean
+     */
     public function submitWorkDone(string $description, string $file): bool
     {
-
         $job = $this->getJob();
         if ($job->isExpired()) {
             DisplayAlert::displayError('This job is expired.');
@@ -327,6 +357,11 @@ class JobProposalModel extends _BaseModel
         }
         if ($job->hasWorkSubmitted()) {
             DisplayAlert::displayError('This job has already been submitted.');
+            return false;
+        }
+
+        if ($this->status != 'accepted') {
+            DisplayAlert::displayError('Cannot submit work for proposal with status: ' . $this->status);
             return false;
         }
 
@@ -359,6 +394,11 @@ class JobProposalModel extends _BaseModel
             return false;
         }
 
+        if ($this->status != 'work submitted') {
+            DisplayAlert::displayError('Cannot mark as complete proposal with status: ' . $this->status);
+            return false;
+        }
+
         $sql = 'UPDATE job_proposal SET status = :status WHERE id = :id';
         $statement = $this->db->prepare($sql);
         $statusString = 'completed unsuccessfully';
@@ -383,6 +423,11 @@ class JobProposalModel extends _BaseModel
 
         if ($this->status != 'work submitted') {
             DisplayAlert::displayError("Invalid status: `" . $this->status . "`. Work cannot be accepted.");
+            return false;
+        }
+
+        if ($this->status != 'work submitted') {
+            DisplayAlert::displayError('Cannot mark as complete proposal with status: ' . $this->status);
             return false;
         }
 

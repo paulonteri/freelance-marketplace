@@ -62,8 +62,20 @@ class ClientModel extends _BaseModel
         int $user_id,
         string $image,
         string $type
-    ): ClientModel {
+    ): ?ClientModel {
         $db = (new Database)->connectToDb();
+
+        $user = UserModel::tryGetById($user_id);
+        if (!$user) {
+            DisplayAlert::displayError('User not found.');
+            return null;
+        } else if ($user->isFreelancer()) {
+            DisplayAlert::displayError('User is already a freelancer.');
+            return null;
+        } else if ($user->getIsAdmin()) {
+            DisplayAlert::displayError('Admin cannot be a client.');
+            return null;
+        }
 
         $sql = 'INSERT INTO client (title, description, user_id, image, type) VALUES (:title, :description, :user_id, :image, :type)';
         $statement = $db->prepare($sql);

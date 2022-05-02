@@ -61,8 +61,20 @@ class FreelancerModel extends _BaseModel
         string $description,
         int $user_id,
         int $years_of_experience
-    ): FreelancerModel {
+    ): ?FreelancerModel {
         $db = (new Database)->connectToDb();
+
+        $user = UserModel::tryGetById($user_id);
+        if (!$user) {
+            DisplayAlert::displayError('User not found.');
+            return null;
+        } else if ($user->isClient()) {
+            DisplayAlert::displayError('User is already a client.');
+            return null;
+        } else if ($user->getIsAdmin()) {
+            DisplayAlert::displayError('Admin cannot be a freelancer.');
+            return null;
+        }
 
         $sql = 'INSERT INTO freelancer (title, description, user_id, years_of_experience) VALUES (:title, :description, :user_id, :years_of_experience)';
         $statement = $db->prepare($sql);
