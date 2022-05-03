@@ -34,6 +34,10 @@ class Router
     }
 
 
+    /**
+    * Called at public/index.php to resolve the current request
+    *
+    */
     public function resolve()
     {
         $method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -46,22 +50,28 @@ class Router
         }
         $url = rtrim($url, '/'); // remove trailing slash
 
-        // ----------------------------------------
+        // find handler for the request path and method -------------------------------------
         if ($method === 'get') {
             $fn = $this->getRoutes[$url] ?? null;
         } else if ($method === 'post') {
             $fn = $this->postRoutes[$url] ?? null;
         }
-        // 404
+        
+        
         if (!$fn) {
+            // 404 (could not find handler for the request path and method) ----------------------
             echo 'Page not found';
             exit;
+        } else {
+            // call method on the controller and pass the Router object ($this) ----------------------
+            echo call_user_func($fn, $this);
         }
-
-        // call method on the controller and pass the Router object ($this) ----------------------
-        echo call_user_func($fn, $this);
     }
 
+    /**
+    * Called in the controller (called by the method in the controller, called by the Router::resolve() method)
+    *
+    */
     public function renderView($view, $params = [], $alert = null, $errors = [])
     {
 
@@ -78,7 +88,6 @@ class Router
         // save view's output buffer in the $content variable ----------------------------------------
         ob_start();
         include __DIR__ . "/views/$view.php";
-
         $content = ob_get_clean();
 
         // render the layout (the view is also passed through the $content variable)-------------------------
