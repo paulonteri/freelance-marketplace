@@ -261,7 +261,7 @@ class JobProposalModel extends _BaseModel
     }
 
     /**
-     * A freelancer can reject their own proposal that is in the 'sent' status.
+     * A freelancer can withdraw their own proposal that is in the 'sent' status.
      *
      * @return boolean
      */
