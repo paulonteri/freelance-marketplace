@@ -356,7 +356,7 @@ class JobProposalModel extends _BaseModel
             return false;
         }
         if ($job->hasWorkSubmitted()) {
-            DisplayAlert::displayError('This job has already been submitted.');
+            DisplayAlert::displayError("This job's work has already been submitted.");
             return false;
         }
 
@@ -390,11 +390,6 @@ class JobProposalModel extends _BaseModel
         }
 
         if ($this->status != 'work submitted') {
-            DisplayAlert::displayError("Invalid status: `" . $this->status . "`. Work cannot be rejected.");
-            return false;
-        }
-
-        if ($this->status != 'work submitted') {
             DisplayAlert::displayError('Cannot mark as complete proposal with status: ' . $this->status);
             return false;
         }
@@ -418,11 +413,6 @@ class JobProposalModel extends _BaseModel
 
         if (!$job->hasWorkSubmitted()) {
             DisplayAlert::displayError("This job's work has not been submitted.");
-            return false;
-        }
-
-        if ($this->status != 'work submitted') {
-            DisplayAlert::displayError("Invalid status: `" . $this->status . "`. Work cannot be accepted.");
             return false;
         }
 
