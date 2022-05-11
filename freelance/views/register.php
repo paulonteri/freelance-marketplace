@@ -3,16 +3,18 @@
     <hr />
     <form action="/register" method="POST" enctype="multipart/form-data">
         <fieldset>
-            <label for="username">Username</label>
-            <input type="text" required name="username" id="username" value="<?php echo $params["username"]; ?>">
-            <span class="invalidFeedback">
-                <?php echo $params["usernameError"]; ?>
-            </span>
 
             <label for="first_name">First Name</label>
             <input type="text" required name="first_name" id="first_name" value="<?php echo $params["first_name"]; ?>">
             <span class="invalidFeedback">
                 <?php echo $params["first_nameError"]; ?>
+            </span>
+
+            <label for="middle_name">Middle name</label>
+            <input type="text" required name="middle_name" id="middle_name"
+                value="<?php echo $params["middle_name"]; ?>">
+            <span class="invalidFeedback">
+                <?php echo $params["middle_nameError"]; ?>
             </span>
 
             <label for="last_name">Last name</label>
@@ -39,6 +41,22 @@
             <span class="invalidFeedback">
                 <?php echo $params["imageError"]; ?>
             </span>
+
+            <hr style="margin: 1rem 0;" />
+
+            <label for="county">County</label>
+            <input type="text" required name="county" id="county" value="<?php echo $params["county"]; ?>">
+            <span class="invalidFeedback">
+                <?php echo $params["countyError"]; ?>
+            </span>
+
+            <label for="city">City</label>
+            <input type="text" required name="city" id="city" value="<?php echo $params["city"]; ?>">
+            <span class="invalidFeedback">
+                <?php echo $params["cityError"]; ?>
+            </span>
+
+            <hr style="margin: 1rem 0;" />
 
             <label for="password">Password</label>
             <input type="password" required name="password" id="password">

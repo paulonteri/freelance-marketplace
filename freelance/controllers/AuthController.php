@@ -79,21 +79,25 @@ class AuthController extends _BaseController
         $authModel = new AuthModel();
 
         $data = [
-            'username' => '',
             'email' => '',
             'password' => '',
             'confirmPassword' => '',
             'first_name'  => '',
+            'middle_name'  => '',
             'last_name'  => '',
             'phone'  => '',
-            'usernameError' => '',
+            'county'  => '',
+            'city'  => '',
             'emailError' => '',
             'passwordError' => '',
             'confirmPasswordError' => '',
             'first_nameError'  => '',
+            'middle_nameError'  => '',
             'last_nameError'  => '',
             'phoneError'  => '',
             'imageError'  => '',
+            'countyError'  => '',
+            'cityError'  => '',
         ];
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -101,34 +105,15 @@ class AuthController extends _BaseController
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            $data = [
-                'username' => trim($_POST['username']),
-                'email' => trim($_POST['email']),
-                'password' => trim($_POST['password']),
-                'confirmPassword' => trim($_POST['confirmPassword']),
-                'first_name'  => trim($_POST['first_name']),
-                'last_name'  => trim($_POST['last_name']),
-                'phone'  => trim($_POST['phone']),
-                'usernameError' => '',
-                'emailError' => '',
-                'passwordError' => '',
-                'confirmPasswordError' => '',
-                'first_nameError'  => '',
-                'last_nameError'  => '',
-                'phoneError'  => '',
-                'imageError'  => '',
-            ];
-
-
-            // username
-            $userNameValidation = '/^[a-zA-Z0-9]*$/';
-            if (empty($data['username'])) {
-                $data['usernameError'] = 'Please enter username.';
-            } elseif (!preg_match($userNameValidation, $data['username'])) {
-                $data['usernameError'] = 'Name can only contain letters and numbers.';
-            } elseif ($authModel->isUserNameRegistered($data['username'])) {
-                $data['usernameError'] = 'Username is already taken.';
-            }
+            $data['email'] = trim($_POST['email']);
+            $data['password'] = trim($_POST['password']);
+            $data['confirmPassword'] = trim($_POST['confirmPassword']);
+            $data['first_name'] = trim($_POST['first_name']);
+            $data['middle_name'] = trim($_POST['middle_name']);
+            $data['last_name'] = trim($_POST['last_name']);
+            $data['phone'] = trim($_POST['phone']);
+            $data['county'] = trim($_POST['county']);
+            $data['city'] = trim($_POST['city']);
 
             // email
             if (empty($data['email'])) {
@@ -176,6 +161,15 @@ class AuthController extends _BaseController
                 $data['first_nameError'] = 'Too long';
             }
 
+            // middle_name
+            if (empty($data['middle_name'])) {
+                $data['middle_nameError'] = 'Required';
+            } elseif (strlen($data['middle_name']) < 2) {
+                $data['middle_nameError'] = 'Too short';
+            } elseif (strlen($data['middle_name']) > 20) {
+                $data['middle_nameError'] = 'Too long';
+            }
+
             // last_name
             if (empty($data['last_name'])) {
                 $data['last_nameError'] = 'Required';
@@ -208,8 +202,37 @@ class AuthController extends _BaseController
                 $data['imageError'] = $imageUploader->validateImage();
             }
 
+            // county
+            if (empty($data['county'])) {
+                $data['countyError'] = 'Required';
+            } elseif (strlen($data['county']) < 2) {
+                $data['countyError'] = 'Too short';
+            } elseif (strlen($data['county']) > 20) {
+                $data['countyError'] = 'Too long';
+            }
+
+            // city
+            if (empty($data['city'])) {
+                $data['cityError'] = 'Required';
+            } elseif (strlen($data['city']) < 2) {
+                $data['cityError'] = 'Too short';
+            } elseif (strlen($data['city']) > 20) {
+                $data['cityError'] = 'Too long';
+            }
+
             // make sure that errors are empty
-            if (empty($data['usernameError']) && empty($data['emailError']) && empty($data['passwordError']) && empty($data['confirmPasswordError']) && empty($data['imageError'])) {
+            if (
+                empty($data['emailError'])
+                && empty($data['passwordError'])
+                && empty($data['confirmPasswordError'])
+                && empty($data['first_nameError'])
+                && empty($data['middle_nameError'])
+                && empty($data['last_nameError'])
+                && empty($data['phoneError'])
+                && empty($data['imageError'])
+                && empty($data['countyError'])
+                && empty($data['cityError'])
+            ) {
 
                 // upload image and get the path
                 $imageUploader = new ImageUploader($_FILES['image']);
@@ -217,13 +240,15 @@ class AuthController extends _BaseController
 
                 // Register user from model function
                 if ($authModel->register(
-                    $data['username'],
                     $data['email'],
                     $data['password'],
                     $data['first_name'],
+                    $data['middle_name'],
                     $data['last_name'],
                     $data['phone'],
-                    $imagePath
+                    $imagePath,
+                    $data['county'],
+                    $data['city'],
                 )) {
                     // Redirect to the login page
                     header('location:/login?alert=Registered successfully!');

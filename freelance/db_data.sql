@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 02, 2022 at 08:01 AM
+-- Generation Time: May 11, 2022 at 02:46 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -133,11 +133,14 @@ INSERT INTO `skill` (`id`, `name`) VALUES
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `email`, `phone`, `password`, `first_name`, `middle_name`, `last_name`, `image`, `country`, `county`, `city`, `street`, `postal_code`, `is_admin`, `is_active`, `time_created`) VALUES
-(11, 'byfixusaki', 'client@test.com', '+254718578833', '$2y$10$5QzsfhuROuvDUYtQ4Zv3ZuKkVEfaW1txv/553xBCTunpQvc/bpIsK', 'Daniele', NULL, 'Moi', '/uploads/profile.avif', NULL, NULL, NULL, NULL, NULL, 0, 1, '2022-03-22 06:52:13'),
-(12, 'mutuvor', 'freelancer@test.com', '+254762307628', '$2y$10$zL2K68YBS7rwMSGIyQ5R.egPQYy43zMaPokgHtOA01j4ylacVCRPu', 'Sharon', NULL, 'Kemunto', '/uploads/profile-female.avif', NULL, NULL, NULL, NULL, NULL, 0, 1, '2022-03-22 07:53:28'),
-(13, 'wyjaqe', 'freelancer1@test.com', '+254793395484', '$2y$10$uohjjRXWHVnduYxpyyUuq.e1yNBkS2BZfXI4SvZzRUWCS.DJbXkS6', 'Amity', NULL, 'Bean', '/uploads/ProfileImageTueMar2220229:241628513616264.jpeg', NULL, NULL, NULL, NULL, NULL, 0, 1, '2022-03-22 08:53:44'),
-(14, 'pukycylub', 'client1@test.com', '0777627107', '$2y$10$KKCOjS2ZFwlR6aGdxVpWleKstTq1d1q1Um14sC0m4mAyf0OrXVq6m', 'Margaret', NULL, 'Wandia', '/uploads/ProfileImageSunMay01202212:16across the bridge.jpeg', NULL, NULL, NULL, NULL, NULL, 0, 1, '2022-05-01 12:16:46');
+INSERT INTO `user` (`id`, `email`, `phone`, `password`, `first_name`, `middle_name`, `last_name`, `image`, `country`, `county`, `city`, `is_admin`, `is_active`, `time_created`) VALUES
+(11, 'client@test.com', '+254718578833', '$2y$10$5QzsfhuROuvDUYtQ4Zv3ZuKkVEfaW1txv/553xBCTunpQvc/bpIsK', 'Daniele', NULL, 'Moi', '/uploads/profile.avif', NULL, NULL, NULL, 0, 1, '2022-03-22 06:52:13'),
+(12, 'freelancer@test.com', '+254762307628', '$2y$10$zL2K68YBS7rwMSGIyQ5R.egPQYy43zMaPokgHtOA01j4ylacVCRPu', 'Sharon', NULL, 'Kemunto', '/uploads/profile-female.avif', NULL, NULL, NULL, 0, 1, '2022-03-22 07:53:28'),
+(13, 'freelancer1@test.com', '+254793395484', '$2y$10$uohjjRXWHVnduYxpyyUuq.e1yNBkS2BZfXI4SvZzRUWCS.DJbXkS6', 'Amity', NULL, 'Bean', '/uploads/ProfileImageTueMar2220229:241628513616264.jpeg', NULL, NULL, NULL, 0, 1, '2022-03-22 08:53:44'),
+(14, 'client1@test.com', '0777627107', '$2y$10$KKCOjS2ZFwlR6aGdxVpWleKstTq1d1q1Um14sC0m4mAyf0OrXVq6m', 'Margaret', NULL, 'Wandia', '/uploads/ProfileImageSunMay01202212:16across the bridge.jpeg', NULL, NULL, NULL, 0, 1, '2022-05-01 12:16:46'),
+(15, 'client2@test.com', '+254721675907', '$2y$10$gTTrOn0rMMZ1.8ZownuMfODHWU64ZIQvcFOFRv9YeJ3eP8rcQxl6K', 'Virginia', NULL, 'Bond', '/uploads/ProfileImageWedMay11202212:20240452437_257190502758422_107796797346897910_n.jpg', NULL, 'Nairobi', 'Nairobi', 0, 1, '2022-05-11 12:20:42'),
+(16, 'freelancer3@test.com', '0788713917', '$2y$10$ZWE4wzPZQW1yqY8xL00wju4o.a87IGnOfjhaGA/ufbLy9QHk3yloa', 'Margaret', 'Nerea Duncan', 'Nerea Duncan', '/uploads/ProfileImageWedMay11202212:38240452437_257190502758422_107796797346897910_n.jpg', NULL, 'Qui ex sed ad et ven', 'Dolor ut quia pariat', 0, 1, '2022-05-11 12:38:48'),
+(17, 'client3@test.com', '0758751473', '$2y$10$Q15bj.SyJyJEdv4BDmQ3rOBmP29zC2YiWLch4YaB0.KlAyHogFsM6', 'Keith', 'Wendy Nichols', 'Wendy Nichols', '/uploads/ProfileImageWedMay11202212:44explorers_on_the_moon.jpg', NULL, 'Ab cum enim cupidita', 'Labore aut et unde r', 0, 1, '2022-05-11 12:44:20');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

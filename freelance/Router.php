@@ -35,9 +35,9 @@ class Router
 
 
     /**
-    * Called at public/index.php to resolve the current request
-    *
-    */
+     * Called at public/index.php to resolve the current request
+     *
+     */
     public function resolve()
     {
         $method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -56,8 +56,8 @@ class Router
         } else if ($method === 'post') {
             $fn = $this->postRoutes[$url] ?? null;
         }
-        
-        
+
+
         if (!$fn) {
             // 404 (could not find handler for the request path and method) ----------------------
             echo 'Page not found';
@@ -69,9 +69,9 @@ class Router
     }
 
     /**
-    * Called in the controller (called by the method in the controller, called by the Router::resolve() method)
-    *
-    */
+     * Called in the controller (called by the method in the controller that was called by the Router::resolve() method)
+     *
+     */
     public function renderView($view, $params = [], $alert = null, $errors = [])
     {
 

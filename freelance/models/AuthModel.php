@@ -12,25 +12,29 @@ class AuthModel extends _BaseModel
     }
 
     public function register(
-        $username,
         $email,
         $password,
         $first_name,
         $last_name,
+        $middle_name,
         $phone,
         $image,
+        $county,
+        $city,
     ) {
-        $sql = "INSERT INTO user (username, email, password, first_name, last_name, phone, image) VALUES(:username, :email, :password, :first_name, :last_name, :phone, :image)";
+        $sql = "INSERT INTO user (email, password, first_name, middle_name, last_name, phone, image, county, city) VALUES(:email, :password, :first_name, :middle_name, :last_name, :phone, :image, :county, :city)";
         $statement = $this->db->prepare($sql);
         $statement->execute(
             array(
-                ':username' => $username,
                 ':email' => $email,
                 ':password' => password_hash($password, PASSWORD_DEFAULT),
                 ':first_name' => $first_name,
+                ':middle_name' => $middle_name,
                 ':last_name' => $last_name,
                 ':phone' => $phone,
                 'image' => $image,
+                'county' => $county,
+                'city' => $city,
             )
         );
 

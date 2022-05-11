@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 18, 2022 at 05:48 PM
+-- Generation Time: May 11, 2022 at 02:46 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -194,7 +194,6 @@ CREATE TABLE `skill` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `phone` varchar(13) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -205,8 +204,6 @@ CREATE TABLE `user` (
   `country` varchar(255) DEFAULT NULL,
   `county` varchar(255) DEFAULT NULL,
   `city` varchar(255) DEFAULT NULL,
-  `street` varchar(255) DEFAULT NULL,
-  `postal_code` varchar(255) DEFAULT NULL,
   `is_admin` tinyint(1) NOT NULL DEFAULT 0,
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
   `time_created` datetime NOT NULL DEFAULT current_timestamp()
@@ -298,7 +295,6 @@ ALTER TABLE `skill`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `phone` (`phone`);
 

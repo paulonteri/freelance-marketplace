@@ -21,13 +21,9 @@ class UserModel extends _BaseModel
   protected ?string $country = null;
   protected ?string $county = null;
   protected ?string $city = null;
-  protected ?string $street = null;
-  protected ?string $postal_code = null;
   protected ?bool $is_admin = null;
   protected ?bool $is_active = null;
   protected ?string $time_created = null;
-
-
 
   public function __construct(int $id)
   {
@@ -51,8 +47,6 @@ class UserModel extends _BaseModel
     $this->country = $user['country'];
     $this->county = $user['county'];
     $this->city = $user['city'];
-    $this->street = $user['street'];
-    $this->postal_code = $user['postal_code'];
     $this->is_admin = $user['is_admin'];
     $this->is_active = $user['is_active'];
     $this->time_created = $user['time_created'];
@@ -138,16 +132,6 @@ class UserModel extends _BaseModel
   public function getCity(): ?string
   {
     return $this->city;
-  }
-
-  public function getStreet(): ?string
-  {
-    return $this->street;
-  }
-
-  public function getPostalCode(): ?string
-  {
-    return $this->postal_code;
   }
 
   public function getIsAdmin(): ?bool
