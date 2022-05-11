@@ -10,7 +10,6 @@ class UserModel extends _BaseModel
   private $db;
 
   protected ?int $id = null;
-  protected ?string $username = null;
   protected ?string $email = null;
   protected ?string $phone = null;
   protected ?string $password = null;
@@ -36,7 +35,6 @@ class UserModel extends _BaseModel
     $user = $statement->fetch();
 
     $this->id = $id;
-    $this->username = $user['username'];
     $this->email = $user['email'];
     $this->phone = $user['phone'];
     $this->password = $user['password'];
@@ -82,11 +80,6 @@ class UserModel extends _BaseModel
   public function getId(): ?int
   {
     return $this->id;
-  }
-
-  public function getUsername(): ?string
-  {
-    return $this->username;
   }
 
   public function getEmail(): ?string

@@ -69,7 +69,6 @@ class AuthModel extends _BaseModel
     public function logout()
     {
         unset($_SESSION['user_id']);
-        unset($_SESSION['username']);
         unset($_SESSION['email']);
         header('location:login');
     }
@@ -78,13 +77,12 @@ class AuthModel extends _BaseModel
     private function createUserSession($user)
     {
         $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
         $_SESSION['email'] = $user['email'];
     }
 
     public function isUserLoggedIn()
     {
-        if (isset($_SESSION['user_id']) && isset($_SESSION['username']) && isset($_SESSION['email'])) {
+        if (isset($_SESSION['user_id']) && isset($_SESSION['email'])) {
             return true;
         } else {
             return false;
@@ -97,17 +95,6 @@ class AuthModel extends _BaseModel
         $statement =  $this->db->prepare($sql);
         $statement->execute(
             array('email' => $email)
-        );
-        $count = $statement->rowCount();
-        return $count > 0;
-    }
-
-    public function isUserNameRegistered($username)
-    {
-        $sql = "SELECT * FROM user WHERE username = :username";
-        $statement =  $this->db->prepare($sql);
-        $statement->execute(
-            array('username' => $username)
         );
         $count = $statement->rowCount();
         return $count > 0;
