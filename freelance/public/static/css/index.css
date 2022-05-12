@@ -82,7 +82,7 @@ body {
 }
 /* ------------------- end leftMenu ------------------------- */
 
-/* ------------------- dashboard header ------------------------- */
+/* ------------------- dashboard/admin header ------------------------- */
 .dashboard-freelancer-header {
     background-color: #055b7b;
 }
@@ -99,7 +99,21 @@ body {
     padding: 5px 10px;
     margin-bottom: 0;
 }
-/* ------------------- end dashboard header ------------------------- */
+
+.admin-header {
+    background-color: purple;
+}
+
+.admin-header-text {
+    text-align: right;
+    font-size: small;
+    color: white;
+    /* margin-right: 10px; */
+    padding: 5px 10px;
+    margin-bottom: 0;
+}
+
+/* ------------------- end dashboard/admin header ------------------------- */
 
 /* ------------------- simple utilities ------------------------- */
 

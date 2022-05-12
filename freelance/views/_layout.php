@@ -45,10 +45,13 @@
         echo '<div class="dashboard-freelancer-header">';
         echo '<p class="dashboard-client-header-text">Freelancer dashboard</p>';
         echo '</div>';
-    }
-    if (str_starts_with($_SERVER['REQUEST_URI'], '/dashboard/client')) {
+    } else if (str_starts_with($_SERVER['REQUEST_URI'], '/dashboard/client')) {
         echo '<div class="dashboard-client-header">';
         echo '<p class="dashboard-client-header-text">Client dashboard</p>';
+        echo '</div>';
+    } else if (str_starts_with($_SERVER['REQUEST_URI'], '/admin')) {
+        echo '<div class="admin-header">';
+        echo '<p class="admin-header-text">Admin</p>';
         echo '</div>';
     }
     ?>
