@@ -78,7 +78,8 @@ $router->get('/admin/clients', [AdminController::class, 'clients']);
 $router->get('/admin/clients/id', [AdminController::class, 'clientId']);
 $router->get('/admin/jobs', [AdminController::class, 'jobs']);
 $router->get('/admin/jobs/id', [AdminController::class, 'jobId']);
-$router->get('/admin/proposals', [AdminController::class, 'proposals']);
+$router->get('/admin/jobs/proposals', [AdminController::class, 'jobProposals']);
+$router->get('/admin/jobs/proposals/id', [AdminController::class, 'jobProposalId']);
 $router->get('/admin/skills/create', [AdminController::class, 'skillsCreate']);
 $router->post('/admin/skills/create', [AdminController::class, 'skillsCreate']);
 

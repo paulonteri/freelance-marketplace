@@ -7,6 +7,7 @@ use app\models\SkillModel;
 use app\models\FreelancerModel;
 use app\models\ClientModel;
 use app\models\JobModel;
+use app\models\JobProposalModel;
 
 
 class AdminController extends _BaseController
@@ -89,6 +90,45 @@ class AdminController extends _BaseController
         $router->renderView(self::$basePath . 'clients/id', $data, null, $errors);
     }
 
+    public static function jobProposals(Router $router)
+    {
+        AdminController::requireUserIsAdmin($router);
+        $data = [
+            'pageTitle' => "Proposals | Admin",
+            'proposals' => ''
+        ];
+        if (isset($_GET['jobId'])) {
+            $data['proposals'] = JobProposalModel::getProposalsByJob($_GET['jobId']);
+        }
+        $router->renderView(self::$basePath . 'jobs/proposals/index', $data);
+    }
+
+    public static function jobProposalId(Router $router)
+    {
+        AdminController::requireUserIsAdmin($router);
+
+        $data = [
+            'pageTitle' => "Proposal Details | Admin",
+
+        ];
+        $errors = array();
+
+        if (isset($_GET['proposalId'])) {
+            $data['id'] = $_GET['proposalId'];
+            $proposal = JobProposalModel::tryGetById($data['id']);
+
+            if ($proposal != null) {
+                $data['proposal'] = $proposal;
+                $data['pageTitle'] = "Proposal " . $proposal->getTitle();
+            }
+        } else {
+            $errors = ['Proposal id not found.'];
+        }
+
+        $router->renderView(self::$basePath . 'jobs/proposals/id', $data, null, $errors);
+    }
+
+
     public static function jobs(Router $router)
     {
         AdminController::requireUserIsAdmin($router);
@@ -122,12 +162,6 @@ class AdminController extends _BaseController
         }
 
         $router->renderView(self::$basePath . 'jobs/id', $data, null, $errors);
-    }
-
-    public static function proposals(Router $router)
-    {
-        AdminController::requireUserIsAdmin($router);
-        $router->renderView(self::$basePath . 'proposals');
     }
 
     public static function skillsCreate(Router $router)

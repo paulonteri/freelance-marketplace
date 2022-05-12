@@ -136,13 +136,13 @@
 
     <hr style="margin: 1rem 0;" />
 
-    <!-- <a href="/dashboard/freelancer/jobs/id/proposal?jobId=<?php echo $job->getId() ?>">
+    <a href="/admin/jobs/proposals?jobId=<?php echo $job->getId() ?>">
         <button class="">
-            Proposal &rarr;
+            Proposals received &rarr;
         </button>
     </a>
 
-    <hr style="margin: 1rem 0;" /> -->
+    <hr style="margin: 1rem 0;" />
 
 
 </div>

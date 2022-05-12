@@ -61,8 +61,11 @@
     <div id="leftMenu">
         <a href="javscript:void(0)" class="btn-area" onclick="closeLeftMenuBtn()">×</a>
         <div class="mainNav">
+
+            <?php if (!\app\models\UserModel::getCurrentUser()->getIsAdmin()) { ?>
             <hr />
             <a href="/dashboard">Dashboard</a>
+            <?php } ?>
 
             <?php if (\app\models\UserModel::getCurrentUser()->isClient()) { ?>
             <hr />
