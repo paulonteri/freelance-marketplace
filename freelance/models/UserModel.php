@@ -104,7 +104,7 @@ class UserModel extends _BaseModel
 
   public function getLastName(): ?string
   {
-    return $this->lastName;
+    return $this->last_name;
   }
 
   public function getName()
