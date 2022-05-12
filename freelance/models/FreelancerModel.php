@@ -17,7 +17,7 @@ class FreelancerModel extends _BaseModel
     private int $years_of_experience;
     private $time_created;
     private int $is_active;
-
+    private string $national_id;
 
     public function __construct(int $id)
     {
@@ -36,6 +36,7 @@ class FreelancerModel extends _BaseModel
         $this->years_of_experience = $freelancer_s['years_of_experience'];
         $this->time_created = $freelancer_s['time_created'];
         $this->is_active = $freelancer_s['is_active'];
+        $this->national_id = $freelancer_s['national_id'];
     }
 
     public static function tryGetById($freelancerId): ?FreelancerModel
@@ -60,7 +61,8 @@ class FreelancerModel extends _BaseModel
         string $title,
         string $description,
         int $user_id,
-        int $years_of_experience
+        int $years_of_experience,
+        string $national_id
     ): ?FreelancerModel {
         $db = (new Database)->connectToDb();
 
@@ -76,12 +78,13 @@ class FreelancerModel extends _BaseModel
             return null;
         }
 
-        $sql = 'INSERT INTO freelancer (title, description, user_id, years_of_experience) VALUES (:title, :description, :user_id, :years_of_experience)';
+        $sql = 'INSERT INTO freelancer (title, description, user_id, years_of_experience, national_id) VALUES (:title, :description, :user_id, :years_of_experience, :national_id)';
         $statement = $db->prepare($sql);
         $statement->bindParam(':title', $title);
         $statement->bindParam(':description', $description);
         $statement->bindParam(':user_id', $user_id);
         $statement->bindParam(':years_of_experience', $years_of_experience);
+        $statement->bindParam(':national_id', $national_id);
         $statement->execute();
 
         return new FreelancerModel($db->lastInsertId());
@@ -120,6 +123,12 @@ class FreelancerModel extends _BaseModel
     {
         return $this->is_active;
     }
+
+    public function getNationalId(): mixed
+    {
+        return $this->national_id;
+    }
+
     public function getUser(): UserModel
     {
         return new UserModel($this->user_id);

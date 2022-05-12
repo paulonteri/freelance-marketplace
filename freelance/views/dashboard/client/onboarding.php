@@ -15,6 +15,12 @@
                 <?php echo $params["imageError"]; ?>
             </span>
 
+            <label for="national_id">National Id (Front)</label>
+            <input type="file" required name="national_id" id="national_id">
+            <span class="invalidFeedback">
+                <?php echo $params["national_idError"]; ?>
+            </span>
+
             <label for="description">Description</label>
             <textarea type="text" required name="description" id="description" rows="4">
                <?php echo $params["description"]; ?>

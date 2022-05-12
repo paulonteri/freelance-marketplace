@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 11, 2022 at 02:46 PM
+-- Generation Time: May 12, 2022 at 09:32 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -33,6 +33,7 @@ DROP TABLE IF EXISTS `client`;
 CREATE TABLE `client` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `national_id` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
@@ -44,28 +45,16 @@ CREATE TABLE `client` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `client_staff_member`
---
-
-DROP TABLE IF EXISTS `client_staff_member`;
-CREATE TABLE `client_staff_member` (
-  `id` int(11) NOT NULL,
-  `client_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `freelancer`
 --
 
 DROP TABLE IF EXISTS `freelancer`;
 CREATE TABLE `freelancer` (
   `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `national_id` varchar(255) DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `user_id` int(11) NOT NULL,
   `years_of_experience` int(11) NOT NULL,
   `time_created` datetime NOT NULL DEFAULT current_timestamp(),
   `is_active` int(11) NOT NULL DEFAULT 1
@@ -201,7 +190,7 @@ CREATE TABLE `user` (
   `middle_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `country` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT 'Kenya',
   `county` varchar(255) DEFAULT NULL,
   `city` varchar(255) DEFAULT NULL,
   `is_admin` tinyint(1) NOT NULL DEFAULT 0,
@@ -219,14 +208,6 @@ CREATE TABLE `user` (
 ALTER TABLE `client`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `user_id` (`user_id`);
-
---
--- Indexes for table `client_staff_member`
---
-ALTER TABLE `client_staff_member`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `client_id` (`client_id`,`user_id`),
-  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `freelancer`
@@ -309,12 +290,6 @@ ALTER TABLE `client`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `client_staff_member`
---
-ALTER TABLE `client_staff_member`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `freelancer`
 --
 ALTER TABLE `freelancer`
@@ -377,13 +352,6 @@ ALTER TABLE `user`
 --
 ALTER TABLE `client`
   ADD CONSTRAINT `client_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `client_staff_member`
---
-ALTER TABLE `client_staff_member`
-  ADD CONSTRAINT `client_staff_member_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `client_staff_member_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `freelancer`

@@ -17,6 +17,7 @@ class ClientModel extends _BaseModel
     private string $type;
     private $time_created;
     private int $is_active;
+    private string $national_id;
 
     public function __construct(int $id)
     {
@@ -36,6 +37,7 @@ class ClientModel extends _BaseModel
         $this->type = $client['type'];
         $this->time_created = $client['time_created'];
         $this->is_active = $client['is_active'];
+        $this->national_id = $client['national_id'];
     }
 
     public static function tryGetById(int $id): ?ClientModel
@@ -61,7 +63,8 @@ class ClientModel extends _BaseModel
         string $description,
         int $user_id,
         string $image,
-        string $type
+        string $type,
+        string $national_id
     ): ?ClientModel {
         $db = (new Database)->connectToDb();
 
@@ -77,13 +80,14 @@ class ClientModel extends _BaseModel
             return null;
         }
 
-        $sql = 'INSERT INTO client (title, description, user_id, image, type) VALUES (:title, :description, :user_id, :image, :type)';
+        $sql = 'INSERT INTO client (title, description, user_id, image, type, national_id) VALUES (:title, :description, :user_id, :image, :type, :national_id)';
         $statement = $db->prepare($sql);
         $statement->bindParam(':title', $title);
         $statement->bindParam(':description', $description);
         $statement->bindParam(':user_id', $user_id);
         $statement->bindParam(':image', $image);
         $statement->bindParam(':type', $type);
+        $statement->bindParam(':national_id', $national_id);
         $statement->execute();
 
         return new ClientModel($db->lastInsertId());
@@ -127,6 +131,12 @@ class ClientModel extends _BaseModel
     {
         return $this->is_active;
     }
+
+    public function getNationalId(): mixed
+    {
+        return $this->national_id;
+    }
+
     public function getUser(): UserModel
     {
         return new UserModel($this->user_id);

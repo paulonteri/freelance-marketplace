@@ -12,6 +12,7 @@ use app\models\JobModel;
 use app\models\JobProposalModel;
 use app\models\ClientModel;
 use app\models\JobRatingModel;
+use app\utils\ImageUploader;
 
 
 class DashboardFreelancerController extends _BaseController
@@ -40,6 +41,7 @@ class DashboardFreelancerController extends _BaseController
             'years_of_experienceError' => '',
             'descriptionError' => '',
             'skillsError' => '',
+            'national_idError' => '',
         ];
         $data['allSkills'] =  SkillModel::getAll();
 
@@ -63,6 +65,14 @@ class DashboardFreelancerController extends _BaseController
                 $data['years_of_experienceError'] = 'Please enter a years_of_experience.';
             }
 
+            // validate national_id
+            if (empty($_FILES['national_id'])) {
+                $data['national_idError'] = 'Please select image.';
+            } else {
+                $imageUploader = new ImageUploader($_FILES['national_id']);
+                $data['national_idError'] = $imageUploader->validateImage();
+            }
+
             // validate description
             if (empty($data['description'])) {
                 $data['descriptionError'] = 'Please enter a description".';
@@ -76,7 +86,12 @@ class DashboardFreelancerController extends _BaseController
                 && empty($data['years_of_experienceError'])
                 && empty($data['descriptionError'])
                 && empty($data['skillsError'])
+                && empty($data['national_idError'])
             ) {
+
+                // upload image and get the path
+                $nationalIdImageUploader = new ImageUploader($_FILES['national_id']);
+                $nationalIdPath = $nationalIdImageUploader->uploadImage("ClientIdImage");
 
                 try {
                     $freelancer = FreelancerModel::create(
@@ -84,6 +99,7 @@ class DashboardFreelancerController extends _BaseController
                         $data['description'],
                         $user->getId(),
                         $data['years_of_experience']  / 1,
+                        $nationalIdPath
                     );
                     $freelancer->addSkills($data['skills']);
 

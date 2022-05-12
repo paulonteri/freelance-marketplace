@@ -35,6 +35,7 @@ class DashboardClientController extends _BaseController
             'titleError' => '',
             'descriptionError' => '',
             'typeError' => '',
+            'national_idError' => '',
         ];
 
         // Check for post
@@ -60,6 +61,14 @@ class DashboardClientController extends _BaseController
                 $data['imageError'] = $imageUploader->validateImage();
             }
 
+            // validate national_id
+            if (empty($_FILES['national_id'])) {
+                $data['national_idError'] = 'Please select image.';
+            } else {
+                $imageUploader = new ImageUploader($_FILES['national_id']);
+                $data['national_idError'] = $imageUploader->validateImage();
+            }
+
             // validate description
             if (empty($data['description'])) {
                 $data['descriptionError'] = 'Required.';
@@ -70,12 +79,17 @@ class DashboardClientController extends _BaseController
                 empty($data['titleError'])
                 && empty($data['imageError'])
                 && empty($data['descriptionError'])
-                && empty($data['imageError'])
+                // && empty($data['imageError'])
+                && empty($data['national_idError'])
             ) {
 
                 // upload image and get the path
                 $imageUploader = new ImageUploader($_FILES['image']);
                 $imagePath = $imageUploader->uploadImage("ClientImage");
+
+                // upload image and get the path
+                $nationalIdImageUploader = new ImageUploader($_FILES['national_id']);
+                $nationalIdPath = $nationalIdImageUploader->uploadImage("ClientIdImage");
 
                 $isCreated = ClientModel::create(
                     $data['title'],
@@ -83,6 +97,7 @@ class DashboardClientController extends _BaseController
                     $user->getId(),
                     $imagePath,
                     $data['type'],
+                    $nationalIdPath
                 );
 
                 if (!$isCreated) {
@@ -238,8 +253,8 @@ class DashboardClientController extends _BaseController
             ) {
 
                 // upload image and get the path
-                $imageUploader = new ImageUploader($_FILES['image']);
-                $imagePath = $imageUploader->uploadImage("ClientJobImage");
+                $mageUploader = new ImageUploader($_FILES['image']);
+                $imagePath = $mageUploader->uploadImage("ClientJobImage");
 
                 $job = JobModel::create(
                     $user->getClient()->getId(),

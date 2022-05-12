@@ -1,12 +1,18 @@
 <div class="container">
     <h1 style="text-align:center; margin:auto 0px;">Create freelancer profile</h1>
     <hr />
-    <form action="/dashboard/freelancer/onboarding" method="POST">
+    <form action="/dashboard/freelancer/onboarding" method="POST" enctype="multipart/form-data">
         <fieldset>
             <label for="title">Title</label>
             <input type="text" required name="title" id="title" value="<?php echo $params["title"]; ?>">
             <span class="invalidFeedback">
                 <?php echo $params["titleError"]; ?>
+            </span>
+
+            <label for="national_id">National Id (Front)</label>
+            <input type="file" required name="national_id" id="national_id">
+            <span class="invalidFeedback">
+                <?php echo $params["national_idError"]; ?>
             </span>
 
             <label for="years_of_experience">Years of experience</label>
