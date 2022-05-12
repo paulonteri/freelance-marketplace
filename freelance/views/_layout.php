@@ -78,7 +78,11 @@
             <?php } ?>
 
             <hr />
+            <a href="/dashboard/profile">User profile</a>
+
+            <hr />
             <a href="/logout">Logout</a>
+
             <hr />
         </div>
     </div>

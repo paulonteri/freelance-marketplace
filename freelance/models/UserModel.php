@@ -77,6 +77,36 @@ class UserModel extends _BaseModel
     }
   }
 
+  public function update(
+    $email,
+    $first_name,
+    $last_name,
+    $middle_name,
+    $phone,
+    $county,
+    $city,
+  ) {
+
+    $sql = "UPDATE user SET email = :email, first_name = :first_name, last_name = :last_name, middle_name = :middle_name, phone = :phone, county = :county, city = :city";
+    $sql .= " WHERE id = :id";
+    $statement = $this->db->prepare($sql);
+    $statement->execute(
+      array(
+        'id' => $this->id,
+        ':email' => $email,
+        ':first_name' => $first_name,
+        ':middle_name' => $middle_name,
+        ':last_name' => $last_name,
+        ':phone' => $phone,
+        'county' => $county,
+        'city' => $city,
+      )
+    );
+
+    return true;
+  }
+
+
   public function getId(): ?int
   {
     return $this->id;

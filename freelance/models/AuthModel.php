@@ -74,7 +74,7 @@ class AuthModel extends _BaseModel
     }
 
 
-    private function createUserSession($user)
+    public function createUserSession($user)
     {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['email'] = $user['email'];

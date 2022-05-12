@@ -1,15 +1,15 @@
 <?php
 
-
 use app\Router;
 use app\Database;
-use app\controllers\IndexController;
 use app\controllers\AuthController;
-use app\controllers\FreelancerProfilesController;
-use app\controllers\DashboardMainController;
-use app\controllers\DashboardFreelancerController;
-use app\controllers\DashboardClientController;
+use app\controllers\IndexController;
 use app\controllers\AdminController;
+use app\controllers\DashboardMainController;
+use app\controllers\DashboardClientController;
+use app\controllers\DashboardProfilesController;
+use app\controllers\FreelancerProfilesController;
+use app\controllers\DashboardFreelancerController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -64,6 +64,11 @@ $router->get('/dashboard/client/jobs/id', [DashboardClientController::class, 'jo
 $router->get('/dashboard/client/jobs/id/proposals', [DashboardClientController::class, 'jobProposals']);
 $router->get('/dashboard/client/jobs/id/review-and-complete', [DashboardClientController::class, 'jobReviewAndComplete']);
 $router->post('/dashboard/client/jobs/id/review-and-complete', [DashboardClientController::class, 'jobReviewAndComplete']);
+
+// DashboardProfilesController
+$router->get('/dashboard/profile', [DashboardProfilesController::class, 'index']);
+$router->get('/dashboard/profile/edit', [DashboardProfilesController::class, 'edit']);
+$router->post('/dashboard/profile/edit', [DashboardProfilesController::class, 'edit']);
 
 // AdminController
 $router->get('/admin/proposals', [AdminController::class, 'proposals']);
