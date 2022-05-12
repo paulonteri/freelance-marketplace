@@ -77,6 +77,11 @@
             <a class="inner-menu" href="/dashboard/freelancer/jobs/proposals">Proposals</a>
             <?php } ?>
 
+            <?php if (\app\models\UserModel::getCurrentUser()->getIsAdmin()) { ?>
+            <hr />
+            <a href="/admin">Admin</a>
+            <?php } ?>
+
             <hr />
             <a href="/dashboard/profile">User profile</a>
 

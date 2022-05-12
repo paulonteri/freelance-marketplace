@@ -71,6 +71,7 @@ $router->get('/dashboard/profile/edit', [DashboardProfilesController::class, 'ed
 $router->post('/dashboard/profile/edit', [DashboardProfilesController::class, 'edit']);
 
 // AdminController
+$router->get('/admin', [AdminController::class, 'index']);
 $router->get('/admin/proposals', [AdminController::class, 'proposals']);
 $router->get('/admin/jobs', [AdminController::class, 'jobs']);
 $router->get('/admin/skills/create', [AdminController::class, 'skillsCreate']);
