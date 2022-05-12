@@ -189,4 +189,24 @@ class ClientModel extends _BaseModel
 
         return $ratings_array;
     }
+
+    /**
+     * @return ClientModel[]
+     */
+    public static function getAll(): array
+    {
+        $db = (new Database)->connectToDb();
+
+        $sql = 'SELECT id FROM client';
+        $statement = $db->prepare($sql);
+        $statement->execute();
+        $clients = $statement->fetchAll();
+
+        $clients_array = [];
+        foreach ($clients as $client) {
+            $clients_array[] = new ClientModel($client['id']);
+        }
+
+        return $clients_array;
+    }
 }

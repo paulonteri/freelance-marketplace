@@ -74,6 +74,8 @@ $router->post('/dashboard/profile/edit', [DashboardProfilesController::class, 'e
 $router->get('/admin', [AdminController::class, 'index']);
 $router->get('/admin/freelancers', [AdminController::class, 'freelancers']);
 $router->get('/admin/freelancers/id', [AdminController::class, 'freelancerId']);
+$router->get('/admin/clients', [AdminController::class, 'clients']);
+$router->get('/admin/clients/id', [AdminController::class, 'clientId']);
 $router->get('/admin/proposals', [AdminController::class, 'proposals']);
 $router->get('/admin/jobs', [AdminController::class, 'jobs']);
 $router->get('/admin/skills/create', [AdminController::class, 'skillsCreate']);

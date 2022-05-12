@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\Router;
 use app\models\SkillModel;
 use app\models\FreelancerModel;
+use app\models\ClientModel;
 
 
 class AdminController extends _BaseController
@@ -50,6 +51,41 @@ class AdminController extends _BaseController
         }
 
         $router->renderView(self::$basePath . 'freelancers/id', $data, null, $errors);
+    }
+
+    public static function clients(Router $router)
+    {
+        AdminController::requireUserIsAdmin($router);
+        $data = [
+            'pageTitle' => "Clients | Admin",
+            'clients' => ClientModel::getAll()
+        ];
+        $router->renderView(self::$basePath . 'clients/index', $data);
+    }
+
+    public static function clientId(Router $router)
+    {
+        AdminController::requireUserIsAdmin($router);
+
+        $data = [
+            'pageTitle' => "Client Details | Admin",
+
+        ];
+        $errors = array();
+
+        if (isset($_GET['clientId'])) {
+            $data['id'] = $_GET['clientId'];
+            $client = ClientModel::tryGetById($data['id']);
+
+            if ($client != null) {
+                $data['client'] = $client;
+                $data['pageTitle'] = "Client " . $client->getTitle();
+            }
+        } else {
+            $errors = ['Client id not found.'];
+        }
+
+        $router->renderView(self::$basePath . 'clients/id', $data, null, $errors);
     }
 
     public static function proposals(Router $router)
