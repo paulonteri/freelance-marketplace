@@ -173,6 +173,26 @@ class JobModel extends _BaseModel
   }
 
   /**
+   * @return JobModel[]
+   */
+  public static function getAll(): array
+  {
+    $db = (new Database)->connectToDb();
+
+    $sql = 'SELECT id FROM job ORDER BY time_created DESC';
+    $statement = $db->prepare($sql);
+    $statement->execute();
+    $jobs = $statement->fetchAll();
+
+    $jobs_array = [];
+    foreach ($jobs as $job) {
+      $jobs_array[] = new JobModel($job['id']);
+    }
+
+    return $jobs_array;
+  }
+
+  /**
    * Get all jobs open for proposals
    *
    * @return JobModel[]

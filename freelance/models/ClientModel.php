@@ -197,7 +197,7 @@ class ClientModel extends _BaseModel
     {
         $db = (new Database)->connectToDb();
 
-        $sql = 'SELECT id FROM client';
+        $sql = 'SELECT id FROM client ORDER BY time_created DESC';
         $statement = $db->prepare($sql);
         $statement->execute();
         $clients = $statement->fetchAll();

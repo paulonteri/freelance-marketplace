@@ -6,6 +6,7 @@ use app\Router;
 use app\models\SkillModel;
 use app\models\FreelancerModel;
 use app\models\ClientModel;
+use app\models\JobModel;
 
 
 class AdminController extends _BaseController
@@ -88,16 +89,45 @@ class AdminController extends _BaseController
         $router->renderView(self::$basePath . 'clients/id', $data, null, $errors);
     }
 
+    public static function jobs(Router $router)
+    {
+        AdminController::requireUserIsAdmin($router);
+        $data = [
+            'pageTitle' => "Jobs | Admin",
+            'jobs' => JobModel::getAll()
+        ];
+        $router->renderView(self::$basePath . 'jobs/index', $data);
+    }
+
+    public static function jobId(Router $router)
+    {
+        AdminController::requireUserIsAdmin($router);
+
+        $data = [
+            'pageTitle' => "Job Details | Admin",
+
+        ];
+        $errors = array();
+
+        if (isset($_GET['jobId'])) {
+            $data['id'] = $_GET['jobId'];
+            $job = JobModel::tryGetById($data['id']);
+
+            if ($job != null) {
+                $data['job'] = $job;
+                $data['pageTitle'] = "Job " . $job->getTitle();
+            }
+        } else {
+            $errors = ['Job id not found.'];
+        }
+
+        $router->renderView(self::$basePath . 'jobs/id', $data, null, $errors);
+    }
+
     public static function proposals(Router $router)
     {
         AdminController::requireUserIsAdmin($router);
         $router->renderView(self::$basePath . 'proposals');
-    }
-
-    public static function jobs(Router $router)
-    {
-        AdminController::requireUserIsAdmin($router);
-        $router->renderView(self::$basePath . 'jobs');
     }
 
     public static function skillsCreate(Router $router)

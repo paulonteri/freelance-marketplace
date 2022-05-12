@@ -179,7 +179,7 @@ class FreelancerModel extends _BaseModel
     {
         $db = (new Database)->connectToDb();
 
-        $sql = 'SELECT id FROM freelancer';
+        $sql = 'SELECT id FROM freelancer ORDER BY time_created DESC';
         $statement = $db->prepare($sql);
         $statement->execute();
         $freelancers = $statement->fetchAll();
