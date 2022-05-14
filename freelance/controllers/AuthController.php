@@ -23,6 +23,7 @@ class AuthController extends _BaseController
         $authModel = new AuthModel();
 
         $data = [
+            'pageTitle' => "Login",
             'title' => 'Login page',
             'email' => '',
             'password' => '',
@@ -35,12 +36,10 @@ class AuthController extends _BaseController
             // Sanitize post data (prevent XSS)
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            $data = [
-                'email' => trim($_POST['email']),
-                'password' => trim($_POST['password']),
-                'emailError' => '',
-                'passwordError' => '',
-            ];
+            $data['email'] = trim($_POST['email']);
+            $data['password'] = trim($_POST['password']);
+            $data['emailError'] = '';
+            $data['passwordError'] = '';
 
             // email
             if (empty($data['email'])) {
@@ -63,12 +62,10 @@ class AuthController extends _BaseController
                 }
             }
         } else {
-            $data = [
-                'email' => '',
-                'password' => '',
-                'emailError' => '',
-                'passwordError' => ''
-            ];
+            $data['email'] = '';
+            $data['password'] = '';
+            $data['emailError'] = '';
+            $data['passwordError'] = '';
         }
 
         $router->renderView('login', $data);
@@ -79,6 +76,7 @@ class AuthController extends _BaseController
         $authModel = new AuthModel();
 
         $data = [
+            'pageTitle' => "Register",
             'email' => '',
             'password' => '',
             'confirmPassword' => '',

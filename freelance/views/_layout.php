@@ -2,7 +2,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freelance Marketplace</title>
+    <title>
+        <?php if (isset($params['pageTitle'])) {
+            echo $params['pageTitle'] . ' | Freelance Marketplace';
+        } else {
+            echo 'Freelance Marketplace';
+        } ?>
+    </title>
     <link rel="stylesheet" href="/static/css/index.css">
     <link rel="stylesheet" href="/static/css/default.css">
     <script src="/static/javascript/index.js"></script>
@@ -86,6 +92,10 @@
             <?php if (\app\models\UserModel::getCurrentUser()->getIsAdmin()) { ?>
             <hr />
             <a href="/admin">Admin</a>
+            <a class="inner-menu" href="/admin/users">Users</a>
+            <a class="inner-menu" href="/admin/jobs">Jobs</a>
+            <a class="inner-menu" href="/admin/freelancers">Freelancers</a>
+            <a class="inner-menu" href="/admin/clients">Clients</a>
             <?php } ?>
 
             <hr />
