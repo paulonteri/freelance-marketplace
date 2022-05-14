@@ -96,6 +96,7 @@
             <a class="inner-menu" href="/admin/jobs">Jobs</a>
             <a class="inner-menu" href="/admin/freelancers">Freelancers</a>
             <a class="inner-menu" href="/admin/clients">Clients</a>
+            <a class="inner-menu" href="/admin/skills">Skills</a>
             <?php } ?>
 
             <hr />

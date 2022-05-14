@@ -5,28 +5,24 @@
 
     <div>
         <h3>Users</h3>
-        <a href="/admin/users">Users home &rarr; </a>
-        <hr style="margin: 1rem 0;" />
+        <p><a href="/admin/users">Users home &rarr; </a></p>
     </div>
     <div>
         <h3>Freelancers</h3>
-        <a href="/admin/freelancers">Freelancers home &rarr; </a>
-        <hr style="margin: 1rem 0;" />
+        <p><a href="/admin/freelancers">Freelancers home &rarr; </a></p>
     </div>
     <div>
         <h3>Clients</h3>
-        <a href="/admin/clients">Clients home &rarr; </a>
-        <hr style="margin: 1rem 0;" />
+        <p><a href="/admin/clients">Clients home &rarr; </a></p>
     </div>
     <div>
         <h3>Jobs</h3>
-        <a href="/admin/jobs">Jobs home &rarr; </a>
-        <hr style="margin: 1rem 0;" />
+        <p><a href="/admin/jobs">Jobs home &rarr; </a></p>
     </div>
     <div>
         <h3>Other</h3>
-        <a href="/admin/skills/create">Create skill &rarr; </a>
-        <hr style="margin: 1rem 0;" />
+        <p><a href="/admin/skills">Skills home &rarr; </a></p>
+        <p><a href="/admin/skills/create">Create skill &rarr; </a></p>
     </div>
 </div>
 <hr />

@@ -209,6 +209,17 @@ class AdminController extends _BaseController
         $router->renderView(self::$basePath . 'users/id', $data, null, $errors);
     }
 
+    public static function skills(Router $router)
+    {
+        AdminController::requireUserIsAdmin($router);
+        $data = [
+            'pageTitle' => "Skills | Admin",
+            'skills' => SkillModel::getAll()
+        ];
+        $router->renderView(self::$basePath . 'skills/index', $data);
+    }
+
+
     public static function skillsCreate(Router $router)
     {
         AdminController::requireUserIsAdmin($router);
