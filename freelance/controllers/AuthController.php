@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\AuthModel;
+use app\models\UserModel;
 use app\Router;
 use app\utils\ImageUploader;
 
@@ -58,7 +59,17 @@ class AuthController extends _BaseController
                 if (!$isLoggedIn) {
                     $data['passwordError'] = 'Password or email is incorrect. Please try again.';
                 } else {
-                    header('location:/dashboard?alert=Logged in successfully!');
+                    $user = UserModel::getCurrentUser();
+
+                    if ($user->getIsAdmin()) {
+                        header('location:/admin?alert=Logged in successfully!');
+                    } else if ($user->isFreelancer()) {
+                        header('location:/dashboard/freelancer?alert=Logged in successfully!');
+                    } else if ($user->isClient()) {
+                        header('location:/dashboard/client?alert=Logged in successfully!');
+                    } else {
+                        header('location:/dashboard?alert=Logged in successfully!');
+                    }
                 }
             }
         } else {
