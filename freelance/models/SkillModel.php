@@ -57,7 +57,7 @@ class SkillModel extends _BaseModel
     {
         $db = (new Database)->connectToDb();
 
-        $sql = 'SELECT id FROM skill';
+        $sql = 'SELECT id FROM `skill` ORDER BY `name` ASC';
         $statement = $db->prepare($sql);
         $statement->execute();
         $skills = $statement->fetchAll();
