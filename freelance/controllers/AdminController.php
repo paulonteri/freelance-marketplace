@@ -3,10 +3,12 @@
 namespace app\controllers;
 
 use app\Router;
-use app\models\SkillModel;
-use app\models\FreelancerModel;
-use app\models\ClientModel;
+
 use app\models\JobModel;
+use app\models\UserModel;
+use app\models\SkillModel;
+use app\models\ClientModel;
+use app\models\FreelancerModel;
 use app\models\JobProposalModel;
 
 
@@ -46,7 +48,7 @@ class AdminController extends _BaseController
 
             if ($freelancer != null) {
                 $data['freelancer'] = $freelancer;
-                $data['pageTitle'] = "Freelancer " . $freelancer->getTitle();
+                $data['pageTitle'] = "Freelancer " . $freelancer->getTitle() . " | Admin";
             }
         } else {
             $errors = ['Freelancer id not found.'];
@@ -81,7 +83,7 @@ class AdminController extends _BaseController
 
             if ($client != null) {
                 $data['client'] = $client;
-                $data['pageTitle'] = "Client " . $client->getTitle();
+                $data['pageTitle'] = "Client " . $client->getTitle() . " | Admin";
             }
         } else {
             $errors = ['Client id not found.'];
@@ -119,7 +121,7 @@ class AdminController extends _BaseController
 
             if ($proposal != null) {
                 $data['proposal'] = $proposal;
-                $data['pageTitle'] = "Proposal " . $proposal->getTitle();
+                $data['pageTitle'] = "Proposal " . $proposal->getTitle() . " | Admin";
             }
         } else {
             $errors = ['Proposal id not found.'];
@@ -155,13 +157,56 @@ class AdminController extends _BaseController
 
             if ($job != null) {
                 $data['job'] = $job;
-                $data['pageTitle'] = "Job " . $job->getTitle();
+                $data['pageTitle'] = "Job " . $job->getTitle() . " | Admin";
             }
         } else {
             $errors = ['Job id not found.'];
         }
 
         $router->renderView(self::$basePath . 'jobs/id', $data, null, $errors);
+    }
+
+    public static function users(Router $router)
+    {
+        AdminController::requireUserIsAdmin($router);
+        $data = [
+            'pageTitle' => "Users | Admin",
+            'users' => UserModel::getAll()
+        ];
+        $router->renderView(self::$basePath . 'users/index', $data);
+    }
+
+    public static function userId(Router $router)
+    {
+        AdminController::requireUserIsAdmin($router);
+
+        $data = [
+            'pageTitle' => "User Details | Admin",
+
+        ];
+        $errors = array();
+
+        if (isset($_GET['userId'])) {
+            $data['id'] = $_GET['userId'];
+            $user = UserModel::tryGetById($data['id']);
+
+            if ($user != null) {
+                $data['user'] = $user;
+                $data['pageTitle'] = "User " . $user->getName() . " | Admin";
+
+                $data['email'] = $user->getEmail();
+                $data['first_name'] = $user->getFirstName();
+                $data['middle_name'] = $user->getMiddleName();
+                $data['last_name'] = $user->getLastName();
+                $data['phone'] = $user->getPhone();
+                $data['county'] = $user->getCounty();
+                $data['city'] = $user->getCity();
+            }
+        } else {
+            $errors = ['User id not found.'];
+        }
+
+        $router->renderView(self::$basePath . 'users/id', $data, null, $errors);
     }
 
     public static function skillsCreate(Router $router)

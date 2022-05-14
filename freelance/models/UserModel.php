@@ -220,4 +220,24 @@ class UserModel extends _BaseModel
     }
     return true;
   }
+
+  /**
+   * @return UserModel[]
+   */
+  public static function getAll(): array
+  {
+    $db = (new Database)->connectToDb();
+
+    $sql = 'SELECT id FROM user ORDER BY time_created DESC';
+    $statement = $db->prepare($sql);
+    $statement->execute();
+    $users = $statement->fetchAll();
+
+    $users_array = [];
+    foreach ($users as $user) {
+      $users_array[] = new UserModel($user['id']);
+    }
+
+    return $users_array;
+  }
 }
