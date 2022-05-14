@@ -90,6 +90,23 @@ class FreelancerModel extends _BaseModel
         return new FreelancerModel($db->lastInsertId());
     }
 
+    public function update(
+        string $title,
+        string $description,
+        int $years_of_experience,
+    ): ?FreelancerModel {
+
+        $sql = 'UPDATE freelancer SET title = :title, description = :description, years_of_experience = :years_of_experience WHERE id = :id';
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam(':title', $title);
+        $statement->bindParam(':description', $description);
+        $statement->bindParam(':years_of_experience', $years_of_experience);
+        $statement->bindParam(':id', $this->id);
+        $statement->execute();
+
+        return new FreelancerModel($this->id);
+    }
+
     public function getId(): mixed
     {
         return $this->id;
@@ -152,6 +169,13 @@ class FreelancerModel extends _BaseModel
 
     public function addSkills(array $skills): void
     {
+        // delete prev skills
+        $sql = 'DELETE FROM freelancer_skill WHERE freelancer_id = :id';
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam(':id', $this->id);
+        $statement->execute();
+
+        // add new skills
         $sql = 'INSERT INTO freelancer_skill (freelancer_id, skill_id) VALUES (:freelancer_id, :skill_id)';
         $statement = $this->db->prepare($sql);
 

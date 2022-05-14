@@ -75,11 +75,11 @@
 
             <?php if (\app\models\UserModel::getCurrentUser()->isClient()) { ?>
             <hr />
-            <a href="/freelancers">Freelancers</a>
             <a href="/dashboard/client">Client dashboard</a>
             <a class="inner-menu" href="/dashboard/client/jobs">Your jobs</a>
             <a class="inner-menu" href="/dashboard/client/jobs/create">Post job</a>
             <a class="inner-menu" href="/dashboard/client/profile">Your profile</a>
+            <a href="/freelancers">Freelancers</a>
             <?php } ?>
 
             <?php if (\app\models\UserModel::getCurrentUser()->isFreelancer()) { ?>
@@ -88,6 +88,7 @@
             <a class="inner-menu" href="/dashboard/freelancer/jobs">All jobs</a>
             <a class="inner-menu" href="/dashboard/freelancer/jobs/my-jobs">My jobs</a>
             <a class="inner-menu" href="/dashboard/freelancer/jobs/proposals">Proposals</a>
+            <a class="inner-menu" href="/dashboard/freelancer/profile">Your profile</a>
             <?php } ?>
 
             <?php if (\app\models\UserModel::getCurrentUser()->getIsAdmin()) { ?>
@@ -101,7 +102,8 @@
             <?php } ?>
 
             <hr />
-            <a href="/dashboard/profile">User profile</a>
+            <a href="/dashboard/profile">User</a>
+            <a class="inner-menu" href="/dashboard/profile">Your profile</a>
 
             <hr />
             <a href="/logout">Logout</a>

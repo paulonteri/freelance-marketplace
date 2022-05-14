@@ -746,4 +746,96 @@ class DashboardFreelancerController extends _BaseController
 
         $router->renderView(self::$basePath . 'clients/id', $data, null, $errors);
     }
+
+    public static function profile(Router $router)
+    {
+        DashboardFreelancerController::requireUserIsFreelancer($router);
+        $freelancer = UserModel::getCurrentUser()->getFreelancer();
+
+        $data = [
+            'pageTitle' => "Freelancer Profile",
+            'freelancer' => $freelancer,
+        ];
+
+
+        $router->renderView(self::$basePath . 'profile/index', $data);
+    }
+
+    public static function profileEdit(Router $router)
+    {
+        DashboardFreelancerController::requireUserIsFreelancer($router);
+        $freelancer = UserModel::getCurrentUser()->getFreelancer();
+
+
+        $alert = null;
+        $errors = array();
+
+
+        $data = [
+            'title' => $freelancer->getTitle(),
+            'years_of_experience' => $freelancer->getYearsOfExperience(),
+            'description' => $freelancer->getDescription(),
+            'skills' => [],
+            'titleError' => '',
+            'years_of_experienceError' => '',
+            'descriptionError' => '',
+            'skillsError' => '',
+        ];
+        $data['allSkills'] =  SkillModel::getAll();
+        $skillsIdsArray = [];
+        foreach ($freelancer->getSkills() as $skill) {
+            $skillsIdsArray[] = $skill->getId();
+        }
+        $data['skills'] = $skillsIdsArray;
+
+        // Check for post
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize post data (prevent XSS)
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            $data['title'] = trim($_POST['title']);
+            $data['years_of_experience'] = trim($_POST['years_of_experience']);
+            $data['description'] = trim($_POST['description']);
+            $data['skills'] = $_POST['skills'];
+
+            // validate title
+            if (empty($data['title'])) {
+                $data['titleError'] = 'Please enter a title.';
+            }
+
+            // validate years_of_experience
+            if (empty($data['years_of_experience'])) {
+                $data['years_of_experienceError'] = 'Please enter a years_of_experience.';
+            }
+
+            // validate description
+            if (empty($data['description'])) {
+                $data['descriptionError'] = 'Please enter a description".';
+            }
+
+            // Check if all errors are empty
+            if (
+                empty($data['titleError'])
+                && empty($data['years_of_experienceError'])
+                && empty($data['descriptionError'])
+                && empty($data['skillsError'])
+            ) {
+                // Update from model function
+                if ($freelancer->update(
+                    $data['title'],
+                    $data['description'],
+                    $data['years_of_experience'],
+                )) {
+                    $alert = 'Profile updated successfully.';
+
+                    // Update skills
+                    $freelancer->addSkills($data['skills']);
+                } else {
+                    $errors = ['Something went wrong.'];
+                }
+            }
+        }
+
+        $router->renderView(self::$basePath . 'profile/edit', $data, $alert, $errors);
+    }
 }

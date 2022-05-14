@@ -50,6 +50,9 @@ $router->post('/dashboard/freelancer/jobs/id/submit-work', [DashboardFreelancerC
 $router->get('/dashboard/freelancer/jobs/id/rate-client', [DashboardFreelancerController::class, 'jobIdRateClient']);
 $router->post('/dashboard/freelancer/jobs/id/rate-client', [DashboardFreelancerController::class, 'jobIdRateClient']);
 $router->get('/dashboard/freelancer/clients/id', [DashboardFreelancerController::class, 'clientId']);
+$router->get('/dashboard/freelancer/profile', [DashboardFreelancerController::class, 'profile']);
+$router->get('/dashboard/freelancer/profile/edit', [DashboardFreelancerController::class, 'profileEdit']);
+$router->post('/dashboard/freelancer/profile/edit', [DashboardFreelancerController::class, 'profileEdit']);
 
 // DashboardClientController
 $router->get('/dashboard/client', [DashboardClientController::class, 'index']);
