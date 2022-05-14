@@ -201,6 +201,14 @@ class AdminController extends _BaseController
                 $data['phone'] = $user->getPhone();
                 $data['county'] = $user->getCounty();
                 $data['city'] = $user->getCity();
+
+                // change admin status
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    $isAdmin = isset($_POST['is_admin']) ? true : false;
+                    $user->setIsAdmin($isAdmin);
+                }
+
+                $data['is_admin'] = $user->getIsAdmin();
             }
         } else {
             $errors = ['User id not found.'];

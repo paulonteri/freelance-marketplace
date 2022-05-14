@@ -23,8 +23,6 @@
             <label for="email">Email</label>
             <input disabled type="email" required name="email" id="email" value="<?php echo $params["email"]; ?>">
 
-            <hr style="margin: 1rem 0;" />
-
             <label for="county">County</label>
             <input disabled type="text" required name="county" id="county" value="<?php echo $params["county"]; ?>">
 
@@ -36,12 +34,21 @@
             <span class="invalidFeedback">
                 <?php echo $params["imageError"]; ?>
             </span> -->
-
-
         </fieldset>
-
     </form>
 
+    <hr />
+
+    <h1 style="text-align:center; margin:auto 0px;">Admin status</h1>
+    <form action="/admin/users/id?userId=<?php echo $_GET['userId']; ?>" method="POST">
+        <fieldset>
+            <label for="is_admin">Is admin</label>
+            <input type="checkbox" id="is_admin" name="is_admin" value="true" <?php if ($params["is_admin"]) {
+                                                                                    echo "checked";
+                                                                                } ?>>
+        </fieldset>
+        <input class="button-primary" type="submit" value="Submit">
+    </form>
 
     <hr />
 </div>

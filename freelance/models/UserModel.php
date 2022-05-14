@@ -240,4 +240,20 @@ class UserModel extends _BaseModel
 
     return $users_array;
   }
+
+  /**
+   * Change admin status
+   */
+  public function setIsAdmin(bool $is_admin)
+  {
+    $is_admin_int = $is_admin ? 1 : 0;
+
+    $sql = "UPDATE user SET is_admin = :is_admin WHERE id = :id";
+    $statement = $this->db->prepare($sql);
+    $statement->bindParam(':is_admin', $is_admin_int);
+    $statement->bindParam(':id', $this->id);
+    $statement->execute();
+
+    $this->is_admin = $is_admin;
+  }
 }
