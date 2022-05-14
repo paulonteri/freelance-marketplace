@@ -471,4 +471,82 @@ class DashboardClientController extends _BaseController
 
         $router->renderView(self::$basePath . 'jobs/id/review-and-complete', $data, $alert, $errors);
     }
+
+    public static function profile(Router $router)
+    {
+        DashboardClientController::requireUserIsClient($router);
+        $client = UserModel::getCurrentUser()->getClient();
+
+        $data = [
+            'pageTitle' => "Client Profile",
+            'client' => $client,
+        ];
+
+
+        $router->renderView(self::$basePath . 'profile/index', $data);
+    }
+
+    public static function profileEdit(Router $router)
+    {
+        DashboardClientController::requireUserIsClient($router);
+        $client = UserModel::getCurrentUser()->getClient();
+
+        $data = [
+            'pageTitle' => "Edit Client Profile",
+            'title' => $client->getTitle(),
+            'description' => $client->getDescription(),
+            'type' => $client->getType(),
+            'imageError' => '',
+            'titleError' => '',
+            'descriptionError' => '',
+            'typeError' => '',
+            'national_idError' => '',
+        ];
+        $alert = null;
+        $errors = array();
+
+        // Check for post
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize post data (prevent XSS)
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            $data['title'] = trim($_POST['title']);
+            $data['description'] = trim($_POST['description']);
+            $data['type'] = trim($_POST['type']);
+
+            // validate title
+            if (empty($data['title'])) {
+                $data['titleError'] = 'Required.';
+            }
+
+
+
+            // validate description
+            if (empty($data['description'])) {
+                $data['descriptionError'] = 'Required.';
+            }
+
+            // Check if all errors are empty
+            if (
+                empty($data['titleError'])
+                && empty($data['imageError'])
+                && empty($data['descriptionError'])
+
+            ) {
+                // Update from model function
+                if ($client->update(
+                    $data['title'],
+                    $data['description'],
+                    $data['type']
+                )) {
+                    $alert = 'Profile updated successfully.';
+                } else {
+                    $errors = ['Something went wrong.'];
+                }
+            }
+        }
+
+
+        $router->renderView(self::$basePath . 'profile/edit', $data, $alert, $errors);
+    }
 }

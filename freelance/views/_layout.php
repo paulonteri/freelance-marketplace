@@ -79,6 +79,7 @@
             <a href="/dashboard/client">Client dashboard</a>
             <a class="inner-menu" href="/dashboard/client/jobs">Your jobs</a>
             <a class="inner-menu" href="/dashboard/client/jobs/create">Post job</a>
+            <a class="inner-menu" href="/dashboard/client/profile">Your profile</a>
             <?php } ?>
 
             <?php if (\app\models\UserModel::getCurrentUser()->isFreelancer()) { ?>

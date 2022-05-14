@@ -93,6 +93,23 @@ class ClientModel extends _BaseModel
         return new ClientModel($db->lastInsertId());
     }
 
+    public function update(
+        string $title,
+        string $description,
+        string $type,
+    ) {
+        $sql = "UPDATE client SET title = :title, description = :description, type = :type WHERE id = :id";
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam(':id', $this->id);
+        $statement->bindParam(':title', $title);
+        $statement->bindParam(':description', $description);
+        $statement->bindParam(':type', $type);
+        $statement->execute();
+
+        return true;
+    }
+
+
     public function getId(): mixed
     {
         return $this->id;

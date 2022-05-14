@@ -64,6 +64,9 @@ $router->get('/dashboard/client/jobs/id', [DashboardClientController::class, 'jo
 $router->get('/dashboard/client/jobs/id/proposals', [DashboardClientController::class, 'jobProposals']);
 $router->get('/dashboard/client/jobs/id/review-and-complete', [DashboardClientController::class, 'jobReviewAndComplete']);
 $router->post('/dashboard/client/jobs/id/review-and-complete', [DashboardClientController::class, 'jobReviewAndComplete']);
+$router->get('/dashboard/client/profile', [DashboardClientController::class, 'profile']);
+$router->get('/dashboard/client/profile/edit', [DashboardClientController::class, 'profileEdit']);
+$router->post('/dashboard/client/profile/edit', [DashboardClientController::class, 'profileEdit']);
 
 // DashboardProfilesController
 $router->get('/dashboard/profile', [DashboardProfilesController::class, 'index']);

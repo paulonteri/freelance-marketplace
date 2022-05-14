@@ -159,7 +159,7 @@ class DashboardProfilesController extends _BaseController
                 && empty($data['cityError'])
             ) {
 
-                // Update user from model function
+                // Update from model function
                 if ($user->update(
                     $data['email'],
                     $data['first_name'],
