@@ -151,8 +151,8 @@
 
 
 <!-------------------------------- footer -------------------------------------------------------->
+<hr />
 <footer class="container" style="margin-top:50px;">
-    <hr />
 
     <div class="row">
         <div class="column">

@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\Router;
-use app\models\FreelancerModel;
 use app\models\UserModel;
 use app\models\AuthModel;
 
@@ -15,6 +14,8 @@ class DashboardProfilesController extends _BaseController
 
     public static function index(Router $router)
     {
+        DashboardProfilesController::requireUserIsLoggedIn($router);
+
         $user = UserModel::getCurrentUser();
         $data = [
             'pageTitle' => 'Your profile | ' . $user->getName(),
