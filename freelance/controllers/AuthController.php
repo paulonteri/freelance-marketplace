@@ -11,6 +11,22 @@ use app\utils\ImageUploader;
 class AuthController extends _BaseController
 {
 
+    public static function redirectIfLoggedIn()
+    {
+        $user = UserModel::getCurrentUser();
+        if ($user != null) {
+            if ($user->getIsAdmin()) {
+                header('location:/admin?alert=Logged in successfully!');
+            } else if ($user->isFreelancer()) {
+                header('location:/dashboard/freelancer?alert=Logged in successfully!');
+            } else if ($user->isClient()) {
+                header('location:/dashboard/client?alert=Logged in successfully!');
+            } else {
+                header('location:/dashboard?alert=Logged in successfully!');
+            }
+        }
+    }
+
     public static function logout(Router $router)
     {
         $authModel = new AuthModel();
@@ -21,6 +37,7 @@ class AuthController extends _BaseController
     public static function login(Router $router)
     {
 
+        AuthController::redirectIfLoggedIn();
         $authModel = new AuthModel();
 
         $data = [
@@ -59,17 +76,7 @@ class AuthController extends _BaseController
                 if (!$isLoggedIn) {
                     $data['passwordError'] = 'Password or email is incorrect. Please try again.';
                 } else {
-                    $user = UserModel::getCurrentUser();
-
-                    if ($user->getIsAdmin()) {
-                        header('location:/admin?alert=Logged in successfully!');
-                    } else if ($user->isFreelancer()) {
-                        header('location:/dashboard/freelancer?alert=Logged in successfully!');
-                    } else if ($user->isClient()) {
-                        header('location:/dashboard/client?alert=Logged in successfully!');
-                    } else {
-                        header('location:/dashboard?alert=Logged in successfully!');
-                    }
+                    AuthController::redirectIfLoggedIn();
                 }
             }
         } else {
@@ -84,6 +91,7 @@ class AuthController extends _BaseController
 
     public static function register(Router $router)
     {
+        AuthController::redirectIfLoggedIn();
         $authModel = new AuthModel();
 
         $data = [
