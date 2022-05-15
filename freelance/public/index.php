@@ -13,6 +13,8 @@ use app\controllers\DashboardFreelancerController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+date_default_timezone_set("Africa/Nairobi");
+
 $database = new Database();
 $router = new Router($database);
 
