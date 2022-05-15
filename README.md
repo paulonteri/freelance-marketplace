@@ -33,7 +33,7 @@ The controller contains logic that updates the model and/or view in response to 
 They act as an interface between Model and View components to process all the business logic and incoming requests,
 manipulate data using the Model component and interact with the Views to render the final output.
 
-### Extra files & folders:
+### Extra files & folders
 
 - **/public/index.php**: This is the main entry point of the application. All routes are defined here.
 - **Router.php**: This is the main file that handles all the routing logic of the application.
@@ -41,11 +41,11 @@ manipulate data using the Model component and interact with the Views to render 
 - **Database.php**: This is the main file that contains all the database connection logic.
 - **/utils**: This folder contains all the utility classes that are used throughout the application.
 - **/public/assets**: This folder contains all the assets that are used throughout the application.
-- **public/uploads**: This folder contains all the uploaded files that are used throughout the application. It should not
-  have been added to the repo - it was only added as a convenience with regard to presenting it as a school project.
+- **public/uploads**: This folder contains all the uploaded files that are used throughout the application. It should
+  not have been added to the repo - it was only added as a convenience with regard to presenting it as a school project.
 - **db_schema.sql** and **db_schema.png**: These are the database schema files.
-- **db_data.sql**: This is the database (backup) data file. Again, it should not
-  have been added to the repo - it was only added as a convenience with regard to presenting it as a school project.
+- **db_data.sql**: This is the database (backup) data file. Again, it should not have been added to the repo - it was
+  only added as a convenience with regard to presenting it as a school project.
 
 ---
 
@@ -95,8 +95,8 @@ Please make sure to update tests as appropriate.
 
 Current maintainers:
 
-* Paul Onteri - https://paulonteri.com/
+- Paul Onteri - <https://paulonteri.com/>
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
