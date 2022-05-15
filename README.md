@@ -67,13 +67,23 @@ composer update
 
 ### Database
 
-Set up a MySQL database with the following configuration as defined in `Database.php`:
+Set up a MySQL database on your local machine with the following configuration as defined in `Database.php`:
 
-```
+```txt
 - Database name: freelance
 - Username: freelance
 - Password: freelance
 ```
+
+You can alternatively use a database connection string to connect a database by setting the `CLEARDB_DATABASE_URL` environment variable.
+
+**Set up schema:**
+
+Use the SQL in the `db_schema.sql` file to create the database schema.
+
+**Set up data (Optional):**
+
+Use the SQL in the `db_data.sql` file to populate the database with some data.
 
 ---
 
@@ -85,17 +95,23 @@ From the `freelance/public` directory, run the following command to run the appl
 php -S 0.0.0.0:9000
 ```
 
+---
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
+---
+
 ## Maintainers
 
 Current maintainers:
 
 - Paul Onteri - <https://paulonteri.com/>
+
+---
 
 ## License
 
