@@ -4,5 +4,5 @@ namespace app;
 
 class Settings
 {
-    public static string $host = 'http://9000-port.paulonteri.com';
+    public static string $host = 'https://freelance-tmp.paulonteri.com';
 }
