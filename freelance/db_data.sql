@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 12, 2022 at 09:32 AM
+-- Generation Time: May 14, 2022 at 01:29 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -28,7 +28,7 @@ USE `freelance`;
 --
 
 INSERT INTO `client` (`id`, `user_id`, `national_id`, `image`, `title`, `description`, `type`, `time_created`, `is_active`) VALUES
-(2, 11, '/uploads/national_id.webp', '/uploads/ClientImageTueMar2220227:05amazon.png', 'Nakuru Mattress', 'A homegrown supermarket established in 2006 with our first branch in Nakuru town. We\'ve later grown and so far have a total of 46 branches in 12 counties across Kenya.\n\nWe pride ourselves with delivering an exceptional customer experience every time while providing our shopper with variety of goods at an affordable price!\n\nVisit any of our branches today and enjoy delectable pastries from our Bakery, sumptuous meals at our Deli, fresh cuts at the Butchery and so much more!\n\nUnique Value Proposition:\n\nFresh & Easy. Price Guarantee!', 'company', '2022-03-22 07:05:12', 1),
+(2, 11, '/uploads/national_id.webp', '/uploads/ClientImageTueMar2220227:05amazon.png', 'Nakuru Mattress LTD', 'A homegrown supermarket established in 2006 with our first branch in Nakuru town. We&#039;ve later grown and so far have a total of 46 branches in 12 counties across Kenya.\r\n\r\nWe pride ourselves with delivering an exceptional customer experience every time while providing our shopper with variety of goods at an affordable price!\r\n\r\nVisit any of our branches today and enjoy delectable pastries from our Bakery, sumptuous meals at our Deli, fresh cuts at the Butchery and so much more!\r\n\r\nUnique Value Proposition:\r\n\r\nFresh &amp; Easy. Price Guarantee!', 'company', '2022-03-22 07:05:12', 1),
 (4, 14, '/uploads/national_id.webp', '/uploads/ClientImageSunMay01202212:20D9lGXtQXYAEalMK.jpeg', 'Rivatex Limited', 'Rivatext is an integrated textile factory that converts cotton lint through various processes to finished fabrics.', 'company', '2022-05-01 12:20:11', 1),
 (5, 15, '/uploads/ClientIdImageThuMay1220227:31id_m.jpeg', '/uploads/ClientImageThuMay1220227:31A10.jpg.jpeg', 'Ukali Industrialists', 'Hardware', 'company', '2022-05-12 07:31:35', 1);
 
@@ -37,7 +37,7 @@ INSERT INTO `client` (`id`, `user_id`, `national_id`, `image`, `title`, `descrip
 --
 
 INSERT INTO `freelancer` (`id`, `user_id`, `national_id`, `title`, `description`, `years_of_experience`, `time_created`, `is_active`) VALUES
-(10, 12, '/uploads/national_id.webp', 'Creative Sotware engineer & Graphic Designer', 'Highly experienced, creative, and multitalented Software engineer and Graphic Designer with an extensive background in web, marketing multimedia, and print design. Exceptional collaborative and interpersonal skills; very strong team player with well-developed written and verbal communication abilities. Experienced at producing high-end business-to-business and consumer-facing designs; talented at building and maintaining partnerships. Passionate and accustomed to performing in deadline-driven environments.', 5, '2022-03-22 07:54:52', 1),
+(10, 12, '/uploads/national_id.webp', 'Creative software engineer &amp; graphic designer', 'Highly experienced, creative, and multitalented Software engineer and Graphic Designer with an extensive background in web, marketing multimedia, and print design. Exceptional collaborative and interpersonal skills; very strong team player with well-developed written and verbal communication abilities. Experienced at producing high-end business-to-business and consumer-facing designs; talented at building and maintaining partnerships. Passionate and accustomed to performing in deadline-driven environments.', 5, '2022-03-22 07:54:52', 1),
 (11, 13, '/uploads/national_id.webp', 'Content marketing professional', 'I am a content marketing professional at HubSpot, an inbound marketing and sales platform that helps companies attract visitors, convert leads, and close customers. \nPreviously, I worked as a marketing manager for a tech software startup. He graduated with honors from The Catholic University of Eastern Africa with a dual degree in Business Administration and Creative Writing. I am also a highly creative and multitalented Graphic Designer with extensive experience in multimedia, marketing, and print design. ', 2, '2022-03-22 09:02:23', 1),
 (12, 16, '/uploads/ClientIdImageThuMay1220227:28id_f.jpeg', 'Data entry expert', 'Data entry expert', 3, '2022-05-12 07:28:39', 1);
 
@@ -46,10 +46,10 @@ INSERT INTO `freelancer` (`id`, `user_id`, `national_id`, `title`, `description`
 --
 
 INSERT INTO `freelancer_skill` (`id`, `freelancer_id`, `skill_id`) VALUES
-(7, 10, 1),
-(3, 10, 2),
-(4, 10, 4),
-(8, 10, 5),
+(40, 10, 1),
+(41, 10, 2),
+(38, 10, 4),
+(39, 10, 5),
 (5, 11, 2),
 (6, 11, 3),
 (9, 11, 4),
@@ -138,13 +138,13 @@ INSERT INTO `skill` (`id`, `name`) VALUES
 --
 
 INSERT INTO `user` (`id`, `email`, `phone`, `password`, `first_name`, `middle_name`, `last_name`, `image`, `country`, `county`, `city`, `is_admin`, `is_active`, `time_created`) VALUES
-(11, 'client@test.com', '+254718578833', '$2y$10$5QzsfhuROuvDUYtQ4Zv3ZuKkVEfaW1txv/553xBCTunpQvc/bpIsK', 'Daniele', NULL, 'Moi', '/uploads/profile.avif', 'Kenya', 'Kajiado', 'Rongai', 0, 1, '2022-03-22 06:52:13'),
+(11, 'client@test.com', '0718578833', '$2y$10$5QzsfhuROuvDUYtQ4Zv3ZuKkVEfaW1txv/553xBCTunpQvc/bpIsK', 'Meek', 'Moi', 'Karan', '/uploads/profile.avif', 'Kenya', 'Kajiado', 'Rongai', 0, 1, '2022-03-22 06:52:13'),
 (12, 'freelancer@test.com', '0762307628', '$2y$10$zL2K68YBS7rwMSGIyQ5R.egPQYy43zMaPokgHtOA01j4ylacVCRPu', 'Sharon', 'Kerubo', 'Kiara', '/uploads/profile-female.avif', 'Kenya', 'Kisii', 'Kisii', 0, 1, '2022-03-22 07:53:28'),
 (13, 'freelancer1@test.com', '+254793395484', '$2y$10$uohjjRXWHVnduYxpyyUuq.e1yNBkS2BZfXI4SvZzRUWCS.DJbXkS6', 'Amity', NULL, 'Bean', '/uploads/ProfileImageTueMar2220229:241628513616264.jpeg', 'Kenya', 'Thika', 'Juja', 0, 1, '2022-03-22 08:53:44'),
 (14, 'client1@test.com', '0777627107', '$2y$10$KKCOjS2ZFwlR6aGdxVpWleKstTq1d1q1Um14sC0m4mAyf0OrXVq6m', 'Margaret', NULL, 'Wandia', '/uploads/ProfileImageSunMay01202212:16across the bridge.jpeg', 'Kenya', 'Kajiado', 'Rongai', 0, 1, '2022-05-01 12:16:46'),
 (15, 'client2@test.com', '0721675907', '$2y$10$gTTrOn0rMMZ1.8ZownuMfODHWU64ZIQvcFOFRv9YeJ3eP8rcQxl6K', 'Virginia', 'Bond', 'Ngooru', '/uploads/ProfileImageWedMay11202212:20240452437_257190502758422_107796797346897910_n.jpg', 'Kenya', 'Nakuru', 'Gilgil', 0, 1, '2022-05-11 12:20:42'),
-(16, 'freelancer2@test.com', '0788713917', '$2y$10$ZWE4wzPZQW1yqY8xL00wju4o.a87IGnOfjhaGA/ufbLy9QHk3yloa', 'Margaret', 'Duncan', 'Nerea', '/uploads/ProfileImageWedMay11202212:38240452437_257190502758422_107796797346897910_n.jpg', 'Kenya', 'Kajiado', 'Rongai', 0, 1, '2022-05-11 12:38:48'),
-(17, 'client3@test.com', '0758751473', '$2y$10$Q15bj.SyJyJEdv4BDmQ3rOBmP29zC2YiWLch4YaB0.KlAyHogFsM6', 'Keith', 'Wendy Nichols', 'Wendy Nichols', '/uploads/ProfileImageWedMay11202212:44explorers_on_the_moon.jpg', 'Kenya', 'Migori', 'Rongo', 0, 1, '2022-05-11 12:44:20');
+(16, 'freelancer2@test.com', '0788713917', '$2y$10$ZWE4wzPZQW1yqY8xL00wju4o.a87IGnOfjhaGA/ufbLy9QHk3yloa', 'Margaret', 'Duncan', 'Nerea', '/uploads/ProfileImageWedMay11202212:38240452437_257190502758422_107796797346897910_n.jpg', 'Kenya', 'Kajiado', 'Rongai', 1, 1, '2022-05-11 12:38:48'),
+(17, 'admin@test.com', '0758751473', '$2y$10$tPEM20lasLluoM8yA0G2JeSZayhDhWcZeAh98OoDHrYJCP0pQc4w6', 'Keith', 'Wend', 'Otieno', '/uploads/ProfileImageWedMay11202212:44explorers_on_the_moon.jpg', 'Kenya', 'Migori', 'Rongo', 1, 1, '2022-05-11 12:44:20');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

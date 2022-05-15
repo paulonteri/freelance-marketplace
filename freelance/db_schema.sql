@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 12, 2022 at 09:32 AM
+-- Generation Time: May 14, 2022 at 01:29 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -165,6 +165,20 @@ CREATE TABLE `message` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `reset_password_token`
+--
+
+DROP TABLE IF EXISTS `reset_password_token`;
+CREATE TABLE `reset_password_token` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `time_expires` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `skill`
 --
 
@@ -265,6 +279,12 @@ ALTER TABLE `message`
   ADD KEY `job_id` (`job_id`);
 
 --
+-- Indexes for table `reset_password_token`
+--
+ALTER TABLE `reset_password_token`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `skill`
 --
 ALTER TABLE `skill`
@@ -329,6 +349,12 @@ ALTER TABLE `job_skill`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `reset_password_token`
+--
+ALTER TABLE `reset_password_token`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

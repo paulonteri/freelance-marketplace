@@ -28,6 +28,10 @@ $router->post('/login', [AuthController::class, 'login']);
 $router->get('/register', [AuthController::class, 'register']);
 $router->post('/register', [AuthController::class, 'register']);
 $router->get('/logout', [AuthController::class, 'logout']);
+$router->get('/reset-password', [AuthController::class, 'requestResetPassword']);
+$router->post('/reset-password', [AuthController::class, 'requestResetPassword']);
+$router->get('/reset-password/reset', [AuthController::class, 'resetPassword']);
+$router->post('/reset-password/reset', [AuthController::class, 'resetPassword']);
 
 
 // FreelancerProfilesController

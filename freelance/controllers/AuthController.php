@@ -3,8 +3,10 @@
 namespace app\controllers;
 
 use app\models\AuthModel;
+use app\models\ResetPasswordTokenModel;
 use app\models\UserModel;
 use app\Router;
+use app\utils\DisplayAlert;
 use app\utils\ImageUploader;
 
 
@@ -270,11 +272,119 @@ class AuthController extends _BaseController
                     // Redirect to the login page
                     header('location:/login?alert=Registered successfully!');
                 } else {
-                    die('Something went wrong.');
+                    DisplayAlert::displayError('Something went wrong. Please try again.');
                 }
             }
         }
 
         $router->renderView('register', $data);
+    }
+
+
+    public static function requestResetPassword(Router $router)
+    {
+
+        AuthController::redirectIfLoggedIn();
+
+        $data = [
+            'email' => '',
+            'emailError' => '',
+        ];
+        $alert = null;
+
+        // Check for post
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize post data (prevent XSS)
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            $data['email'] = trim($_POST['email']);
+            $data['emailError'] = '';
+
+            // email
+            if (empty($data['email'])) {
+                $data['emailError'] = 'Please enter a email.';
+            }
+
+            // Check if all errors are empty
+            if (empty($data['emailError'])) {
+                ResetPasswordTokenModel::generateToken($data['email']);
+                $alert = 'Password reset link has been sent to your email address if the email you entered is in the database.';
+                $data['email'] = '';
+                $data['emailError'] = '';
+            }
+        } else {
+            $data['email'] = '';
+            $data['emailError'] = '';
+        }
+
+        $router->renderView('reset-password/index', $data, $alert);
+    }
+
+
+    public static function resetPassword(Router $router)
+    {
+        AuthController::redirectIfLoggedIn();
+        $authModel = new AuthModel();
+        $alert = null;
+
+        $data = [
+            'pageTitle' => "Reset password",
+            'password' => '',
+            'confirmPassword' => '',
+            'passwordError' => '',
+            'confirmPasswordError' => '',
+        ];
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            $data['token'] = trim($_POST['token']);
+            $data['password'] = trim($_POST['password']);
+            $data['confirmPassword'] = trim($_POST['confirmPassword']);
+
+            // password
+            if (empty($data['password'])) {
+                $data['passwordError'] = 'Required';
+            } elseif (strlen($data['password']) < 8) {
+                $data['passwordError'] = 'Too short';
+            } elseif (strlen($data['password']) > 20) {
+                $data['passwordError'] = 'Too long';
+            } elseif (!preg_match("#[0-9]+#", $data['password'])) {
+                $data['passwordError'] = "Must Contain At Least 1 Number!";
+            } elseif (!preg_match("#[A-Z]+#", $data['password'])) {
+                $data['passwordError'] = "Must Contain At Least 1 Capital Letter!";
+            } elseif (!preg_match("#[a-z]+#", $data['password'])) {
+                $data['passwordError'] = "Must Contain At Least 1 Lowercase Letter!";
+            } elseif (!preg_match("#[\W]+#", $data['password'])) {
+                $data['passwordError'] = "Must Contain At Least 1 Special Character!";
+            }
+
+            // confirm password
+            if (empty($data['confirmPassword'])) {
+                $data['confirmPasswordError'] = 'Required';
+            } else {
+                if ($data['password'] != $data['confirmPassword']) {
+                    $data['confirmPasswordError'] = 'Passwords do not match, please try again.';
+                }
+            }
+
+            // make sure that errors are empty
+            if (
+                empty($data['passwordError'])
+                && empty($data['confirmPasswordError'])
+            ) {
+                //
+                if ($authModel->resetPassword($data['token'], $data['password'])) {
+                    // Redirect to the login page
+                    header('location:/login?alert=Password reset successfully!');
+                } else {
+                    DisplayAlert::displayError('Something went wrong. Please try again.');
+                }
+            }
+        }
+
+        $router->renderView('reset-password/reset', $data, $alert);
     }
 }

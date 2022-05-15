@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use app\Database;
+
 class AuthModel extends _BaseModel
 {
     private $db;
@@ -9,6 +11,11 @@ class AuthModel extends _BaseModel
     public function __construct()
     {
         $this->db = $this->connectToDb();
+    }
+
+    public static function hashPassword(string $password)
+    {
+        return password_hash($password, PASSWORD_DEFAULT);
     }
 
     public function register(
@@ -27,7 +34,7 @@ class AuthModel extends _BaseModel
         $statement->execute(
             array(
                 ':email' => $email,
-                ':password' => password_hash($password, PASSWORD_DEFAULT),
+                ':password' =>  AuthModel::hashPassword($password),
                 ':first_name' => $first_name,
                 ':middle_name' => $middle_name,
                 ':last_name' => $last_name,
@@ -98,5 +105,28 @@ class AuthModel extends _BaseModel
         );
         $count = $statement->rowCount();
         return $count > 0;
+    }
+
+    public static function resetPassword(string $token, string $password): bool
+    {
+        $user = ResetPasswordTokenModel::getUserIfTokenIsValid($token);
+
+        if ($user) {
+            $db = (new Database)->connectToDb();
+
+            $user_id = $user->getId();
+            $password_hash = AuthModel::hashPassword($password);
+
+            $sql = 'UPDATE user SET password = :password WHERE id = :user_id';
+            $statement = $db->prepare($sql);
+            $statement->bindParam(':password', $password_hash);
+            $statement->bindParam(':user_id', $user_id);
+            $statement->execute();
+
+            ResetPasswordTokenModel::deleteAllTokensForUser($user_id);
+
+            return true;
+        }
+        return false;
     }
 }

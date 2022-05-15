@@ -77,6 +77,23 @@ class UserModel extends _BaseModel
     }
   }
 
+  public static function tryGetByEmail(string $email): ?UserModel
+  {
+    $db = (new Database)->connectToDb();
+
+    $sql = 'SELECT * FROM user WHERE email = :email';
+    $statement = $db->prepare($sql);
+    $statement->bindParam(':email', $email);
+    $statement->execute();
+    $user = $statement->fetch();
+
+    if ($user) {
+      return new UserModel($user['id']);
+    } else {
+      return null;
+    }
+  }
+
   public function update(
     $email,
     $first_name,
