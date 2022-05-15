@@ -11,5 +11,7 @@
             "email": "me@paulonteri.com"
         }
     ],
-    "require": {}
+    "require": {
+        "phpmailer/phpmailer": "^6.6"
+    }
 }
