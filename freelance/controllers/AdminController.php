@@ -301,7 +301,7 @@ class AdminController extends _BaseController
         $offset = ($pageNumber - 1) * $limit;
         $previousPageNumber = $pageNumber - 1;
         $nextPageNumber = $pageNumber + 1;
-        $recordsCount =  SkillModel::getAllCount();
+        $recordsCount =  UserModel::getAllCount();
         $lastPageNumber = ceil($recordsCount / $limit);
 
         $data = [
