@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\Database;
+use PDO;
 
 
 class SkillModel extends _BaseModel
@@ -53,12 +54,15 @@ class SkillModel extends _BaseModel
     /**
      * @return SkillModel[]
      */
-    public static function getAll(): array
+    public static function getAll(int $limit = PHP_INT_MAX, int $offset = 0,): array
     {
         $db = (new Database)->connectToDb();
 
         $sql = 'SELECT id FROM `skill` ORDER BY `name` ASC';
+        $sql .= " LIMIT :limit OFFSET :offset"; // limit and offset for pagination
         $statement = $db->prepare($sql);
+        $statement->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
         $statement->execute();
         $skills = $statement->fetchAll();
 
@@ -69,5 +73,17 @@ class SkillModel extends _BaseModel
         }
 
         return $skillModels;
+    }
+
+    public static function getAllCount(): int
+    {
+        $db = (new Database)->connectToDb();
+
+        $sql = 'SELECT COUNT(*) FROM `skill`';
+        $statement = $db->prepare($sql);
+        $statement->execute();
+        $count = $statement->fetchColumn();
+
+        return $count;
     }
 }

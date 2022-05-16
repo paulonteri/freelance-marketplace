@@ -220,9 +220,30 @@ class AdminController extends _BaseController
     public static function skills(Router $router)
     {
         AdminController::requireUserIsAdmin($router);
+
+        $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        // pagination
+        $pageNumber = 1;
+        if (isset($_GET['pageNumber']) && $_GET['pageNumber'] != "") {
+            $pageNumber = $_GET['pageNumber'];
+        }
+        $limit = self::$totalRecordsPerPage;
+        $offset = ($pageNumber - 1) * $limit;
+        $previousPageNumber = $pageNumber - 1;
+        $nextPageNumber = $pageNumber + 1;
+        $recordsCount =  SkillModel::getAllCount();
+        $lastPageNumber = ceil($recordsCount / $limit);
+
         $data = [
             'pageTitle' => "Skills | Admin",
-            'skills' => SkillModel::getAll()
+            'skills' => SkillModel::getAll($limit, $offset),
+            //
+            'pageNumber' => $pageNumber,
+            'previousPageNumber' => $previousPageNumber,
+            'nextPageNumber' => $nextPageNumber,
+            'lastPageNumber' => $lastPageNumber,
+            'recordsCount' => $recordsCount,
         ];
         $router->renderView(self::$basePath . 'skills/index', $data);
     }
