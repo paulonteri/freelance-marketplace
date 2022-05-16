@@ -156,7 +156,20 @@ class UserModel extends _BaseModel
 
   public function getName()
   {
-    return $this->first_name . ' ' . $this->last_name;
+    $name = '';
+    if ($this->first_name) {
+      $name .= $this->first_name;
+    }
+
+    if ($this->middle_name) {
+      $name .= ' ' . $this->middle_name;
+    }
+
+    if ($this->last_name) {
+      $name .= ' ' . $this->last_name;
+    }
+
+    return $name;
   }
 
   public function getCountry(): ?string
