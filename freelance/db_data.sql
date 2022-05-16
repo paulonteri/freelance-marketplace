@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 16, 2022 at 12:13 PM
+-- Generation Time: May 16, 2022 at 12:31 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -41,7 +41,17 @@ INSERT INTO `client` (`id`, `user_id`, `national_id`, `image`, `title`, `descrip
 (12, 24, '/uploads/ClientIdImageMonMay16202212:40id_f.jpeg', '/uploads/ClientImageMonMay16202212:40office-5.jpeg', 'Gari Tobacco Kenya Limited', 'It specializes in the manufacturing of cigarettes for both domestic and export use.\r\n\r\nIt began its operations in Kenya in 1907 and has since then experienced robust growth hence becoming the leader in cigarette manufacturing.', 'individual', '2022-05-16 09:40:24', 1),
 (13, 25, '/uploads/ClientIdImageMonMay16202212:46id_m.jpeg', '/uploads/ClientImageMonMay16202212:46man-suit.jpeg', 'Sisati Cement', 'The company is based in the limestone-rich coastal region, and the company produces cement for export to other countries.', 'company', '2022-05-16 09:46:27', 1),
 (14, 26, '/uploads/ClientIdImageMonMay16202212:55id_f.jpeg', '/uploads/ClientImageMonMay16202212:55lady-cuup.jpeg', 'Nyambura cyber', 'Nyambura cyber', 'individual', '2022-05-16 09:55:16', 1),
-(15, 27, '/uploads/ClientIdImageMonMay16202213:01id_m.jpeg', '/uploads/ClientImageMonMay16202213:01raise-hands.jpeg', 'Kingsway Group', 'Agriculture', 'company', '2022-05-16 10:01:40', 1);
+(15, 27, '/uploads/ClientIdImageMonMay16202213:01id_m.jpeg', '/uploads/ClientImageMonMay16202213:01raise-hands.jpeg', 'Kingsway Group', 'Agriculture', 'company', '2022-05-16 10:01:40', 1),
+(16, 28, '/uploads/ClientIdImageMonMay16202211:11id_f.jpeg', '/uploads/ClientImageMonMay16202211:11office-5.jpeg', 'Escada America', 'It was among the first mobile network operators to pitch camp in Kenya, enabling Kenyans to enjoy the use of mobile phones.', 'company', '2022-05-16 08:11:32', 1),
+(17, 29, '/uploads/ClientIdImageMonMay16202211:17id_f.jpeg', '/uploads/ClientImageMonMay16202211:17office2.jpeg', 'ABC Carpet & Home Breweries Limited', 'It specializes in the production of beer, spirits, and non-alcoholic drinks. I', 'company', '2022-05-16 08:17:06', 1),
+(18, 30, '/uploads/ClientIdImageMonMay16202211:30id_m.jpeg', '/uploads/ClientImageMonMay16202211:30office.jpeg', 'Lorna Jane ', 'Its intention was and still is to finance customers in the low-income bracket.', 'company', '2022-05-16 08:30:28', 1),
+(19, 31, '/uploads/ClientIdImageMonMay16202211:35raise-hands.jpeg', '/uploads/ClientImageMonMay16202211:35tech.jpeg', 'Sequential Brands Group', 'The airline is owned both publicly and privately while the Kenyan government owns the largest share.', 'company', '2022-05-16 08:35:56', 1),
+(20, 32, '/uploads/ClientIdImageMonMay16202211:42id_f.jpeg', '/uploads/ClientImageMonMay16202211:42lady-office.jpeg', 'Chege & daughters', 'My personal work', 'individual', '2022-05-16 08:42:27', 1),
+(21, 33, '/uploads/ClientIdImageMonMay16202212:33id_m.jpeg', '/uploads/ClientImageMonMay16202212:33man-dark-room.jpeg', 'Personal (Waweru)', 'I am a businessman', 'individual', '2022-05-16 09:33:11', 1),
+(22, 34, '/uploads/ClientIdImageMonMay16202212:40id_f.jpeg', '/uploads/ClientImageMonMay16202212:40office-5.jpeg', 'Alex and Ani ', 'It specializes in the manufacturing of cigarettes for both domestic and export use.\r\n\r\nIt began its operations in Kenya in 1907 and has since then experienced robust growth hence becoming the leader in cigarette manufacturing.', 'individual', '2022-05-16 09:40:24', 1),
+(23, 35, '/uploads/ClientIdImageMonMay16202212:46id_m.jpeg', '/uploads/ClientImageMonMay16202212:46man-suit.jpeg', 'Washington Prime Group', 'The company is based in the limestone-rich coastal region, and the company produces cement for export to other countries.', 'company', '2022-05-16 09:46:27', 1),
+(24, 36, '/uploads/ClientIdImageMonMay16202212:55id_f.jpeg', '/uploads/ClientImageMonMay16202212:55lady-cuup.jpeg', 'The Collected Group', 'Nyambura cyber', 'individual', '2022-05-16 09:55:16', 1),
+(25, 37, '/uploads/ClientIdImageMonMay16202213:01id_m.jpeg', '/uploads/ClientImageMonMay16202213:01raise-hands.jpeg', 'Paper Source', 'Agriculture', 'company', '2022-05-16 10:01:40', 1);
 
 --
 -- Dumping data for table `freelancer`
@@ -227,15 +237,15 @@ INSERT INTO `user` (`id`, `email`, `phone`, `password`, `first_name`, `middle_na
 (26, 'client12@test.com', '0746246146', '$2y$10$l4GuvYPUVUu8fpyAk3X8cevcMnO3W42GsVaMtIzgizs57gcMWh.8m', 'Anne', 'Nyambura', 'Josephine', '/uploads/ProfileImageMonMay16202212:54lady-cuup.jpeg', 'Kenya', 'Nyamira', 'Nyamira', 0, 1, '2022-05-16 09:54:32'),
 (27, 'client13@test.com', '0745808930', '$2y$10$b04zbuP99EyFl8Uj5BzqfefO.t1b34/FkKI4/duq7pv8v1/.5Bdgu', 'Kessie', 'Barasa', 'Herman', '/uploads/ProfileImageMonMay16202213:00lady-suit.jpeg', 'Kenya', 'Kirinyaga', 'Kerugoya', 0, 1, '2022-05-16 10:00:36'),
 (28, 'client14@test.com', '0790257133', '$2y$10$2/8y0fwv1lftiO/znyTJzuP4pO3JPZmHKJhgGkTv1j.YKDyXLXhv2', 'Russell', 'Sanchez', 'Otieno', '/uploads/ProfileImageMonMay16202211:06man-dark-room.jpeg', 'Kenya', 'tana river', 'Hola', 0, 1, '2022-05-16 08:06:54'),
-(29, 'client15@test.com', '0749936647', '$2y$10$/fUfBelCLqckoGS5B1PL1OuZIcPlRAn87Q2M.ePb/M0JD.7VJVI92', 'Rose', 'Jacobson', 'Moi', '/uploads/ProfileImageMonMay16202211:15lady-cuup.jpeg', 'Kenya', 'Lamu', 'Lamu', 0, 1, '2022-05-16 08:15:55'),
-(30, 'client16@test.com', '0791263759', '$2y$10$PrtDZyX8H1CPlpceOBDteOgbM5FbUplTk/qVI5T3zsCjXMb562BxK', 'Ivana', 'Mohammed', 'Aiko', '/uploads/ProfileImageMonMay16202211:29man-suit.jpeg', 'Kenya', 'Taita taveta', 'Mwatete', 0, 1, '2022-05-16 08:29:20'),
-(31, 'client17@test.com', '0724981920', '$2y$10$wuNw737ibgl5AfcbjLfxHeOox3ySY4p79J3uejQUpTgbL0cKuyCgm', 'Noelani', 'Mwangi', 'Colette', '/uploads/ProfileImageMonMay16202211:34men-suits.jpeg', 'Kenya', 'Garissa', 'Garissa', 0, 1, '2022-05-16 08:34:34'),
-(32, 'client18@test.com', '0722674145', '$2y$10$qpT5aN5ISm6oaCObff7zl.kiP5rAQx4V9eKz7YiWcYX5uPJKkr31a', 'Whitney', 'Buyaki', 'Denise', '/uploads/ProfileImageMonMay16202211:41lady-suit.jpeg', 'Kenya', 'Tharaka-Nithi', 'Kathwana', 0, 1, '2022-05-16 08:41:14'),
-(33, 'client19@test.com', '0745937863', '$2y$10$56dRZOmR7wkzbbkfKwvcVOgoB1Mz6RncMGbycBN1Rq4y2btmKjD7O', 'Clinton', 'Juma', 'Cullen', '/uploads/ProfileImageMonMay16202212:31man-t-shirt.jpeg', 'Kenya', 'Makueni', 'Wote', 0, 1, '2022-05-16 09:31:39'),
-(34, 'client20@test.com', '0743603547', '$2y$10$Eu5bhlo7qeRLQk3jx8qWk.m37IzjJGQwpxEvuzmsiSh2Hgzed.mFu', 'Quintessa', 'Chebet', 'Clark', '/uploads/ProfileImageMonMay16202212:38old-man.jpeg', 'Kenya', 'Nyandarua', 'Ole kalau', 0, 1, '2022-05-16 09:38:00'),
-(35, 'client21@test.com', '0733258757', '$2y$10$wZ6M8LmOdDSbHX/wkgbA.umh5dNezBdvORy71bl/3er5yhSiCjdAG', 'Jillian', 'Kimani', 'Russell', '/uploads/ProfileImageMonMay16202212:44man-shirt.jpeg', 'Kenya', 'Samburu', 'Maralal', 0, 1, '2022-05-16 09:44:40'),
-(36, 'client22@test.com', '0746246147', '$2y$10$l4GuvYPUVUu8fpyAk3X8cevcMnO3W42GsVaMtIzgizs57gcMWh.8m', 'Anne', 'Nyambura', 'Josephine', '/uploads/ProfileImageMonMay16202212:54lady-cuup.jpeg', 'Kenya', 'Nyamira', 'Nyamira', 0, 1, '2022-05-16 09:54:32'),
-(37, 'client23@test.com', '0735808930', '$2y$10$b04zbuP99EyFl8Uj5BzqfefO.t1b34/FkKI4/duq7pv8v1/.5Bdgu', 'Kessie', 'Barasa', 'Herman', '/uploads/ProfileImageMonMay16202213:00lady-suit.jpeg', 'Kenya', 'Kirinyaga', 'Kerugoya', 0, 1, '2022-05-16 10:00:36');
+(29, 'client15@test.com', '0749936647', '$2y$10$/fUfBelCLqckoGS5B1PL1OuZIcPlRAn87Q2M.ePb/M0JD.7VJVI92', 'Rose', 'Jacobson', 'Kioko', '/uploads/ProfileImageMonMay16202211:15lady-cuup.jpeg', 'Kenya', 'Lamu', 'Lamu', 0, 1, '2022-05-16 08:15:55'),
+(30, 'client16@test.com', '0791263759', '$2y$10$PrtDZyX8H1CPlpceOBDteOgbM5FbUplTk/qVI5T3zsCjXMb562BxK', 'Ivana', 'Mohammed', 'Mwende', '/uploads/ProfileImageMonMay16202211:29man-suit.jpeg', 'Kenya', 'Taita taveta', 'Mwatete', 0, 1, '2022-05-16 08:29:20'),
+(31, 'client17@test.com', '0724981920', '$2y$10$wuNw737ibgl5AfcbjLfxHeOox3ySY4p79J3uejQUpTgbL0cKuyCgm', 'Noelani', 'Mwangi', 'Oduor', '/uploads/ProfileImageMonMay16202211:34men-suits.jpeg', 'Kenya', 'Garissa', 'Garissa', 0, 1, '2022-05-16 08:34:34'),
+(32, 'client18@test.com', '0722674145', '$2y$10$qpT5aN5ISm6oaCObff7zl.kiP5rAQx4V9eKz7YiWcYX5uPJKkr31a', 'Whitney', 'Buyaki', 'Kip', '/uploads/ProfileImageMonMay16202211:41lady-suit.jpeg', 'Kenya', 'Tharaka-Nithi', 'Kathwana', 0, 1, '2022-05-16 08:41:14'),
+(33, 'client19@test.com', '0745937863', '$2y$10$56dRZOmR7wkzbbkfKwvcVOgoB1Mz6RncMGbycBN1Rq4y2btmKjD7O', 'Clinton', 'Juma', 'Ngugi', '/uploads/ProfileImageMonMay16202212:31man-t-shirt.jpeg', 'Kenya', 'Makueni', 'Wote', 0, 1, '2022-05-16 09:31:39'),
+(34, 'client20@test.com', '0743603547', '$2y$10$Eu5bhlo7qeRLQk3jx8qWk.m37IzjJGQwpxEvuzmsiSh2Hgzed.mFu', 'Quintessa', 'Chebet', 'Kinyua', '/uploads/ProfileImageMonMay16202212:38old-man.jpeg', 'Kenya', 'Nyandarua', 'Ole kalau', 0, 1, '2022-05-16 09:38:00'),
+(35, 'client21@test.com', '0733258757', '$2y$10$wZ6M8LmOdDSbHX/wkgbA.umh5dNezBdvORy71bl/3er5yhSiCjdAG', 'Jillian', 'Kimani', 'Waweru', '/uploads/ProfileImageMonMay16202212:44man-shirt.jpeg', 'Kenya', 'Samburu', 'Maralal', 0, 1, '2022-05-16 09:44:40'),
+(36, 'client22@test.com', '0746246147', '$2y$10$l4GuvYPUVUu8fpyAk3X8cevcMnO3W42GsVaMtIzgizs57gcMWh.8m', 'Anne', 'Nyambura', 'Chege', '/uploads/ProfileImageMonMay16202212:54lady-cuup.jpeg', 'Kenya', 'Nyamira', 'Nyamira', 0, 1, '2022-05-16 09:54:32'),
+(37, 'client23@test.com', '0735808930', '$2y$10$b04zbuP99EyFl8Uj5BzqfefO.t1b34/FkKI4/duq7pv8v1/.5Bdgu', 'Kessie', 'Barasa', 'Mbugua', '/uploads/ProfileImageMonMay16202213:00lady-suit.jpeg', 'Kenya', 'Kirinyaga', 'Kerugoya', 0, 1, '2022-05-16 10:00:36');
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
