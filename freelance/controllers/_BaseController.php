@@ -36,9 +36,13 @@ abstract class _BaseController
         }
     }
 
-    // todo: require is admin
     public static function requireUserIsAdmin(Router $router)
     {
         _BaseController::requireUserIsLoggedIn($router);
+
+        $user = UserModel::getCurrentUser();
+        if (!$user->getIsAdmin()) {
+            header('location:/dashboard?errorAlert=You are not an admin!');
+        }
     }
 }
