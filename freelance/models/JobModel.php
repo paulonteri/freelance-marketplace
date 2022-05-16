@@ -175,12 +175,33 @@ class JobModel extends _BaseModel
   /**
    * @return JobModel[]
    */
-  public static function getAll(): array
+  public static function getAll(int $limit = PHP_INT_MAX, int $offset = 0, array $skills = null, int $maxDuration = null, int $minDuration = null, int $maxPayRatePerHour = null, int $minPayRatePerHour = null,): array
   {
     $db = (new Database)->connectToDb();
 
-    $sql = 'SELECT id FROM job ORDER BY time_created DESC';
+    $sql = 'SELECT id FROM job WHERE 1';
+    if ($skills != null) {
+      $sql .= " AND id in (SELECT job_id FROM job_skill WHERE skill_id IN (" . implode(',', $skills) . "))"; // should have at least one of the skills
+    }
+    if ($maxDuration != null) {
+      $sql .= " AND expected_duration_in_hours <= $maxDuration";
+    }
+    if ($minDuration != null) {
+      $sql .= " AND expected_duration_in_hours >= $minDuration";
+    }
+    if ($maxPayRatePerHour != null) {
+      $sql .= " AND pay_rate_per_hour <= $maxPayRatePerHour";
+    }
+    if ($minPayRatePerHour != null) {
+      $sql .= " AND pay_rate_per_hour >= $minPayRatePerHour";
+    }
+    $sql .= ' ORDER BY time_created DESC';
+    $sql .= " LIMIT :limit OFFSET :offset"; // limit and offset for pagination
+    echo $sql;
+
     $statement = $db->prepare($sql);
+    $statement->bindParam(':limit', $limit, PDO::PARAM_INT);
+    $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
     $statement->execute();
     $jobs = $statement->fetchAll();
 
@@ -190,6 +211,11 @@ class JobModel extends _BaseModel
     }
 
     return $jobs_array;
+  }
+
+  public static function getAllCount(array $skills = null, int $maxDuration = null, int $minDuration = null, int $maxPayRatePerHour = null, int $minPayRatePerHour = null)
+  {
+    return count(self::getAll(PHP_INT_MAX, 0, $skills, $maxDuration, $minDuration, $maxPayRatePerHour, $minPayRatePerHour));
   }
 
   /**

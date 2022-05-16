@@ -191,9 +191,72 @@ class AdminController extends _BaseController
     public static function jobs(Router $router)
     {
         AdminController::requireUserIsAdmin($router);
+
+        $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        // get skills
+        $skillIds = [];
+        foreach (SkillModel::getAll() as $skill) {
+            $skillIds[] = $skill->getId();
+        }
+        if (isset($_GET['skills'])) {
+            $skillIds = $_GET['skills'];
+        }
+
+        // get duration
+        $maxDuration = JobModel::getJobsMaxDuration();
+        if (isset($_GET['maxDuration'])) {
+            $maxDuration = $_GET['maxDuration'];
+        }
+        $minDuration = 1;
+        if (isset($_GET['minDuration'])) {
+            $minDuration = $_GET['minDuration'];
+        }
+
+        // get PayRatePerHour
+        $maxPayRatePerHour = JobModel::getJobsMaxPayRatePerHour();
+        if (isset($_GET['maxPayRatePerHour'])) {
+            $maxPayRatePerHour = $_GET['maxPayRatePerHour'];
+        }
+        $minPayRatePerHour = 1;
+        if (isset($_GET['minPayRatePerHour'])) {
+            $minPayRatePerHour = $_GET['minPayRatePerHour'];
+        }
+
+        // pagination
+        $pageNumber = 1;
+        if (isset($_GET['pageNumber']) && $_GET['pageNumber'] != "") {
+            $pageNumber = $_GET['pageNumber'];
+        }
+        $limit = self::$totalRecordsPerPage;
+        $offset = ($pageNumber - 1) * $limit;
+        $previousPageNumber = $pageNumber - 1;
+        $nextPageNumber = $pageNumber + 1;
+        $recordsCount =  JobModel::getAllCount($skillIds, $maxDuration, $minDuration, $maxPayRatePerHour, $minPayRatePerHour);
+        $lastPageNumber = ceil($recordsCount / $limit);
+
         $data = [
             'pageTitle' => "Jobs | Admin",
-            'jobs' => JobModel::getAll()
+            'jobs' => JobModel::getAll($limit, $offset, $skillIds, $maxDuration, $minDuration, $maxPayRatePerHour, $minPayRatePerHour),
+
+            'allSkills' => SkillModel::getAll(),
+
+            'skills' => $skillIds,
+            'skillsError' => '',
+            'maxPayRatePerHour' => $maxPayRatePerHour,
+            'maxPayRatePerHourError' => '',
+            'minPayRatePerHour' => $minPayRatePerHour,
+            'minPayRatePerHourError' => '',
+            'maxDuration' => $maxDuration,
+            'maxDurationError' => '',
+            'minDuration' => $minDuration,
+            'minDurationError' => '',
+
+            'pageNumber' => $pageNumber,
+            'previousPageNumber' => $previousPageNumber,
+            'nextPageNumber' => $nextPageNumber,
+            'lastPageNumber' => $lastPageNumber,
+            'recordsCount' => $recordsCount,
         ];
         $router->renderView(self::$basePath . 'jobs/index', $data);
     }
