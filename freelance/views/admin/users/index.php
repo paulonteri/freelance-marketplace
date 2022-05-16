@@ -7,8 +7,14 @@
 <!-------------------------------- users list -------------------------------------------------------->
 <div class="container" style="margin-top:25px;">
 
-    <table>
+    <form id="formID" action="/admin/users" method="GET">
+        <fieldset>
+            <input hidden type="number" required name="pageNumber" id="pageNumber"
+                value="<?php echo $params['pageNumber']; ?>">
+        </fieldset>
+    </form>
 
+    <table>
         <tr>
             <th>Name</th>
             <th>Is Admin</th>
@@ -49,6 +55,29 @@
         <?php } ?>
 
     </table>
+
+
+    <!-------------------------------- pagination -------------------------------------------------------->
+    <div class="pagination">
+        <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', 1)">First</a>
+        <?php if ($params['previousPageNumber'] > 0) { ?>
+        <a
+            onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['previousPageNumber']; ?> )">
+            &laquo;&laquo;
+        </a>
+        <?php } ?>
+        <a onClick="javascript:void(0)" class="active"><?php echo $params['pageNumber']; ?></a>
+        <?php if ($params['nextPageNumber'] <= $params['lastPageNumber']) { ?>
+        <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['nextPageNumber']; ?> )">
+            &raquo;&raquo;
+        </a>
+        <?php } ?>
+        <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['lastPageNumber']; ?> )">
+            Last
+        </a>
+        <p style="text-align:right;"><small><?php echo $params['recordsCount'] ?> items</small></p>
+    </div>
+    <!-------------------------------- end pagination -------------------------------------------------------->
 
 </div>
 <!-------------------------------- end users list -------------------------------------------------------->

@@ -197,7 +197,6 @@ class JobModel extends _BaseModel
     }
     $sql .= ' ORDER BY time_created DESC';
     $sql .= " LIMIT :limit OFFSET :offset"; // limit and offset for pagination
-    echo $sql;
 
     $statement = $db->prepare($sql);
     $statement->bindParam(':limit', $limit, PDO::PARAM_INT);

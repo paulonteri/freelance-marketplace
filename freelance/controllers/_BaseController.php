@@ -7,7 +7,7 @@ use app\Router;
 
 abstract class _BaseController
 {
-    protected static int $totalRecordsPerPage = 2;
+    protected static int $totalRecordsPerPage = 10;
 
     public static function requireUserIsLoggedIn(Router $router)
     {
