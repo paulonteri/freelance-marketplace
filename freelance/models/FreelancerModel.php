@@ -5,6 +5,7 @@ namespace app\models;
 use PDOException;
 use app\Database;
 use app\utils\DisplayAlert;
+use PDO;
 
 class FreelancerModel extends _BaseModel
 {
@@ -199,12 +200,20 @@ class FreelancerModel extends _BaseModel
     /**
      * @return FreelancerModel[]
      */
-    public static function getAll(): array
+    public static function getAll(int $limit = PHP_INT_MAX, int $offset = 0, array $skills = null,): array
     {
         $db = (new Database)->connectToDb();
 
-        $sql = 'SELECT id FROM freelancer ORDER BY time_created DESC';
+        $sql = 'SELECT id FROM freelancer';
+        if ($skills !== null) {
+            $sql .= ' WHERE id IN (SELECT freelancer_id FROM freelancer_skill WHERE skill_id IN (' . implode(',', $skills) . '))';
+        }
+        $sql .= ' ORDER BY time_created DESC';
+        $sql .= " LIMIT :limit OFFSET :offset"; // limit and offset for pagination
+
         $statement = $db->prepare($sql);
+        $statement->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
         $statement->execute();
         $freelancers = $statement->fetchAll();
 
@@ -214,6 +223,11 @@ class FreelancerModel extends _BaseModel
         }
 
         return $freelancers_array;
+    }
+
+    public static function getAllCount(array $skills = null)
+    {
+        return count(FreelancerModel::getAll(PHP_INT_MAX, 0, $skills));
     }
 
     /**

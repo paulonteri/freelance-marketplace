@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\Router;
 use app\models\FreelancerModel;
+use app\models\SkillModel;
 
 
 class FreelancerProfilesController extends _BaseController
@@ -13,8 +14,42 @@ class FreelancerProfilesController extends _BaseController
 
     public static function index(Router $router)
     {
+        $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        // get skills
+        $skillIds = [];
+        foreach (SkillModel::getAll() as $skill) {
+            $skillIds[] = $skill->getId();
+        }
+        if (isset($_GET['skills'])) {
+            $skillIds = $_GET['skills'];
+        }
+
+        // pagination
+        $pageNumber = 1;
+        if (isset($_GET['pageNumber']) && $_GET['pageNumber'] != "") {
+            $pageNumber = $_GET['pageNumber'];
+        }
+        $limit = self::$totalRecordsPerPage;
+        $offset = ($pageNumber - 1) * $limit;
+        $previousPageNumber = $pageNumber - 1;
+        $nextPageNumber = $pageNumber + 1;
+        $recordsCount =  FreelancerModel::getAllCount($skillIds);
+        $lastPageNumber = ceil($recordsCount / $limit);
+
         $data = [
-            'freelancers' => FreelancerModel::getAll()
+            'pageTitle' => "All Freelancers",
+            'freelancers' => FreelancerModel::getAll($limit, $offset, $skillIds),
+
+            'allSkills' => SkillModel::getAll(),
+            'skills' => $skillIds,
+            'skillsError' => '',
+
+            'pageNumber' => $pageNumber,
+            'previousPageNumber' => $previousPageNumber,
+            'nextPageNumber' => $nextPageNumber,
+            'lastPageNumber' => $lastPageNumber,
+            'recordsCount' => $recordsCount,
         ];
         $router->renderView(self::$basePath . 'index', $data);
     }

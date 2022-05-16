@@ -30,7 +30,7 @@ $freelancer = app\models\UserModel::getCurrentUser()->getFreelancer();
 
     <!-------------------------------- filter -------------------------------------------------------->
     <hr style="margin: 1rem 0;" />
-    <h3>Filter jobs</h3>
+    <h3>Filter</h3>
     <details>
         <summary>View Filters</summary>
         <form id="formID" action="/dashboard/freelancer/jobs" method="GET">

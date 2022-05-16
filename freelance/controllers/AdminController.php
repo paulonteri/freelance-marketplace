@@ -25,9 +25,43 @@ class AdminController extends _BaseController
     public static function freelancers(Router $router)
     {
         AdminController::requireUserIsAdmin($router);
+
+        $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        // get skills
+        $skillIds = [];
+        foreach (SkillModel::getAll() as $skill) {
+            $skillIds[] = $skill->getId();
+        }
+        if (isset($_GET['skills'])) {
+            $skillIds = $_GET['skills'];
+        }
+
+        // pagination
+        $pageNumber = 1;
+        if (isset($_GET['pageNumber']) && $_GET['pageNumber'] != "") {
+            $pageNumber = $_GET['pageNumber'];
+        }
+        $limit = self::$totalRecordsPerPage;
+        $offset = ($pageNumber - 1) * $limit;
+        $previousPageNumber = $pageNumber - 1;
+        $nextPageNumber = $pageNumber + 1;
+        $recordsCount =  FreelancerModel::getAllCount($skillIds);
+        $lastPageNumber = ceil($recordsCount / $limit);
+
         $data = [
             'pageTitle' => "Freelancers | Admin",
-            'freelancers' => FreelancerModel::getAll()
+            'freelancers' => FreelancerModel::getAll($limit, $offset, $skillIds),
+
+            'allSkills' => SkillModel::getAll(),
+            'skills' => $skillIds,
+            'skillsError' => '',
+
+            'pageNumber' => $pageNumber,
+            'previousPageNumber' => $previousPageNumber,
+            'nextPageNumber' => $nextPageNumber,
+            'lastPageNumber' => $lastPageNumber,
+            'recordsCount' => $recordsCount,
         ];
         $router->renderView(self::$basePath . 'freelancers/index', $data);
     }
