@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\Database;
 use app\utils\DisplayAlert;
+use PDO;
 
 class ClientModel extends _BaseModel
 {
@@ -210,12 +211,15 @@ class ClientModel extends _BaseModel
     /**
      * @return ClientModel[]
      */
-    public static function getAll(): array
+    public static function getAll(int $limit = PHP_INT_MAX, int $offset = 0,): array
     {
         $db = (new Database)->connectToDb();
 
         $sql = 'SELECT id FROM client ORDER BY time_created DESC';
+        $sql .= " LIMIT :limit OFFSET :offset"; // limit and offset for pagination
         $statement = $db->prepare($sql);
+        $statement->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
         $statement->execute();
         $clients = $statement->fetchAll();
 
@@ -225,5 +229,17 @@ class ClientModel extends _BaseModel
         }
 
         return $clients_array;
+    }
+
+    public static function getAllCount(): int
+    {
+        $db = (new Database)->connectToDb();
+
+        $sql = 'SELECT COUNT(*) FROM client';
+        $statement = $db->prepare($sql);
+        $statement->execute();
+        $count = $statement->fetch();
+
+        return $count['COUNT(*)'];
     }
 }
