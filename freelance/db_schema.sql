@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 14, 2022 at 01:29 PM
+-- Generation Time: May 17, 2022 at 12:39 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -96,6 +96,26 @@ CREATE TABLE `job` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `job_payment`
+--
+
+DROP TABLE IF EXISTS `job_payment`;
+CREATE TABLE `job_payment` (
+  `id` int(11) NOT NULL,
+  `job_id` int(11) NOT NULL,
+  `phone_number` varchar(12) NOT NULL,
+  `amount` float NOT NULL,
+  `is_payment_successful` tinyint(1) NOT NULL DEFAULT 0,
+  `response_merchant_request_id` varchar(255) NOT NULL,
+  `response_checkout_request_id` varchar(255) NOT NULL,
+  `response_response_code` varchar(255) NOT NULL,
+  `callback_result_code` varchar(255) DEFAULT NULL,
+  `callback_result_desc` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `job_proposal`
 --
 
@@ -142,24 +162,6 @@ CREATE TABLE `job_skill` (
   `id` int(11) NOT NULL,
   `job_id` int(11) NOT NULL,
   `skill_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `message`
---
-
-DROP TABLE IF EXISTS `message`;
-CREATE TABLE `message` (
-  `id` int(11) NOT NULL,
-  `from_user_id` int(11) NOT NULL,
-  `to_user_id` int(11) NOT NULL,
-  `job_id` int(11) DEFAULT NULL,
-  `text` varchar(255) NOT NULL,
-  `attachment` varchar(255) DEFAULT NULL,
-  `time_sent` datetime NOT NULL DEFAULT current_timestamp(),
-  `message_type` enum('regular_user','admin') NOT NULL DEFAULT 'regular_user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -247,6 +249,13 @@ ALTER TABLE `job`
   ADD KEY `client_id` (`client_id`);
 
 --
+-- Indexes for table `job_payment`
+--
+ALTER TABLE `job_payment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `job_id` (`job_id`);
+
+--
 -- Indexes for table `job_proposal`
 --
 ALTER TABLE `job_proposal`
@@ -268,15 +277,6 @@ ALTER TABLE `job_skill`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `job_id` (`job_id`,`skill_id`),
   ADD KEY `skill_id` (`skill_id`);
-
---
--- Indexes for table `message`
---
-ALTER TABLE `message`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `from_user_id` (`from_user_id`),
-  ADD KEY `to_user_id` (`to_user_id`),
-  ADD KEY `job_id` (`job_id`);
 
 --
 -- Indexes for table `reset_password_token`
@@ -328,6 +328,12 @@ ALTER TABLE `job`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `job_payment`
+--
+ALTER TABLE `job_payment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `job_proposal`
 --
 ALTER TABLE `job_proposal`
@@ -343,12 +349,6 @@ ALTER TABLE `job_rating`
 -- AUTO_INCREMENT for table `job_skill`
 --
 ALTER TABLE `job_skill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `message`
---
-ALTER TABLE `message`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -399,6 +399,12 @@ ALTER TABLE `job`
   ADD CONSTRAINT `job_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`);
 
 --
+-- Constraints for table `job_payment`
+--
+ALTER TABLE `job_payment`
+  ADD CONSTRAINT `job_payment_ibfk_1` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`);
+
+--
 -- Constraints for table `job_proposal`
 --
 ALTER TABLE `job_proposal`
@@ -417,14 +423,6 @@ ALTER TABLE `job_rating`
 ALTER TABLE `job_skill`
   ADD CONSTRAINT `job_skill_ibfk_1` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`),
   ADD CONSTRAINT `job_skill_ibfk_2` FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`);
-
---
--- Constraints for table `message`
---
-ALTER TABLE `message`
-  ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`from_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `message_ibfk_2` FOREIGN KEY (`to_user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `message_ibfk_3` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
