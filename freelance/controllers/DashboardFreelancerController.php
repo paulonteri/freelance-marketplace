@@ -457,6 +457,8 @@ class DashboardFreelancerController extends _BaseController
             $data['title'] = trim($_POST['title']);
             $data['description'] = trim($_POST['description']);
             $data['jobId'] = trim($_POST['jobId']);
+            $job = JobModel::tryGetById(trim($_POST['jobId']));
+            $data['job'] = $job;
 
             // TODO: validate user
 
@@ -494,8 +496,9 @@ class DashboardFreelancerController extends _BaseController
                 if (!$proposal) {
                     $errors = array('Something went wrong. Please try again.',);
                 } else {
-                    $data['title'] = '';
-                    $data['description'] = '';
+                    $data['proposal'] = $proposal;
+                    $data['title'] = $proposal->getTitle();
+                    $data['description'] = $proposal->getDescription();
                     $router->renderView(self::$basePath . 'jobs/id/proposal', $data, "Proposal received successfully!");
                     return;
                 }
