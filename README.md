@@ -35,16 +35,16 @@ manipulate data using the Model component and interact with the Views to render 
 
 ### Extra files & folders
 
-- **/public/index.php**: This is the main entry point of the application. All routes are defined here.
-- **Router.php**: This is the main file that handles all the routing logic of the application.
-- **Settings.php**: This is the main configuration file that contains all the configuration variables.
-- **Database.php**: This is the main file that contains all the database connection logic.
-- **/utils**: This folder contains all the utility classes that are used throughout the application.
-- **/public/assets**: This folder contains all the assets that are used throughout the application.
-- **public/uploads**: This folder contains all the uploaded files that are used throughout the application. It should
+- `/public/index.php`: This is the main entry point of the application. All routes are defined here.
+- `Router.php`: This is the main file that handles all the routing logic of the application.
+- `Settings.php`: This is the main configuration file that contains all the configuration variables.
+- `Database.php`: This is the main file that contains all the database connection logic.
+- `/utils`: This folder contains all the utility classes that are used throughout the application.
+- `/public/assets`: This folder contains all the assets that are used throughout the application.
+- `public/uploads`: This folder contains all the uploaded files that are used throughout the application. It should
   not have been added to the repo - it was only added as a convenience with regard to presenting it as a school project.
-- **db_schema.sql** and **db_schema.png**: These are the database schema files.
-- **db_data.sql**: This is the database (backup) data file. Again, it should not have been added to the repo - it was
+- `db_schema.sql` and `db_schema.png`: These are the database schema files.
+- `db_data.sql`: This is the database (backup) data file. Again, it should not have been added to the repo - it was
   only added as a convenience with regard to presenting it as a school project.
 
 ---
@@ -84,6 +84,28 @@ Use the SQL in the `db_schema.sql` file to create the database schema.
 **Set up data (Optional):**
 
 Use the SQL in the `db_data.sql` file to populate the database with some data.
+
+### Payments (Optional)
+
+Sign up for an [MPESA Daraja API account](https://developer.safaricom.co.ke/) and set up a payment gateway for the application.
+
+The next step is to create a new sandbox app by clicking on the Add a New App button and give it a name. Ensure you select both Lipa na Mpesa Sandbox and Mpesa Sandbox.
+
+Take note of the following from the dashboard and set them as environment variables:
+
+- `MPESA_CONSUMER_KEY`
+- `MPESA_CONSUMER_SECRET`
+- `MPESA_PASSKEY`
+
+Note that for the Mpesa callbacks to work the app must be accessible from the internet and the correct host has been set via the `HOST_URL` environment variable.
+
+Once ready to go for live payments, set the `MPESA_ENV` to `live`. The default is `sandbox`.
+
+Learn more from the MPESA documentation [here](https://developer.safaricom.co.ke/Documentation).
+
+### Environment variables (Optional)
+
+Check out the environment variables used by the app in the `env.example` file.
 
 ---
 
