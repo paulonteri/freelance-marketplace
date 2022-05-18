@@ -4,5 +4,5 @@ namespace app;
 
 class Settings
 {
-    public static string $host = 'https://freelance-tmp.paulonteri.com';
+    public static string $host = getenv("HOST_URL") ? getenv("HOST_URL") : 'https://freelance-tmp.paulonteri.com';
 }
