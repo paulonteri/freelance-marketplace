@@ -60,6 +60,7 @@ class Router
 
         if (!$fn) {
             // 404 (could not find handler for the request path and method) ----------------------
+            http_response_code(404);
             echo 'Page not found';
             exit;
         } else {
