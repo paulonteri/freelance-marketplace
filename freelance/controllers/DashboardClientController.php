@@ -12,6 +12,7 @@ use app\models\SkillModel;
 use app\models\JobProposalModel;
 use app\models\JobRatingModel;
 use app\utils\JobMpesaPaymentHelper;
+use app\utils\Logger;
 
 class DashboardClientController extends _BaseController
 {
@@ -382,6 +383,62 @@ class DashboardClientController extends _BaseController
         // -------------------- $_GET -------------------- 
 
         $router->renderView(self::$basePath . 'jobs/id/confirm-payment', $data, null, $errors);
+    }
+
+    /**
+     * Handles the callback from the LIPA NA M-PESA ONLINE API also know as M-PESA express (STK Push)
+     */
+    public static function jobPayCallback(Router $router)
+    {
+        /*
+        Example MPesa post:
+        
+        {    
+        "Body": {
+            "stkCallback": {
+                "MerchantRequestID": "29115-34620561-1",
+                "CheckoutRequestID": "ws_CO_191220191020363925",
+                "ResultCode": 1032,
+                "ResultDesc": "Request cancelled by user."
+                }
+            }
+        }
+
+        */
+
+        $callbackJSONData = file_get_contents('php://input');
+        $callbackDataArray = json_decode($callbackJSONData, true);
+
+        Logger::log("DashboardClientController::jobPayCallback -> " . $callbackJSONData);
+
+        if (
+            isset($callbackDataArray['Body'])
+            && isset($callbackDataArray['Body']['stkCallback'])
+            && isset($callbackDataArray['Body']['stkCallback']['MerchantRequestID'])
+        ) {
+            echo var_dump($callbackDataArray);
+
+            if (JobMpesaPaymentHelper::handleMakePaymentCallBack($callbackDataArray)) {
+                http_response_code(201);
+                $sucMsg = "Job payment callback: Job payment recorded successfully for MerchantRequestID: " . $callbackDataArray['Body']['stkCallback']['MerchantRequestID'];
+                echo $sucMsg;
+                Logger::log($sucMsg);
+                return;
+            } else {
+                http_response_code(400);
+                $errMsg = "Job payment callback: Job payment not found for MerchantRequestID: " . $callbackDataArray['Body']['stkCallback']['MerchantRequestID'];
+                echo $errMsg;
+                Logger::log($errMsg);
+                return;
+            }
+
+            //
+        } else {
+            http_response_code(400);
+            echo "Payment Data Missing!";
+            Logger::log("Payment Data Missing!");
+            return;
+        }
     }
 
     public static function jobProposals(Router $router)

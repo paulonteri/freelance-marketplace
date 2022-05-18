@@ -10,6 +10,8 @@ use app\models\JobPaymentModel;
  * Class JobMpesaPaymentHelpers
  * @package app\utils
  * 
+ * Helps in MPESA payment related tasks like this library: https://github.com/safaricom/mpesa-php-sdk
+ * 
  * https://developer.safaricom.co.ke/Documentation
  */
 class JobMpesaPaymentHelper
@@ -132,7 +134,7 @@ class JobMpesaPaymentHelper
     /**
      * Used to handle the callback after a LIPA NA M-PESA ONLINE API (STK Push) request has been processed.
      */
-    public function handleMakePaymentCallBack($response)
+    public static function handleMakePaymentCallBack(array $callbackDataArray)
     {
         /*
         Example response:
@@ -168,22 +170,21 @@ class JobMpesaPaymentHelper
 
         */
 
-        if ($response && isset($response->{'Body'}) && isset($response->{'Body'}->{'stkCallback'})) {
-            $resultCode = $response->{'Body'}->{'stkCallback'}->{'ResultCode'};
-            // $resultDesc = $response->{'Body'}->{'stkCallback'}->{'ResultDesc'};
-            // $callbackMetadata = $response->{'Body'}->{'stkCallback'}->{'CallbackMetadata'};
-            // $merchantRequestId = $response->{'Body'}->{'stkCallback'}->{'MerchantRequestID'};
-            // $checkoutRequestId = $response->{'Body'}->{'stkCallback'}->{'CheckoutRequestID'};
-
-            // payment was a success
-            if ($resultCode == 0) {
-                //
-            }
-            // payment was a success
-            else {
-                // 
-            }
+        $jobPayment = JobPaymentModel::tryGetByMerchantRequestId($callbackDataArray['Body']['stkCallback']['MerchantRequestID']);
+        if ($jobPayment == null) {
+            $errMsg = "Job payment callback: Job payment not found for MerchantRequestID: " . $callbackDataArray['Body']['stkCallback']['MerchantRequestID'];
+            echo $errMsg;
+            Logger::log($errMsg);
+            return false;
         }
+
+        $jobPayment->addCallBackInfo(
+            $callbackDataArray['Body']['stkCallback']['ResultCode'] == 0,
+            $callbackDataArray['Body']['stkCallback']['ResultCode'],
+            $callbackDataArray['Body']['stkCallback']['ResultDesc']
+        );
+
+        return true;
     }
 
     /**

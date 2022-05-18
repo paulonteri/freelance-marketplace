@@ -12,5 +12,4 @@ class IndexController extends _BaseController
     {
         $router->renderView('index');
     }
-
 }

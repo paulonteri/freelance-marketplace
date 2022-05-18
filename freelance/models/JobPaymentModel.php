@@ -124,4 +124,41 @@ class JobPaymentModel extends _BaseModel
     {
         return $this->callback_result_desc;
     }
+
+    public static function tryGetByMerchantRequestId(string $merchant_request_id): ?JobPaymentModel
+    {
+        $db = (new Database)->connectToDb();
+
+        $sql = 'SELECT * FROM job_payment WHERE response_merchant_request_id = :merchant_request_id';
+        $statement = $db->prepare($sql);
+        $statement->bindParam(':merchant_request_id', $merchant_request_id);
+        $statement->execute();
+        $job_payment = $statement->fetch();
+
+        if ($job_payment === false) {
+            return null;
+        }
+
+        return new JobPaymentModel($job_payment['id']);
+    }
+
+    public function addCallBackInfo(
+        bool $is_payment_successful,
+        int $result_code,
+        string $result_desc,
+    ): void {
+
+        $sql = 'UPDATE job_payment SET is_payment_successful = :is_payment_successful, callback_result_code = :callback_result_code, callback_result_desc = :callback_result_desc WHERE id = :id';
+        $statement = $this->db->prepare($sql);
+        $is_payment_successful_int = $is_payment_successful ? 1 : 0;
+        $statement->bindParam(':is_payment_successful', $is_payment_successful_int, PDO::PARAM_INT);
+        $statement->bindParam(':callback_result_code', $result_code);
+        $statement->bindParam(':callback_result_desc', $result_desc);
+        $statement->bindParam(':id', $this->id);
+        $statement->execute();
+
+        $this->is_payment_successful = $is_payment_successful;
+        $this->callback_result_code = $result_code;
+        $this->callback_result_desc = $result_desc;
+    }
 }
