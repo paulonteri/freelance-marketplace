@@ -7,7 +7,7 @@ use app\models\JobModel;
 use app\models\JobPaymentModel;
 
 /**
- * Class JobMpesaPaymentHelpers
+ * Class JobMpesaPaymentHelper
  * @package app\utils
  * 
  * Helps in MPESA payment related tasks like this library: https://github.com/safaricom/mpesa-php-sdk
