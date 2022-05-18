@@ -3,14 +3,16 @@
 namespace app\utils;
 
 use app\Settings;
+use app\models\JobModel;
+use app\models\JobPaymentModel;
 
 /**
- * Class JobPayment
+ * Class JobMpesaPaymentHelpers
  * @package app\utils
  * 
  * https://developer.safaricom.co.ke/Documentation
  */
-class JobPayment
+class JobMpesaPaymentHelper
 {
     private $config = array(
         "AccountReference"  => "Freelance Marketplace",
@@ -22,7 +24,7 @@ class JobPayment
         "key"               => null,
         // "username"       => "apitest",
     );
-    private string $paymentCallbackPath = "/TransactionStatus/response";
+    private string $paymentCallbackPath = "/callbacks/job-payment";
 
 
     public function __construct()
@@ -38,12 +40,31 @@ class JobPayment
      * Used to create a payment request via a STK Push.
      * The LIPA NA M-PESA ONLINE API also know as M-PESA express (STK Push) is a Merchant/Business initiated C2B (Customer to Business) Payment.
      */
-    public function makePayment($phone = '0703130589')
+    public function makePaymentRequest(string $phone, JobModel $job)
     {
+        $amount = 1;
+
+        if ($job->hasBeenPaidFor()) {
+            DisplayAlert::displayError("Job already paid for.");
+            return false;
+        }
+
+        if (!$this->checkIfConfigIsValid()) {
+            DisplayAlert::displayError("Warning: Mpesa config is not valid.");
+            JobPaymentModel::create(
+                $job->getId(),
+                $phone,
+                $amount,
+                null,
+                null,
+                null
+            );
+        }
+
         $token = $this->generateAuthToken();
 
         $endpoint = ($this->config['env'] == "live") ? "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest" : "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
-        $amount = 1;
+
         $formattedPhone = (substr($phone, 0, 1) == "0") ? preg_replace("/^0/", "254", $phone) : $phone;
         $timestamp = date("YmdHis");
         $password  = base64_encode($this->config['BusinessShortCode'] . "" . $this->config['passkey'] . "" . $timestamp);
@@ -80,16 +101,31 @@ class JobPayment
 
         $result = json_decode($response);
 
-        $responseCode = $result->{'ResponseCode'};
-        if ($responseCode === "0") {
-            // echo $result->{"MerchantRequestID"}; // This is a global unique Identifier for any submitted payment request.
-            // echo $result->{"CheckoutRequestID"};
-            // echo $result->{"ResponseCode"};
-            echo $result->{"ResponseDescription"};
-            // echo $result->{"CustomerMessage"};
-            // header("Location: confirmation-payment.php")
+        if ($result == null) {
+            echo var_dump($result);
+            DisplayAlert::displayError("Error in payment request processing. Please try again later.");
+            return false;
+        } else if (isset($result->{'errorMessage'})) {
+            echo var_dump($result);
+            DisplayAlert::displayError('Error from Mpesa: ' . $result->{'errorMessage'});
+            return false;
+        }
+
+        JobPaymentModel::create(
+            $job->getId(),
+            $phone,
+            $amount,
+            $result->{'ResponseCode'},
+            $result->{"MerchantRequestID"},
+            $result->{"CheckoutRequestID"},
+        );
+
+        $isStkPushSuccessful = $result->{'ResponseCode'} === "0";
+        if ($isStkPushSuccessful) {
+            return true;
         } else {
-            echo $result->{'errorMessage'};
+            DisplayAlert::displayError("Error in payment request processing. Please try again later.");
+            return false;
         }
     }
 

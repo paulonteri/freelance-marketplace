@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\Database;
+use PDO;
 
 
 class JobPaymentModel extends _BaseModel
@@ -25,24 +26,45 @@ class JobPaymentModel extends _BaseModel
     {
         $this->db = $this->connectToDb();
 
-        $sql = 'SELECT * FROM skill WHERE id = :id';
+        $sql = 'SELECT * FROM job_payment WHERE id = :id';
         $statement = $this->db->prepare($sql);
         $statement->bindParam(':id', $id);
         $statement->execute();
-        $skill = $statement->fetch();
+        $job_payment = $statement->fetch();
 
         $this->id = $id;
-        $this->name = $skill['name'];
+        $this->job_id = $job_payment['job_id'];
+        $this->phone_number = $job_payment['phone_number'];
+        $this->amount = $job_payment['amount'];
+        $this->is_payment_successful = $job_payment['is_payment_successful'];
+        $this->response_merchant_request_id = $job_payment['response_merchant_request_id'];
+        $this->response_checkout_request_id = $job_payment['response_checkout_request_id'];
+        $this->response_response_code = $job_payment['response_response_code'];
+        $this->callback_result_code = $job_payment['callback_result_code'];
+        $this->callback_result_desc = $job_payment['callback_result_desc'];
     }
 
     public static function create(
-        string $name,
+        int $job_id,
+        string $phone_number,
+        float $amount,
+        ?string $response_response_code,
+        ?string $response_merchant_request_id,
+        ?string $response_checkout_request_id,
     ): JobPaymentModel {
         $db = (new Database)->connectToDb();
 
-        $sql = 'INSERT INTO skill (name) VALUES (:name)';
+        $sql = 'INSERT INTO job_payment (job_id, phone_number, amount, is_payment_successful, response_response_code, response_merchant_request_id, response_checkout_request_id)';
+        $sql .= 'VALUES (:job_id, :phone_number, :amount, :is_payment_successful, :response_response_code, :response_merchant_request_id, :response_checkout_request_id)';
         $statement = $db->prepare($sql);
-        $statement->bindParam(':name', $name);
+        $statement->bindParam(':job_id', $job_id);
+        $statement->bindParam(':phone_number', $phone_number);
+        $statement->bindParam(':amount', $amount);
+        $is_payment_successful_int = 0;
+        $statement->bindParam(':is_payment_successful', $is_payment_successful_int, PDO::PARAM_INT);
+        $statement->bindParam(':response_response_code', $response_response_code);
+        $statement->bindParam(':response_merchant_request_id', $response_merchant_request_id);
+        $statement->bindParam(':response_checkout_request_id', $response_checkout_request_id);
         $statement->execute();
 
         return new JobPaymentModel($db->lastInsertId());

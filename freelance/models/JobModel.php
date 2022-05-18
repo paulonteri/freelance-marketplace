@@ -76,7 +76,7 @@ class JobModel extends _BaseModel
 
     $db = (new Database)->connectToDb();
 
-    $sql = 'INSERT INTO job (client_id, title, description, image, pay_rate_per_hour, expected_duration_in_hours, receive_job_proposals_deadline) VALUES (:client_id, :title, :description, :image, :pay_rate_per_hour, :expected_duration_in_hours, :receive_job_proposals_deadline)';
+    $sql = 'INSERT INTO job (client_id, title, description, image, pay_rate_per_hour, expected_duration_in_hours, receive_job_proposals_deadline, is_active) VALUES (:client_id, :title, :description, :image, :pay_rate_per_hour, :expected_duration_in_hours, :receive_job_proposals_deadline, 0)';
     $statement = $db->prepare($sql);
     $statement->bindParam(':client_id', $client_id);
     $statement->bindParam(':title', $title);
@@ -148,6 +148,19 @@ class JobModel extends _BaseModel
   public function getBudget(): float
   {
     return $this->pay_rate_per_hour * $this->expected_duration_in_hours;
+  }
+
+  public function hasBeenPaidFor(): bool
+  {
+    $db = (new Database)->connectToDb();
+
+    $sql = 'SELECT * FROM job_payment WHERE job_id = :job_id AND is_payment_successful = 1';
+    $statement = $db->prepare($sql);
+    $statement->bindParam(':job_id', $this->id);
+    $statement->execute();
+    $job_payment = $statement->fetch();
+
+    return $job_payment ? true : false;
   }
 
   public function addSkills(array $skills): void

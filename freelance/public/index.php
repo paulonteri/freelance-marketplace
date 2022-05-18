@@ -70,6 +70,9 @@ $router->post('/dashboard/client/jobs/create', [DashboardClientController::class
 $router->get('/dashboard/client/proposals/id', [DashboardClientController::class, 'proposalId']); // shows proposal details
 $router->get('/dashboard/client/jobs/id', [DashboardClientController::class, 'jobId']); // shows job details
 // $router->get('/dashboard/client/jobs/id/pay', [DashboardClientController::class, 'jobId']);
+$router->get('/dashboard/client/jobs/id/pay', [DashboardClientController::class, 'jobPay']);
+$router->post('/dashboard/client/jobs/id/pay', [DashboardClientController::class, 'jobPay']);
+$router->get('/dashboard/client/jobs/id/confirm-payment', [DashboardClientController::class, 'jobConfirmPayment']);
 $router->get('/dashboard/client/jobs/id/proposals', [DashboardClientController::class, 'jobProposals']);
 $router->get('/dashboard/client/jobs/id/review-and-complete', [DashboardClientController::class, 'jobReviewAndComplete']);
 $router->post('/dashboard/client/jobs/id/review-and-complete', [DashboardClientController::class, 'jobReviewAndComplete']);

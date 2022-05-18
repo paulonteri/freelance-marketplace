@@ -11,6 +11,7 @@ use app\models\JobModel;
 use app\models\SkillModel;
 use app\models\JobProposalModel;
 use app\models\JobRatingModel;
+use app\utils\JobMpesaPaymentHelper;
 
 class DashboardClientController extends _BaseController
 {
@@ -271,18 +272,116 @@ class DashboardClientController extends _BaseController
                     $router->renderView(self::$basePath . 'jobs/create', $data, null, array('Something went wrong. Please try again.',));
                     return;
                 } else {
-                    $data['title'] = '';
-                    $data['description'] = '';
-                    $data['payRatePerHour'] = '';
-                    $data['expectedDurationInHours'] = '';
-                    $data['receiveJobProposalsDeadline'] = '';
-                    $router->renderView(self::$basePath . 'jobs/create', $data, "Job created successfully!");
+                    $jobId = $job->getId();
+                    header('location:/dashboard/client/jobs/id/pay?jobId=' . $jobId . '&alert=Job created successfully!');
                     return;
                 }
             }
         }
 
         $router->renderView(self::$basePath . 'jobs/create', $data);
+    }
+
+    public static function jobPay(Router $router)
+    {
+        DashboardClientController::requireUserIsClient($router);
+        $data = [
+            'pageTitle' => "Pay for job",
+            'phone' => '',
+            'phoneError' => ''
+        ];
+        $errors = array();
+
+        // Check for post
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize post data (prevent XSS)
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            $data['phone'] = trim($_POST['phone']);
+            $data['id'] = trim($_POST['jobId']);
+            $job = JobModel::tryGetById($data['id']);
+            $data['job'] = $job;
+
+            // validate phone
+            if (empty($data['phone'])) {
+                $data['phoneError'] = 'Required.';
+            } elseif (strlen($data['phone']) != 12) {
+                $data['phoneError'] = 'Invalid length';
+            } elseif (!preg_match("#[0-9]+#", $data['phone'])) {
+                $data['phoneError'] = "Must Contain At Least 1 Number!";
+            } elseif (preg_match("#[A-Z]+#", $data['phone'])) {
+                $data['phoneError'] = "Must Not Contain A Capital Letter!";
+            } elseif (preg_match("#[a-z]+#", $data['phone'])) {
+                $data['phoneError'] = "Must Not Contain A Lowercase Letter!";
+            } elseif (preg_match("#[\W]+#", $data['phone'])) {
+                $data['phoneError'] = "Must Not Contain A Special Character!";
+            } else if (substr($data['phone'], 0, 3) != '254') {
+                $data['phoneError'] = "Must start with 254";
+            }
+
+            // Check if all errors are empty
+            if (
+                empty($data['phoneError'])
+            ) {
+                $paymentHelper = new JobMpesaPaymentHelper();
+                $paymentRequestIsSuccessful = $paymentHelper->makePaymentRequest($data['phone'], $job);
+
+                if ($paymentRequestIsSuccessful) {
+                    header("Location: /dashboard/client/jobs/id/confirm-payment?jobId=" . $data['id']);
+                    return;
+                } else {
+                    $router->renderView(self::$basePath . 'jobs/id/pay', $data, null, ["Payment request failed! Please try again."]);
+                    return;
+                }
+            }
+        }
+
+        // -------------------- $_GET -------------------- 
+        else if (isset($_GET['jobId'])) {
+            $data['id'] = $_GET['jobId'];
+            $job = JobModel::tryGetById($data['id']);
+
+            if ($job == null || !$job->isJobCreatedByUser(UserModel::getCurrentUser()->getId())) {
+                $errors = ['Job not found.'];
+            } else {
+                $data['job'] = $job;
+                $data['pageTitle'] = "Job " . $job->getTitle();
+            }
+        } else {
+            $errors = ['Job id not found.'];
+        }
+        // -------------------- $_GET -------------------- 
+
+
+
+        $router->renderView(self::$basePath . 'jobs/id/pay', $data, null, $errors);
+    }
+
+    public static function jobConfirmPayment(Router $router)
+    {
+        DashboardClientController::requireUserIsClient($router);
+        $data = [
+            'pageTitle' => "Confirm payment for job",
+        ];
+        $errors = array();
+
+        // -------------------- $_GET -------------------- 
+        if (isset($_GET['jobId'])) {
+            $data['id'] = $_GET['jobId'];
+            $job = JobModel::tryGetById($data['id']);
+
+            if ($job == null || !$job->isJobCreatedByUser(UserModel::getCurrentUser()->getId())) {
+                $errors = ['Job not found.'];
+            } else {
+                $data['job'] = $job;
+                $data['pageTitle'] = "Job " . $job->getTitle();
+            }
+        } else {
+            $errors = ['Job id not found.'];
+        }
+        // -------------------- $_GET -------------------- 
+
+        $router->renderView(self::$basePath . 'jobs/id/confirm-payment', $data, null, $errors);
     }
 
     public static function jobProposals(Router $router)
