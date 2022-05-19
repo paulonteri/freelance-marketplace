@@ -24,9 +24,9 @@ class JobMpesaPaymentHelper
         "BusinessShortCode" => null,
         "secret"            => null,
         "key"               => null,
+        "securityCredential" => null, // https://youtu.be/uWh_5-l8IVQ?t=562 Base64 encoded string of the Security Credential, which is encrypted using M-Pesa public key and validates the transaction on M-Pesa Core system.
         // "username"       => "apitest",
     );
-    private string $paymentCallbackPath = "/callbacks/job-payment";
 
 
     public function __construct()
@@ -36,6 +36,7 @@ class JobMpesaPaymentHelper
         $this->config["key"] = getenv("MPESA_CONSUMER_KEY") ? getenv("MPESA_CONSUMER_KEY") : null;
         $this->config["secret"] = getenv("MPESA_CONSUMER_SECRET") ? getenv("MPESA_CONSUMER_SECRET") : null;
         $this->config["passkey"] = getenv("MPESA_PASSKEY") ? getenv("MPESA_PASSKEY") : null;
+        $this->config["securityCredential"] = getenv("MPESA_SECURITY_CREDENTIAL") ? getenv("MPESA_SECURITY_CREDENTIAL") : null;
     }
 
     /**
@@ -64,27 +65,22 @@ class JobMpesaPaymentHelper
         }
 
         $token = $this->generateAuthToken();
-
         $endpoint = ($this->config['env'] == "live") ? "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest" : "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
-
-        $formattedPhone = (substr($phone, 0, 1) == "0") ? preg_replace("/^0/", "254", $phone) : $phone;
         $timestamp = date("YmdHis");
         $password  = base64_encode($this->config['BusinessShortCode'] . "" . $this->config['passkey'] . "" . $timestamp);
-
         $curlPostData = array(
             "BusinessShortCode" => $this->config['BusinessShortCode'],
             "Password" => $password,
             "Timestamp" => $timestamp,
             "TransactionType" => "CustomerPayBillOnline",
             "Amount" => $amount,
-            "PartyA" => $formattedPhone,
+            "PartyA" => $phone,
             "PartyB" => $this->config['BusinessShortCode'],
-            "PhoneNumber" => $formattedPhone,
-            "CallBackURL" => Settings::$host . $this->paymentCallbackPath, // Enter your callback url here
+            "PhoneNumber" => $phone,
+            "CallBackURL" => Settings::$host . "/callbacks/job-payment", // Enter your callback url here
             "AccountReference" => $this->config['AccountReference'],
             "TransactionDesc" => $this->config['TransactionDesc'],
         );
-
         $curlPostDataString = json_encode($curlPostData);
 
         $curlTransfer = curl_init($endpoint);
@@ -98,9 +94,7 @@ class JobMpesaPaymentHelper
         curl_setopt($curlTransfer, CURLOPT_RETURNTRANSFER, 1);
 
         $response = curl_exec($curlTransfer);
-
         curl_close($curlTransfer);
-
         $result = json_decode($response);
 
         if ($result == null) {
@@ -183,6 +177,57 @@ class JobMpesaPaymentHelper
             $callbackDataArray['Body']['stkCallback']['ResultCode'],
             $callbackDataArray['Body']['stkCallback']['ResultDesc']
         );
+
+        return true;
+    }
+
+    /**
+     * Used to dispatch a job's payment.
+     * This can either be a payment to a freelancer or a refund to a client
+     * This is done through the Mpesa Business To Customer (B2C) API https://developer.safaricom.co.ke/APIs/BusinessToCustomer
+     */
+    public function dispatchMoney(bool $isRefund, string $phone, string $remarks): bool
+    {
+        $amount = 1;
+        $token = $this->generateAuthToken();
+        $endpoint = ($this->config['env'] == "live") ? "https://api.safaricom.co.ke/mpesa/b2c/v1/paymentrequest" : "https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest";
+        $curlPostData = array(
+            "InitiatorName" => $this->config['AccountReference'],
+            "SecurityCredential" => $this->config['SecurityCredential'],
+            "CommandID" => "BusinessPayment", // SalaryPayment, BusinessPayment, PromotionPayment
+            "Amount" =>  $amount,
+            "PartyA" => $this->config['BusinessShortCode'],
+            "PartyB" => $phone,
+            "Remarks" => $remarks, // Comments that are sent along with the transaction.
+            "QueueTimeOutURL" => Settings::$host . "/callbacks/dispatch-queue-timeout",
+            "ResultURL" => Settings::$host . "/callbacks/dispatch-payment-result",
+        );
+        $curlPostDataString = json_encode($curlPostData);
+
+        $curlTransfer = curl_init($endpoint);
+
+        curl_setopt($curlTransfer, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $token,
+            'Content-Type: application/json'
+        ]);
+        curl_setopt($curlTransfer, CURLOPT_POST, 1);
+        curl_setopt($curlTransfer, CURLOPT_POSTFIELDS, $curlPostDataString);
+        curl_setopt($curlTransfer, CURLOPT_RETURNTRANSFER, 1);
+
+        $response = curl_exec($curlTransfer);
+        curl_close($curlTransfer);
+        // $result = json_decode($response);
+
+        /*
+        Example response: 
+            {
+                "ConversationID": "AG_20220519_201043fae2022600fa58",
+                "OriginatorConversationID": "45735-9773440-1",
+                "ResponseCode": "0",
+                "ResponseDescription": "Accept the service request successfully."
+            }
+        */
+        echo $response;
 
         return true;
     }
