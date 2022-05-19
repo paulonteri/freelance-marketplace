@@ -6,10 +6,10 @@ services:
     image: mysql:5.7
     container_name: db
     environment:
-      MYSQL_DATABASE: 'db'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: 'password'
-      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_DATABASE: 'freelance'
+      MYSQL_USER: 'freelance'
+      MYSQL_PASSWORD: 'freelance'
+      MYSQL_ROOT_PASSWORD: 'freelance'
     ports:
       - "6033:3306"
     volumes:
@@ -24,9 +24,9 @@ services:
       PMA_HOST: db
       PMA_PORT: 3306
       PMA_ARBITRARY: 1
-      MYSQL_ROOT_PASSWORD: 'password'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'freelance'
+      MYSQL_USER: 'freelance'
+      MYSQL_PASSWORD: 'freelance'
     restart: always
     ports:
       - 8081:80
