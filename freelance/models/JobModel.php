@@ -32,18 +32,18 @@ class JobModel extends _BaseModel
     $statement = $this->db->prepare($sql);
     $statement->bindParam(':id', $id);
     $statement->execute();
-    $client = $statement->fetch();
+    $job = $statement->fetch();
 
     $this->id = $id;
-    $this->client_id = $client['client_id'];
-    $this->title = $client['title'];
-    $this->description = $client['description'];
-    $this->image = $client['image'];
-    $this->pay_rate_per_hour = $client['pay_rate_per_hour'];
-    $this->expected_duration_in_hours = $client['expected_duration_in_hours'];
-    $this->receive_job_proposals_deadline = $client['receive_job_proposals_deadline'];
-    $this->time_created = $client['time_created'];
-    $this->is_active = $client['is_active'];
+    $this->client_id = $job['client_id'];
+    $this->title = $job['title'];
+    $this->description = $job['description'];
+    $this->image = $job['image'];
+    $this->pay_rate_per_hour = $job['pay_rate_per_hour'];
+    $this->expected_duration_in_hours = $job['expected_duration_in_hours'];
+    $this->receive_job_proposals_deadline = $job['receive_job_proposals_deadline'];
+    $this->time_created = $job['time_created'];
+    $this->is_active = $job['is_active'];
   }
 
   public static function tryGetById(int $id): ?JobModel
@@ -152,15 +152,48 @@ class JobModel extends _BaseModel
 
   public function hasBeenPaidFor(): bool
   {
-    $db = (new Database)->connectToDb();
-
     $sql = 'SELECT * FROM job_payment WHERE job_id = :job_id AND is_payment_successful = 1';
-    $statement = $db->prepare($sql);
+    $statement = $this->db->prepare($sql);
     $statement->bindParam(':job_id', $this->id);
     $statement->execute();
     $job_payment = $statement->fetch();
 
     return $job_payment ? true : false;
+  }
+
+  public function getPayment(): ?JobPaymentModel
+  {
+    $sql = 'SELECT * FROM job_payment WHERE job_id = :job_id AND is_payment_successful = 1';
+    $statement = $this->db->prepare($sql);
+    $statement->bindParam(':job_id', $this->id);
+    $statement->execute();
+    $job_payment = $statement->fetch();
+
+    if ($job_payment) {
+      return new JobPaymentModel($job_payment['id']);
+    } else {
+      return null;
+    }
+  }
+
+  public function hasBeenRefunded(): bool
+  {
+    $payment = $this->getPayment();
+    if ($payment) {
+      return $payment->hasBeenRefunded();
+    } else {
+      return false;
+    }
+  }
+
+  public function hasClientBeenPaid(): bool
+  {
+    $payment = $this->getPayment();
+    if ($payment) {
+      return $payment->hasClientBeenPaid();
+    } else {
+      return false;
+    }
   }
 
   public function addSkills(array $skills): void

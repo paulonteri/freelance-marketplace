@@ -4,6 +4,7 @@ namespace app\utils;
 
 use app\Settings;
 use app\models\JobModel;
+use app\models\JobPaymentDispatchModel;
 use app\models\JobPaymentModel;
 
 /**
@@ -17,15 +18,15 @@ use app\models\JobPaymentModel;
 class JobMpesaPaymentHelper
 {
     private $config = array(
-        "AccountReference"  => "Freelance Marketplace",
-        "TransactionDesc"   => "Payment for job",
-        "passkey"           => null,
-        "env"               => "sandbox",
+        "AccountReference" => "Freelance Marketplace",
+        "TransactionDesc" => "Payment for job",
+        "passkey" => null,
+        "env" => "sandbox",
         "BusinessShortCode" => null,
-        "secret"            => null,
-        "key"               => null,
+        "secret" => null,
+        "key" => null,
         "securityCredential" => null, // https://youtu.be/uWh_5-l8IVQ?t=562 Base64 encoded string of the Security Credential, which is encrypted using M-Pesa public key and validates the transaction on M-Pesa Core system.
-        // "username"       => "apitest",
+        // "username" => "apitest",
     );
 
 
@@ -46,6 +47,7 @@ class JobMpesaPaymentHelper
     public function makePaymentRequest(string $phone, JobModel $job)
     {
         $amount = 1;
+        $phone = $this->formatPhoneNumber($phone);
 
         if ($job->hasBeenPaidFor()) {
             DisplayAlert::displayError("Job already paid for.");
@@ -53,6 +55,7 @@ class JobMpesaPaymentHelper
         }
 
         if (!$this->checkIfConfigIsValid()) {
+            // fake the payment
             DisplayAlert::displayError("Warning: Mpesa config is not valid.");
             JobPaymentModel::create(
                 $job->getId(),
@@ -181,14 +184,100 @@ class JobMpesaPaymentHelper
         return true;
     }
 
+    /** 
+     * This method is used to refund a payment to a client for a job.
+     *
+     * @param JobModel $job
+     * @return bool
+     */
+    public function refund(JobModel $job)
+    {
+        if (!$job->hasBeenPaidFor()) {
+            DisplayAlert::displayError("Cannot initiate refund. Job not paid for.");
+            return false;
+        } else if ($job->hasBeenRefunded()) {
+            DisplayAlert::displayError("Cannot initiate refund. Job already refunded.");
+            return false;
+        } else if ($job->hasClientBeenPaid()) {
+            DisplayAlert::displayError("Cannot initiate refund. Client already paid.");
+            return false;
+        }
+
+        $jobPayment = $job->getPayment();
+        $amount = $jobPayment->getAmount();
+        $phone = $jobPayment->getPhoneNumber();
+
+        return $this->dispatchMoney(
+            $jobPayment,
+            true,
+            $amount,
+            $phone,
+            "Refund for job id: " . $job->getId(),
+        );
+    }
+
+    /** 
+     * This method is used to pay a client for a job.
+     *
+     * @param JobModel $job
+     * @return bool
+     */
+    public function payClient(JobModel $job)
+    {
+        if (!$job->hasBeenPaidFor()) {
+            DisplayAlert::displayError("Cannot initiate refund. Job not paid for.");
+            return false;
+        } else if ($job->hasBeenRefunded()) {
+            DisplayAlert::displayError("Cannot initiate refund. Job already refunded.");
+            return false;
+        } else if ($job->hasClientBeenPaid()) {
+            DisplayAlert::displayError("Cannot initiate refund. Client already paid.");
+            return false;
+        }
+
+        $jobPayment = $job->getPayment();
+        $amount = $jobPayment->getAmount();
+        $client = $job->getClient();
+        $phone = $client->getUser()->getPhone();
+
+        return $this->dispatchMoney(
+            $jobPayment,
+            false,
+            $amount,
+            $phone,
+            "Payment for job id: " . $job->getId(),
+        );
+    }
+
+
     /**
      * Used to dispatch a job's payment.
      * This can either be a payment to a freelancer or a refund to a client
      * This is done through the Mpesa Business To Customer (B2C) API https://developer.safaricom.co.ke/APIs/BusinessToCustomer
      */
-    public function dispatchMoney(bool $isRefund, string $phone, string $remarks): bool
+    private function dispatchMoney(JobPaymentModel $jobPayment, bool $isRefund, float $amount, string $phone, string $remarks): bool
     {
         $amount = 1;
+        $phone = $this->formatPhoneNumber($phone);
+
+
+        if (!$this->checkIfConfigIsValid()) {
+            // fake the payment
+            DisplayAlert::displayError("Warning: Mpesa config is not valid.");
+            JobPaymentDispatchModel::create(
+                $jobPayment->getId(),
+                $isRefund,
+                $phone,
+                $amount,
+                true,
+                null,
+                null,
+                null,
+            );
+            return true;
+        }
+
+
         $token = $this->generateAuthToken();
         $endpoint = ($this->config['env'] == "live") ? "https://api.safaricom.co.ke/mpesa/b2c/v1/paymentrequest" : "https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest";
         $curlPostData = array(
@@ -216,20 +305,36 @@ class JobMpesaPaymentHelper
 
         $response = curl_exec($curlTransfer);
         curl_close($curlTransfer);
-        // $result = json_decode($response);
+        $result = json_decode($response);
 
-        /*
-        Example response: 
-            {
-                "ConversationID": "AG_20220519_201043fae2022600fa58",
-                "OriginatorConversationID": "45735-9773440-1",
-                "ResponseCode": "0",
-                "ResponseDescription": "Accept the service request successfully."
-            }
-        */
-        echo $response;
+        if ($result == null) {
+            echo var_dump($result);
+            DisplayAlert::displayError("Error in payment request processing. Please try again later.");
+            return false;
+        } else if (isset($result->{'errorMessage'})) {
+            echo var_dump($result);
+            DisplayAlert::displayError('Error from Mpesa: ' . $result->{'errorMessage'});
+            return false;
+        }
 
-        return true;
+        JobPaymentDispatchModel::create(
+            $jobPayment->getId(),
+            $isRefund,
+            $phone,
+            $amount,
+            false, // will be changed after callback
+            $result->{'ConversationID'},
+            $result->{'OriginatorConversationID'},
+            $result->{'ResponseCode'},
+        );
+
+        $isDispatchPushSuccessful = $result->{'ResponseCode'} === "0";
+        if ($isDispatchPushSuccessful) {
+            return true;
+        } else {
+            DisplayAlert::displayError("Error in payment request processing. Please try again later.");
+            return false;
+        }
     }
 
     /**
@@ -247,9 +352,7 @@ class JobMpesaPaymentHelper
         curl_setopt($curlTransfer, CURLOPT_RETURNTRANSFER, 1); // We set it to true(1) instead of immediately displaying the transfer, return it as a string of the curl exec() return value.
 
         $response = curl_exec($curlTransfer);
-
         curl_close($curlTransfer);
-
         $result = json_decode($response);
         $token = isset($result->{'access_token'}) ? $result->{'access_token'} : null;
 
@@ -259,5 +362,11 @@ class JobMpesaPaymentHelper
     private function checkIfConfigIsValid(): bool
     {
         return isset($this->config['BusinessShortCode']) && isset($this->config['key']) && isset($this->config['secret']) && isset($this->config['passkey']);
+    }
+
+    private function formatPhoneNumber(string $phone,): string
+    {
+        $formattedPhone = (substr($phone, 0, 1) == "0") ? preg_replace("/^0/", "254", $phone) : $phone;
+        return $formattedPhone;
     }
 }

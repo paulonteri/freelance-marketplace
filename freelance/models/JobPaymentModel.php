@@ -161,4 +161,32 @@ class JobPaymentModel extends _BaseModel
         $this->callback_result_code = $result_code;
         $this->callback_result_desc = $result_desc;
     }
+
+    public function hasBeenRefunded(): bool
+    {
+        $sql = "SELECT * FROM job_payment_dispatch WHERE job_payment_id = :job_payment_id AND is_refund = 1 AND is_dispatch_successful = 1";
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam(':job_payment_id', $this->id);
+        $statement->execute();
+        $job_payment_dispatch = $statement->fetch();
+
+        if ($job_payment_dispatch) {
+            return true;
+        }
+        return false;
+    }
+
+    public function hasClientBeenPaid(): bool
+    {
+        $sql = "SELECT * FROM job_payment_dispatch WHERE job_payment_id = :job_payment_id AND is_refund = 0 AND is_dispatch_successful = 1";
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam(':job_payment_id', $this->id);
+        $statement->execute();
+        $job_payment_dispatch = $statement->fetch();
+
+        if ($job_payment_dispatch) {
+            return true;
+        }
+        return false;
+    }
 }

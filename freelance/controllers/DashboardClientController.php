@@ -583,6 +583,12 @@ class DashboardClientController extends _BaseController
                     if (!$jobProposal->markAsCompletedSuccessfully()) {
                         $errors = array('Something went wrong while marking job as complete. Please try again.',);
                         $rating->delete();
+                    } else {
+                        $paymentHelper = new JobMpesaPaymentHelper();
+                        $paymentRequestIsSuccessful = $paymentHelper->payClient($job);
+                        if (!$paymentRequestIsSuccessful) {
+                            $errors = array('Something went wrong while paying client. Please try again.',);
+                        }
                     }
 
                     $data['comment'] = '';
