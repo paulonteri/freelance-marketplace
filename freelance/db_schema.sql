@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 17, 2022 at 12:39 PM
+-- Generation Time: May 23, 2022 at 02:11 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -108,9 +108,28 @@ CREATE TABLE `job_payment` (
   `is_payment_successful` tinyint(1) NOT NULL DEFAULT 0,
   `response_merchant_request_id` varchar(255) NOT NULL,
   `response_checkout_request_id` varchar(255) NOT NULL,
-  `response_response_code` varchar(255) NOT NULL,
+  `response_response_code` varchar(255) DEFAULT NULL,
   `callback_result_code` varchar(255) DEFAULT NULL,
   `callback_result_desc` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_payment_dispatch`
+--
+
+DROP TABLE IF EXISTS `job_payment_dispatch`;
+CREATE TABLE `job_payment_dispatch` (
+  `id` int(11) NOT NULL,
+  `job_payment_id` int(11) NOT NULL,
+  `is_refund` tinyint(1) NOT NULL DEFAULT 0,
+  `phone_number` varchar(12) NOT NULL,
+  `amount` float NOT NULL,
+  `is_dispatch_successful` tinyint(1) NOT NULL DEFAULT 0,
+  `response_conversation_id` varchar(255) NOT NULL,
+  `response_originator_conversation_id` varchar(255) NOT NULL,
+  `response_response_code` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -122,7 +141,7 @@ CREATE TABLE `job_payment` (
 DROP TABLE IF EXISTS `job_proposal`;
 CREATE TABLE `job_proposal` (
   `id` int(11) NOT NULL,
-  `status` enum('sent','accepted','completed successfully','rejected','withdrawn','completed unsuccessfully','work submitted') NOT NULL DEFAULT 'sent',
+  `status` enum('sent','accepted','completed successfully','rejected','withdrawn','completed unsuccessfully','work submitted','job expired before work submission') NOT NULL DEFAULT 'sent',
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `job_id` int(11) NOT NULL,
@@ -256,6 +275,13 @@ ALTER TABLE `job_payment`
   ADD KEY `job_id` (`job_id`);
 
 --
+-- Indexes for table `job_payment_dispatch`
+--
+ALTER TABLE `job_payment_dispatch`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `job_id` (`job_payment_id`);
+
+--
 -- Indexes for table `job_proposal`
 --
 ALTER TABLE `job_proposal`
@@ -334,6 +360,12 @@ ALTER TABLE `job_payment`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `job_payment_dispatch`
+--
+ALTER TABLE `job_payment_dispatch`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `job_proposal`
 --
 ALTER TABLE `job_proposal`
@@ -403,6 +435,12 @@ ALTER TABLE `job`
 --
 ALTER TABLE `job_payment`
   ADD CONSTRAINT `job_payment_ibfk_1` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`);
+
+--
+-- Constraints for table `job_payment_dispatch`
+--
+ALTER TABLE `job_payment_dispatch`
+  ADD CONSTRAINT `job_payment_dispatch_ibfk_1` FOREIGN KEY (`job_payment_id`) REFERENCES `job_payment` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `job_proposal`

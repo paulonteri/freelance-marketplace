@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 17, 2022 at 12:39 PM
+-- Generation Time: May 23, 2022 at 02:11 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -108,9 +108,38 @@ INSERT INTO `job` (`id`, `client_id`, `title`, `description`, `image`, `pay_rate
 (27, 13, 'Create 20 Instagram posts for us', 'Create 20 Instagram posts for us', '/uploads/ClientJobImageMonMay16202212:47office-vr.jpeg', 5555, 15, '2022-05-30 12:47:00', '2022-05-16 09:47:45', 1),
 (28, 13, 'Fill in our survey', 'Fill in our survey located at paulonteri.com/survey', '/uploads/ClientJobImageMonMay16202212:49lady-office.jpeg', 500, 2, '2022-05-26 12:48:00', '2022-05-16 09:49:08', 1),
 (29, 14, 'Convert to text', 'Convert the voice here bit.ly/sdsd to text', '/uploads/ClientJobImageMonMay16202212:56raise-hands.jpeg', 3000, 2, '2022-05-25 12:56:00', '2022-05-16 09:56:44', 1),
-(30, 14, 'Translate website to Kiswahili', 'Translate website paulonteri.com to Kiswahili', '/uploads/ClientJobImageMonMay16202212:57tech.jpeg', 4000, 10, '2022-06-04 12:57:00', '2022-05-16 09:57:56', 1),
+(30, 14, 'Translate website to Kiswahili', 'Translate website paulonteri.com to Kiswahili', '/uploads/ClientJobImageMonMay16202212:57tech.jpeg', 4000, 10, '2022-06-04 12:57:00', '2022-05-16 09:57:56', 0),
 (31, 15, 'Check on the UX of our app', 'Check on the UX of our app Tala on playstore and submit a report', '/uploads/ClientJobImageMonMay16202213:03raise-hands.jpeg', 7000, 45, '2022-05-19 13:02:00', '2022-05-16 10:03:31', 1),
-(32, 15, 'Mark stale issues as stale', 'Mark stale issues as stale in our open source repo https://github.com/paulonteri/freelance-marketplace/', '/uploads/ClientJobImageMonMay16202213:04tech.jpeg', 1000, 40, '2022-05-25 13:04:00', '2022-05-16 10:04:33', 1);
+(32, 15, 'Mark stale issues as stale', 'Mark stale issues as stale in our open source repo https://github.com/paulonteri/freelance-marketplace/', '/uploads/ClientJobImageMonMay16202213:04tech.jpeg', 1000, 40, '2022-05-25 13:04:00', '2022-05-16 10:04:33', 1),
+(33, 2, 'Sample', 'Sample Desc', '/uploads/ClientJobImageWedMay1820229:56lady-office.jpeg', 5000, 10, '2022-05-19 09:55:00', '2022-05-18 06:56:15', 0),
+(34, 2, 'Quisquam adipisci iu', 'Mollit nemo autem si', '/uploads/ClientJobImageSatMay21202211:22db_schema.png', 64899, 32648, '2022-05-26 01:19:00', '2022-05-21 08:22:47', 0);
+
+--
+-- Dumping data for table `job_payment`
+--
+
+INSERT INTO `job_payment` (`id`, `job_id`, `phone_number`, `amount`, `is_payment_successful`, `response_merchant_request_id`, `response_checkout_request_id`, `response_response_code`, `callback_result_code`, `callback_result_desc`) VALUES
+(1, 33, '254703130580', 1, 0, '63598-13796786-1', 'ws_CO_18052022145856358703130580', '0', NULL, NULL),
+(2, 33, '254703130580', 1, 0, '53786-55006352-1', 'ws_CO_18052022150337133703130580', '0', NULL, NULL),
+(3, 33, '254703130580', 1, 0, '27542-57927042-1', 'ws_CO_18052022154647572703130580', '0', NULL, NULL),
+(4, 33, '254703130580', 1, 0, '15946-13133768-1', 'ws_CO_18052022163329539703130580', '0', '0', 'The service request is processed successfully.'),
+(5, 33, '254703130580', 1, 0, '27542-58051285-1', 'ws_CO_18052022164408772703130580', '0', '1032', 'Request cancelled by user'),
+(6, 33, '254703130580', 1, 0, '27528-58055237-1', 'ws_CO_18052022164554555703130580', '0', NULL, NULL),
+(7, 33, '254703130580', 1, 0, '46626-56749368-1', 'ws_CO_18052022164648702703130580', '0', '17', 'Rule limited.'),
+(8, 33, '254703130580', 1, 1, '15945-13166164-1', 'ws_CO_18052022164805451703130580', '0', '0', 'The service request is processed successfully.'),
+(9, 34, '254769290772', 1, 0, '32107-738146-1', 'ws_CO_21052022113751889769290772', '0', NULL, NULL),
+(10, 34, '254703130580', 1, 1, '86348-117174-1', 'ws_CO_21052022114744503703130580', '0', '0', 'The service request is processed successfully.'),
+(11, 30, '254703130580', 1, 0, '32088-5762351-1', 'ws_CO_23052022145215250703130580', '0', NULL, NULL),
+(12, 30, '254703130580', 1, 0, '27517-69551719-1', 'ws_CO_23052022145325342703130580', '0', NULL, NULL),
+(13, 30, '254703130580', 1, 1, '32091-5767474-1', 'ws_CO_23052022145435248703130580', '0', '0', 'The service request is processed successfully.');
+
+--
+-- Dumping data for table `job_payment_dispatch`
+--
+
+INSERT INTO `job_payment_dispatch` (`id`, `job_payment_id`, `is_refund`, `phone_number`, `amount`, `is_dispatch_successful`, `response_conversation_id`, `response_originator_conversation_id`, `response_response_code`) VALUES
+(10, 13, 1, '254703130580', 1, 0, 'AG_20220523_20102c0b5f25c026e5b0', '19156-5881860-1', '0'),
+(11, 13, 1, '254703130580', 1, 0, 'AG_20220523_20102cfa35d8bc8db292', '21168-5513746-2', '0');
 
 --
 -- Dumping data for table `job_proposal`
@@ -126,7 +155,8 @@ INSERT INTO `job_proposal` (`id`, `status`, `title`, `description`, `job_id`, `f
 (8, 'accepted', 'Used to working with such data all day', 'I would like to give it my all', 9, 11, NULL, NULL, NULL, NULL, NULL, '2022-05-02 05:18:45', 1),
 (9, 'rejected', 'Former Software Developer', 'I am farmiliar with some of the technology above', 8, 11, NULL, NULL, NULL, NULL, NULL, '2022-05-02 05:19:38', 1),
 (10, 'rejected', 'Former Software Engineer', 'As the title says, I am a former software developer and would like to give this task a try', 7, 11, NULL, NULL, NULL, NULL, NULL, '2022-05-02 05:20:23', 1),
-(11, 'accepted', 'Experienced copywriter', 'Creative wordsmith dedicated to crafting messages worthwhile remembering. I believe stories are key to human connection, and storytelling is my passion. Let&rsquo;s get into each other.', 12, 11, NULL, NULL, NULL, NULL, NULL, '2022-05-02 05:22:11', 1);
+(11, 'accepted', 'Experienced copywriter', 'Creative wordsmith dedicated to crafting messages worthwhile remembering. I believe stories are key to human connection, and storytelling is my passion. Let&rsquo;s get into each other.', 12, 11, NULL, NULL, NULL, NULL, NULL, '2022-05-02 05:22:11', 1),
+(13, 'sent', 'Sample proposal 1', 'Sample proposal 1 desc', 33, 10, NULL, NULL, NULL, NULL, NULL, '2022-05-18 10:56:50', 1);
 
 --
 -- Dumping data for table `job_rating`
@@ -183,7 +213,10 @@ INSERT INTO `job_skill` (`id`, `job_id`, `skill_id`) VALUES
 (47, 31, 10),
 (44, 31, 20),
 (48, 32, 1),
-(49, 32, 19);
+(49, 32, 19),
+(50, 33, 1),
+(51, 33, 29),
+(52, 34, 28);
 
 --
 -- Dumping data for table `skill`
