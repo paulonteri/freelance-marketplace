@@ -283,6 +283,51 @@ class DashboardClientController extends _BaseController
         $router->renderView(self::$basePath . 'jobs/create', $data);
     }
 
+    public static function jobDeactivateAndGetRefund(Router $router)
+    {
+        DashboardClientController::requireUserIsClient($router);
+        $data = [
+            'pageTitle' => "Job Details",
+        ];
+        $errors = array();
+        $alert = null;
+
+        // -------------------- $_GET -------------------- 
+        if (isset($_GET['jobId'])) {
+            $data['id'] = $_GET['jobId'];
+            $job = JobModel::tryGetById($data['id']);
+
+            if ($job == null || !$job->isJobCreatedByUser(UserModel::getCurrentUser()->getId())) {
+                $errors = ['Job not found.'];
+            } else {
+
+                // -------------------- refund and deactivate -------------------- 
+                if ($job->isClientEligibleForRefund()) {
+                    $paymentHelper = new JobMpesaPaymentHelper();
+                    $paymentRequestIsSuccessful = $paymentHelper->refund($job);
+                    if (!$paymentRequestIsSuccessful) {
+                        $errors = array('Something went wrong while refunding. Please contact us. Refresh the page to try again.',);
+                    } else {
+                        $job = $job->deactivate();
+                        $alert = 'Job deactivated successfully!';
+                    }
+                } else {
+                    $errors = ['Job is not eligible for refund.'];
+                }
+                // -------------------- refund and deactivate -------------------- 
+
+                $job = JobModel::tryGetById($data['id']);
+                $data['job'] = $job;
+                $data['pageTitle'] = "Job deactivated: " . $job->getTitle();
+            }
+        } else {
+            $errors = ['Job id not found.'];
+        }
+        // -------------------- $_GET -------------------- 
+
+        $router->renderView(self::$basePath . 'jobs/id/deactivate-and-get-refund', $data, $alert, $errors);
+    }
+
     public static function jobPay(Router $router)
     {
         DashboardClientController::requireUserIsClient($router);
@@ -585,9 +630,9 @@ class DashboardClientController extends _BaseController
                         $rating->delete();
                     } else {
                         $paymentHelper = new JobMpesaPaymentHelper();
-                        $paymentRequestIsSuccessful = $paymentHelper->payClient($job);
+                        $paymentRequestIsSuccessful = $paymentHelper->payFreelancer($job);
                         if (!$paymentRequestIsSuccessful) {
-                            $errors = array('Something went wrong while paying client. Please try again.',);
+                            $errors = array('Something went wrong while paying freelancer. Please contact us.',);
                         }
                     }
 
@@ -614,6 +659,12 @@ class DashboardClientController extends _BaseController
 
                         if ($proposal->markAsCompletedUnsuccessfully()) {
                             $alert = 'Work rejected!';
+
+                            $paymentHelper = new JobMpesaPaymentHelper();
+                            $paymentRequestIsSuccessful = $paymentHelper->refund($job);
+                            if (!$paymentRequestIsSuccessful) {
+                                $errors = array('Something went wrong while refunding. Please contact us.',);
+                            }
                         } else {
                             $errors = ['Work not rejected. Something went wrong'];
                         }

@@ -90,6 +90,14 @@ class JobModel extends _BaseModel
     return new JobModel($db->lastInsertId());
   }
 
+  public function deactivate(): void
+  {
+    $sql = 'UPDATE job SET is_active = 0 WHERE id = :id';
+    $statement = $this->db->prepare($sql);
+    $statement->bindParam(':id', $this->id);
+    $statement->execute();
+  }
+
   public function getId(): int
   {
     return $this->id;
@@ -152,6 +160,10 @@ class JobModel extends _BaseModel
 
   public function hasBeenPaidFor(): bool
   {
+    if ($this->hasBeenRefunded()) {
+      return false;
+    }
+
     $sql = 'SELECT * FROM job_payment WHERE job_id = :job_id AND is_payment_successful = 1';
     $statement = $this->db->prepare($sql);
     $statement->bindParam(':job_id', $this->id);
@@ -186,11 +198,11 @@ class JobModel extends _BaseModel
     }
   }
 
-  public function hasClientBeenPaid(): bool
+  public function hasFreelancerBeenPaid(): bool
   {
     $payment = $this->getPayment();
     if ($payment) {
-      return $payment->hasClientBeenPaid();
+      return $payment->hasFreelancerBeenPaid();
     } else {
       return false;
     }
@@ -594,5 +606,20 @@ class JobModel extends _BaseModel
     }
 
     return $this->getAcceptedProposal()->hasClientRating();
+  }
+
+  public function isClientEligibleForRefund(): bool
+  {
+    $proposalValidForRefund = false;
+    if (!$this->getAcceptedProposal() || !$this->getAcceptedProposal()->isClientEligibleForRefund()) {
+      $proposalValidForRefund = true;
+    }
+
+    $jobValidForRefund = false;
+    if ($this->is_active == 1 && ($this->isExpired() || !$this->hasJobStarted())) {
+      $jobValidForRefund = true;
+    }
+
+    return $proposalValidForRefund && $jobValidForRefund;
   }
 }

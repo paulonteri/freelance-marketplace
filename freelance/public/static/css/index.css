@@ -152,11 +152,6 @@ body {
     }
 }
 
-.button-red {
-    background-color: red !important;
-    border-color: red !important;
-}
-
 @media (min-width: 40rem) {
     .quarter-screen-size-image {
         max-width: 25vw !important;
@@ -164,6 +159,15 @@ body {
 }
 
 /* ------------------- end simple utilities ------------------------- */
+
+/* ------------------- buttons ------------------------- */
+
+.button-red {
+    background-color: red !important;
+    border-color: red !important;
+}
+
+/* ------------------- end buttons ------------------------- */
 
 /* ------------------- pagination ------------------------- */
 

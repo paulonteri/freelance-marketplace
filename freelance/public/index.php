@@ -73,6 +73,7 @@ $router->get('/dashboard/client/jobs/id', [DashboardClientController::class, 'jo
 $router->get('/dashboard/client/jobs/id/pay', [DashboardClientController::class, 'jobPay']);
 $router->post('/dashboard/client/jobs/id/pay', [DashboardClientController::class, 'jobPay']);
 $router->get('/dashboard/client/jobs/id/confirm-payment', [DashboardClientController::class, 'jobConfirmPayment']);
+$router->get('/dashboard/client/jobs/id/deactivate-and-get-refund', [DashboardClientController::class, 'jobDeactivateAndGetRefund']);
 $router->post('/callbacks/job-payment', [DashboardClientController::class, 'jobPayCallback']);
 $router->get('/dashboard/client/jobs/id/proposals', [DashboardClientController::class, 'jobProposals']);
 $router->get('/dashboard/client/jobs/id/review-and-complete', [DashboardClientController::class, 'jobReviewAndComplete']);

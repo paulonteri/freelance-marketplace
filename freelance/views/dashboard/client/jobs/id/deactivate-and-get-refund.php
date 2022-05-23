@@ -151,53 +151,6 @@
 
     <hr style="margin: 1rem 0;" />
 
-    <p><b>Payment:</b></p>
-    <?php if ($job->hasBeenPaidFor()) { ?>
-    <p>
-        Completed payment. Thank you!
-    </p>
-    <?php } else { ?>
-    <p>
-        We haven't received your payment yet, kindly
-        <a href="/dashboard/client/jobs/id/pay?jobId=<?php echo $job->getId(); ?>">
-            pay for the job &rarr;
-        </a>
-    </p>
-
-    <?php } ?>
-
-    <hr style="margin: 1rem 0;" />
-
-    <div class="container" style="padding-bottom:10px; padding-top:25px;">
-        <a href="/dashboard/client/jobs/id/proposals?jobId=<?php echo $job->getId() ?>">
-            <button class="" <?php if ($job->getAcceptedProposal() != null) { ?> disabled <?php   } ?>
-                style="margin: auto !important; display: flex !important;">
-                View proposals &rarr;
-            </button>
-        </a>
-    </div>
-
-    <?php if ($job->getAcceptedProposal() != null) { ?>
-    <div class="container" style="padding-bottom:55px; padding-top:10px;">
-        <a href="/dashboard/client/jobs/id/review-and-complete?jobId=<?php echo $job->getId() ?>">
-            <button class="" style="margin: auto !important; display: flex !important;">
-                Review & complete &rarr;
-            </button>
-        </a>
-    </div>
-    <?php } ?>
-
-    <hr style="margin: 1rem 0;" />
-
-    <?php if ($job->isClientEligibleForRefund()) { ?>
-    <div class="container" style="padding-bottom:55px; padding-top:10px;">
-        <a href="/dashboard/client/jobs/id/deactivate-and-get-refund?jobId=<?php echo $job->getId() ?>">
-            <button class="button-red" style="margin: auto !important; display: flex !important;">
-                Deactivate job
-            </button>
-        </a>
-    </div>
-    <?php } ?>
 
 </div>
 <!-------------------------------- end job -------------------------------------------------------->

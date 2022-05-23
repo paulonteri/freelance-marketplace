@@ -176,7 +176,7 @@ class JobPaymentModel extends _BaseModel
         return false;
     }
 
-    public function hasClientBeenPaid(): bool
+    public function hasFreelancerBeenPaid(): bool
     {
         $sql = "SELECT * FROM job_payment_dispatch WHERE job_payment_id = :job_payment_id AND is_refund = 0 AND is_dispatch_successful = 1";
         $statement = $this->db->prepare($sql);

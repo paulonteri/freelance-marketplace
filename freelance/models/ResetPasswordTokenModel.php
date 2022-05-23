@@ -54,8 +54,9 @@ class ResetPasswordTokenModel extends _BaseModel
         $statement->execute();
 
         // send mail
+        $settings = new Settings();
         $mailBody = '<p>You requested a password reset. Please click the link below to reset your password.</p>';
-        $mailBody .= '<p><a href="' . Settings::$host . '/reset-password/reset?token=' . $token . '">Reset Password</a></p>';
+        $mailBody .= '<p><a href="' . $settings->host . '/reset-password/reset?token=' . $token . '">Reset Password</a></p>';
 
         Mailer::sendMail($email, 'Reset password', $mailBody);
 

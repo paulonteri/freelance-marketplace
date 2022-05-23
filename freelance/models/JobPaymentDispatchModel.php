@@ -68,6 +68,5 @@ class JobPaymentDispatchModel extends _BaseModel
         $statement->execute();
 
         return new JobPaymentDispatchModel($db->lastInsertId());
-    }   
-    )
+    }
 }

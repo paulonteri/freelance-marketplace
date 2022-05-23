@@ -8,7 +8,7 @@ use app\utils\DisplayAlert;
 class JobProposalModel extends _BaseModel
 {
     private int $id;
-    private string $status;
+    private string $status; // 'sent','accepted','completed successfully','rejected','withdrawn','completed unsuccessfully','work submitted','job expired before work submission'
     private string $title;
     private string $description;
     private int $job_id;
@@ -20,9 +20,10 @@ class JobProposalModel extends _BaseModel
     private ?string $time_work_ends;
     private string $time_created;
     private bool $is_active;
-    private static array $accepted_statuses = ['accepted', 'work submitted', 'completed successfully', 'completed unsuccessfully'];
-    private static array $work_submitted_statuses = ['work submitted', 'completed successfully', 'completed unsuccessfully'];
-    private static array $completed_statuses = ['completed successfully', 'completed unsuccessfully'];
+    private static array $accepted_statuses = ['accepted', 'work submitted', 'completed successfully', 'completed unsuccessfully', 'job expired before work submission'];
+    private static array $work_submitted_statuses = ['work submitted', 'completed successfully', 'completed unsuccessfully', 'job expired before work submission'];
+    private static array $completed_statuses = ['completed successfully', 'completed unsuccessfully', 'job expired before work submission'];
+    private static array $eligible_for_refund_statuses = ['completed unsuccessfully', 'job expired before work submission'];
 
     public function __construct(?int $id)
     {
@@ -484,6 +485,14 @@ class JobProposalModel extends _BaseModel
     public function hasClientRating(): bool
     {
         if ($this->getClientRating() != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public function isClientEligibleForRefund(): bool
+    {
+        if (in_array($this->status, $this->eligible_for_refund_statuses)) {
             return true;
         }
         return false;

@@ -25,7 +25,7 @@ class JobMpesaPaymentHelper
         "BusinessShortCode" => null,
         "secret" => null,
         "key" => null,
-        "securityCredential" => null, // https://youtu.be/uWh_5-l8IVQ?t=562 Base64 encoded string of the Security Credential, which is encrypted using M-Pesa public key and validates the transaction on M-Pesa Core system.
+        "SecurityCredential" => null, // https://youtu.be/uWh_5-l8IVQ?t=562 Base64 encoded string of the Security Credential, which is encrypted using M-Pesa public key and validates the transaction on M-Pesa Core system.
         // "username" => "apitest",
     );
 
@@ -37,7 +37,7 @@ class JobMpesaPaymentHelper
         $this->config["key"] = getenv("MPESA_CONSUMER_KEY") ? getenv("MPESA_CONSUMER_KEY") : null;
         $this->config["secret"] = getenv("MPESA_CONSUMER_SECRET") ? getenv("MPESA_CONSUMER_SECRET") : null;
         $this->config["passkey"] = getenv("MPESA_PASSKEY") ? getenv("MPESA_PASSKEY") : null;
-        $this->config["securityCredential"] = getenv("MPESA_SECURITY_CREDENTIAL") ? getenv("MPESA_SECURITY_CREDENTIAL") : null;
+        $this->config["SecurityCredential"] = getenv("MPESA_SECURITY_CREDENTIAL") ? getenv("MPESA_SECURITY_CREDENTIAL") : null;
     }
 
     /**
@@ -46,11 +46,16 @@ class JobMpesaPaymentHelper
      */
     public function makePaymentRequest(string $phone, JobModel $job)
     {
+        $settings = new Settings();
         $amount = 1;
         $phone = $this->formatPhoneNumber($phone);
 
         if ($job->hasBeenPaidFor()) {
             DisplayAlert::displayError("Job already paid for.");
+            return false;
+        }
+        if ($job->hasBeenRefunded()) {
+            DisplayAlert::displayError("Cannot pay a job that you was paid for then refunded");
             return false;
         }
 
@@ -80,11 +85,12 @@ class JobMpesaPaymentHelper
             "PartyA" => $phone,
             "PartyB" => $this->config['BusinessShortCode'],
             "PhoneNumber" => $phone,
-            "CallBackURL" => Settings::$host . "/callbacks/job-payment", // Enter your callback url here
+            "CallBackURL" => $settings->host . "/callbacks/job-payment", // Enter your callback url here
             "AccountReference" => $this->config['AccountReference'],
             "TransactionDesc" => $this->config['TransactionDesc'],
         );
         $curlPostDataString = json_encode($curlPostData);
+        echo var_dump($curlPostData);
 
         $curlTransfer = curl_init($endpoint);
 
@@ -198,8 +204,8 @@ class JobMpesaPaymentHelper
         } else if ($job->hasBeenRefunded()) {
             DisplayAlert::displayError("Cannot initiate refund. Job already refunded.");
             return false;
-        } else if ($job->hasClientBeenPaid()) {
-            DisplayAlert::displayError("Cannot initiate refund. Client already paid.");
+        } else if ($job->hasFreelancerBeenPaid()) {
+            DisplayAlert::displayError("Cannot initiate refund. Freelancer already paid.");
             return false;
         }
 
@@ -217,28 +223,32 @@ class JobMpesaPaymentHelper
     }
 
     /** 
-     * This method is used to pay a client for a job.
+     * This method is used to pay a freelancer for a job.
      *
      * @param JobModel $job
      * @return bool
      */
-    public function payClient(JobModel $job)
+    public function payFreelancer(JobModel $job)
     {
-        if (!$job->hasBeenPaidFor()) {
-            DisplayAlert::displayError("Cannot initiate refund. Job not paid for.");
+        $acceptedProposal = $job->getAcceptedProposal();
+        if ($acceptedProposal == null) {
+            DisplayAlert::displayError("Cannot pay freelancer. No accepted proposal found.");
+            return false;
+        } else if (!$job->hasBeenPaidFor()) {
+            DisplayAlert::displayError("Cannot initiate freelancer payment. Job not paid for.");
             return false;
         } else if ($job->hasBeenRefunded()) {
-            DisplayAlert::displayError("Cannot initiate refund. Job already refunded.");
+            DisplayAlert::displayError("Cannot initiate freelancer payment. Job has been refunded.");
             return false;
-        } else if ($job->hasClientBeenPaid()) {
-            DisplayAlert::displayError("Cannot initiate refund. Client already paid.");
+        } else if ($job->hasFreelancerBeenPaid()) {
+            DisplayAlert::displayError("Cannot initiate freelancer payment. Freelancer already paid.");
             return false;
         }
 
         $jobPayment = $job->getPayment();
         $amount = $jobPayment->getAmount();
-        $client = $job->getClient();
-        $phone = $client->getUser()->getPhone();
+        $freelancer = $acceptedProposal->getFreelancer();
+        $phone = $freelancer->getUser()->getPhone();
 
         return $this->dispatchMoney(
             $jobPayment,
@@ -259,6 +269,7 @@ class JobMpesaPaymentHelper
     {
         $amount = 1;
         $phone = $this->formatPhoneNumber($phone);
+        $settings = new Settings();
 
 
         if (!$this->checkIfConfigIsValid()) {
@@ -288,8 +299,8 @@ class JobMpesaPaymentHelper
             "PartyA" => $this->config['BusinessShortCode'],
             "PartyB" => $phone,
             "Remarks" => $remarks, // Comments that are sent along with the transaction.
-            "QueueTimeOutURL" => Settings::$host . "/callbacks/dispatch-queue-timeout",
-            "ResultURL" => Settings::$host . "/callbacks/dispatch-payment-result",
+            "QueueTimeOutURL" => $settings->host . "/callbacks/dispatch-queue-timeout",
+            "ResultURL" => $settings->host . "/callbacks/dispatch-payment-result",
         );
         $curlPostDataString = json_encode($curlPostData);
 
