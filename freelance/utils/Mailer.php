@@ -13,14 +13,14 @@ class Mailer
     public static function sendMail(string $to, string $subject, string $body): bool
     {
 
+        $from = getenv("MAIL_USERNAME");
         $password = getenv("MAIL_PASSWORD");
-        if (!$password || $password == "") {
+        if (!$password || $password == "" || !$from || $from == "") {
             DisplayAlert::displayError("Error while sending Email: '" . $subject . "' Email not configured.");
             return false;
         }
 
         $mail = new PHPMailer(true);
-        $from = '1034035@cuea.edu';
 
         try {
             // Server settings

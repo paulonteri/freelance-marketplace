@@ -34,15 +34,14 @@ manipulate data using the Model component and interact with the Views to render 
 
 ### Extra files & folders
 
-- `/public/index.php`: This is the main entry point of the application. All routes are defined here
-- `/public/assets`: This folder contains all the assets that are used throughout the application.
-- `/public/uploads`: This folder contains all the uploaded files that are used throughout the application. It should
+- `public/index.php`: This is the main entry point of the application. All routes are defined here
+- `public/assets/`: This folder contains all the assets that are used throughout the application.
+- `public/uploads/`: This folder contains all the uploaded files that are used throughout the application. It should
   not have been added to the repo - it was only added as a convenience with regard to presenting it as a school project.
-- `/utils`: This folder contains all the utility classes that are used throughout the application.
+- `utils/`: This folder contains all the utility classes that are used throughout the application.
 - `Router.php`: This is the main file that handles all the routing logic of the application.
 - `Settings.php`: This is the main configuration file that contains all the configuration variables.
 - `Database.php`: This is the main file that contains all the database connection logic.
-
 - `db_schema.sql` and `db_schema.png`: These are the database schema files.
 - `db_data.sql`: This is the database (backup) data file. Again, it should not have been added to the repo - it was
   only added as a convenience with regard to presenting it as a school project.
@@ -86,9 +85,18 @@ Use the SQL in the `db_schema.sql` file to create the database schema.
 
 Use the SQL in the `db_data.sql` file to populate the database with some data.
 
+### Mail (Optional)
+
+Mails are sent via `smtp.gmail.com` (Gmail). See more in `utils/Mailer.php`.
+
+Set the following environment variables to get it working:
+
+- `MAIL_USERNAME`: Your Gmail email address.
+- `MAIL_PASSWORD`: Your Gmail password.
+
 ### Payments (Optional)
 
-This app curretly uses the **M-Pesa Express** (LIPA NA M-PESA Online API / STK Push) and **Business To Customer (B2C)** (Pay Outs / Bulk Disbursements) APIs. See more in `/utils/JobMpesaPaymentHelper.php`.
+This app curretly uses the **M-Pesa Express** (LIPA NA M-PESA Online API / STK Push) and **Business To Customer (B2C)** (Pay Outs / Bulk Disbursements) APIs. See more in `utils/JobMpesaPaymentHelper.php`.
 
 Get started by signing up for an [MPESA Daraja API account](https://developer.safaricom.co.ke/) and set up a payment gateway for the application.
 
