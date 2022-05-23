@@ -85,6 +85,10 @@ Use the SQL in the `db_schema.sql` file to create the database schema.
 
 Use the SQL in the `db_data.sql` file to populate the database with some data.
 
+### Environment variables (Optional)
+
+Check out the environment variables used by the app in the `env.example` file.
+
 ### Mail (Optional)
 
 Mails are sent via `smtp.gmail.com` (Gmail). See more in `utils/Mailer.php`.
@@ -117,10 +121,6 @@ Note that for the Mpesa callbacks to work the app must be accessible from the in
 Once ready to go for live payments, set the `MPESA_ENV` to `live`. The default is `sandbox`.
 
 Learn more from the MPESA documentation [here](https://developer.safaricom.co.ke/Documentation).
-
-### Environment variables (Optional)
-
-Check out the environment variables used by the app in the `env.example` file.
 
 ---
 
