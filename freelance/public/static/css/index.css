@@ -518,6 +518,7 @@ th:last-child {
     /* margin-right: 10px; */
     padding: 5px 10px;
     margin-bottom: 0;
+    margin-top: 0;
 }
 
 .admin-header {
@@ -663,7 +664,3 @@ th:last-child {
 }
 
 /* ------------------- end freelancer ------------------------- */
-
-/* ------------------- forms ------------------------- */
-
-/* ------------------- end forms ------------------------- */

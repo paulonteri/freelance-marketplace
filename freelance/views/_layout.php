@@ -174,9 +174,14 @@
 
     <p style="text-align:center;">
         <script>
-        document.write("Marketplace @ " + new Date().getFullYear());
+        document.write("Freelance Marketplace @ " + new Date().getFullYear());
         </script>
     </p>
 
+    <p style="text-align:center;">
+        <small>
+            Built with 💙 by <a href="https://paulonteri.com">Paul Onteri</a>.
+        </small>
+    </p>
 </footer>
 <!-------------------------------- end footer -------------------------------------------------------->
