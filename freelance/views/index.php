@@ -1,21 +1,19 @@
 <!----------------------------- intro -------------------------------------------------------->
 <div class="container">
     <div class="row">
-        <div class="column" style="margin-top:150px;">
+        <div class="column" style="margin-top:50px;">
             <h1 style="text-align:center; margin:auto 0;">How work should work</h1>
-        </div>
-        <div class=" column">
-            <img src="https://d27jswm5an3efw.cloudfront.net/app/uploads/2019/07/insert-image-html-4-768x546.jpg"
-                alt="splash image">
+            <p style="text-align:center; margin:auto 0;">A freelancing marketplace for the modern age!</p>
         </div>
     </div>
 </div>
+<hr />
 <!----------------------------- end intro -------------------------------------------------------->
 
 <!----------------------------- company-intro -------------------------------------------------------->
 <hr />
 <div class="container" style="margin-top:50px;">
-    <h2 style="text-align:center; margin-bottom25px;">Need something done?</h2>
+    <h2 style="text-align:center; margin-bottom:25px;">Need something done?</h2>
     <div class="row">
         <div class="column" style="margin-top:20px;">
             <h3>Post a job</h3>
