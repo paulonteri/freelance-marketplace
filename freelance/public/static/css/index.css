@@ -212,7 +212,7 @@ hr {
 }
 
 a {
-    color: #9b4dca;
+    color: #3aafa9;
     text-decoration: none;
 }
 
@@ -242,8 +242,8 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-    background-color: #9b4dca;
-    border: 0.1rem solid #9b4dca;
+    background-color: #3aafa9;
+    border: 0.1rem solid #3aafa9;
     border-radius: 0.4rem;
     color: #fff;
     cursor: pointer;
@@ -301,7 +301,7 @@ input:focus,
 input:not([type]):focus,
 textarea:focus,
 select:focus {
-    border-color: #9b4dca;
+    border-color: #3aafa9;
     outline: 0;
 }
 
@@ -312,7 +312,7 @@ select {
 }
 
 select:focus {
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%239b4dca" d="M0,0l6,8l6-8"/></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%2#3aafa9" d="M0,0l6,8l6-8"/></svg>');
 }
 
 select[multiple] {
@@ -604,9 +604,9 @@ th:last-child {
 }
 
 .pagination a.active {
-    background-color: #9b4dca;
+    background-color: #3aafa9;
     color: white;
-    border: 1px solid #9b4dca;
+    border: 1px solid #3aafa9;
 }
 
 .pagination a:hover:not(.active) {
