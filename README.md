@@ -35,7 +35,7 @@ manipulate data using the Model component and interact with the Views to render 
 ### Extra files & folders
 
 - `public/index.php`: This is the main entry point of the application. All routes are defined here
-- `public/assets/`: This folder contains all the assets that are used throughout the application.
+- `public/static/`: This folder contains all the static files that are used throughout the application like CSS, JavaScript and fonts.
 - `public/uploads/`: This folder contains all the uploaded files that are used throughout the application. It should
   not have been added to the repo - it was only added as a convenience with regard to presenting it as a school project.
 - `utils/`: This folder contains all the utility classes that are used throughout the application.
