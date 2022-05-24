@@ -10,7 +10,6 @@
         } ?>
     </title>
     <link rel="stylesheet" href="/static/css/index.css">
-    <link rel="stylesheet" href="/static/css/default.css">
     <script src="/static/javascript/index.js"></script>
 
 <body>

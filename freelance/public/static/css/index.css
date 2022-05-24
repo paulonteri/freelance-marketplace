@@ -1,10 +1,430 @@
-body {
-    min-height: 50%;
+html {
+    box-sizing: border-box; /* padding and border are included in the width and height: */
+    font-size: 60%;
 }
 
-.invalidFeedback {
-    color: red;
+body {
+    color: #606c76;
+    font-family: "Ubuntu", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    font-size: 1.6em;
+    font-weight: 350;
+    line-height: 1.6;
 }
+
+/* ------------------------------- Ubuntu font https://google-webfonts-helper.herokuapp.com/fonts/ubuntu?subsets=latin ------- */
+/* ubuntu-300 - latin */
+@font-face {
+    font-display: swap;
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 300;
+    src: url("/static/fonts/Ubuntu/ubuntu-v15-latin-300.eot");
+    src: local(""),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-300.eot?#iefix")
+            format("embedded-opentype"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-300.woff2") format("woff2"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-300.woff") format("woff"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-300.ttf") format("truetype"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-300.svg#Ubuntu")
+            format("svg");
+}
+/* ubuntu-300italic - latin */
+@font-face {
+    font-display: swap;
+    font-family: "Ubuntu";
+    font-style: italic;
+    font-weight: 300;
+    src: url("/static/fonts/Ubuntu/ubuntu-v15-latin-300italic.eot");
+    src: local(""),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-300italic.eot?#iefix")
+            format("embedded-opentype"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-300italic.woff2")
+            format("woff2"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-300italic.woff")
+            format("woff"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-300italic.ttf")
+            format("truetype"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-300italic.svg#Ubuntu")
+            format("svg");
+}
+/* ubuntu-regular - latin */
+@font-face {
+    font-display: swap;
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/static/fonts/Ubuntu/ubuntu-v15-latin-regular.eot");
+    src: local(""),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-regular.eot?#iefix")
+            format("embedded-opentype"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-regular.woff2")
+            format("woff2"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-regular.woff") format("woff"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-regular.ttf")
+            format("truetype"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-regular.svg#Ubuntu")
+            format("svg");
+}
+/* ubuntu-italic - latin */
+@font-face {
+    font-display: swap;
+    font-family: "Ubuntu";
+    font-style: italic;
+    font-weight: 400;
+    src: url("/static/fonts/Ubuntu/ubuntu-v15-latin-italic.eot");
+    src: local(""),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-italic.eot?#iefix")
+            format("embedded-opentype"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-italic.woff2")
+            format("woff2"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-italic.woff") format("woff"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-italic.ttf")
+            format("truetype"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-italic.svg#Ubuntu")
+            format("svg");
+}
+/* ubuntu-500 - latin */
+@font-face {
+    font-display: swap;
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 500;
+    src: url("/static/fonts/Ubuntu/ubuntu-v15-latin-500.eot");
+    src: local(""),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-500.eot?#iefix")
+            format("embedded-opentype"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-500.woff2") format("woff2"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-500.woff") format("woff"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-500.ttf") format("truetype"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-500.svg#Ubuntu")
+            format("svg");
+}
+/* ubuntu-500italic - latin */
+@font-face {
+    font-display: swap;
+    font-family: "Ubuntu";
+    font-style: italic;
+    font-weight: 500;
+    src: url("/static/fonts/Ubuntu/ubuntu-v15-latin-500italic.eot");
+    src: local(""),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-500italic.eot?#iefix")
+            format("embedded-opentype"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-500italic.woff2")
+            format("woff2"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-500italic.woff")
+            format("woff"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-500italic.ttf")
+            format("truetype"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-500italic.svg#Ubuntu")
+            format("svg");
+}
+/* ubuntu-700 - latin */
+@font-face {
+    font-display: swap;
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 700;
+    src: url("/static/fonts/Ubuntu/ubuntu-v15-latin-700.eot");
+    src: local(""),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-700.eot?#iefix")
+            format("embedded-opentype"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-700.woff2") format("woff2"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-700.woff") format("woff"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-700.ttf") format("truetype"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-700.svg#Ubuntu")
+            format("svg");
+}
+/* ubuntu-700italic - latin */
+@font-face {
+    font-display: swap;
+    font-family: "Ubuntu";
+    font-style: italic;
+    font-weight: 700;
+    src: url("/static/fonts/Ubuntu/ubuntu-v15-latin-700italic.eot");
+    src: local(""),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-700italic.eot?#iefix")
+            format("embedded-opentype"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-700italic.woff2")
+            format("woff2"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-700italic.woff")
+            format("woff"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-700italic.ttf")
+            format("truetype"),
+        url("/static/fonts/Ubuntu/ubuntu-v15-latin-700italic.svg#Ubuntu")
+            format("svg");
+}
+
+/* ------------------------------- End Ubuntu font  -------------------------------------------------------- */
+
+/* ------------------- text ------------------------- */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 400;
+    letter-spacing: -0.1rem;
+    margin-bottom: 2rem;
+    margin-top: 0;
+}
+
+h1 {
+    font-size: 4.6rem;
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: 3.6rem;
+    line-height: 1.25;
+}
+
+h3 {
+    font-size: 2.8rem;
+    line-height: 1.3;
+}
+
+h4 {
+    font-size: 2.2rem;
+    letter-spacing: -0.08rem;
+    line-height: 1.35;
+}
+
+h5 {
+    font-size: 1.8rem;
+    letter-spacing: -0.05rem;
+    line-height: 1.5;
+}
+
+h6 {
+    font-size: 1.6rem;
+    letter-spacing: 0;
+    line-height: 1.4;
+}
+
+hr {
+    border: 0;
+    border-top: 0.2rem solid #f4f5f6;
+    margin: 3rem 0;
+}
+
+a {
+    color: #9b4dca;
+    text-decoration: none;
+}
+
+a:focus,
+a:hover {
+    color: #606c76;
+}
+
+blockquote,
+dl,
+figure,
+form,
+ol,
+p,
+pre,
+table,
+ul {
+    margin-bottom: 2.5rem;
+}
+
+/* ------------------- end text ------------------------- */
+
+/* ------------------- buttons ------------------------- */
+
+.button,
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    background-color: #9b4dca;
+    border: 0.1rem solid #9b4dca;
+    border-radius: 0.4rem;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    height: 3.8rem;
+    letter-spacing: 0.1rem;
+    line-height: 3.8rem;
+    padding: 0 3rem;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.button[disabled],
+button[disabled],
+input[type="button"][disabled],
+input[type="reset"][disabled],
+input[type="submit"][disabled] {
+    cursor: default;
+    opacity: 0.5;
+}
+
+.button-red {
+    background-color: red !important;
+    border-color: red !important;
+}
+
+/* ------------------- end buttons ------------------------- */
+
+/* ------------------- forms ------------------------- */
+
+input,
+textarea,
+select {
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 0.1rem solid #d1d1d1;
+    border-radius: 0.4rem;
+    box-shadow: none;
+    box-sizing: inherit;
+    height: 3.8rem;
+    padding: 0.6rem 1rem 0.7rem;
+    width: 100%;
+}
+
+input[type="button"],
+input[type="submit"] {
+    width: auto;
+}
+
+input:focus,
+input:not([type]):focus,
+textarea:focus,
+select:focus {
+    border-color: #9b4dca;
+    outline: 0;
+}
+
+select {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%23d1d1d1" d="M0,0l6,8l6-8"/></svg>')
+        center right no-repeat;
+    padding-right: 3rem;
+}
+
+select:focus {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%239b4dca" d="M0,0l6,8l6-8"/></svg>');
+}
+
+select[multiple] {
+    background: none;
+    height: auto;
+}
+
+textarea {
+    min-height: 6.5rem;
+}
+
+label,
+legend {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+fieldset {
+    border-width: 0;
+    padding: 0;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    display: inline;
+}
+
+fieldset,
+input,
+select,
+textarea {
+    margin-bottom: 1.5rem;
+}
+
+/* ------------------- end forms ------------------------- */
+
+/* ------------------- containers ------------------------- */
+/* similar to how they work in bootstrap */
+
+.container {
+    margin: 0 auto;
+    max-width: 112rem;
+    padding: 0 2rem;
+    position: relative;
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    width: 100%;
+}
+
+.row .column {
+    display: block;
+    flex: 1 1 auto;
+    margin-left: 0;
+    max-width: 100%;
+    width: 100%;
+}
+
+@media (min-width: 40rem) {
+    .row {
+        flex-direction: row;
+        margin-left: -1rem;
+        width: calc(100% + 2rem);
+    }
+    .row .column {
+        margin-bottom: inherit;
+        padding: 0 1rem;
+    }
+}
+
+/* ------------------- end containers ------------------------- */
+
+/* ------------------- table ------------------------- */
+
+table {
+    border-spacing: 0;
+    display: block;
+    overflow-x: auto;
+    text-align: left;
+    width: 100%;
+}
+
+td,
+th {
+    border-bottom: 0.1rem solid #e1e1e1;
+    padding: 1.2rem 1.5rem;
+}
+
+td:first-child,
+th:first-child {
+    padding-left: 0;
+}
+
+td:last-child,
+th:last-child {
+    padding-right: 0;
+}
+
+@media (min-width: 40rem) {
+    table {
+        display: table;
+        overflow-x: initial;
+    }
+}
+
+/* ------------------- end table ------------------------- */
 
 /* ------------------- navbar ------------------------- */
 
@@ -111,11 +531,16 @@ body {
     /* margin-right: 10px; */
     padding: 5px 10px;
     margin-bottom: 0;
+    margin-top: 0;
 }
 
 /* ------------------- end dashboard/admin header ------------------------- */
 
 /* ------------------- simple utilities ------------------------- */
+
+.invalidFeedback {
+    color: red;
+}
 
 .rounded-corners {
     border-radius: 10px;
@@ -159,15 +584,6 @@ body {
 }
 
 /* ------------------- end simple utilities ------------------------- */
-
-/* ------------------- buttons ------------------------- */
-
-.button-red {
-    background-color: red !important;
-    border-color: red !important;
-}
-
-/* ------------------- end buttons ------------------------- */
 
 /* ------------------- pagination ------------------------- */
 
@@ -247,3 +663,7 @@ body {
 }
 
 /* ------------------- end freelancer ------------------------- */
+
+/* ------------------- forms ------------------------- */
+
+/* ------------------- end forms ------------------------- */
