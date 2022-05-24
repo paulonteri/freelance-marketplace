@@ -47,7 +47,7 @@ class JobMpesaPaymentHelper
     public function makePaymentRequest(string $phone, JobModel $job)
     {
         $settings = new Settings();
-        $amount = 1;
+        $amount = rand(10, 50); // manually override the amount for testing purposes
         $phone = $this->formatPhoneNumber($phone);
 
         if ($job->hasBeenPaidFor()) {
@@ -234,9 +234,6 @@ class JobMpesaPaymentHelper
         if ($acceptedProposal == null) {
             DisplayAlert::displayError("Cannot pay freelancer. No accepted proposal found.");
             return false;
-        } else if (!$job->hasBeenPaidFor()) {
-            DisplayAlert::displayError("Cannot initiate freelancer payment. Job not paid for.");
-            return false;
         } else if ($job->hasBeenRefunded()) {
             DisplayAlert::displayError("Cannot initiate freelancer payment. Job has been refunded.");
             return false;
@@ -267,7 +264,7 @@ class JobMpesaPaymentHelper
      */
     private function dispatchMoney(JobPaymentModel $jobPayment, bool $isRefund, float $amount, string $phone, string $remarks): bool
     {
-        $amount = 1;
+        $amount = rand(10, 50); // manually override the amount for testing purposes
         $phone = $this->formatPhoneNumber($phone);
         $settings = new Settings();
 

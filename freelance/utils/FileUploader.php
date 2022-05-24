@@ -38,9 +38,10 @@ class FileUploader
         if ($this->file_size > 15728640) {
             return 'File size must be less than 15 MB.';
         }
-        if ($this->file_size < 1) {
-            return 'File required.';
-        }
+        // // https://stackoverflow.com/questions/7959615/filesfilesize-returning-0
+        // if ($this->file_size < 1) {
+        //     return 'File required.';
+        // }
         if (!in_array($this->file_ext, $this->extensions)) {
             return 'File type not allowed.';
         }

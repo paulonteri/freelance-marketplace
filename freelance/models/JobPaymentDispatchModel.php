@@ -57,7 +57,8 @@ class JobPaymentDispatchModel extends _BaseModel
         $sql .= 'VALUES (:job_payment_id, :is_refund, :phone_number, :amount, :is_dispatch_successful, :response_conversation_id, :response_originator_conversation_id, :response_response_code)';
         $statement = $db->prepare($sql);
         $statement->bindParam(':job_payment_id', $job_payment_id);
-        $statement->bindParam(':is_refund', $is_refund);
+        $is_refund_int = $is_refund ? 1 : 0;
+        $statement->bindParam(':is_refund', $is_refund_int);
         $statement->bindParam(':phone_number', $phone_number);
         $statement->bindParam(':amount', $amount);
         $is_dispatch_successful_int = $is_dispatch_successful ? 1 : 0;

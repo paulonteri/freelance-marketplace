@@ -492,7 +492,7 @@ class JobProposalModel extends _BaseModel
 
     public function isClientEligibleForRefund(): bool
     {
-        if (in_array($this->status, $this->eligible_for_refund_statuses)) {
+        if (in_array($this->status, self::$eligible_for_refund_statuses)) {
             return true;
         }
         return false;

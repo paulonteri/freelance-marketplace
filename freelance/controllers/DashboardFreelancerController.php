@@ -604,7 +604,7 @@ class DashboardFreelancerController extends _BaseController
                     $errors = array('Something went wrong. Please try again.',);
                 } else {
                     $data['description'] = '';
-                    $router->renderView(self::$basePath . 'jobs/id/submit-work', $data, "Submission received successfully!");
+                    $router->renderView(self::$basePath . 'jobs/id/submit-work', $data, "Submission received successfully! Wait for the client to accept it.");
                     return;
                 }
             }
