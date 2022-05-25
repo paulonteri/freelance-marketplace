@@ -2,6 +2,8 @@
 
 namespace app\utils;
 
+use app\utils\Logger;
+
 class FileUploader
 {
 
@@ -55,6 +57,8 @@ class FileUploader
         $path = $this->uploads_folder . $prefix . date("DMdYG:i", time()) . $this->file_name;
 
         move_uploaded_file($this->file_tmp, $this->public_folder . $path);
+
+        Logger::log("Uploaded file: " . $path);
 
         return $path;
     }

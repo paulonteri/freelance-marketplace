@@ -2,9 +2,10 @@
 
 namespace app\models;
 
-use app\Database;
-use app\utils\DisplayAlert;
 use PDO;
+use app\Database;
+use app\utils\Logger;
+use app\utils\DisplayAlert;
 
 class ClientModel extends _BaseModel
 {
@@ -91,7 +92,11 @@ class ClientModel extends _BaseModel
         $statement->bindParam(':national_id', $national_id);
         $statement->execute();
 
-        return new ClientModel($db->lastInsertId());
+        $id = $db->lastInsertId();
+
+        Logger::log("Client with id $id has been created for user with id $user_id");
+
+        return new ClientModel($id);
     }
 
     public function update(
@@ -106,6 +111,8 @@ class ClientModel extends _BaseModel
         $statement->bindParam(':description', $description);
         $statement->bindParam(':type', $type);
         $statement->execute();
+
+        Logger::log("Client with id $this->id has been updated");
 
         return true;
     }

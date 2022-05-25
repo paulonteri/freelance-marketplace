@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\Database;
+use app\utils\Logger;
 use app\utils\DisplayAlert;
 
 class JobProposalModel extends _BaseModel
@@ -86,6 +87,8 @@ class JobProposalModel extends _BaseModel
             $statement->execute();
 
             $id = $db->lastInsertId();
+
+            Logger::log("Job proposal created with id: $id for job id: $job_id by freelancer id: $freelancer_id");
 
             return new JobProposalModel($id);
         } else {
@@ -258,6 +261,8 @@ class JobProposalModel extends _BaseModel
         $statement->bindParam(':id', $this->id);
         $statement->execute();
 
+        Logger::log("Job proposal id: {$this->id} rejected");
+
         return true;
     }
 
@@ -279,6 +284,8 @@ class JobProposalModel extends _BaseModel
         $statement->bindParam(':status', $statusString);
         $statement->bindParam(':id', $this->id);
         $statement->execute();
+
+        Logger::log("Job proposal id: {$this->id} withdrawn");
 
         return true;
     }
@@ -309,6 +316,8 @@ class JobProposalModel extends _BaseModel
         $statement->bindParam(':status', $statusString);
         $statement->bindParam(':id', $this->id);
         $statement->execute();
+
+        Logger::log("Job proposal id: {$this->id} accepted");
 
         // reject all other proposals for job
         $this::rejectAllJobProposalsExcept($this->getJobId(), $this->id);
@@ -375,6 +384,8 @@ class JobProposalModel extends _BaseModel
         $statement->bindParam(':id', $this->id);
         $statement->execute();
 
+        Logger::log("Job proposal id: {$this->id} submitted work");
+
         return true;
     }
 
@@ -402,6 +413,8 @@ class JobProposalModel extends _BaseModel
         $statement->bindParam(':id', $this->id);
         $statement->execute();
 
+        Logger::log("Job proposal id: {$this->id} marked as completed unsuccessfully");
+
         return true;
     }
 
@@ -428,6 +441,8 @@ class JobProposalModel extends _BaseModel
         $statement->bindParam(':status', $statusString);
         $statement->bindParam(':id', $this->id);
         $statement->execute();
+
+        Logger::log("Job proposal id: {$this->id} marked as completed successfully");
 
         return true;
     }

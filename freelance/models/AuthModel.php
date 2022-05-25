@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\Database;
+use app\utils\Logger;
 
 class AuthModel extends _BaseModel
 {
@@ -31,7 +32,7 @@ class AuthModel extends _BaseModel
     ) {
         $sql = "INSERT INTO user (email, password, first_name, middle_name, last_name, phone, image, county, city) VALUES(:email, :password, :first_name, :middle_name, :last_name, :phone, :image, :county, :city)";
         $statement = $this->db->prepare($sql);
-        $statement->execute(
+        $isSuccessful = $statement->execute(
             array(
                 ':email' => $email,
                 ':password' =>  AuthModel::hashPassword($password),
@@ -44,6 +45,12 @@ class AuthModel extends _BaseModel
                 'city' => $city,
             )
         );
+
+        if ($isSuccessful) {
+            Logger::log("User with email $email has been registered");
+        } else {
+            Logger::log("User with email $email has not been registered");
+        }
 
         return true;
     }
@@ -64,19 +71,28 @@ class AuthModel extends _BaseModel
             // create session
             $this->createUserSession($user);
 
+            Logger::log("User with email $email has been logged in");
+
             // redirect to dashboard
             header("location:dashboard");
 
             return true;
         } else {
+
+            Logger::log("User with email $email has not been logged in");
             return false;
         }
     }
 
     public function logout()
     {
+        $user_id = $_SESSION['user_id'];
+
         unset($_SESSION['user_id']);
         unset($_SESSION['email']);
+
+        Logger::log("User with user_id $user_id has been logged out");
+
         header('location:login');
     }
 
@@ -124,6 +140,8 @@ class AuthModel extends _BaseModel
             $statement->execute();
 
             ResetPasswordTokenModel::deleteAllTokensForUser($user_id);
+
+            Logger::log("User with user_id $user_id has been reset password");
 
             return true;
         }

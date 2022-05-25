@@ -2,6 +2,7 @@
 
 namespace app;
 
+use app\utils\Logger;
 use app\models\AuthModel;
 
 class Router
@@ -49,6 +50,16 @@ class Router
             $url = substr($url, 0, strpos($url, '?'));
         }
         $url = rtrim($url, '/'); // remove trailing slash
+
+        // log request ---------------------------------------------
+        $requestMethod = $_SERVER['REQUEST_METHOD'];
+        $requestIp = $_SERVER['REMOTE_ADDR'];
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+        $requestPath = $_SERVER['REQUEST_URI'];
+        $requestBody = file_get_contents('php://input');
+        $user = $this->isUserLoggedIn ? $_SESSION['user_id'] : 'guest';
+
+        Logger::log("Request: [$requestMethod $requestPath] from ip [$requestIp] and user [$user] with user agent [$userAgent] and body [$requestBody]");
 
         // find handler for the request path and method -------------------------------------
         if ($method === 'get') {

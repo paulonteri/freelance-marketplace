@@ -2,11 +2,12 @@
 
 namespace app\models;
 
+use PDO;
 use DateTime;
 use PDOException;
 use app\Database;
+use app\utils\Logger;
 use app\utils\DisplayAlert;
-use PDO;
 
 class JobModel extends _BaseModel
 {
@@ -87,7 +88,11 @@ class JobModel extends _BaseModel
     $statement->bindParam(':receive_job_proposals_deadline', $receive_job_proposals_deadline);
     $statement->execute();
 
-    return new JobModel($db->lastInsertId());
+    $id = $db->lastInsertId();
+
+    Logger::log("Job with id $id created");
+
+    return new JobModel($id);
   }
 
   public function deactivate(): void
@@ -96,6 +101,8 @@ class JobModel extends _BaseModel
     $statement = $this->db->prepare($sql);
     $statement->bindParam(':id', $this->id);
     $statement->execute();
+
+    Logger::log("Job with id {$this->id} deactivated");
   }
 
   public function getId(): int

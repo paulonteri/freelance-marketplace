@@ -2,9 +2,10 @@
 
 namespace app\models;
 
-use app\Database;
-use app\utils\DisplayAlert;
 use PDO;
+use app\Database;
+use app\utils\Logger;
+use app\utils\DisplayAlert;
 
 class UserModel extends _BaseModel
 {
@@ -108,7 +109,7 @@ class UserModel extends _BaseModel
     $sql = "UPDATE user SET email = :email, first_name = :first_name, last_name = :last_name, middle_name = :middle_name, phone = :phone, county = :county, city = :city";
     $sql .= " WHERE id = :id";
     $statement = $this->db->prepare($sql);
-    $statement->execute(
+    $isSuccessful = $statement->execute(
       array(
         'id' => $this->id,
         ':email' => $email,
@@ -120,6 +121,10 @@ class UserModel extends _BaseModel
         'city' => $city,
       )
     );
+
+    if ($isSuccessful) {
+      Logger::log("User with id {$this->id} updated");
+    }
 
     return true;
   }

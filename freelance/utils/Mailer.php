@@ -5,6 +5,7 @@ namespace app\utils;
 use PHPMailer\PHPMailer\PHPMailer;
 //use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+use app\utils\Logger;
 
 
 class Mailer
@@ -19,6 +20,8 @@ class Mailer
             DisplayAlert::displayError("Error while sending Email: '" . $subject . "' Email not configured.");
             return false;
         }
+
+        Logger::log("Sending email to [$to] with subject [$subject] with body [$body]");
 
         $mail = new PHPMailer(true);
 

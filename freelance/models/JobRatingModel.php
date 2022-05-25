@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\Database;
+use app\utils\Logger;
 use app\utils\DisplayAlert;
 
 
@@ -61,7 +62,11 @@ class JobRatingModel extends _BaseModel
         $statement->bindParam(':rating', $rating);
         $statement->execute();
 
-        return new JobRatingModel($db->lastInsertId());
+        $id = $db->lastInsertId();
+
+        Logger::log("Job rating type $type with id $id has been created for job with id $jobId");
+
+        return new JobRatingModel($id);
     }
 
     public function delete(): void
@@ -70,6 +75,8 @@ class JobRatingModel extends _BaseModel
         $statement = $this->db->prepare($sql);
         $statement->bindParam(':id', $this->id);
         $statement->execute();
+
+        Logger::log("Job rating with id $this->id has been deleted");
     }
 
     public function getId(): int

@@ -2,8 +2,9 @@
 
 namespace app\models;
 
-use app\Database;
 use PDO;
+use app\Database;
+use app\utils\Logger;
 
 
 class JobPaymentDispatchModel extends _BaseModel
@@ -67,6 +68,10 @@ class JobPaymentDispatchModel extends _BaseModel
         $statement->bindParam(':response_originator_conversation_id', $response_originator_conversation_id);
         $statement->bindParam(':response_response_code', $response_response_code);
         $statement->execute();
+
+        $id = $db->lastInsertId();
+
+        Logger::log("Job Payment Dispatch with id $id has been created for job payment $job_payment_id");
 
         return new JobPaymentDispatchModel($db->lastInsertId());
     }

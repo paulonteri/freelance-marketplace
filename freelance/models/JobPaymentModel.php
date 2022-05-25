@@ -2,8 +2,9 @@
 
 namespace app\models;
 
-use app\Database;
 use PDO;
+use app\Database;
+use app\utils\Logger;
 
 
 class JobPaymentModel extends _BaseModel
@@ -67,7 +68,11 @@ class JobPaymentModel extends _BaseModel
         $statement->bindParam(':response_checkout_request_id', $response_checkout_request_id);
         $statement->execute();
 
-        return new JobPaymentModel($db->lastInsertId());
+        $id = $db->lastInsertId();
+
+        Logger::log("Job payment with id $id has been created for job with id $job_id");
+
+        return new JobPaymentModel($id);
     }
 
     public function getId(): int
@@ -160,6 +165,8 @@ class JobPaymentModel extends _BaseModel
         $this->is_payment_successful = $is_payment_successful;
         $this->callback_result_code = $result_code;
         $this->callback_result_desc = $result_desc;
+
+        Logger::log("Callback info has been added to job payment with id {$this->id}");
     }
 
     public function hasBeenRefunded(): bool
