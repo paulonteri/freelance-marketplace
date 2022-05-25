@@ -19,7 +19,6 @@ class JobMpesaPaymentHelper
 {
     private $config = array(
         "AccountReference" => "Freelance Marketplace",
-        "TransactionDesc" => "Payment for job",
         "passkey" => null,
         "env" => "sandbox",
         "BusinessShortCode" => null,
@@ -87,10 +86,10 @@ class JobMpesaPaymentHelper
             "PhoneNumber" => $phone,
             "CallBackURL" => $settings->host . "/callbacks/job-payment", // Enter your callback url here
             "AccountReference" => $this->config['AccountReference'],
-            "TransactionDesc" => $this->config['TransactionDesc'],
+            "TransactionDesc" => "Payment for job {$job->getId()} at {$timestamp}",
         );
         $curlPostDataString = json_encode($curlPostData);
-        echo var_dump($curlPostData);
+        // echo var_dump($curlPostData);
 
         $curlTransfer = curl_init($endpoint);
 
@@ -107,11 +106,11 @@ class JobMpesaPaymentHelper
         $result = json_decode($response);
 
         if ($result == null) {
-            echo var_dump($result);
+            // echo var_dump($result);
             DisplayAlert::displayError("Error in payment request processing. Please try again later.");
             return false;
         } else if (isset($result->{'errorMessage'})) {
-            echo var_dump($result);
+            // echo var_dump($result);
             DisplayAlert::displayError('Error from Mpesa: ' . $result->{'errorMessage'});
             return false;
         }
@@ -181,11 +180,17 @@ class JobMpesaPaymentHelper
             return false;
         }
 
+        $isPaymentSuccessful = $callbackDataArray['Body']['stkCallback']['ResultCode'] == 0;
+
         $jobPayment->addCallBackInfo(
-            $callbackDataArray['Body']['stkCallback']['ResultCode'] == 0,
+            $isPaymentSuccessful,
             $callbackDataArray['Body']['stkCallback']['ResultCode'],
             $callbackDataArray['Body']['stkCallback']['ResultDesc']
         );
+
+        if ($isPaymentSuccessful) {
+            $jobPayment->getJob()->activate();
+        }
 
         return true;
     }

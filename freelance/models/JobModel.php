@@ -105,6 +105,16 @@ class JobModel extends _BaseModel
     Logger::log("Job with id {$this->id} deactivated");
   }
 
+  public function activate(): void
+  {
+    $sql = 'UPDATE job SET is_active = 1 WHERE id = :id';
+    $statement = $this->db->prepare($sql);
+    $statement->bindParam(':id', $this->id);
+    $statement->execute();
+
+    Logger::log("Job with id {$this->id} activated");
+  }
+
   public function getId(): int
   {
     return $this->id;
