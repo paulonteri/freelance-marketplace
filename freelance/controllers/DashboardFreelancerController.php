@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use PDOException;
 use app\Router;
+use app\Settings;
+use app\utils\Mailer;
 use app\utils\FileUploader;
 use app\models\SkillModel;
 use app\models\UserModel;
@@ -107,6 +109,13 @@ class DashboardFreelancerController extends _BaseController
                         $router->renderView(self::$basePath . 'onboarding', $data, null, ["Something went wrong. Please try again."]);
                         return;
                     } else {
+                        // send mail
+                        $email = $user->getEmail();
+                        $settings = new Settings();
+                        $mailBody = '<p>Your freelancer profile has been created successfully.</p>';
+                        $mailBody .= '<p>Visit your dashboard <a href="' . $settings->host . '/dashboard/freelancer">here</a></p>';
+                        Mailer::sendMail($email, 'Freelancer profile created', $mailBody);
+
                         header('location:/dashboard/freelancer?alert="Freelancer profile created successfully!"');
                     }
                 } catch (PDOException $e) {
@@ -603,6 +612,12 @@ class DashboardFreelancerController extends _BaseController
                 if (!$submission) {
                     $errors = array('Something went wrong. Please try again.',);
                 } else {
+
+                    // send mail
+                    $email = $job->getClient()->getUser()->getEmail();
+                    $mailBody = "<p>Work for job id {$job->getId()} has been submitted. Visit your dashboard for more info.</p>";
+                    Mailer::sendMail($email, 'Work submitted', $mailBody);
+
                     $data['description'] = '';
                     $router->renderView(self::$basePath . 'jobs/id/submit-work', $data, "Submission received successfully! Wait for the client to accept it.");
                     return;

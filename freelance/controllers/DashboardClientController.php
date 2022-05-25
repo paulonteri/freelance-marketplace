@@ -4,6 +4,9 @@ namespace app\controllers;
 
 use DateTime;
 use app\Router;
+use app\Settings;
+use app\utils\Mailer;
+use app\utils\Logger;
 use app\utils\ImageUploader;
 use app\models\UserModel;
 use app\models\ClientModel;
@@ -12,7 +15,6 @@ use app\models\SkillModel;
 use app\models\JobProposalModel;
 use app\models\JobRatingModel;
 use app\utils\JobMpesaPaymentHelper;
-use app\utils\Logger;
 
 class DashboardClientController extends _BaseController
 {
@@ -105,6 +107,13 @@ class DashboardClientController extends _BaseController
                 if (!$isCreated) {
                     $data['titleError'] = 'Something went wrong. Please try again.';
                 } else {
+                    // send mail
+                    $email = $user->getEmail();
+                    $settings = new Settings();
+                    $mailBody = '<p>Your client profile has been created successfully.</p>';
+                    $mailBody .= '<p>Visit your dashboard <a href="' . $settings->host . '/dashboard/client">here</a></p>';
+                    Mailer::sendMail($email, 'Client profile created', $mailBody);
+
                     header('location:/dashboard/client?alert="Client profile created successfully!"');
                 }
             }
@@ -274,6 +283,15 @@ class DashboardClientController extends _BaseController
                     return;
                 } else {
                     $jobId = $job->getId();
+
+                    // send mail
+                    $email = $user->getEmail();
+                    $settings = new Settings();
+                    $mailBody = '<p>Your job has been created successfully.</p>';
+                    $mailBody .= '<p>Visit your job and complete payment <a href="' . $settings->host . '/dashboard/client/jobs/id/pay?jobId=' . $jobId . '">here</a></p>';
+                    Mailer::sendMail($email, 'Job created', $mailBody);
+
+
                     header('location:/dashboard/client/jobs/id/pay?jobId=' . $jobId . '&alert=Job created successfully!');
                     return;
                 }
@@ -530,6 +548,11 @@ class DashboardClientController extends _BaseController
                 if (isset($_GET['acceptProposal']) && $_GET['acceptProposal'] == 'true') {
                     if ($proposal->acceptProposal()) {
                         $alert = 'Proposal accepted.';
+
+                        // send mail
+                        $email = $proposal->getFreelancer()->getUser()->getEmail();
+                        $mailBody = "<p>Your proposal id {$proposal->getId()} has been accepted. Visit your dashboard for more info.</p>";
+                        Mailer::sendMail($email, 'Proposal accepted', $mailBody);
                     } else {
                         $errors = ['Proposal not accepted. Something went wrong'];
                     }
@@ -541,6 +564,11 @@ class DashboardClientController extends _BaseController
                 else if (isset($_GET['rejectProposal']) && $_GET['rejectProposal'] == 'true') {
                     if ($proposal->rejectProposal()) {
                         $alert = 'Proposal rejected.';
+
+                        // send mail
+                        $email = $proposal->getFreelancer()->getUser()->getEmail();
+                        $mailBody = "<p>Your proposal id {$proposal->getId()} has been rejected. Visit your dashboard for more info.</p>";
+                        Mailer::sendMail($email, 'Proposal rejected', $mailBody);
                     } else {
                         $errors = ['Proposal not rejected. Something went wrong'];
                     }

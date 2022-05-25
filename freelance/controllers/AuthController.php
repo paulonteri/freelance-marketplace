@@ -2,10 +2,11 @@
 
 namespace app\controllers;
 
+use app\Router;
+use app\utils\Mailer;
 use app\models\AuthModel;
 use app\models\ResetPasswordTokenModel;
 use app\models\UserModel;
-use app\Router;
 use app\utils\DisplayAlert;
 use app\utils\ImageUploader;
 
@@ -78,6 +79,23 @@ class AuthController extends _BaseController
                 if (!$isLoggedIn) {
                     $data['passwordError'] = 'Password or email is incorrect. Please try again.';
                 } else {
+
+                    // send mail
+                    $email = $data['email'];
+                    $ipAddress = $_SERVER['REMOTE_ADDR'];
+                    $userAgent = $_SERVER['HTTP_USER_AGENT'];
+                    $time = date('Y-m-d H:i:s');
+
+                    $mailBody = '<h1>Login successful </h1> <p>A new login from your account has been detected with the following details:</p>';
+                    $mailBody .= "<hr>";
+                    $mailBody .= "<p>IP Address: $ipAddress</p>";
+                    $mailBody .= "<p>User Agent: $userAgent</p>";
+                    $mailBody .= "<p>Time: $time</p>";
+                    $mailBody .= "<hr>";
+                    $mailBody .= "<p>If you did not initiate this login, please contact us immediately.</p>";
+
+                    Mailer::sendMail($email, 'Login successful', $mailBody);
+
                     AuthController::redirectIfLoggedIn();
                 }
             }
@@ -269,6 +287,12 @@ class AuthController extends _BaseController
                     $data['county'],
                     $data['city'],
                 )) {
+
+                    // send mail
+                    $email = $data['email'];
+                    $mailBody = '<h1>Registration successful </h1> <p>Your profile has been created successfully.</p>';
+                    Mailer::sendMail($email, 'Registration successful', $mailBody);
+
                     // Redirect to the login page
                     header('location:/login?alert=Registered successfully!');
                 } else {
