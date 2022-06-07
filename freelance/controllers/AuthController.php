@@ -82,12 +82,13 @@ class AuthController extends _BaseController
 
                     // send mail
                     $email = $data['email'];
-                    $ipAddress = $_SERVER['REMOTE_ADDR'];
+                    $ipAddress = $router->getUserIP();
                     $userAgent = $_SERVER['HTTP_USER_AGENT'];
                     $time = date('Y-m-d H:i:s');
 
                     $mailBody = '<h1>Login successful </h1> <p>A new login from your account has been detected with the following details:</p>';
                     $mailBody .= "<hr>";
+                    $mailBody .= "<p>Email: $email</p>";
                     $mailBody .= "<p>IP Address: $ipAddress</p>";
                     $mailBody .= "<p>User Agent: $userAgent</p>";
                     $mailBody .= "<p>Time: $time</p>";

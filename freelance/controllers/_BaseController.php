@@ -21,7 +21,7 @@ abstract class _BaseController
         _BaseController::requireUserIsLoggedIn($router);
 
         $user = UserModel::getCurrentUser();
-        if (!$user->isFreelancer()) {
+        if (!$user || !$user->isFreelancer()) {
             header('location:/dashboard/freelancer/onboarding?errorAlert=You are not a freelancer!');
         }
     }
@@ -31,7 +31,7 @@ abstract class _BaseController
         _BaseController::requireUserIsLoggedIn($router);
 
         $user = UserModel::getCurrentUser();
-        if (!$user->isClient()) {
+        if (!$user || !$user->isClient()) {
             header('location:/dashboard/client/onboarding?errorAlert=You are not a client!');
         }
     }
@@ -41,7 +41,7 @@ abstract class _BaseController
         _BaseController::requireUserIsLoggedIn($router);
 
         $user = UserModel::getCurrentUser();
-        if (!$user->getIsAdmin()) {
+        if (!$user || !$user->getIsAdmin()) {
             header('location:/dashboard?errorAlert=You are not an admin!');
         }
     }
