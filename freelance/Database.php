@@ -45,4 +45,9 @@ class Database
 
     return static::$conn;
   }
+
+  public function getConnection()
+  {
+    return $this->connectToDb();
+  }
 }

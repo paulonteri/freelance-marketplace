@@ -39,6 +39,7 @@ manipulate data using the Model component and interact with the Views to render 
 - `public/uploads/`: This folder contains all the uploaded files that are used throughout the application. It should
   not have been added to the repo - it was only added as a convenience with regard to presenting it as a school project.
 - `utils/`: This folder contains all the utility classes that are used throughout the application.
+- `tasks/`: This folder contains asynchronous tasks that should be run periodically.
 - `Router.php`: This is the main file that handles all the routing logic of the application.
 - `Settings.php`: This is the main configuration file that contains all the configuration variables.
 - `Database.php`: This is the main file that contains all the database connection logic.

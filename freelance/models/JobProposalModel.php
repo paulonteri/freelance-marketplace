@@ -5,6 +5,7 @@ namespace app\models;
 use app\Database;
 use app\utils\Logger;
 use app\utils\DisplayAlert;
+use DateTime;
 
 class JobProposalModel extends _BaseModel
 {
@@ -310,10 +311,14 @@ class JobProposalModel extends _BaseModel
         }
 
         // accept proposal
-        $sql = 'UPDATE job_proposal SET status = :status WHERE id = :id';
+        $time_work_starts = (new DateTime())->format('Y-m-d H:i:s');
+        $time_work_ends = date("Y-m-d H:i:s", strtotime("+{$this->getJob()->getExpectedDurationInHours()} hours"));
+        $sql = 'UPDATE job_proposal SET status = :status, time_work_starts = :time_work_starts, time_work_ends = :time_work_ends WHERE id = :id';
         $statement = $this->db->prepare($sql);
         $statusString = 'accepted';
         $statement->bindParam(':status', $statusString);
+        $statement->bindParam(':time_work_starts', $time_work_starts);
+        $statement->bindParam(':time_work_ends', $time_work_ends);
         $statement->bindParam(':id', $this->id);
         $statement->execute();
 
