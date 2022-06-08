@@ -37,6 +37,9 @@ class Database
       $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+      // set timezone
+      $pdo->exec("SET SESSION time_zone = '+3:00';");
+
       static::$conn = $pdo;
     }
 
