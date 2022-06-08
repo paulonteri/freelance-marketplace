@@ -46,8 +46,11 @@ class AuthModel extends _BaseModel
             )
         );
 
+
+
         if ($isSuccessful) {
-            Logger::log("User with email $email has been registered");
+            $userId = $this->db->lastInsertId();
+            Logger::log("User with email $email has been registered", $userId, 'Register');
         } else {
             Logger::log("User with email $email has not been registered");
         }
@@ -71,7 +74,7 @@ class AuthModel extends _BaseModel
             // create session
             $this->createUserSession($user);
 
-            Logger::log("User with email $email has been logged in");
+            Logger::log("User with email $email has been logged in", $user['id'], 'Log In');
 
             // redirect to dashboard
             header("location:dashboard");
@@ -91,7 +94,7 @@ class AuthModel extends _BaseModel
         unset($_SESSION['user_id']);
         unset($_SESSION['email']);
 
-        Logger::log("User with user_id $user_id has been logged out");
+        Logger::log("User with user_id $user_id has been logged out", $user_id, 'Log Out');
 
         header('location:login');
     }
@@ -141,7 +144,7 @@ class AuthModel extends _BaseModel
 
             ResetPasswordTokenModel::deleteAllTokensForUser($user_id);
 
-            Logger::log("User with user_id $user_id has been reset password");
+            Logger::log("User with user_id $user_id has been reset password", $user_id, 'Reset Password');
 
             return true;
         }

@@ -123,7 +123,7 @@ class UserModel extends _BaseModel
     );
 
     if ($isSuccessful) {
-      Logger::log("User with id {$this->id} updated");
+      Logger::log("User with id {$this->id} updated", $this->id);
     }
 
     return true;

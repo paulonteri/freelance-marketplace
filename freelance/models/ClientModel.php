@@ -94,7 +94,7 @@ class ClientModel extends _BaseModel
 
         $id = $db->lastInsertId();
 
-        Logger::log("Client with id $id has been created for user with id $user_id");
+        Logger::log("Client with id $id has been created for user with id $user_id", $user_id, 'Create Client');
 
         return new ClientModel($id);
     }
@@ -112,7 +112,7 @@ class ClientModel extends _BaseModel
         $statement->bindParam(':type', $type);
         $statement->execute();
 
-        Logger::log("Client with id $this->id has been updated");
+        Logger::log("Client with id $this->id has been updated", $this->user_id);
 
         return true;
     }

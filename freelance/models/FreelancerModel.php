@@ -92,7 +92,7 @@ class FreelancerModel extends _BaseModel
 
         $id = $db->lastInsertId();
 
-        Logger::log("Freelancer with id $id has been created for user with id $user_id");
+        Logger::log("Freelancer with id $id has been created for user with id $user_id", $user_id, 'Create Freelancer');
 
         return new FreelancerModel($id);
     }
@@ -111,7 +111,7 @@ class FreelancerModel extends _BaseModel
         $statement->bindParam(':id', $this->id);
         $statement->execute();
 
-        Logger::log("Freelancer with id {$this->id} has been updated");
+        Logger::log("Freelancer with id {$this->id} has been updated", $this->user_id);
 
         return new FreelancerModel($this->id);
     }
