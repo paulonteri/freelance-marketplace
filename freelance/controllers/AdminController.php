@@ -10,6 +10,7 @@ use app\models\SkillModel;
 use app\models\ClientModel;
 use app\models\FreelancerModel;
 use app\models\JobProposalModel;
+use app\models\LogModel;
 
 
 class AdminController extends _BaseController
@@ -357,6 +358,53 @@ class AdminController extends _BaseController
         }
 
         $router->renderView(self::$basePath . 'users/id', $data, null, $errors);
+    }
+
+    public static function  userIdLogs(Router $router)
+    {
+        AdminController::requireUserIsAdmin($router);
+
+        $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        if (isset($_GET['userId'])) {
+            $userId = $_GET['userId'];
+
+            // get types
+            $typeIds = LogModel::getTypes();
+            if (isset($_GET['types'])) {
+                $typeIds = $_GET['types'];
+            }
+
+            // pagination
+            $pageNumber = 1;
+            if (isset($_GET['pageNumber']) && $_GET['pageNumber'] != "") {
+                $pageNumber = $_GET['pageNumber'];
+            }
+            $limit = self::$totalRecordsPerPage;
+            $offset = ($pageNumber - 1) * $limit;
+            $previousPageNumber = $pageNumber - 1;
+            $nextPageNumber = $pageNumber + 1;
+            $recordsCount =  1; // LogModel::getAllForUserCount($typeIds);
+            $lastPageNumber = ceil($recordsCount / $limit);
+
+            $data = [
+                'pageTitle' => "Logs | Admin",
+                'logs' => LogModel::getAllForUser($limit, $offset, $userId, $typeIds),
+
+                'allTypes' => LogModel::getTypes(),
+                'types' => $typeIds,
+                'typesError' => '',
+
+                'pageNumber' => $pageNumber,
+                'previousPageNumber' => $previousPageNumber,
+                'nextPageNumber' => $nextPageNumber,
+                'lastPageNumber' => $lastPageNumber,
+                'recordsCount' => $recordsCount,
+            ];
+            $router->renderView(self::$basePath . 'users/logs', $data);
+        } else {
+            echo 'User id not found.';
+        }
     }
 
     public static function skills(Router $router)

@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use PDO;
 use app\Database;
 use app\Settings;
 use app\utils\Mailer;
@@ -14,7 +15,8 @@ class LogModel extends _BaseModel
     private int $id;
     private ?int $user_id;
     private string $action;
-    private ?string $type; // 'Log In','Log Out','Create Freelancer','Create Client','Register','Reset Password',
+    private ?string $type;
+    private static array $types = ['Log In', 'Log Out', 'Create Freelancer', 'Create Client', 'Register', 'Reset Password'];
     private string $time_created;
 
 
@@ -49,16 +51,26 @@ class LogModel extends _BaseModel
     /**
      * @return LogModel[]
      */
-    public static function getAllForUser(int $user_id, int $limit = PHP_INT_MAX, int $offset = 0): array
+    public static function getAllForUser(int $limit = PHP_INT_MAX, int $offset = 0, int $user_id = null, array $types = null): array
     {
         $db = (new Database)->connectToDb();
 
-        $sql = 'SELECT * FROM log WHERE user_id = :user_id ORDER BY time_created DESC';
-        $sql .= 'LIMIT :limit OFFSET :offset';
+        $sql = 'SELECT * FROM log WHERE 1';
+        if ($user_id) {
+            $sql .= " AND user_id = $user_id";
+        }
+        if ($types) {
+            $sql .= ' AND type IN (';
+            $sql .= implode(',', array_map(function ($type) {
+                return "'$type'";
+            }, $types));
+            $sql .= ')';
+        }
+        $sql .= ' ORDER BY time_created DESC';
+        $sql .= " LIMIT :limit OFFSET :offset"; // limit and offset for pagination
         $statement = $db->prepare($sql);
-        $statement->bindParam(':user_id', $user_id);
-        $statement->bindParam(':limit', $limit);
-        $statement->bindParam(':offset', $offset);
+        $statement->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $statement->bindParam(':offset', $offset, PDO::PARAM_INT);
         $statement->execute();
 
         $logs = [];
@@ -68,6 +80,7 @@ class LogModel extends _BaseModel
 
         return $logs;
     }
+
 
     public function getId(): int
     {
@@ -95,6 +108,11 @@ class LogModel extends _BaseModel
     public function getType(): ?string
     {
         return $this->type;
+    }
+
+    public static function getTypes(): array
+    {
+        return self::$types;
     }
 
     public function getTimeCreated(): string

@@ -20,6 +20,7 @@
             <th>Is Admin</th>
             <th>Date joined</th>
             <th>View</th>
+            <th>Logs</th>
 
         </tr>
 
@@ -47,6 +48,13 @@
                 <a href="/admin/users/id?userId=<?php echo $user->getId(); ?>">
                     <p class="  ">
                         View &rarr;
+                    </p>
+                </a>
+            </td>
+            <td>
+                <a href="/admin/users/logs?userId=<?php echo $user->getId(); ?>">
+                    <p class="  ">
+                        &rarr;
                     </p>
                 </a>
             </td>

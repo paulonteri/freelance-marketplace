@@ -100,6 +100,7 @@ $router->get('/admin/jobs/proposals/id', [AdminController::class, 'jobProposalId
 $router->get('/admin/users', [AdminController::class, 'users']);
 $router->get('/admin/users/id', [AdminController::class, 'userId']);
 $router->post('/admin/users/id', [AdminController::class, 'userId']);
+$router->get('/admin/users/logs', [AdminController::class, 'userIdLogs']);
 $router->get('/admin/skills', [AdminController::class, 'skills']);
 $router->get('/admin/skills/create', [AdminController::class, 'skillsCreate']);
 $router->post('/admin/skills/create', [AdminController::class, 'skillsCreate']);
