@@ -9,7 +9,7 @@ body {
         "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
         "Helvetica Neue", sans-serif;
     font-size: 1.6em;
-    font-weight: 350;
+    font-weight: 300;
     line-height: 1.6;
 }
 
@@ -664,3 +664,43 @@ th:last-child {
 }
 
 /* ------------------- end freelancer ------------------------- */
+
+/* ------------------- bar-chart ------------------------- */
+
+.bar-chart-container {
+    margin: 20px auto;
+}
+
+.bar-chart-title {
+    font-size: large;
+    font-weight: bold;
+}
+
+.bar-chart-chart {
+    position: relative;
+}
+
+.bar-chart-row-bars {
+    width: 85vw;
+    max-width: 750px;
+}
+
+.bar-chart-chart .chart-row-bar {
+    display: block;
+    height: 20px;
+    margin-top: 5px;
+    padding-left: 1px;
+    background-color: rgb(153, 236, 236);
+    font-size: x-small;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.bar-chart-chart hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+    border-top-width: 0.7rem;
+}
+
+/* ------------------- end bar-chart ------------------------- */
