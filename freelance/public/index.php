@@ -1,5 +1,8 @@
 <?php
 
+include __DIR__ . '/../includes.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+
 use app\Router;
 use app\Database;
 use app\controllers\AuthController;
@@ -11,9 +14,6 @@ use app\controllers\DashboardProfilesController;
 use app\controllers\FreelancerProfilesController;
 use app\controllers\DashboardFreelancerController;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-date_default_timezone_set("Africa/Nairobi");
 
 $database = new Database();
 $router = new Router($database);

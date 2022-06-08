@@ -2,6 +2,9 @@
 
 namespace app\utils;
 
+include __DIR__ . '/../includes.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+
 use app\models\LogModel;
 
 class Logger
