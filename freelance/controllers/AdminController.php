@@ -236,9 +236,12 @@ class AdminController extends _BaseController
         $recordsCount =  JobModel::getAllCount($skillIds, $maxDuration, $minDuration, $maxPayRatePerHour, $minPayRatePerHour);
         $lastPageNumber = ceil($recordsCount / $limit);
 
+        $jobs = JobModel::getAll($limit, $offset, $skillIds, $maxDuration, $minDuration, $maxPayRatePerHour, $minPayRatePerHour);
+
         $data = [
             'pageTitle' => "Jobs | Admin",
-            'jobs' => JobModel::getAll($limit, $offset, $skillIds, $maxDuration, $minDuration, $maxPayRatePerHour, $minPayRatePerHour),
+            'jobs' => $jobs,
+            'skillPercentages' => SkillModel::getSkillJobAllocations($jobs),
 
             'allSkills' => SkillModel::getAll(),
 

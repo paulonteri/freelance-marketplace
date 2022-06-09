@@ -75,19 +75,20 @@
 
     <!-------------------------------- chart -------------------------------------------------------->
     <section class="bar-chart-container">
+
         <div class="bar-chart-title">Jobs Per Skill</div>
         <section class="bar-chart-chart">
             <section class="bar-chart-row-bars">
                 <hr />
-                <div class="chart-row-bar" style="width:50%">Apple 50%</div>
-                <div class="chart-row-bar" style="width:40%">LG 40%</div>
-                <div class="chart-row-bar" style="width:30%">Roku 30%</div>
-                <div class="chart-row-bar" style="width:60%">Samsung 60%</div>
-                <div class="chart-row-bar" style="width:90%">Sony 90%</div>
-                <div class="chart-row-bar" style="width:90%">Sony 90%</div>
-                <div class="chart-row-bar" style="width:100%">Sony 100%</div>
-                <div class="chart-row-bar" style="width:1%">Sony 1%</div>
-                <div class="chart-row-bar" style="width:0%">Sony 0% sdds sd sd sd s ds dsd</div>
+
+                <?php foreach ($params["skillPercentages"] as $skillPercentage) { ?>
+
+                <div class="chart-row-bar" style="width:<?php echo $skillPercentage["jobsPercent"]; ?>%">
+                    #<?php echo $skillPercentage["name"];  ?>
+                    <?php echo $skillPercentage["jobsPercent"]; ?>%
+                </div>
+
+                <?php } ?>
                 <hr />
             </section>
         </section>

@@ -86,4 +86,30 @@ class SkillModel extends _BaseModel
 
         return $count;
     }
+
+    public static function getSkillJobAllocations(array $jobs)
+    {
+        $skills = array();
+        $totalSkills = 0;
+
+        foreach (self::getAll() as $skill) {
+            $skills[$skill->getId()] = array("id" => $skill->getId(), "name" => $skill->getName(), "jobsCount" => 0, "jobsPercent" => 0);
+        }
+
+        // count the number of jobs for each skill
+        foreach ($jobs as $job) {
+            $jobSkills = $job->getSkills();
+            foreach ($jobSkills as $jobSkill) {
+                $skills[$jobSkill->getId()]["jobsCount"]++;
+                $totalSkills++;
+            }
+        }
+
+        // calculate percentage
+        foreach ($skills as $skill) {
+            $skills[$skill["id"]]["jobsPercent"] = round(($skill["jobsCount"] / $totalSkills) * 100);
+        }
+
+        return $skills;
+    }
 }
