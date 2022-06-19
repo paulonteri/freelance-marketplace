@@ -108,6 +108,13 @@ class Router
 
     public function getUserIP()
     {
+        return self::getIp();
+    }
+
+    public static function getIp()
+    {
+        $ip = null;
+
         // Get real visitor IP behind CloudFlare network
         if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
             $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];

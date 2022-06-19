@@ -16,16 +16,18 @@
         <form id="formID" action="/admin/users/logs" method="GET">
             <fieldset>
 
-                <input hidden type="text" name="pageNumber" id="pageNumber" value="<?php echo $params['pageNumber']; ?>">
+                <input hidden type="text" name="pageNumber" id="pageNumber"
+                    value="<?php echo $params['pageNumber']; ?>">
 
                 <input hidden type="text" name="userId" id="userId" value="<?php echo $_GET['userId']; ?>">
 
                 <label for="types[]">Types <small>(Select multiple)</small></label>
                 <select name="types[]" id="types[]" multiple size="10">
                     <?php foreach ($params["allTypes"] as $type) { ?>
-                        <option <?php if (in_array($type, $params['types'])) { ?> selected <?php } ?> value="<?php echo $type; ?>">
-                            <?php echo $type; ?>
-                        </option>
+                    <option <?php if (in_array($type, $params['types'])) { ?> selected <?php } ?>
+                        value="<?php echo $type; ?>">
+                        <?php echo $type; ?>
+                    </option>
                     <?php } ?>
                 </select>
                 <span class="invalidFeedback">
@@ -50,20 +52,24 @@
             <th>Type</th>
             <th>Time</th>
             <th>Action</th>
+            <th>IP address</th>
+            <th>#</th>
         </tr>
 
         <?php foreach ($params["logs"] as $log) { ?>
-            <!-------------------------------- log -------------------------------------------------------->
-            <tr>
-                <td><?php echo $log->getType(); ?></td>
-                <td>
-                    <script type="text/javascript">
-                        formatDateToHumanCalendarAccurate("<?php echo $log->getTimeCreated(); ?>");
-                    </script>
-                </td>
-                <td><?php echo $log->getAction(); ?></td>
-            </tr>
-            <!-------------------------------- end log -------------------------------------------------------->
+        <!-------------------------------- log -------------------------------------------------------->
+        <tr>
+            <td><?php echo $log->getType(); ?></td>
+            <td>
+                <script type="text/javascript">
+                formatDateToHumanCalendarAccurate("<?php echo $log->getTimeCreated(); ?>");
+                </script>
+            </td>
+            <td><small><?php echo $log->getAction(); ?></small></td>
+            <td><?php echo $log->getIpAddress(); ?></td>
+            <td><small><?php echo $log->getId(); ?></small></td>
+        </tr>
+        <!-------------------------------- end log -------------------------------------------------------->
         <?php } ?>
     </table>
 
@@ -71,15 +77,16 @@
     <div class="pagination">
         <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', 1)">First</a>
         <?php if ($params['previousPageNumber'] > 0) { ?>
-            <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['previousPageNumber']; ?> )">
-                &laquo;&laquo;
-            </a>
+        <a
+            onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['previousPageNumber']; ?> )">
+            &laquo;&laquo;
+        </a>
         <?php } ?>
         <a onClick="javascript:void(0)" class="active"><?php echo $params['pageNumber']; ?></a>
         <?php if ($params['nextPageNumber'] <= $params['lastPageNumber']) { ?>
-            <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['nextPageNumber']; ?> )">
-                &raquo;&raquo;
-            </a>
+        <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['nextPageNumber']; ?> )">
+            &raquo;&raquo;
+        </a>
         <?php } ?>
         <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['lastPageNumber']; ?> )">
             Last

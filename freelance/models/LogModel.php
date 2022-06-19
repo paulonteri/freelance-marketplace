@@ -16,7 +16,8 @@ class LogModel extends _BaseModel
     private ?int $user_id;
     private string $action;
     private ?string $type;
-    private static array $types = ['Log In', 'Log Out', 'Create Freelancer', 'Create Client', 'Register', 'Reset Password'];
+    private ?string $ip_address;
+    private static array $types = ['Log In', 'Log Out', 'Create Freelancer', 'Create Client', 'Register', 'Reset Password', 'General Log'];
     private string $time_created;
 
 
@@ -34,17 +35,19 @@ class LogModel extends _BaseModel
         $this->user_id = $log['user_id'];
         $this->action = $log['action'];
         $this->type = $log['type'];
+        $this->ip_address = $log['ip_address'];
         $this->time_created = $log['time_created'];
     }
 
-    public static function create(string $action, ?string $type, ?int $user_id = null)
+    public static function create(string $action, ?string $type, ?int $user_id = null, ?string $ip_address = null)
     {
         $db = (new Database)->connectToDb();
-        $sql = 'INSERT INTO log (user_id, action, type) VALUES (:user_id, :action, :type)';
+        $sql = 'INSERT INTO log (user_id, action, type, ip_address) VALUES (:user_id, :action, :type, :ip_address)';
         $statement = $db->prepare($sql);
         $statement->bindParam(':user_id', $user_id);
         $statement->bindParam(':action', $action);
         $statement->bindParam(':type', $type);
+        $statement->bindParam(':ip_address', $ip_address);
         $statement->execute();
     }
 
@@ -108,6 +111,11 @@ class LogModel extends _BaseModel
     public function getType(): ?string
     {
         return $this->type;
+    }
+
+    public function getIpAddress(): ?string
+    {
+        return $this->ip_address;
     }
 
     public static function getTypes(): array
