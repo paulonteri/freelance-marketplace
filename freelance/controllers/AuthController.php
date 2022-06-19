@@ -65,6 +65,8 @@ class AuthController extends _BaseController
             // email
             if (empty($data['email'])) {
                 $data['emailError'] = 'Please enter a email.';
+            } else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                $data['emailError'] = 'Please enter a valid email.';
             }
 
             // password
@@ -157,6 +159,7 @@ class AuthController extends _BaseController
             if (empty($data['email'])) {
                 $data['emailError'] = 'Please enter email address.';
             } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                // FILTER_VALIDATE_EMAIL -> checks if the email is valid https://www.php.net/manual/en/filter.filters.validate.php
                 $data['emailError'] = 'Please enter the correct format.';
             } elseif ($authModel->isEmailRegistered($data['email'])) {
                 $data['emailError'] = 'Email is already taken.';
@@ -328,6 +331,8 @@ class AuthController extends _BaseController
             // email
             if (empty($data['email'])) {
                 $data['emailError'] = 'Please enter a email.';
+            } else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                $data['emailError'] = 'Please enter a valid email.';
             }
 
             // Check if all errors are empty
