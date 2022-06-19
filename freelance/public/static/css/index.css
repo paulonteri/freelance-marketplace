@@ -278,20 +278,6 @@ input[type="submit"][disabled] {
 
 /* ------------------- forms ------------------------- */
 
-input,
-textarea,
-select {
-    -webkit-appearance: none;
-    background-color: transparent;
-    border: 0.1rem solid #d1d1d1;
-    border-radius: 0.4rem;
-    box-shadow: none;
-    box-sizing: inherit;
-    height: 3.8rem;
-    padding: 0.6rem 1rem 0.7rem;
-    width: 100%;
-}
-
 input[type="button"],
 input[type="submit"] {
     width: auto;
