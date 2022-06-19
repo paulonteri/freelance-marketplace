@@ -161,7 +161,7 @@ class JobRatingModel extends _BaseModel
 
     private function getFreelancerName(): ?string
     {
-        if ($this->type != 'freelancer') {
+        if ($this->type != 'client') {
             DisplayAlert::displayError('Cannot get freelancer name for client rating');
             return null;
         }
@@ -175,7 +175,7 @@ class JobRatingModel extends _BaseModel
 
     private function getClientName(): ?string
     {
-        if ($this->type != 'client') {
+        if ($this->type != 'freelancer') {
             DisplayAlert::displayError('Cannot get client name for freelancer rating');
             return null;
         }
@@ -194,9 +194,9 @@ class JobRatingModel extends _BaseModel
     public function getRaterName(): ?string
     {
         if ($this->type == 'freelancer') {
-            return $this->getFreelancerName();
-        } else if ($this->type == 'client') {
             return $this->getClientName();
+        } else if ($this->type == 'client') {
+            return $this->getFreelancerName();
         } else {
             DisplayAlert::displayError('Cannot get rater name for job rating');
             return null;

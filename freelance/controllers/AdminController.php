@@ -387,7 +387,7 @@ class AdminController extends _BaseController
             $offset = ($pageNumber - 1) * $limit;
             $previousPageNumber = $pageNumber - 1;
             $nextPageNumber = $pageNumber + 1;
-            $recordsCount =  1; // LogModel::getAllForUserCount($typeIds);
+            $recordsCount =  LogModel::getAllForUserCount($userId, $typeIds);
             $lastPageNumber = ceil($recordsCount / $limit);
 
             $data = [
@@ -421,7 +421,7 @@ class AdminController extends _BaseController
         if (isset($_GET['pageNumber']) && $_GET['pageNumber'] != "") {
             $pageNumber = $_GET['pageNumber'];
         }
-        $limit = self::$totalRecordsPerPage;
+        $limit = self::$totalRecordsPerPage * 2;
         $offset = ($pageNumber - 1) * $limit;
         $previousPageNumber = $pageNumber - 1;
         $nextPageNumber = $pageNumber + 1;

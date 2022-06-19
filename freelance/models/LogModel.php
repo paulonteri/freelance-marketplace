@@ -84,6 +84,10 @@ class LogModel extends _BaseModel
         return $logs;
     }
 
+    public static function getAllForUserCount(int $user_id = null, array $types = null): int
+    {
+        return count(self::getAllForUser(PHP_INT_MAX, 0, $user_id, $types));
+    }
 
     public function getId(): int
     {

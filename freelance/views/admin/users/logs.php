@@ -47,7 +47,7 @@
     <!-------------------------------- end filter -------------------------------------------------------->
 
 
-    <table>
+    <table style="max-width:80vw;">
         <tr>
             <th>Type</th>
             <th>Time</th>
@@ -59,14 +59,16 @@
         <?php foreach ($params["logs"] as $log) { ?>
         <!-------------------------------- log -------------------------------------------------------->
         <tr>
-            <td><?php echo $log->getType(); ?></td>
+            <td><small><?php echo $log->getType(); ?></small></td>
             <td>
-                <script type="text/javascript">
-                formatDateToHumanCalendarAccurate("<?php echo $log->getTimeCreated(); ?>");
-                </script>
+                <small>
+                    <script type="text/javascript">
+                    formatDateToHumanCalendarAccurate("<?php echo $log->getTimeCreated(); ?>");
+                    </script>
+                </small>
             </td>
-            <td><small><?php echo $log->getAction(); ?></small></td>
-            <td><?php echo $log->getIpAddress(); ?></td>
+            <td><small><?php echo htmlentities($log->getAction()); ?></small></td>
+            <td><small><?php echo $log->getIpAddress(); ?></small></td>
             <td><small><?php echo $log->getId(); ?></small></td>
         </tr>
         <!-------------------------------- end log -------------------------------------------------------->

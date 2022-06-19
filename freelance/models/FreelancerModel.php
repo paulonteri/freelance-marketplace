@@ -20,7 +20,7 @@ class FreelancerModel extends _BaseModel
     private int $years_of_experience;
     private $time_created;
     private int $is_active;
-    private string $national_id;
+    private ?string $national_id;
 
     public function __construct(int $id)
     {
