@@ -4,40 +4,40 @@
     <form action="/dashboard/client/jobs/create" method="POST" enctype="multipart/form-data">
         <fieldset>
             <label for="title">Title</label>
-            <input type="text" required name="title" id="title" value="<?php echo $params['title']; ?>">
+            <input type="text" name="title" id="title" value="<?php echo $params['title']; ?>">
             <span class="invalidFeedback">
                 <?php echo $params['titleError']; ?>
             </span>
 
             <label for="description">Description</label>
-            <textarea required name="description" id="description"><?php echo $params['description']; ?></textarea>
+            <textarea name="description" id="description"><?php echo $params['description']; ?></textarea>
             <span class="invalidFeedback">
                 <?php echo $params['descriptionError']; ?>
             </span>
 
             <label for="payRatePerHour">Pay rate per hour (in Kenyan Shillings)</label>
-            <input type="number" min="10" max="100000" required name="payRatePerHour" id="payRatePerHour"
+            <input type="text" name="payRatePerHour" id="payRatePerHour"
                 value="<?php echo $params['payRatePerHour']; ?>">
             <span class="invalidFeedback">
                 <?php echo $params['payRatePerHourError']; ?>
             </span>
 
             <label for="expectedDurationInHours">Expected duration in hours</label>
-            <input type="number" min="1" max="100000" required name="expectedDurationInHours"
-                id="expectedDurationInHours" value="<?php echo $params['expectedDurationInHours']; ?>">
+            <input type="text" name="expectedDurationInHours" id="expectedDurationInHours"
+                value="<?php echo $params['expectedDurationInHours']; ?>">
             <span class="invalidFeedback">
                 <?php echo $params['expectedDurationInHoursError']; ?>
             </span>
 
             <label for="receiveJobProposalsDeadline">Time expires</label>
-            <input type="datetime-local" required name="receiveJobProposalsDeadline" id="receiveJobProposalsDeadline"
+            <input type="datetime-local" name="receiveJobProposalsDeadline" id="receiveJobProposalsDeadline"
                 value="<?php echo $params['receiveJobProposalsDeadline']; ?>">
             <span class="invalidFeedback">
                 <?php echo $params['receiveJobProposalsDeadlineError']; ?>
             </span>
 
-            <label for="skills[]">Skills required</label>
-            <select required name="skills[]" id="skills[]" multiple>
+            <label for="skills[]">Skills </label>
+            <select name="skills[]" id="skills[]" multiple>
                 <?php foreach ($params["allSkills"] as $skill) { ?>
                 <option value="<?php echo $skill->getId(); ?>">
                     <?php echo $skill->getName(); ?>

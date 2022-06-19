@@ -15,11 +15,11 @@
         <form id="formID" action="/admin/jobs" method="GET">
             <fieldset>
 
-                <input hidden type="number" required name="pageNumber" id="pageNumber"
+                <input hidden type="text" name="pageNumber" id="pageNumber"
                     value="<?php echo $params['pageNumber']; ?>">
 
                 <label for="skills[]">Skills <small>(Select multiple)</small></label>
-                <select required name="skills[]" id="skills[]" multiple size="10">
+                <select name="skills[]" id="skills[]" multiple size="10">
                     <?php foreach ($params["allSkills"] as $skill) { ?>
                     <option value="<?php echo $skill->getId(); ?>"
                         <?php if (in_array($skill->getId(), $params['skills'])) { ?> selected <?php } ?>>
@@ -32,28 +32,26 @@
                 </span>
 
                 <label for="maxDuration">Max Duration <small>(hours)</small></label>
-                <input type="number" min="0" max="100000" required name="maxDuration" id="maxDuration"
-                    value="<?php echo $params['maxDuration']; ?>">
+                <input type="text" name="maxDuration" id="maxDuration" value="<?php echo $params['maxDuration']; ?>">
                 <span class="invalidFeedback">
                     <?php echo $params['maxDurationError']; ?>
                 </span>
 
                 <label for="minDuration">Min Duration <small>(hours)</small></label>
-                <input type="number" min="0" max="100000" required name="minDuration" id="minDuration"
-                    value="<?php echo $params['minDuration']; ?>">
+                <input type="text" name="minDuration" id="minDuration" value="<?php echo $params['minDuration']; ?>">
                 <span class="invalidFeedback">
                     <?php echo $params['minDurationError']; ?>
                 </span>
 
                 <label for="maxPayRatePerHour">Max Pay Rate Per Hour <small>(KES)</small></label>
-                <input type="number" min="0" max="100000" required name="maxPayRatePerHour" id="maxPayRatePerHour"
+                <input type="text" name="maxPayRatePerHour" id="maxPayRatePerHour"
                     value="<?php echo $params['maxPayRatePerHour']; ?>">
                 <span class="invalidFeedback">
                     <?php echo $params['maxPayRatePerHourError']; ?>
                 </span>
 
                 <label for="minPayRatePerHour">Min Pay Rate Per Hour <small>(KES)</small></label>
-                <input type="number" min="0" max="100000" required name="minPayRatePerHour" id="minPayRatePerHour"
+                <input type="text" name="minPayRatePerHour" id="minPayRatePerHour"
                     value="<?php echo $params['minPayRatePerHour']; ?>">
                 <span class="invalidFeedback">
                     <?php echo $params['minPayRatePerHourError']; ?>

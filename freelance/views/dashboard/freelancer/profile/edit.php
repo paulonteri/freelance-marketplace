@@ -4,20 +4,19 @@
     <form action="/dashboard/freelancer/profile/edit" method="POST" enctype="multipart/form-data">
         <fieldset>
             <label for="title">Title</label>
-            <input type="text" required name="title" id="title" value="<?php echo $params["title"]; ?>">
+            <input type="text" name="title" id="title" value="<?php echo $params["title"]; ?>">
             <span class="invalidFeedback">
                 <?php echo $params["titleError"]; ?>
             </span>
 
             <label for="years_of_experience">Years of experience</label>
-            <input type="number" required name="years_of_experience" id="years_of_experience"
-                value="<?php echo $params["years_of_experience"]; ?>">
+            <input type="text" name="years_of_experience" id="years_of_experience" value="<?php echo $params["years_of_experience"]; ?>">
             <span class="invalidFeedback">
                 <?php echo $params["years_of_experienceError"]; ?>
             </span>
 
             <label for="description">Description</label>
-            <textarea type="text" required name="description" id="description" rows="4">
+            <textarea type="text" name="description" id="description" rows="4">
             <?php echo $params["description"]; ?>
             </textarea>
             <span class="invalidFeedback">
@@ -25,12 +24,11 @@
             </span>
 
             <label for="skills[]">Skills</label>
-            <select required name="skills[]" id="skills[]" multiple>
+            <select name="skills[]" id="skills[]" multiple>
                 <?php foreach ($params["allSkills"] as $skill) { ?>
-                <option <?php if (in_array($skill->getId(), $params['skills'])) { ?> selected <?php } ?>
-                    value="<?php echo $skill->getId(); ?>">
-                    <?php echo $skill->getName(); ?>
-                </option>
+                    <option <?php if (in_array($skill->getId(), $params['skills'])) { ?> selected <?php } ?> value="<?php echo $skill->getId(); ?>">
+                        <?php echo $skill->getName(); ?>
+                    </option>
                 <?php } ?>
             </select>
             <span class="invalidFeedback">

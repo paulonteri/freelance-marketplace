@@ -9,8 +9,7 @@
 
     <form id="formID" action="/admin/skills" method="GET">
         <fieldset>
-            <input hidden type="number" required name="pageNumber" id="pageNumber"
-                value="<?php echo $params['pageNumber']; ?>">
+            <input hidden type="text" name="pageNumber" id="pageNumber" value="<?php echo $params['pageNumber']; ?>">
         </fieldset>
     </form>
 
@@ -21,12 +20,12 @@
         </tr>
 
         <?php foreach ($params["skills"] as $skill) { ?>
-        <!-------------------------------- skill -------------------------------------------------------->
-        <tr>
-            <td><?php echo $skill->getName(); ?></td>
-            <td><?php echo $skill->getId(); ?></td>
-        </tr>
-        <!-------------------------------- end skill -------------------------------------------------------->
+            <!-------------------------------- skill -------------------------------------------------------->
+            <tr>
+                <td><?php echo $skill->getName(); ?></td>
+                <td><?php echo $skill->getId(); ?></td>
+            </tr>
+            <!-------------------------------- end skill -------------------------------------------------------->
         <?php } ?>
 
     </table>
@@ -37,16 +36,15 @@
     <div class="pagination">
         <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', 1)">First</a>
         <?php if ($params['previousPageNumber'] > 0) { ?>
-        <a
-            onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['previousPageNumber']; ?> )">
-            &laquo;&laquo;
-        </a>
+            <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['previousPageNumber']; ?> )">
+                &laquo;&laquo;
+            </a>
         <?php } ?>
         <a onClick="javascript:void(0)" class="active"><?php echo $params['pageNumber']; ?></a>
         <?php if ($params['nextPageNumber'] <= $params['lastPageNumber']) { ?>
-        <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['nextPageNumber']; ?> )">
-            &raquo;&raquo;
-        </a>
+            <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['nextPageNumber']; ?> )">
+                &raquo;&raquo;
+            </a>
         <?php } ?>
         <a onClick="changeInputValueAndSubmitForm('formID', 'pageNumber', <?php echo $params['lastPageNumber']; ?> )">
             Last

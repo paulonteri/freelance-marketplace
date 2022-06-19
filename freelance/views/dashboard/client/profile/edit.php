@@ -4,19 +4,19 @@
     <form action="/dashboard/client/profile/edit" method="POST" enctype="multipart/form-data">
         <fieldset>
             <label for="title">Title</label>
-            <input type="text" required name="title" id="title" value="<?php echo $params["title"]; ?>">
+            <input type="text" name="title" id="title" value="<?php echo $params["title"]; ?>">
             <span class="invalidFeedback">
                 <?php echo $params["titleError"]; ?>
             </span>
 
             <!-- <label for="image">Image</label>
-            <input type="file" required name="image" id="image">
+            <input type="file"  name="image" id="image">
             <span class="invalidFeedback">
                 <?php echo $params["imageError"]; ?>
             </span> -->
 
             <label for="description">Description</label>
-            <textarea type="text" required name="description" id="description" rows="4">
+            <textarea type="text" name="description" id="description" rows="4">
                <?php echo $params["description"]; ?>
             </textarea>
             <span class="invalidFeedback">
@@ -24,7 +24,7 @@
             </span>
 
             <label for="type">Type</label>
-            <select required name="type" id="type">
+            <select name="type" id="type">
                 <option value="individual" <?php if ($params["type"] == "individual") { ?> selected <?php } ?>>
                     Individual
                 </option>

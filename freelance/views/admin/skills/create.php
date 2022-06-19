@@ -4,7 +4,7 @@
     <form action="/admin/skills/create" method="POST">
         <fieldset>
             <label for="name">Name</label>
-            <input type="text" name="name" required id="name">
+            <input type="text" name="name" id="name">
             <span class="invalidFeedback">
                 <?php echo $params['nameError']; ?>
             </span>
