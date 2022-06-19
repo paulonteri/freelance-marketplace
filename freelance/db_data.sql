@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 23, 2022 at 02:11 PM
+-- Generation Time: Jun 19, 2022 at 02:33 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -51,7 +51,8 @@ INSERT INTO `client` (`id`, `user_id`, `national_id`, `image`, `title`, `descrip
 (22, 34, '/uploads/ClientIdImageMonMay16202212:40id_f.jpeg', '/uploads/ClientImageMonMay16202212:40office-5.jpeg', 'Alex and Ani ', 'It specializes in the manufacturing of cigarettes for both domestic and export use.\r\n\r\nIt began its operations in Kenya in 1907 and has since then experienced robust growth hence becoming the leader in cigarette manufacturing.', 'individual', '2022-05-16 09:40:24', 1),
 (23, 35, '/uploads/ClientIdImageMonMay16202212:46id_m.jpeg', '/uploads/ClientImageMonMay16202212:46man-suit.jpeg', 'Washington Prime Group', 'The company is based in the limestone-rich coastal region, and the company produces cement for export to other countries.', 'company', '2022-05-16 09:46:27', 1),
 (24, 36, '/uploads/ClientIdImageMonMay16202212:55id_f.jpeg', '/uploads/ClientImageMonMay16202212:55lady-cuup.jpeg', 'The Collected Group', 'Nyambura cyber', 'individual', '2022-05-16 09:55:16', 1),
-(25, 37, '/uploads/ClientIdImageMonMay16202213:01id_m.jpeg', '/uploads/ClientImageMonMay16202213:01raise-hands.jpeg', 'Paper Source', 'Agriculture', 'company', '2022-05-16 10:01:40', 1);
+(25, 37, '/uploads/ClientIdImageMonMay16202213:01id_m.jpeg', '/uploads/ClientImageMonMay16202213:01raise-hands.jpeg', 'Paper Source', 'Agriculture', 'company', '2022-05-16 10:01:40', 1),
+(26, 158, '/uploads/ClientIdImageWedMay2520228:39code.jpeg', '/uploads/ClientImageWedMay2520228:39code.jpeg', 'Maiores dolorum in u', 'Velit eiusmod non as', 'individual', '2022-05-25 05:39:09', 1);
 
 --
 -- Dumping data for table `freelancer`
@@ -60,7 +61,33 @@ INSERT INTO `client` (`id`, `user_id`, `national_id`, `image`, `title`, `descrip
 INSERT INTO `freelancer` (`id`, `user_id`, `national_id`, `title`, `description`, `years_of_experience`, `time_created`, `is_active`) VALUES
 (10, 12, '/uploads/national_id.webp', 'Creative software engineer &amp; graphic designer', 'Highly experienced, creative, and multitalented Software engineer and Graphic Designer with an extensive background in web, marketing multimedia, and print design. Exceptional collaborative and interpersonal skills; very strong team player with well-developed written and verbal communication abilities. Experienced at producing high-end business-to-business and consumer-facing designs; talented at building and maintaining partnerships. Passionate and accustomed to performing in deadline-driven environments.', 5, '2022-03-22 07:54:52', 1),
 (11, 13, '/uploads/national_id.webp', 'Content marketing professional', 'I am a content marketing professional at HubSpot, an inbound marketing and sales platform that helps companies attract visitors, convert leads, and close customers. \nPreviously, I worked as a marketing manager for a tech software startup. He graduated with honors from The Catholic University of Eastern Africa with a dual degree in Business Administration and Creative Writing. I am also a highly creative and multitalented Graphic Designer with extensive experience in multimedia, marketing, and print design. ', 2, '2022-03-22 09:02:23', 1),
-(12, 16, '/uploads/ClientIdImageThuMay1220227:28id_f.jpeg', 'Data entry expert', 'Data entry expert', 3, '2022-05-12 07:28:39', 1);
+(12, 16, '/uploads/ClientIdImageThuMay1220227:28id_f.jpeg', 'Data entry expert', 'Data entry expert', 3, '2022-05-12 07:28:39', 1),
+(13, 159, '/uploads/ClientIdImageWedMay2520228:48explorers_on_the_moon.jpg', 'Dolore ipsum volupt', 'Voluptatem enim cum', 1972, '2022-05-25 05:48:37', 1),
+(14, 46, NULL, 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(15, 56, '/uploads/ClientIdImageWedMay2520228:48explorers_on_the_moon.jpg', 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(16, 48, NULL, 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(17, 45, '/uploads/ClientIdImageWedMay2520228:48explorers_on_the_moon.jpg', 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(18, 55, NULL, 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(19, 50, NULL, 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(20, 44, '/uploads/ClientIdImageThuMay1220227:28id_f.jpeg', 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(21, 54, '/uploads/ClientIdImageWedMay2520228:48explorers_on_the_moon.jpg', 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(22, 52, NULL, 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(23, 47, NULL, 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(24, 57, '/uploads/ClientIdImageWedMay2520228:48explorers_on_the_moon.jpg', 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(25, 49, '/uploads/ClientIdImageThuMay1220227:28id_f.jpeg', 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(26, 53, NULL, 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(27, 51, '/uploads/ClientIdImageWedMay2520228:48explorers_on_the_moon.jpg', 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(28, 146, NULL, 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(29, 148, '/uploads/ClientIdImageWedMay2520228:48explorers_on_the_moon.jpg', 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(30, 145, NULL, 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(31, 150, '/uploads/ClientIdImageWedMay2520228:48explorers_on_the_moon.jpg', 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(32, 144, NULL, 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(33, 154, '/uploads/ClientIdImageWedMay2520228:48explorers_on_the_moon.jpg', 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(34, 152, NULL, 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(35, 147, NULL, 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(36, 149, '/uploads/ClientIdImageWedMay2520228:48explorers_on_the_moon.jpg', 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(37, 153, NULL, 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1),
+(38, 151, NULL, 'Sample title', 'Sample description', 5, '2022-06-19 12:24:01', 1);
 
 --
 -- Dumping data for table `freelancer_skill`
@@ -71,12 +98,39 @@ INSERT INTO `freelancer_skill` (`id`, `freelancer_id`, `skill_id`) VALUES
 (41, 10, 2),
 (38, 10, 4),
 (39, 10, 5),
+(44, 10, 33),
 (5, 11, 2),
 (6, 11, 3),
 (9, 11, 4),
 (10, 11, 15),
+(45, 11, 33),
 (11, 12, 9),
-(12, 12, 10);
+(12, 12, 10),
+(46, 12, 33),
+(42, 13, 15),
+(43, 13, 32),
+(49, 14, 33),
+(59, 15, 33),
+(51, 16, 33),
+(48, 17, 33),
+(58, 18, 33),
+(53, 19, 33),
+(47, 20, 33),
+(57, 21, 33),
+(55, 22, 33),
+(50, 23, 33),
+(60, 24, 33),
+(52, 25, 33),
+(56, 26, 33),
+(54, 27, 33),
+(63, 28, 33),
+(65, 29, 33),
+(62, 30, 33),
+(67, 31, 33),
+(61, 32, 33),
+(64, 35, 33),
+(66, 36, 33),
+(68, 38, 33);
 
 --
 -- Dumping data for table `job`
@@ -93,9 +147,9 @@ INSERT INTO `job` (`id`, `client_id`, `title`, `description`, `image`, `pay_rate
 (12, 4, 'HIGHLY SKILLED COPYWRITER/PRODUCTLlSTER', 'As the title says we are looking for a great productlister/copywriter!\r\n\r\nWe already have someone for the basic listings. Now we need someone who can make the perfect productpage in case our company has a winning product.\r\n\r\nThis means:\r\n- You&#039;re a great copywriter\r\n- You know how to make a converting productpage including GIF&#039;s , pictures etc.\r\n- You can edit GIF&#039;s and pictures yourself\r\n\r\nWe will provide you:\r\n- The previous, more simple version of the product page.\r\n- The competitors link and video\r\n- The template which you can use to make the productpage look better\r\n\r\nIf you think you are the right fit for this job, please send us a message with previous productpages you have made. In this case we are only looking for people with experience!', '/uploads/ClientJobImageMonMay0220224:32download.jpeg', 1000, 40, '2022-05-17 07:31:00', '2022-05-02 04:32:35', 1),
 (13, 6, 'Accounting', 'How do I set up accounts for a tiktok marketing account?', '/uploads/ClientJobImageMonMay16202211:13office-vr.jpeg', 50, 1, '2022-05-19 11:13:00', '2022-05-16 08:13:43', 1),
 (14, 6, 'Review our product', 'How does our product at paulonteri.com look like?', '/uploads/ClientJobImageMonMay16202211:14office2.jpeg', 30, 1, '2022-05-21 11:14:00', '2022-05-16 08:14:51', 1),
-(15, 7, 'Send us guide', 'Send us guide on how to move from heroku to google cloud', '/uploads/ClientJobImageMonMay16202211:18tech.jpeg', 100, 1, '2022-05-24 11:17:00', '2022-05-16 08:18:19', 1),
+(15, 2, 'Send us guide', 'Send us guide on how to move from heroku to google cloud', '/uploads/ClientJobImageMonMay16202211:18tech.jpeg', 100, 1, '2022-05-24 11:17:00', '2022-05-16 08:18:19', 1),
 (16, 7, 'How to quickly get work visa for employees', 'Send us tips on how to quickly get work visa for employees', '/uploads/ClientJobImageMonMay16202211:19men-suits.jpeg', 100000, 5, '2022-05-26 11:19:00', '2022-05-16 08:19:45', 1),
-(17, 8, 'Create users CSV', 'Create 1000 users for us and add it to a CSV', '/uploads/ClientJobImageMonMay16202211:32raise-hands.jpeg', 1000, 40, '2022-05-24 11:31:00', '2022-05-16 08:32:13', 1),
+(17, 2, 'Create users CSV', 'Create 1000 users for us and add it to a CSV', '/uploads/ClientJobImageMonMay16202211:32raise-hands.jpeg', 1000, 40, '2022-05-24 11:31:00', '2022-05-16 08:32:13', 1),
 (18, 8, 'Create logo for our website', 'Create logo for our website paulonteri.com', '/uploads/ClientJobImageMonMay16202211:33engineer.jpeg', 2000, 38, '2022-05-22 11:32:00', '2022-05-16 08:33:09', 1),
 (19, 9, 'Create illustrations to show happy customers', 'Create illustrations to show happy customers', '/uploads/ClientJobImageMonMay16202211:37man-suit.jpeg', 5000, 80, '2022-05-24 11:36:00', '2022-05-16 08:37:23', 1),
 (20, 9, 'Guide on how to licence 1000 windows computers', 'Guide on how to licence 1000 windows computers', '/uploads/ClientJobImageMonMay16202211:38lady-office.jpeg', 10000, 30, '2022-05-26 11:38:00', '2022-05-16 08:38:46', 1),
@@ -112,7 +166,12 @@ INSERT INTO `job` (`id`, `client_id`, `title`, `description`, `image`, `pay_rate
 (31, 15, 'Check on the UX of our app', 'Check on the UX of our app Tala on playstore and submit a report', '/uploads/ClientJobImageMonMay16202213:03raise-hands.jpeg', 7000, 45, '2022-05-19 13:02:00', '2022-05-16 10:03:31', 1),
 (32, 15, 'Mark stale issues as stale', 'Mark stale issues as stale in our open source repo https://github.com/paulonteri/freelance-marketplace/', '/uploads/ClientJobImageMonMay16202213:04tech.jpeg', 1000, 40, '2022-05-25 13:04:00', '2022-05-16 10:04:33', 1),
 (33, 2, 'Sample', 'Sample Desc', '/uploads/ClientJobImageWedMay1820229:56lady-office.jpeg', 5000, 10, '2022-05-19 09:55:00', '2022-05-18 06:56:15', 0),
-(34, 2, 'Quisquam adipisci iu', 'Mollit nemo autem si', '/uploads/ClientJobImageSatMay21202211:22db_schema.png', 64899, 32648, '2022-05-26 01:19:00', '2022-05-21 08:22:47', 0);
+(34, 2, 'Quisquam adipisci iu', 'Mollit nemo autem si', '/uploads/ClientJobImageSatMay21202211:22db_schema.png', 64899, 32648, '2022-05-26 01:19:00', '2022-05-21 08:22:47', 0),
+(35, 2, 'Aperiam repellendus', 'Sit perferendis lab', '/uploads/ClientJobImageWedMay2520227:43whiteboard.jpeg', 70128, 43957, '2023-11-05 15:15:00', '2022-05-25 04:43:17', 0),
+(36, 2, 'Sample', 'Sint qui quasi conse', '/uploads/ClientJobImageWedMay2520227:58amazon.png', 45894, 79502, '2023-03-26 09:03:00', '2022-05-25 04:58:06', 0),
+(37, 26, 'Rerum incididunt ad', 'Ut et ullam exceptur', '/uploads/ClientJobImageWedMay2520228:39code.jpeg', 69268, 56326, '2023-08-05 02:45:00', '2022-05-25 05:39:53', 1),
+(38, 2, 'Suscipit reprehender', 'Mollitia aut dolore', '/uploads/ClientJobImageWedMay2520229:31aviator.jpeg', 28822, 31456, '2023-08-21 19:19:00', '2022-05-25 06:31:33', 1),
+(39, 2, 'Sample 10', 'Aspernatur fugit en', '/uploads/ClientJobImageFriMay2720229:17aviator.jpeg', 57760, 9624, '2022-06-14 19:56:00', '2022-05-27 06:17:45', 1);
 
 --
 -- Dumping data for table `job_payment`
@@ -131,7 +190,31 @@ INSERT INTO `job_payment` (`id`, `job_id`, `phone_number`, `amount`, `is_payment
 (10, 34, '254703130580', 1, 1, '86348-117174-1', 'ws_CO_21052022114744503703130580', '0', '0', 'The service request is processed successfully.'),
 (11, 30, '254703130580', 1, 0, '32088-5762351-1', 'ws_CO_23052022145215250703130580', '0', NULL, NULL),
 (12, 30, '254703130580', 1, 0, '27517-69551719-1', 'ws_CO_23052022145325342703130580', '0', NULL, NULL),
-(13, 30, '254703130580', 1, 1, '32091-5767474-1', 'ws_CO_23052022145435248703130580', '0', '0', 'The service request is processed successfully.');
+(13, 30, '254703130580', 1, 1, '32091-5767474-1', 'ws_CO_23052022145435248703130580', '0', '0', 'The service request is processed successfully.'),
+(14, 17, '254703130580', 1, 0, '27523-71422343-1', 'ws_CO_24052022111843422703130580', '0', NULL, NULL),
+(15, 17, '254703130580', 1, 0, '65102-7291351-1', 'ws_CO_24052022111957349703130580', '0', NULL, NULL),
+(16, 17, '254703130580', 1, 0, '23978-3103269-1', 'ws_CO_24052022112156132703130580', '0', '1032', 'Request cancelled by user'),
+(17, 17, '254703130580', 1, 0, '23978-3103269-2', 'ws_CO_24052022112219176703130580', '0', NULL, NULL),
+(18, 17, '254703130580', 11, 1, '27520-71430774-2', 'ws_CO_24052022112303634703130580', '0', '0', 'The service request is processed successfully.'),
+(19, 35, '254703130580', 18, 1, '86348-9053346-1', 'ws_CO_25052022074324926703130580', '0', '0', 'The service request is processed successfully.'),
+(20, 37, '254703130580', 43, 1, '19161-9587320-2', 'ws_CO_25052022084006981703130580', '0', '0', 'The service request is processed successfully.'),
+(21, 37, '254703130580', 42, 0, '53767-69910790-1', 'ws_CO_25052022085418468703130580', '0', NULL, NULL),
+(22, 37, '254703130580', 41, 0, '41147-5120015-2', 'ws_CO_25052022085555654703130580', '0', '0', 'The service request is processed successfully.'),
+(23, 37, '254703130580', 49, 0, '23970-5144251-1', 'ws_CO_25052022085803592703130580', '0', NULL, NULL),
+(24, 37, '254703130580', 47, 0, '19144-9617098-1', 'ws_CO_25052022085824027703130580', '0', NULL, NULL),
+(25, 37, '254703130580', 14, 0, '86354-9172260-2', 'ws_CO_25052022085853173703130580', '0', NULL, NULL),
+(26, 37, '254703130580', 15, 0, '23970-5151381-1', 'ws_CO_25052022090209960703130580', '0', NULL, NULL),
+(27, 37, '254703130580', 12, 0, '27540-73498407-1', 'ws_CO_25052022090601708703130580', '0', NULL, NULL),
+(28, 37, '254703130580', 42, 0, '86348-9190631-1', 'ws_CO_25052022090916743703130580', '0', NULL, NULL),
+(29, 37, '254703130580', 29, 0, '23985-5165732-2', 'ws_CO_25052022091044069703130580', '0', NULL, NULL),
+(30, 38, '254703130580', 26, 0, '53785-69973413-1', 'ws_CO_25052022093143822703130580', '0', NULL, NULL),
+(31, 38, '254703130580', 24, 1, '57073-70063367-1', 'ws_CO_25052022093519545703130580', '0', '0', 'The service request is processed successfully.'),
+(32, 8, '254703130580', 24, 0, '57059-70065878-1', 'ws_CO_25052022093645703703130580', '0', NULL, NULL),
+(33, 8, '254703130580', 20, 1, '21173-9311422-1', 'ws_CO_25052022093712945703130580', '0', '0', 'The service request is processed successfully.'),
+(34, 5, '254703130580', 39, 1, '23963-5216624-1', 'ws_CO_25052022093929596703130580', '0', '0', 'The service request is processed successfully.'),
+(35, 6, '254703130580', 19, 0, '41148-5197259-1', 'ws_CO_25052022093956823703130580', '0', NULL, NULL),
+(36, 39, '254725695782', 23, 0, '57076-74524802-2', 'ws_CO_27052022091900971725695782', '0', NULL, NULL),
+(37, 39, '254703130580', 48, 1, '32088-14464965-1', 'ws_CO_27052022092100232703130580', '0', '0', 'The service request is processed successfully.');
 
 --
 -- Dumping data for table `job_payment_dispatch`
@@ -139,24 +222,32 @@ INSERT INTO `job_payment` (`id`, `job_id`, `phone_number`, `amount`, `is_payment
 
 INSERT INTO `job_payment_dispatch` (`id`, `job_payment_id`, `is_refund`, `phone_number`, `amount`, `is_dispatch_successful`, `response_conversation_id`, `response_originator_conversation_id`, `response_response_code`) VALUES
 (10, 13, 1, '254703130580', 1, 0, 'AG_20220523_20102c0b5f25c026e5b0', '19156-5881860-1', '0'),
-(11, 13, 1, '254703130580', 1, 0, 'AG_20220523_20102cfa35d8bc8db292', '21168-5513746-2', '0');
+(11, 13, 1, '254703130580', 1, 0, 'AG_20220523_20102cfa35d8bc8db292', '21168-5513746-2', '0'),
+(12, 18, 0, '254762307628', 11, 0, 'AG_20220524_201025643fe9897cf6ad', '27538-71446558-1', '0'),
+(13, 20, 0, '254730652592', 50, 0, 'AG_20220525_20104cd99afdd32df0ea', '41147-5154867-2', '0'),
+(14, 37, 1, '254703130580', 30, 0, 'AG_20220527_2010570c9327d621d68c', '57081-74549870-1', '0');
 
 --
 -- Dumping data for table `job_proposal`
 --
 
-INSERT INTO `job_proposal` (`id`, `status`, `title`, `description`, `job_id`, `freelancer_id`, `submission_description`, `submission_attachment`, `client_comment`, `time_work_starts`, `time_work_ends`, `time_created`, `is_active`) VALUES
-(1, 'completed successfully', 'Flutter Developer & UI/UX Designer', 'I have mastered the art of states and widgets in Flutter, making it my preferred UI tool. I have vast experience working with Flutter, coupled with other technologies to create full-scale apps.\r\nSuch as both SQL(PostgreSQL,Mysql) and NoSQL(MongoDB) databases and python(flask,DRF,fastapi) or Js(Node) for backend Solutions. Open to working with you.', 6, 10, 'I have completed the task', '/uploads/FreelancerWorkCompleteFileMonApr18202215:47work.zip', NULL, NULL, NULL, '2022-03-24 08:36:04', 1),
-(2, 'withdrawn', 'I am an experienced social media manager', 'I would like to express my strong interest in the Social Media Manager position for the stated time. I am confident that my previous success as a social media manager, as well as my strong communication and collaboration skills, make me an ideal candidate for the position.\r\n\r\nI have ten years of experience in marketing, and I have spent the last five of those years as a Social Media Manager. My most recent campaign for Acme Corp. led to an increase of over 35% in inbound traffic for Acme’s website. Through a combination of creative social media marketing strategies and thorough monitoring of success through media analytics, KPIs, and dashboards, I can assure you of a similar rate of success.\r\n\r\nI am confident that my experience as well as my ability to collaborate and communicate, make me a strong candidate for the Social Media Manager.  Thank you so much for your time and consideration.', 5, 10, NULL, NULL, NULL, NULL, NULL, '2022-03-27 11:17:58', 1),
-(4, 'accepted', 'Qualified Software Engineer', 'I have training in the above skills', 7, 10, NULL, NULL, NULL, NULL, NULL, '2022-04-18 10:24:26', 1),
-(5, 'accepted', 'I host my own mailing server', 'I am used to performing such tasks', 11, 10, NULL, NULL, NULL, NULL, NULL, '2022-05-01 12:32:30', 1),
-(6, 'accepted', 'Qualified Software Engineer', 'I have training in the above skills', 8, 10, NULL, NULL, NULL, NULL, NULL, '2022-05-01 12:33:19', 1),
-(7, 'accepted', 'I have vast experience in data centre management', 'Motivated IT support technician seeks new position in dynamic, growth-oriented company focused on cultivating exceptional customer experience and a positive work environment. With experience handling networking concerns, implementing new software, installing new hardware, and addressing user concerns, I bring attention to detail and a dedication to technical improvement to each job. Past achievements include new network architecture component selection and implementation, earning leading industry certifications, and driving the achievement of departmental goals.', 10, 10, NULL, NULL, NULL, NULL, NULL, '2022-05-02 05:02:23', 1),
-(8, 'accepted', 'Used to working with such data all day', 'I would like to give it my all', 9, 11, NULL, NULL, NULL, NULL, NULL, '2022-05-02 05:18:45', 1),
-(9, 'rejected', 'Former Software Developer', 'I am farmiliar with some of the technology above', 8, 11, NULL, NULL, NULL, NULL, NULL, '2022-05-02 05:19:38', 1),
-(10, 'rejected', 'Former Software Engineer', 'As the title says, I am a former software developer and would like to give this task a try', 7, 11, NULL, NULL, NULL, NULL, NULL, '2022-05-02 05:20:23', 1),
-(11, 'accepted', 'Experienced copywriter', 'Creative wordsmith dedicated to crafting messages worthwhile remembering. I believe stories are key to human connection, and storytelling is my passion. Let&rsquo;s get into each other.', 12, 11, NULL, NULL, NULL, NULL, NULL, '2022-05-02 05:22:11', 1),
-(13, 'sent', 'Sample proposal 1', 'Sample proposal 1 desc', 33, 10, NULL, NULL, NULL, NULL, NULL, '2022-05-18 10:56:50', 1);
+INSERT INTO `job_proposal` (`id`, `status`, `title`, `description`, `job_id`, `freelancer_id`, `submission_description`, `submission_attachment`, `client_comment`, `time_work_starts`, `time_work_ends`, `24_hr_expiry_email_sent`, `time_created`, `is_active`) VALUES
+(1, 'completed successfully', 'Flutter Developer & UI/UX Designer', 'I have mastered the art of states and widgets in Flutter, making it my preferred UI tool. I have vast experience working with Flutter, coupled with other technologies to create full-scale apps.\r\nSuch as both SQL(PostgreSQL,Mysql) and NoSQL(MongoDB) databases and python(flask,DRF,fastapi) or Js(Node) for backend Solutions. Open to working with you.', 6, 10, 'I have completed the task', '/uploads/FreelancerWorkCompleteFileMonApr18202215:47work.zip', NULL, NULL, NULL, 0, '2022-03-24 08:36:04', 1),
+(2, 'withdrawn', 'I am an experienced social media manager', 'I would like to express my strong interest in the Social Media Manager position for the stated time. I am confident that my previous success as a social media manager, as well as my strong communication and collaboration skills, make me an ideal candidate for the position.\r\n\r\nI have ten years of experience in marketing, and I have spent the last five of those years as a Social Media Manager. My most recent campaign for Acme Corp. led to an increase of over 35% in inbound traffic for Acme’s website. Through a combination of creative social media marketing strategies and thorough monitoring of success through media analytics, KPIs, and dashboards, I can assure you of a similar rate of success.\r\n\r\nI am confident that my experience as well as my ability to collaborate and communicate, make me a strong candidate for the Social Media Manager.  Thank you so much for your time and consideration.', 5, 10, NULL, NULL, NULL, NULL, NULL, 0, '2022-03-27 11:17:58', 1),
+(4, 'accepted', 'Qualified Software Engineer', 'I have training in the above skills', 7, 10, NULL, NULL, NULL, NULL, NULL, 0, '2022-04-18 10:24:26', 1),
+(5, 'accepted', 'I host my own mailing server', 'I am used to performing such tasks', 11, 10, NULL, NULL, NULL, NULL, NULL, 0, '2022-05-01 12:32:30', 1),
+(6, 'accepted', 'Qualified Software Engineer', 'I have training in the above skills', 8, 10, NULL, NULL, NULL, NULL, NULL, 0, '2022-05-01 12:33:19', 1),
+(7, 'accepted', 'I have vast experience in data centre management', 'Motivated IT support technician seeks new position in dynamic, growth-oriented company focused on cultivating exceptional customer experience and a positive work environment. With experience handling networking concerns, implementing new software, installing new hardware, and addressing user concerns, I bring attention to detail and a dedication to technical improvement to each job. Past achievements include new network architecture component selection and implementation, earning leading industry certifications, and driving the achievement of departmental goals.', 10, 10, NULL, NULL, NULL, NULL, NULL, 0, '2022-05-02 05:02:23', 1),
+(8, 'accepted', 'Used to working with such data all day', 'I would like to give it my all', 9, 11, NULL, NULL, NULL, NULL, NULL, 0, '2022-05-02 05:18:45', 1),
+(9, 'rejected', 'Former Software Developer', 'I am farmiliar with some of the technology above', 8, 11, NULL, NULL, NULL, NULL, NULL, 0, '2022-05-02 05:19:38', 1),
+(10, 'rejected', 'Former Software Engineer', 'As the title says, I am a former software developer and would like to give this task a try', 7, 11, NULL, NULL, NULL, NULL, NULL, 0, '2022-05-02 05:20:23', 1),
+(11, 'accepted', 'Experienced copywriter', 'Creative wordsmith dedicated to crafting messages worthwhile remembering. I believe stories are key to human connection, and storytelling is my passion. Let&rsquo;s get into each other.', 12, 11, NULL, NULL, NULL, NULL, NULL, 0, '2022-05-02 05:22:11', 1),
+(13, 'sent', 'Sample proposal 1', 'Sample proposal 1 desc', 33, 10, NULL, NULL, NULL, NULL, NULL, 0, '2022-05-18 10:56:50', 1),
+(14, 'completed successfully', 'Sample 24th', 'Sample 24th', 15, 10, 'dsdsdsd', '/uploads/FreelancerWorkCompleteFileTueMay24202211:00example-work.zip', NULL, NULL, NULL, 0, '2022-05-24 07:47:03', 1),
+(15, 'completed successfully', 'Another Sample', 'Another Sample Desc', 17, 10, 'Sample Submit work', '/uploads/FreelancerWorkCompleteFileTueMay24202211:14example-work.zip', NULL, NULL, NULL, 0, '2022-05-24 08:07:16', 1),
+(16, 'completed successfully', 'Ut velit in enim qu', 'Est dolor in ut sed', 37, 13, 'Quo velit expedita', '/uploads/FreelancerWorkCompleteFileWedMay2520229:15work1done.zip', NULL, NULL, NULL, 0, '2022-05-25 06:14:48', 1),
+(17, 'completed unsuccessfully', 'Sample 10', 'Voluptas reiciendis', 39, 10, 'Sample 10', '/uploads/FreelancerWorkCompleteFileFriMay2720229:30work1done.zip', NULL, NULL, NULL, 0, '2022-05-27 06:25:58', 1),
+(18, 'accepted', 'qwerty', 'qwerty qwerty', 38, 10, NULL, NULL, NULL, '2022-06-08 10:32:27', '2022-06-09 02:32:27', 0, '2022-06-08 10:29:20', 1);
 
 --
 -- Dumping data for table `job_rating`
@@ -164,7 +255,12 @@ INSERT INTO `job_proposal` (`id`, `status`, `title`, `description`, `job_id`, `f
 
 INSERT INTO `job_rating` (`id`, `job_id`, `type`, `rating`, `comment`) VALUES
 (1, 6, 'freelancer', 4, 'GOOD WORK!'),
-(3, 6, 'client', 3, 'Good to work with!');
+(3, 6, 'client', 3, 'Good to work with!'),
+(4, 15, 'freelancer', 5, 'Great working with you!'),
+(5, 15, 'client', 5, 'Good time'),
+(10, 17, 'freelancer', 3, 'Finished on time!'),
+(11, 37, 'freelancer', 5, 'Thanks for the work'),
+(12, 37, 'client', 3, 'Easy going');
 
 --
 -- Dumping data for table `job_skill`
@@ -216,7 +312,134 @@ INSERT INTO `job_skill` (`id`, `job_id`, `skill_id`) VALUES
 (49, 32, 19),
 (50, 33, 1),
 (51, 33, 29),
-(52, 34, 28);
+(52, 34, 28),
+(53, 35, 17),
+(54, 36, 28),
+(61, 37, 2),
+(55, 37, 4),
+(56, 37, 5),
+(57, 37, 7),
+(62, 37, 10),
+(60, 37, 13),
+(58, 37, 15),
+(63, 37, 19),
+(59, 37, 31),
+(64, 37, 32),
+(75, 38, 3),
+(69, 38, 7),
+(72, 38, 8),
+(67, 38, 9),
+(74, 38, 10),
+(73, 38, 13),
+(70, 38, 15),
+(71, 38, 16),
+(66, 38, 17),
+(65, 38, 20),
+(68, 38, 30),
+(76, 39, 11);
+
+--
+-- Dumping data for table `log`
+--
+
+INSERT INTO `log` (`id`, `user_id`, `type`, `action`, `ip_address`, `time_created`) VALUES
+(1, 17, 'Log In', 'User with email admin@test.com has been logged in', NULL, '2022-06-08 05:55:12'),
+(2, 17, 'Log Out', 'User with user_id 17 has been logged out', NULL, '2022-06-08 06:00:42'),
+(3, 17, 'Log In', 'User with email admin@test.com has been logged in', NULL, '2022-06-08 06:00:45'),
+(4, 17, 'Log Out', 'User with user_id 17 has been logged out', NULL, '2022-06-08 06:57:07'),
+(5, 17, 'Log In', 'User with email admin@test.com has been logged in', NULL, '2022-06-08 06:57:12'),
+(6, 17, 'Log Out', 'User with user_id 17 has been logged out', NULL, '2022-06-08 10:05:42'),
+(7, 17, 'Log In', 'User with email admin@test.com has been logged in', NULL, '2022-06-08 10:05:44'),
+(8, 12, 'Log In', 'User with email freelancer@test.com has been logged in', NULL, '2022-06-08 10:28:38'),
+(9, 17, 'Log Out', 'User with user_id 17 has been logged out', NULL, '2022-06-08 10:30:13'),
+(10, 11, 'Log In', 'User with email client@test.com has been logged in', NULL, '2022-06-08 10:30:23'),
+(11, 11, 'Log In', 'User with email client@test.com has been logged in', NULL, '2022-06-09 19:50:04'),
+(12, 11, 'Log Out', 'User with user_id 11 has been logged out', NULL, '2022-06-09 19:50:19'),
+(13, 17, 'Log In', 'User with email admin@test.com has been logged in', NULL, '2022-06-09 19:50:23'),
+(14, 11, 'Log In', 'User with email client@test.com has been logged in', NULL, '2022-06-10 10:53:06'),
+(15, 11, 'Log Out', 'User with user_id 11 has been logged out', NULL, '2022-06-10 10:54:43'),
+(16, 17, 'Log In', 'User with email admin@test.com has been logged in', NULL, '2022-06-10 10:54:49'),
+(17, 17, 'Log In', 'User with email admin@test.com has been logged in', NULL, '2022-06-10 14:06:13'),
+(18, 17, 'Log In', 'User with email admin@test.com has been logged in', NULL, '2022-06-19 11:24:06'),
+(19, 17, 'General Log', 'Request: [GET /admin?alert=Logged%20in%20successfully!] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', NULL, '2022-06-19 11:24:06'),
+(20, 17, 'General Log', 'Request: [GET /admin/users] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', NULL, '2022-06-19 11:24:10'),
+(21, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=159] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', NULL, '2022-06-19 11:24:16'),
+(22, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', NULL, '2022-06-19 11:25:04'),
+(23, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', NULL, '2022-06-19 11:25:14'),
+(24, 17, 'General Log', 'Request: [GET /admin/users] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', NULL, '2022-06-19 11:25:21'),
+(25, 17, 'General Log', 'Request: [GET /admin/jobs] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', NULL, '2022-06-19 11:25:23'),
+(26, 17, 'General Log', 'Request: [GET /admin/freelancers] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', NULL, '2022-06-19 11:25:25'),
+(27, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', NULL, '2022-06-19 11:25:31'),
+(28, 17, 'General Log', 'Request: [GET /admin/freelancers] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', NULL, '2022-06-19 11:26:09'),
+(29, 17, 'General Log', 'Request: [GET /admin/freelancers] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', NULL, '2022-06-19 11:26:30'),
+(30, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', NULL, '2022-06-19 11:26:37'),
+(31, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', NULL, '2022-06-19 11:27:17'),
+(32, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', NULL, '2022-06-19 11:27:36'),
+(33, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', NULL, '2022-06-19 11:27:57'),
+(34, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', NULL, '2022-06-19 11:33:54'),
+(35, 17, 'General Log', 'Request: [GET /admin/jobs] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:42:57'),
+(36, 17, 'General Log', 'Request: [GET /admin/freelancers] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:43:00'),
+(37, 17, 'General Log', 'Request: [GET /admin/clients] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:43:02'),
+(38, 17, 'General Log', 'Request: [GET /admin/skills] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:43:04'),
+(39, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:44:38'),
+(40, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:45:11'),
+(41, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:45:47'),
+(42, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:46:33'),
+(43, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:47:35'),
+(44, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:50:02'),
+(45, 17, 'General Log', 'Request: [GET /admin/users/logs?pageNumber=1&userId=17&types%5B%5D=Log+In&types%5B%5D=Log+Out&types%5B%5D=Create+Freelancer&types%5B%5D=Create+Client&types%5B%5D=Register&types%5B%5D=Reset+Password] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:50:20'),
+(46, 17, 'General Log', 'Request: [GET /admin/users] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:50:27'),
+(47, 17, 'General Log', 'Request: [GET /admin/users] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:50:32'),
+(48, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=159] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:50:34'),
+(49, 17, 'General Log', 'Request: [GET /admin/users] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:50:39'),
+(50, 17, 'General Log', 'Request: [GET /admin/users/id?userId=159] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:50:40'),
+(51, 17, 'General Log', 'Request: [POST /admin/users/id?userId=159] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:50:47'),
+(52, 17, 'General Log', 'Request: [POST /admin/users/id?userId=159] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:51:17'),
+(53, 17, 'General Log', 'Request: [GET /admin/users/id?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:51:48'),
+(54, 17, 'General Log', 'Request: [GET /admin/users/id?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:52:02'),
+(55, 17, 'Log In', 'User with email admin@test.com has been logged in', '127.0.0.1', '2022-06-19 11:52:44'),
+(56, 17, 'General Log', 'Request: [GET /admin?alert=Logged%20in%20successfully!] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:52:44'),
+(57, 17, 'General Log', 'Request: [GET /admin/users] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:52:45'),
+(58, 17, 'General Log', 'Request: [GET /admin/users/id?userId=159] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:52:46'),
+(59, 17, 'General Log', 'Request: [POST /admin/users/id?userId=159] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.91 Mobile Safari/537.36] and body [is_admin=true]', '127.0.0.1', '2022-06-19 11:53:22'),
+(60, 17, 'General Log', 'Request: [POST /admin/users/id?userId=159] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.91 Mobile Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:53:35'),
+(61, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=159] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:53:51'),
+(62, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:53:55'),
+(63, 17, 'General Log', 'Request: [GET /dashboard/profile] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.91 Mobile Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:54:18'),
+(64, 17, 'General Log', 'Request: [GET /dashboard/profile/edit] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.91 Mobile Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:54:23'),
+(65, 17, 'General Log', 'Request: [POST /dashboard/profile/edit] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.91 Mobile Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:54:32'),
+(66, 17, 'General Log', 'User with id 17 updated', '127.0.0.1', '2022-06-19 11:54:32'),
+(67, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:54:35'),
+(68, 17, 'General Log', 'Request: [GET /admin/users] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:56:08'),
+(69, 17, 'General Log', 'Request: [GET /admin/users/logs?userId=17] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:56:10'),
+(70, 17, 'General Log', 'Request: [GET /admin/users] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.91 Mobile Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:56:16'),
+(71, 17, 'General Log', 'Request: [GET /admin/users/id?userId=27] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.91 Mobile Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:56:19'),
+(72, 17, 'General Log', 'Request: [GET /admin/users/id?userId=27] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:58:13'),
+(73, 17, 'General Log', 'Request: [GET /dashboard/profile] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:58:24'),
+(74, 17, 'General Log', 'Request: [GET /admin/users] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:58:27'),
+(75, 17, 'General Log', 'Request: [GET /admin/users/id?userId=159] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:58:30'),
+(76, 17, 'General Log', 'Request: [GET /admin/users] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:58:37'),
+(77, 17, 'General Log', 'Request: [GET /admin/jobs] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:58:43'),
+(78, 17, 'General Log', 'Request: [GET /admin/jobs] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:59:11'),
+(79, 17, 'General Log', 'Request: [GET /admin/users] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:59:23'),
+(80, 17, 'General Log', 'Request: [GET /admin/users/id?userId=159] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:59:24'),
+(81, 17, 'General Log', 'Request: [GET /admin/users/id?userId=159] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:59:42'),
+(82, 17, 'General Log', 'Request: [GET /logout] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:59:50'),
+(83, 17, 'Log Out', 'User with user_id 17 has been logged out', '127.0.0.1', '2022-06-19 11:59:50'),
+(84, 17, 'Log In', 'User with email admin@test.com has been logged in', '127.0.0.1', '2022-06-19 11:59:53'),
+(85, 17, 'General Log', 'Request: [GET /admin?alert=Logged%20in%20successfully!] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:59:53'),
+(86, 17, 'General Log', 'Request: [GET /admin/users] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 11:59:58'),
+(87, 17, 'General Log', 'Request: [GET /admin/jobs] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 12:00:00'),
+(88, 17, 'General Log', 'Request: [GET /logout] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 12:00:09'),
+(89, 17, 'Log Out', 'User with user_id 17 has been logged out', '127.0.0.1', '2022-06-19 12:00:09'),
+(90, 17, 'Log In', 'User with email admin@test.com has been logged in', '127.0.0.1', '2022-06-19 12:00:18'),
+(91, 17, 'General Log', 'Request: [GET /admin?alert=Logged%20in%20successfully!] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 12:00:18'),
+(92, 17, 'General Log', 'Request: [GET /admin?alert=Logged%20in%20successfully!] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 12:01:35'),
+(93, 17, 'General Log', 'Request: [GET /admin/users] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 12:01:39'),
+(94, 17, 'General Log', 'Request: [GET /admin/users] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 12:05:25'),
+(95, 17, 'General Log', 'Request: [GET /admin/jobs] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 12:05:37'),
+(96, 17, 'General Log', 'Request: [GET /admin/jobs/id?jobId=31] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 12:05:49'),
+(97, 17, 'General Log', 'Request: [GET /admin] from ip [127.0.0.1] and user [17] with user agent [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36] and body []', '127.0.0.1', '2022-06-19 12:05:56');
 
 --
 -- Dumping data for table `skill`
@@ -234,7 +457,8 @@ INSERT INTO `skill` (`id`, `name`) VALUES
 (7, 'LegalAssistant'),
 (15, 'Marketing'),
 (18, 'Photography&Videography'),
-(1, 'Programming'),
+(33, 'Programming'),
+(1, 'QualityAssurance'),
 (29, 'Research'),
 (16, 'SEO'),
 (8, 'SocialMediaManager'),
@@ -252,13 +476,13 @@ INSERT INTO `skill` (`id`, `name`) VALUES
 --
 
 INSERT INTO `user` (`id`, `email`, `phone`, `password`, `first_name`, `middle_name`, `last_name`, `image`, `country`, `county`, `city`, `is_admin`, `is_active`, `time_created`) VALUES
-(11, 'client@test.com', '0718578833', '$2y$10$5QzsfhuROuvDUYtQ4Zv3ZuKkVEfaW1txv/553xBCTunpQvc/bpIsK', 'Meek', 'Moi', 'Karan', '/uploads/profile.avif', 'Kenya', 'Kajiado', 'Rongai', 0, 1, '2022-03-22 06:52:13'),
+(11, 'client@test.com', '0718578833', '$2y$10$5QzsfhuROuvDUYtQ4Zv3ZuKkVEfaW1txv/553xBCTunpQvc/bpIsK', 'Meek', 'Karan', 'Moi', '/uploads/profile.avif', 'Kenya', 'Kajiado', 'Rongai', 0, 1, '2022-03-22 06:52:13'),
 (12, 'freelancer@test.com', '0762307628', '$2y$10$zL2K68YBS7rwMSGIyQ5R.egPQYy43zMaPokgHtOA01j4ylacVCRPu', 'Sharon', 'Kerubo', 'Kiara', '/uploads/profile-female.avif', 'Kenya', 'Kisii', 'Kisii', 1, 1, '2022-03-22 07:53:28'),
 (13, 'freelancer1@test.com', '0793395484', '$2y$10$uohjjRXWHVnduYxpyyUuq.e1yNBkS2BZfXI4SvZzRUWCS.DJbXkS6', 'Amity', 'Rapando', 'Bean', '/uploads/ProfileImageTueMar2220229:241628513616264.jpeg', 'Kenya', 'Thika', 'Juja', 0, 1, '2022-03-22 08:53:44'),
 (14, 'client1@test.com', '0777627107', '$2y$10$KKCOjS2ZFwlR6aGdxVpWleKstTq1d1q1Um14sC0m4mAyf0OrXVq6m', 'Margaret', 'Kerugoya', 'Wandia', '/uploads/ProfileImageSunMay01202212:16across the bridge.jpeg', 'Kenya', 'Kajiado', 'Rongai', 0, 1, '2022-05-01 12:16:46'),
 (15, 'client2@test.com', '0721675907', '$2y$10$gTTrOn0rMMZ1.8ZownuMfODHWU64ZIQvcFOFRv9YeJ3eP8rcQxl6K', 'Virginia', 'Bond', 'Ngooru', '/uploads/ProfileImageWedMay11202212:20240452437_257190502758422_107796797346897910_n.jpg', 'Kenya', 'Nakuru', 'Gilgil', 0, 1, '2022-05-11 12:20:42'),
 (16, 'freelancer2@test.com', '0788713917', '$2y$10$ZWE4wzPZQW1yqY8xL00wju4o.a87IGnOfjhaGA/ufbLy9QHk3yloa', 'Margaret', 'Duncan', 'Nerea', '/uploads/ProfileImageWedMay11202212:38240452437_257190502758422_107796797346897910_n.jpg', 'Kenya', 'Kajiado', 'Rongai', 1, 1, '2022-05-11 12:38:48'),
-(17, 'admin@test.com', '0758751473', '$2y$10$tPEM20lasLluoM8yA0G2JeSZayhDhWcZeAh98OoDHrYJCP0pQc4w6', 'Keith', 'Wend', 'Otieno', '/uploads/ProfileImageWedMay11202212:44explorers_on_the_moon.jpg', 'Kenya', 'Migori', 'Rongo', 1, 1, '2022-05-11 12:44:20'),
+(17, 'admin@test.com', '0758751473', '$2y$10$tPEM20lasLluoM8yA0G2JeSZayhDhWcZeAh98OoDHrYJCP0pQc4w6', 'Keith', 'Otieno', 'Wend0', '/uploads/ProfileImageWedMay11202212:44explorers_on_the_moon.jpg', 'Kenya', 'Migori', 'Rongo', 1, 1, '2022-05-11 12:44:20'),
 (18, 'client4@test.com', '0790257132', '$2y$10$2/8y0fwv1lftiO/znyTJzuP4pO3JPZmHKJhgGkTv1j.YKDyXLXhv2', 'Russell', 'Sanchez', 'Otieno', '/uploads/ProfileImageMonMay16202211:06man-dark-room.jpeg', 'Kenya', 'tana river', 'Hola', 0, 1, '2022-05-16 08:06:54'),
 (19, 'client5@test.com', '0749936646', '$2y$10$/fUfBelCLqckoGS5B1PL1OuZIcPlRAn87Q2M.ePb/M0JD.7VJVI92', 'Rose', 'Jacobson', 'Moi', '/uploads/ProfileImageMonMay16202211:15lady-cuup.jpeg', 'Kenya', 'Lamu', 'Lamu', 0, 1, '2022-05-16 08:15:55'),
 (20, 'client6@test.com', '0791263758', '$2y$10$PrtDZyX8H1CPlpceOBDteOgbM5FbUplTk/qVI5T3zsCjXMb562BxK', 'Ivana', 'Mohammed', 'Aiko', '/uploads/ProfileImageMonMay16202211:29man-suit.jpeg', 'Kenya', 'Taita taveta', 'Mwatete', 0, 1, '2022-05-16 08:29:20'),
@@ -320,7 +544,9 @@ INSERT INTO `user` (`id`, `email`, `phone`, `password`, `first_name`, `middle_na
 (154, 'freelancer120@test.com', '0713603547', '$2y$10$Eu5bhlo7qeRLQk3jx8qWk.m37IzjJGQwpxEvuzmsiSh2Hgzed.mFu', 'Tracy', 'Chebet', 'Kinyua', '/uploads/ProfileImageMonMay16202212:38old-man.jpeg', 'Kenya', 'Nyandarua', 'Ole kalau', 0, 1, '2022-05-13 09:38:00'),
 (155, 'freelancer121@test.com', '0713258757', '$2y$10$wZ6M8LmOdDSbHX/wkgbA.umh5dNezBdvORy71bl/3er5yhSiCjdAG', 'Tracy', 'Ouma', 'Waweru', '/uploads/ProfileImageMonMay16202212:44man-shirt.jpeg', 'Kenya', 'Samburu', 'Maralal', 0, 1, '2022-05-13 09:44:40'),
 (156, 'freelancer122@test.com', '0713246147', '$2y$10$l4GuvYPUVUu8fpyAk3X8cevcMnO3W42GsVaMtIzgizs57gcMWh.8m', 'Tracy', 'O', 'Chege', '/uploads/ProfileImageMonMay16202212:54lady-cuup.jpeg', 'Kenya', 'Nyamira', 'Nyamira', 0, 1, '2022-05-13 09:54:32'),
-(157, 'freelancer123@test.com', '0713808931', '$2y$10$b04zbuP99EyFl8Uj5BzqfefO.t1b34/FkKI4/duq7pv8v1/.5Bdgu', 'Juma', 'Barasa', 'Mbugua', '/uploads/ProfileImageMonMay16202213:00lady-suit.jpeg', 'Kenya', 'Kirinyaga', 'Kerugoya', 0, 1, '2022-05-13 10:00:36');
+(157, 'freelancer123@test.com', '0713808931', '$2y$10$b04zbuP99EyFl8Uj5BzqfefO.t1b34/FkKI4/duq7pv8v1/.5Bdgu', 'Juma', 'Barasa', 'Mbugua', '/uploads/ProfileImageMonMay16202213:00lady-suit.jpeg', 'Kenya', 'Kirinyaga', 'Kerugoya', 0, 1, '2022-05-13 10:00:36'),
+(158, 'client100@test.com', '0785723187', '$2y$10$Nsrekpy5Auy48e/SW8h2befLW7GpDe/1oAPpZpLRe/BUfvEh3v3MK', 'Ila', 'Robles', 'Chantale Sutton', '/uploads/ProfileImageWedMay2520228:38code.jpeg', 'Kenya', 'Voluptatem voluptas', 'Accusantium quidem e', 0, 1, '2022-05-25 05:38:07'),
+(159, 'freelancer100@test.com', '0730652592', '$2y$10$DsTbYkRxEKj0JMD84UA1ZeojCG6DB1MvmwBTW9/WKsMeTJ8XyXylq', 'Ali', 'Kennedy', 'Tobias Huff', '/uploads/ProfileImageWedMay2520228:47code.jpeg', 'Kenya', 'Dolorum quia est et', 'Laudantium id et do', 0, 1, '2022-05-25 05:47:25');
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 

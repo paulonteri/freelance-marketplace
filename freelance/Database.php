@@ -31,11 +31,14 @@ class Database
     // to ensure that the connection is only established once
     if (static::$conn === null) {
 
-      // https://www.phptutorial.net/php-pdo/
+      // https://www.php.net/manual/en/intro.pdo.php
+      // https://www.phptutorial.net/php-pdo
       $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbName;
       $pdo = new PDO($dsn, $this->user, $this->password);
-      $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+      // https://www.php.net/manual/en/pdo.setattribute.php
+      $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); // PDO::FETCH_ASSOC, PDO::FETCH_CLASS
+      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // PDO::ERRMODE_SILENT, PDO::ERRMODE_WARNING, PDO::ERRMODE_EXCEPTION
 
       // set timezone
       $pdo->exec("SET SESSION time_zone = '+3:00';");

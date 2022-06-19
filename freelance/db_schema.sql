@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 23, 2022 at 02:11 PM
+-- Generation Time: Jun 19, 2022 at 02:33 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -151,6 +151,7 @@ CREATE TABLE `job_proposal` (
   `client_comment` text DEFAULT NULL,
   `time_work_starts` datetime DEFAULT NULL,
   `time_work_ends` datetime DEFAULT NULL,
+  `24_hr_expiry_email_sent` tinyint(1) NOT NULL DEFAULT 0,
   `time_created` datetime NOT NULL DEFAULT current_timestamp(),
   `is_active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -181,6 +182,22 @@ CREATE TABLE `job_skill` (
   `id` int(11) NOT NULL,
   `job_id` int(11) NOT NULL,
   `skill_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `log`
+--
+
+DROP TABLE IF EXISTS `log`;
+CREATE TABLE `log` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `type` enum('Log In','Log Out','Create Freelancer','Create Client','General Log') DEFAULT 'General Log',
+  `action` text NOT NULL,
+  `ip_address` varchar(15) DEFAULT NULL,
+  `time_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -305,10 +322,18 @@ ALTER TABLE `job_skill`
   ADD KEY `skill_id` (`skill_id`);
 
 --
+-- Indexes for table `log`
+--
+ALTER TABLE `log`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `reset_password_token`
 --
 ALTER TABLE `reset_password_token`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `skill`
@@ -381,6 +406,12 @@ ALTER TABLE `job_rating`
 -- AUTO_INCREMENT for table `job_skill`
 --
 ALTER TABLE `job_skill`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `log`
+--
+ALTER TABLE `log`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -461,6 +492,18 @@ ALTER TABLE `job_rating`
 ALTER TABLE `job_skill`
   ADD CONSTRAINT `job_skill_ibfk_1` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`),
   ADD CONSTRAINT `job_skill_ibfk_2` FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`);
+
+--
+-- Constraints for table `log`
+--
+ALTER TABLE `log`
+  ADD CONSTRAINT `log_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `reset_password_token`
+--
+ALTER TABLE `reset_password_token`
+  ADD CONSTRAINT `reset_password_token_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
