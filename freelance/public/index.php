@@ -78,6 +78,8 @@ $router->post('/callbacks/job-payment', [DashboardClientController::class, 'jobP
 $router->get('/dashboard/client/jobs/id/proposals', [DashboardClientController::class, 'jobProposals']);
 $router->get('/dashboard/client/jobs/id/review-and-complete', [DashboardClientController::class, 'jobReviewAndComplete']);
 $router->post('/dashboard/client/jobs/id/review-and-complete', [DashboardClientController::class, 'jobReviewAndComplete']);
+$router->get('/dashboard/client/jobs/id/review-and-complete-reject', [DashboardClientController::class, 'jobReviewAndCompleteReject']);
+$router->post('/dashboard/client/jobs/id/review-and-complete-reject', [DashboardClientController::class, 'jobReviewAndCompleteReject']);
 $router->get('/dashboard/client/profile', [DashboardClientController::class, 'profile']);
 $router->get('/dashboard/client/profile/edit', [DashboardClientController::class, 'profileEdit']);
 $router->post('/dashboard/client/profile/edit', [DashboardClientController::class, 'profileEdit']);

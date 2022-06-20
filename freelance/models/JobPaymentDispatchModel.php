@@ -11,11 +11,11 @@ class JobPaymentDispatchModel extends _BaseModel
 {
     private $db;
     private int $id;
-    private int $job_payment_id;
-    private bool $is_refund;
-    private string $phone_number;
-    private float $amount;
-    private bool $is_dispatch_successful;
+    private ?int $job_payment_id;
+    private ?bool $is_refund;
+    private ?string $phone_number;
+    private ?float $amount;
+    private ?bool $is_dispatch_successful;
     private ?string $response_conversation_id;
     private ?string $response_originator_conversation_id;
     private ?string $response_response_code;
@@ -31,15 +31,18 @@ class JobPaymentDispatchModel extends _BaseModel
         $statement->execute();
         $payment = $statement->fetch();
 
-        $this->id = $id;
-        $this->job_payment_id = $payment['job_payment_id'];
-        $this->is_refund = $payment['is_refund'];
-        $this->phone_number = $payment['phone_number'];
-        $this->amount = $payment['amount'];
-        $this->is_dispatch_successful = $payment['is_dispatch_successful'];
-        $this->response_conversation_id = $payment['response_conversation_id'];
-        $this->response_originator_conversation_id = $payment['response_originator_conversation_id'];
-        $this->response_response_code = $payment['response_response_code'];
+        if ($payment) {
+
+            $this->id = $id;
+            $this->job_payment_id = $payment['job_payment_id'];
+            $this->is_refund = $payment['is_refund'];
+            $this->phone_number = $payment['phone_number'];
+            $this->amount = $payment['amount'];
+            $this->is_dispatch_successful = $payment['is_dispatch_successful'];
+            $this->response_conversation_id = $payment['response_conversation_id'];
+            $this->response_originator_conversation_id = $payment['response_originator_conversation_id'];
+            $this->response_response_code = $payment['response_response_code'];
+        }
     }
 
     public static function create(
