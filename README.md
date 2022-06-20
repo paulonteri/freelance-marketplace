@@ -1,7 +1,8 @@
 # Freelance Marketplace
 
-This is an online marketplace that connects people with skilled affordable labour, this helps them cut down on cost of
-managing human capital. It is created from scratch without any libraries or frameworks (apart from `phpmailer`) as part of a school project.
+This is a digital freelancing marketplace that will connect talented professionals with economic opportunities and give organisations access to affordable and low-risk human capital.
+
+It is created from scratch without any libraries or frameworks (apart from `phpmailer`) as part of a school project.
 
 ![Home page](https://user-images.githubusercontent.com/45426293/174629447-6e24c65e-eea7-40da-bd7a-12a90eddfb37.png)
 
