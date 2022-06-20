@@ -70,6 +70,9 @@ composer update
 
 ### Database
 
+![db_schema](https://user-images.githubusercontent.com/45426293/174633487-5b99e610-d930-4b0c-8e4b-a69e382faeae.png)
+
+
 Set up a MySQL database on your local machine with the following configuration as defined in `Database.php`:
 
 ```txt
