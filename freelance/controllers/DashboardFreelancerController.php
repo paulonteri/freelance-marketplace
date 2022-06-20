@@ -55,7 +55,10 @@ class DashboardFreelancerController extends _BaseController
             $data['title'] = trim($_POST['title']);
             $data['years_of_experience'] = trim($_POST['years_of_experience']);
             $data['description'] = trim($_POST['description']);
-            $data['skills'] = $_POST['skills'];
+            $data['skills'] = null;
+            if (isset($_POST['skills'])) {
+                $data['skills'] = $_POST['skills'];
+            }
 
             // validate title
             if (empty($data['title'])) {
@@ -65,6 +68,8 @@ class DashboardFreelancerController extends _BaseController
             // validate years_of_experience
             if (empty($data['years_of_experience'])) {
                 $data['years_of_experienceError'] = 'Please enter a years_of_experience.';
+            } else if (!is_numeric($data['years_of_experience'])) {
+                $data['years_of_experienceError'] = 'Please enter a valid years of experience.';
             }
 
             // validate national_id
@@ -77,10 +82,13 @@ class DashboardFreelancerController extends _BaseController
 
             // validate description
             if (empty($data['description'])) {
-                $data['descriptionError'] = 'Please enter a description".';
+                $data['descriptionError'] = 'Please enter a description.';
             }
 
-            // todo: validate skills
+            // validate skills
+            if (empty($data['skills'])) {
+                $data['skillsError'] = 'Please enter skills.';
+            }
 
             // Check if all errors are empty
             if (
