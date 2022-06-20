@@ -1,7 +1,9 @@
 # Freelance Marketplace
 
 This is an online marketplace that connects people with skilled affordable labour, this helps them cut down on cost of
-managing human capital. It is created from scratch without any libraries or frameworks as part of a school project.
+managing human capital. It is created from scratch without any libraries or frameworks (apart from `phpmailer`) as part of a school project.
+
+![Home page](https://user-images.githubusercontent.com/45426293/174629447-6e24c65e-eea7-40da-bd7a-12a90eddfb37.png)
 
 ---
 
@@ -132,6 +134,101 @@ From the `freelance/public` directory, run the following command to run the appl
 ```txt
 php -S 0.0.0.0:9000
 ```
+
+---
+
+## How to use the system
+
+Register at `/register` then proceed to login. Once you login you can register as a freelancer or client.
+
+The system has three major types of users:
+
+### 1. Freelancer
+
+Freelancer profile | Job proposal | Job
+--- | --- | ---
+![Freelancer profile](https://user-images.githubusercontent.com/45426293/174631009-b7a8d5b0-38a4-4f6c-a07e-007d273ef5d1.png) | ![Job proposal](https://user-images.githubusercontent.com/45426293/174631030-1294b369-7a1d-43a8-8b4c-2569472f1221.png) | ![job](https://user-images.githubusercontent.com/45426293/174631031-8a291391-bd92-4032-88a1-a45a39c1a3c7.png)
+
+
+
+Once you register as a freelancer you will have access to the freelancer dashboard.
+
+From here you have the ability to do the following:
+
+1. View and edit your user profile.
+2. View and edit your freelancer profile.
+3. View jobs.
+    1. Give proposals for the jobs.
+    2. Withdraw your proposals.
+    3. Post work for completed jobs.
+    4. Rate clients after completing a job.
+4. View jobs you have given proposals to (My jobs).
+
+All of the above functionality can be accessed via the sidebar.
+
+#### 1 a. How to give a proposal
+
+1. From the `all jobs` page, select a job.
+2. Click on the `proposal` button and fill in the form.
+3. Wait for the client to accept/reject your proposal.
+4. You can also choose to withdraw the proposal.
+5. Once accepted, you can begin working on the job.
+
+#### 1 b. How to complete a job and rate a freelancer
+
+1. From the `my jobs` page, select a job.
+2. Click on the `submissions/ratings` button and fill in the form to submit your work.
+3. Wait for the freelancer to accept or reject the work.
+4. You can then proceed to rate the freelancer.
+
+### 2. Client
+
+Pay or job | My jobs | Create job
+--- | --- | ---
+![Freelancer profile](https://user-images.githubusercontent.com/45426293/174631967-e0361bcb-4c6b-4410-bb86-302744cec11f.png) | ![Freelancer profile](https://user-images.githubusercontent.com/45426293/174631958-8a173caf-9d6b-4756-89b7-4628c9fa920b.png) | ![Freelancer profile](https://user-images.githubusercontent.com/45426293/174631976-a8661741-8032-4f47-8603-08cbbbd01b48.png) 
+
+Once you register as a client, you will access the client dashboard.
+
+From here you have the ability to do the following:
+
+1. View and edit your user profile.
+2. View and edit your freelancer profile.
+3. View your jobs.
+    1. View proposals given to your jobs.
+        1. Accept/reject proposals.
+    2. View work for completed jobs.
+    3. Rate freelancers after completing a job.
+4. Post jobs.
+5. View freelancers.
+
+All of the above functionality can be accessed via the sidebar.
+
+#### 2 a. How to post a job
+
+1. Click on post job on the sidebar.
+2. Fill in the job details.
+3. Wait to receive proposals from freelancers.
+
+#### 2 b. How to view proposals
+
+1. From a job, click on `view proposals`.
+2. Click on a proposal to accept/reject it. You can only accept one proposal.
+
+#### 2 c. How to see work for a completed job and rate freelancer
+
+1. From a job, click on `review and complete`.
+2. You will see the work if the freelancer has completed the work.
+3. Accept/reject the work and proceed to rate the freelancer.
+
+### 3. Admin
+
+Jobs report | User logs
+--- | ---
+![Jobs report)](https://user-images.githubusercontent.com/45426293/174629686-98667e71-3901-416e-8ade-73184e964094.png) |  ![User logs](https://user-images.githubusercontent.com/45426293/174629627-00667b3f-3809-464e-9522-df77c4840398.png)
+
+Can see various reports and user logs via the admin section.
+
+Admins can give other users admin rights by visting their profiles via the admin.
 
 ---
 
