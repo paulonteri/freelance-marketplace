@@ -383,7 +383,7 @@ class AdminController extends _BaseController
             if (isset($_GET['pageNumber']) && $_GET['pageNumber'] != "") {
                 $pageNumber = $_GET['pageNumber'];
             }
-            $limit = self::$totalRecordsPerPage * 4;
+            $limit = self::$totalRecordsPerPage * 10;
             $offset = ($pageNumber - 1) * $limit;
             $previousPageNumber = $pageNumber - 1;
             $nextPageNumber = $pageNumber + 1;

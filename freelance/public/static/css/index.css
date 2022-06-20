@@ -344,19 +344,19 @@ textarea {
     margin: 0 auto;
     max-width: 112rem;
     padding: 0 2rem;
-    position: relative;
+    position: relative; /* relative to parent element */
     width: 100%;
 }
 
 .row {
-    display: flex;
+    display: flex; /* Displays an element as a block-level flex container */
     flex-direction: column;
     padding: 0;
     width: 100%;
 }
 
 .row .column {
-    display: block;
+    display: block; /* Displays an element as a block element (like <p>). It starts on a new line, and takes up the whole width */
     flex: 1 1 auto;
     margin-left: 0;
     max-width: 100%;
@@ -380,7 +380,7 @@ textarea {
 /* ------------------- table ------------------------- */
 
 table {
-    border-spacing: 0;
+    border-spacing: 0; /* The border-spacing CSS property sets the distance between the borders of adjacent cells in a <table>. */
     display: block;
     overflow-x: auto;
     text-align: left;

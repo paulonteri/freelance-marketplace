@@ -16,7 +16,8 @@ class AuthModel extends _BaseModel
 
     public static function hashPassword(string $password)
     {
-        return password_hash($password, PASSWORD_DEFAULT);
+        // bcrypt (CRYPT_BLOWFISH) algorithm https://en.wikipedia.org/wiki/Bcrypt
+        return password_hash($password, PASSWORD_BCRYPT);
     }
 
     public function register(
@@ -45,8 +46,6 @@ class AuthModel extends _BaseModel
                 'city' => $city,
             )
         );
-
-
 
         if ($isSuccessful) {
             $userId = $this->db->lastInsertId();

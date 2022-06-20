@@ -51,9 +51,9 @@
         <tr>
             <th>Type</th>
             <th>Time</th>
-            <th>Action</th>
             <th>IP address</th>
-            <th>#</th>
+            <th>Action</th>
+            <!-- <th>#</th> -->
         </tr>
 
         <?php foreach ($params["logs"] as $log) { ?>
@@ -67,9 +67,10 @@
                     </script>
                 </small>
             </td>
-            <td><small><?php echo htmlentities($log->getAction()); ?></small></td>
             <td><small><?php echo $log->getIpAddress(); ?></small></td>
-            <td><small><?php echo $log->getId(); ?></small></td>
+            <td><small><?php echo htmlentities($log->getAction()); ?></small></td>
+
+            <!-- <td><small><?php echo $log->getId(); ?></small></td> -->
         </tr>
         <!-------------------------------- end log -------------------------------------------------------->
         <?php } ?>

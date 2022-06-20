@@ -11,7 +11,8 @@
 
         <tr>
             <th>Title</th>
-            <th>Skills</th>
+            <th>Status</th>
+            <th>Freelancer</th>
             <th>View</th>
             <th></th>
         </tr>
@@ -20,9 +21,8 @@
         <!-------------------------------- proposal -------------------------------------------------------->
         <tr>
             <td><?php echo $proposal->getTitle(); ?></td>
-            <td>
-                ..
-            </td>
+            <td><?php echo $proposal->getStatus(); ?></td>
+            <td><?php echo $proposal->getFreelancer()->getUser()->getName(); ?></td>
             <td>
                 <a href="/admin/jobs/proposals/id?proposalId=<?php echo $proposal->getId(); ?>">
                     <p class="  ">
