@@ -1,7 +1,8 @@
+<!DOCTYPE html>
+<html>
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         <?php if (isset($params['pageTitle'])) {
             echo $params['pageTitle'] . ' | Freelance Marketplace';
@@ -11,6 +12,7 @@
     </title>
     <link rel="stylesheet" href="/static/css/index.css">
     <script src="/static/javascript/index.js"></script>
+</head>
 
 <body>
 
@@ -105,6 +107,9 @@
             <a class="inner-menu" href="/dashboard/profile">Your profile</a>
 
             <hr />
+            <a href="/guide.html" target="_blank">Guide/Help</a>
+
+            <hr />
             <a href="/logout">Logout</a>
 
             <hr />
@@ -168,6 +173,8 @@
                 <li> <a href="/register">Register</a> </li>
                 <?php } ?>
 
+                <li> <a href="/guide.html" target="_blank">Guide/Help</a> </li>
+
             </ul>
         </div>
     </div>
@@ -185,3 +192,5 @@
     </p>
 </footer>
 <!-------------------------------- end footer -------------------------------------------------------->
+
+</html>
