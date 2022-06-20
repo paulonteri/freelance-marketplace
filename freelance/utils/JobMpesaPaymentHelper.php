@@ -46,7 +46,7 @@ class JobMpesaPaymentHelper
     public function makePaymentRequest(string $phone, JobModel $job)
     {
         $settings = new Settings();
-        $amount = rand(10, 50); // manually override the amount for testing purposes
+        $amount = rand(1, 5); // manually override the amount for testing purposes
         $phone = $this->formatPhoneNumber($phone);
 
         if ($job->hasBeenPaidFor()) {
@@ -89,7 +89,6 @@ class JobMpesaPaymentHelper
             "TransactionDesc" => "Payment for job {$job->getId()} at {$timestamp}",
         );
         $curlPostDataString = json_encode($curlPostData);
-        // echo var_dump($curlPostData);
 
         $curlTransfer = curl_init($endpoint);
 
@@ -269,7 +268,7 @@ class JobMpesaPaymentHelper
      */
     private function dispatchMoney(JobPaymentModel $jobPayment, bool $isRefund, float $amount, string $phone, string $remarks): bool
     {
-        $amount = rand(10, 50); // manually override the amount for testing purposes
+        $amount = rand(1, 5); // manually override the amount for testing purposes
         $phone = $this->formatPhoneNumber($phone);
         $settings = new Settings();
 
