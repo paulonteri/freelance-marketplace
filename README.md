@@ -53,7 +53,7 @@ manipulate data using the Model component and interact with the Views to render 
 
 ---
 
-## Local setup without Docker
+## Local setup
 
 Clone the repository to your local machine.
 
@@ -61,7 +61,9 @@ Clone the repository to your local machine.
 git clone https://github.com/paulonteri/freelance-marketplace.git
 ```
 
-Then you will need to install [Composer](http://getcomposer.org/) following the instructions on their site.
+### Local setup without Docker
+
+You will need to install [Composer](http://getcomposer.org/) following the instructions on their site.
 
 From the `freelance` directory, run the following command:
 
@@ -69,7 +71,7 @@ From the `freelance` directory, run the following command:
 composer update
 ```
 
-### Database
+#### Database
 
 ![db_schema](https://user-images.githubusercontent.com/45426293/174633487-5b99e610-d930-4b0c-8e4b-a69e382faeae.png)
 
@@ -91,11 +93,11 @@ Use the SQL in the `db_schema.sql` file to create the database schema.
 
 Use the SQL in the `db_data.sql` file to populate the database with some data.
 
-### Environment variables (Optional)
+#### Environment variables (Optional)
 
 Check out the environment variables used by the app in the `env.example` file.
 
-### Mail (Optional)
+#### Mail (Optional)
 
 Mails are sent via `smtp.gmail.com` (Gmail). See more in `utils/Mailer.php`.
 
@@ -104,13 +106,13 @@ Set the following environment variables to get it working:
 - `MAIL_USERNAME`: Your Gmail email address.
 - `MAIL_PASSWORD`: Your Gmail password.
 
-### Payments (Optional)
+#### Payments (Optional)
 
 This app curretly uses the **M-Pesa Express** (LIPA NA M-PESA Online API / STK Push) and **Business To Customer (B2C)** (Pay Outs / Bulk Disbursements) APIs. See more in `utils/JobMpesaPaymentHelper.php`.
 
 Get started by signing up for an [MPESA Daraja API account](https://developer.safaricom.co.ke/) and set up a payment gateway for the application.
 
-The next step is to create a new sandbox app by clicking on the Add a New App button and give it a name. Ensure you select both *Lipa na Mpesa Sandbox* and *Mpesa Sandbox*.
+The next step is to create a new sandbox app by clicking on the Add a New App button and give it a name. Ensure you select both _Lipa na Mpesa Sandbox_ and _Mpesa Sandbox_.
 
 Take note of the following from the dashboard and set them as environment variables:
 
@@ -128,11 +130,11 @@ Once ready to go for live payments, set the `MPESA_ENV` to `live`. The default i
 
 Learn more from the MPESA documentation [here](https://developer.safaricom.co.ke/Documentation).
 
-## Local setup with Docker
+### Local setup with Docker
 
 Install [Docker](https://docs.docker.com/get-docker/) and [Make](https://www.gnu.org/software/make/) (optional).
 
-### Build containers
+#### Build containers
 
 ```bash
 docker-compose build
@@ -144,11 +146,11 @@ OR with make
 make build
 ```
 
-### Set up database
+#### Set up database
 
 Run these commands to set up the schema and add data to the db.
 
-See more details about the [database](#database) section. 
+See more details about the [database](#database) section.
 
 ```bash
 docker-compose exec -T db mysql -u root --password=freelance freelance < ./freelance/db_schema.sql
@@ -162,7 +164,7 @@ OR with make
 make sync-db
 ```
 
-### Run containers
+#### Run containers
 
 ```bash
 docker-compose up
@@ -208,11 +210,9 @@ The system has three major types of users:
 
 ### 1. Freelancer
 
-Freelancer profile | Job proposal | Job
---- | --- | ---
-![Freelancer profile](https://user-images.githubusercontent.com/45426293/174631009-b7a8d5b0-38a4-4f6c-a07e-007d273ef5d1.png) | ![Job proposal](https://user-images.githubusercontent.com/45426293/174631030-1294b369-7a1d-43a8-8b4c-2569472f1221.png) | ![job](https://user-images.githubusercontent.com/45426293/174631031-8a291391-bd92-4032-88a1-a45a39c1a3c7.png)
-
-
+| Freelancer profile                                                                                                           | Job proposal                                                                                                           | Job                                                                                                           |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| ![Freelancer profile](https://user-images.githubusercontent.com/45426293/174631009-b7a8d5b0-38a4-4f6c-a07e-007d273ef5d1.png) | ![Job proposal](https://user-images.githubusercontent.com/45426293/174631030-1294b369-7a1d-43a8-8b4c-2569472f1221.png) | ![job](https://user-images.githubusercontent.com/45426293/174631031-8a291391-bd92-4032-88a1-a45a39c1a3c7.png) |
 
 Once you register as a freelancer you will have access to the freelancer dashboard.
 
@@ -221,10 +221,10 @@ From here you have the ability to do the following:
 1. View and edit your user profile.
 2. View and edit your freelancer profile.
 3. View jobs.
-    1. Give proposals for the jobs.
-    2. Withdraw your proposals.
-    3. Post work for completed jobs.
-    4. Rate clients after completing a job.
+   1. Give proposals for the jobs.
+   2. Withdraw your proposals.
+   3. Post work for completed jobs.
+   4. Rate clients after completing a job.
 4. View jobs you have given proposals to (My jobs).
 
 All of the above functionality can be accessed via the sidebar.
@@ -246,9 +246,9 @@ All of the above functionality can be accessed via the sidebar.
 
 ### 2. Client
 
-Pay or job | My jobs | Create job
---- | --- | ---
-![Freelancer profile](https://user-images.githubusercontent.com/45426293/174631967-e0361bcb-4c6b-4410-bb86-302744cec11f.png) | ![Freelancer profile](https://user-images.githubusercontent.com/45426293/174631958-8a173caf-9d6b-4756-89b7-4628c9fa920b.png) | ![Freelancer profile](https://user-images.githubusercontent.com/45426293/174631976-a8661741-8032-4f47-8603-08cbbbd01b48.png) 
+| Pay or job                                                                                                                   | My jobs                                                                                                                      | Create job                                                                                                                   |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| ![Freelancer profile](https://user-images.githubusercontent.com/45426293/174631967-e0361bcb-4c6b-4410-bb86-302744cec11f.png) | ![Freelancer profile](https://user-images.githubusercontent.com/45426293/174631958-8a173caf-9d6b-4756-89b7-4628c9fa920b.png) | ![Freelancer profile](https://user-images.githubusercontent.com/45426293/174631976-a8661741-8032-4f47-8603-08cbbbd01b48.png) |
 
 Once you register as a client, you will access the client dashboard.
 
@@ -257,10 +257,10 @@ From here you have the ability to do the following:
 1. View and edit your user profile.
 2. View and edit your freelancer profile.
 3. View your jobs.
-    1. View proposals given to your jobs.
-        1. Accept/reject proposals.
-    2. View work for completed jobs.
-    3. Rate freelancers after completing a job.
+   1. View proposals given to your jobs.
+      1. Accept/reject proposals.
+   2. View work for completed jobs.
+   3. Rate freelancers after completing a job.
 4. Post jobs.
 5. View freelancers.
 
@@ -285,9 +285,9 @@ All of the above functionality can be accessed via the sidebar.
 
 ### 3. Admin
 
-Jobs report | User logs
---- | ---
-![Jobs report)](https://user-images.githubusercontent.com/45426293/174629686-98667e71-3901-416e-8ade-73184e964094.png) |  ![User logs](https://user-images.githubusercontent.com/45426293/174629627-00667b3f-3809-464e-9522-df77c4840398.png)
+| Jobs report                                                                                                            | User logs                                                                                                           |
+| ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| ![Jobs report)](https://user-images.githubusercontent.com/45426293/174629686-98667e71-3901-416e-8ade-73184e964094.png) | ![User logs](https://user-images.githubusercontent.com/45426293/174629627-00667b3f-3809-464e-9522-df77c4840398.png) |
 
 Can see various reports and user logs via the admin section.
 
