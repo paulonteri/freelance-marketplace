@@ -176,6 +176,10 @@ OR with make
 make
 ```
 
+Open http://localhost:9000 in your browser to see the application.
+
+Open http://localhost:8081 in your browser to see `phpMyAdmin`.
+
 ---
 
 ## Running the application
