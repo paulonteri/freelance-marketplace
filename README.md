@@ -53,7 +53,7 @@ manipulate data using the Model component and interact with the Views to render 
 
 ---
 
-## Local setup
+## Local setup without Docker
 
 Clone the repository to your local machine.
 
@@ -72,7 +72,6 @@ composer update
 ### Database
 
 ![db_schema](https://user-images.githubusercontent.com/45426293/174633487-5b99e610-d930-4b0c-8e4b-a69e382faeae.png)
-
 
 Set up a MySQL database on your local machine with the following configuration as defined in `Database.php`:
 
@@ -129,14 +128,74 @@ Once ready to go for live payments, set the `MPESA_ENV` to `live`. The default i
 
 Learn more from the MPESA documentation [here](https://developer.safaricom.co.ke/Documentation).
 
+## Local setup with Docker
+
+Install [Docker](https://docs.docker.com/get-docker/) and [Make](https://www.gnu.org/software/make/) (optional).
+
+### Build containers
+
+```bash
+docker-compose build
+```
+
+OR with make
+
+```bash
+make build
+```
+
+### Set up database
+
+Run these commands to set up the schema and add data to the db.
+
+See more details about the [database](#database) section. 
+
+```bash
+docker-compose exec -T db mysql -u root --password=freelance freelance < ./freelance/db_schema.sql
+
+docker-compose exec -T db mysql -u root --password=freelance freelance < ./freelance/db_data.sql
+```
+
+OR with make
+
+```bash
+make sync-db
+```
+
+### Run containers
+
+```bash
+docker-compose up
+```
+
+OR with make
+
+```bash
+make
+```
+
 ---
 
 ## Running the application
+
+### Without docker
 
 From the `freelance/public` directory, run the following command to run the application locally on port 9000:
 
 ```txt
 php -S 0.0.0.0:9000
+```
+
+### With Docker
+
+```bash
+docker-compose up
+```
+
+OR with make
+
+```bash
+make
 ```
 
 ---
